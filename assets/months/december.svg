@@ -1,60 +1,237 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-  <!-- Dezember: Winterwunderland / Schnee -->
+  <!-- Dezember: Winterwunderland / Verschneites Dorf -->
   <defs>
     <linearGradient id="decemberSky" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#0c4a6e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#075985;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#0369a1;stop-opacity:1" />
     </linearGradient>
+    <radialGradient id="moonGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#fde68a;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0" />
+    </radialGradient>
   </defs>
 
-  <!-- Nachthimmel -->
+  <!-- Nachthimmel (tiefblau) -->
   <rect width="800" height="600" fill="url(#decemberSky)"/>
 
-  <!-- Sterne -->
-  <circle cx="100" cy="60" r="2" fill="#fef08a"/>
-  <circle cx="180" cy="100" r="1.5" fill="#fef08a"/>
-  <circle cx="280" cy="70" r="2" fill="#fef08a"/>
-  <circle cx="400" cy="50" r="2.5" fill="#fef08a"/>
-  <circle cx="520" cy="90" r="1.5" fill="#fef08a"/>
-  <circle cx="620" cy="65" r="2" fill="#fef08a"/>
-  <circle cx="720" cy="110" r="1.5" fill="#fef08a"/>
+  <!-- Mond -->
+  <circle cx="150" cy="120" r="90" fill="url(#moonGlow)" opacity="0.3"/>
+  <circle cx="150" cy="120" r="70" fill="#fef3c7" opacity="0.95"/>
+  <circle cx="150" cy="120" r="63" fill="#fef08a" opacity="0.8"/>
 
-  <!-- Schneehügel -->
-  <ellipse cx="400" cy="550" rx="450" ry="90" fill="#f0f9ff"/>
-  <ellipse cx="250" cy="520" rx="280" ry="70" fill="#e0f2fe"/>
-  <ellipse cx="600" cy="540" rx="320" ry="80" fill="#dbeafe"/>
+  <!-- Mondkrater -->
+  <circle cx="135" cy="105" r="10" fill="#fde68a" opacity="0.3"/>
+  <circle cx="160" cy="115" r="8" fill="#fde68a" opacity="0.3"/>
+  <circle cx="145" cy="135" r="9" fill="#fde68a" opacity="0.3"/>
+  <circle cx="165" cy="130" r="6" fill="#fde68a" opacity="0.3"/>
 
-  <!-- Tanne links -->
-  <path d="M 150 500 L 150 350 L 80 420 L 100 420 L 50 470 L 75 470 L 30 520 L 150 520 L 270 520 L 225 470 L 250 470 L 200 420 L 220 420 Z" fill="#064e3b" opacity="0.8"/>
-  <rect x="140" y="520" width="20" height="40" fill="#78350f"/>
+  <!-- Sterne (viele, funkelnde) -->
+  <circle cx="300" cy="60" r="2.5" fill="#fef08a"/>
+  <circle cx="450" cy="80" r="2" fill="#fef08a"/>
+  <circle cx="600" cy="50" r="2.5" fill="#fef08a"/>
+  <circle cx="750" cy="90" r="2" fill="#fef08a"/>
+  <circle cx="350" cy="120" r="1.8" fill="#fef08a"/>
+  <circle cx="500" cy="100" r="2.2" fill="#fef08a"/>
+  <circle cx="650" cy="130" r="1.8" fill="#fef08a"/>
+  <circle cx="400" cy="150" r="2" fill="#fef08a"/>
+  <circle cx="550" cy="70" r="1.5" fill="#fef08a"/>
+  <circle cx="700" cy="110" r="2.3" fill="#fef08a"/>
+  <circle cx="320" cy="180" r="1.7" fill="#fef08a"/>
+  <circle cx="480" cy="160" r="2" fill="#fef08a"/>
 
-  <!-- Tanne rechts -->
-  <path d="M 700 520 L 700 380 L 640 440 L 660 440 L 620 485 L 645 485 L 610 525 L 700 525 L 790 525 L 755 485 L 780 485 L 740 440 L 760 440 Z" fill="#065f46" opacity="0.8"/>
-  <rect x="690" y="525" width="20" height="35" fill="#78350f"/>
-
-  <!-- Schneeflocken -->
+  <!-- Funkelnde Sterne (mit Kreuz) -->
   <g>
-    <circle cx="200" cy="150" r="3" fill="#ffffff" opacity="0.8"/>
-    <circle cx="350" cy="200" r="2.5" fill="#ffffff" opacity="0.8"/>
-    <circle cx="500" cy="180" r="3" fill="#ffffff" opacity="0.8"/>
-    <circle cx="250" cy="280" r="2" fill="#ffffff" opacity="0.8"/>
-    <circle cx="600" cy="220" r="3" fill="#ffffff" opacity="0.8"/>
-    <circle cx="450" cy="310" r="2.5" fill="#ffffff" opacity="0.8"/>
-    <circle cx="320" cy="350" r="2" fill="#ffffff" opacity="0.8"/>
-    <circle cx="680" cy="270" r="3" fill="#ffffff" opacity="0.8"/>
-    <circle cx="150" cy="320" r="2.5" fill="#ffffff" opacity="0.8"/>
+    <line x1="580" y1="60" x2="580" y2="70" stroke="#fef08a" stroke-width="1.5"/>
+    <line x1="575" y1="65" x2="585" y2="65" stroke="#fef08a" stroke-width="1.5"/>
+  </g>
+  <g>
+    <line x1="420" y1="40" x2="420" y2="48" stroke="#fef08a" stroke-width="1.2"/>
+    <line x1="416" y1="44" x2="424" y2="44" stroke="#fef08a" stroke-width="1.2"/>
+  </g>
+  <g>
+    <line x1="720" y1="150" x2="720" y2="158" stroke="#fef08a" stroke-width="1.3"/>
+    <line x1="716" y1="154" x2="724" y2="154" stroke="#fef08a" stroke-width="1.3"/>
   </g>
 
-  <!-- Geschenke -->
-  <g>
-    <!-- Geschenk 1 -->
-    <rect x="380" y="510" width="50" height="40" fill="#ef4444"/>
-    <rect x="400" y="510" width="10" height="40" fill="#fbbf24"/>
-    <rect x="380" y="525" width="50" height="8" fill="#fbbf24"/>
+  <!-- Schneehügel (mehrere Schichten) -->
+  <ellipse cx="400" cy="530" rx="480" ry="100" fill="#f0f9ff"/>
+  <ellipse cx="250" cy="510" rx="320" ry="80" fill="#e0f2fe"/>
+  <ellipse cx="600" cy="525" rx="380" ry="90" fill="#dbeafe"/>
+  <ellipse cx="350" cy="545" rx="280" ry="70" fill="#f0f9ff" opacity="0.8"/>
 
-    <!-- Geschenk 2 -->
-    <rect x="450" y="520" width="40" height="30" fill="#3b82f6"/>
-    <rect x="465" y="520" width="10" height="30" fill="#fde047"/>
-    <rect x="450" y="532" width="40" height="6" fill="#fde047"/>
+  <!-- Verschneites Bauernhaus (Mitte) -->
+  <rect x="300" y="360" width="150" height="120" fill="#fef3c7"/>
+
+  <!-- Fachwerk -->
+  <line x1="320" y1="360" x2="320" y2="480" stroke="#78350f" stroke-width="5"/>
+  <line x1="380" y1="360" x2="380" y2="480" stroke="#78350f" stroke-width="5"/>
+  <line x1="300" y1="405" x2="450" y2="405" stroke="#78350f" stroke-width="5"/>
+  <line x1="320" y1="405" x2="380" y2="360" stroke="#78350f" stroke-width="4"/>
+  <line x1="380" y1="405" x2="320" y2="360" stroke="#78350f" stroke-width="4"/>
+
+  <!-- Schneebedecktes Dach -->
+  <path d="M 285 360 L 375 300 L 465 360 Z" fill="#7c2d12"/>
+  <path d="M 290 360 L 375 305 L 460 360 Z" fill="#92400e"/>
+  <!-- Schnee auf Dach -->
+  <path d="M 285 360 L 290 355 L 375 300 L 460 355 L 465 360 L 455 362 L 375 307 L 295 362 Z" fill="#f0f9ff"/>
+  <path d="M 290 360 L 375 305 L 460 360" stroke="#e0f2fe" stroke-width="3" fill="none"/>
+
+  <!-- Schornstein mit Rauch -->
+  <rect x="400" y="315" width="22" height="45" fill="#7c2d12"/>
+  <rect x="398" y="310" width="26" height="8" fill="#78350f"/>
+  <!-- Schnee auf Schornstein -->
+  <rect x="398" y="310" width="26" height="5" fill="#f0f9ff"/>
+
+  <!-- Rauch -->
+  <ellipse cx="411" cy="300" rx="10" ry="8" fill="#cbd5e1" opacity="0.6"/>
+  <ellipse cx="408" cy="287" rx="12" ry="9" fill="#cbd5e1" opacity="0.5"/>
+  <ellipse cx="413" cy="273" rx="14" ry="10" fill="#cbd5e1" opacity="0.4"/>
+  <ellipse cx="410" cy="258" rx="16" ry="11" fill="#cbd5e1" opacity="0.3"/>
+
+  <!-- Fenster (beleuchtet/warm) -->
+  <rect x="325" y="380" width="35" height="42" fill="#fbbf24" opacity="0.85"/>
+  <line x1="342.5" y1="380" x2="342.5" y2="422" stroke="#78350f" stroke-width="2.5"/>
+  <line x1="325" y1="401" x2="360" y2="401" stroke="#78350f" stroke-width="2.5"/>
+  <!-- Schnee am Fenstersims -->
+  <rect x="322" y="422" width="41" height="5" fill="#f0f9ff"/>
+
+  <rect x="390" y="380" width="35" height="42" fill="#fbbf24" opacity="0.85"/>
+  <line x1="407.5" y1="380" x2="407.5" y2="422" stroke="#78350f" stroke-width="2.5"/>
+  <line x1="390" y1="401" x2="425" y2="401" stroke="#78350f" stroke-width="2.5"/>
+  <rect x="387" y="422" width="41" height="5" fill="#f0f9ff"/>
+
+  <!-- Tür -->
+  <rect x="340" y="430" width="38" height="50" fill="#92400e"/>
+  <circle cx="370" cy="455" r="3" fill="#fbbf24"/>
+  <!-- Schnee vor der Tür -->
+  <path d="M 335 480 Q 359 475 383 480" fill="#f0f9ff"/>
+
+  <!-- Tannenbaum links (verschneit, groß) -->
+  <path d="M 120 510 L 120 340 L 45 430 L 65 430 L 15 490 L 40 490 L 0 540 L 120 540 L 240 540 L 200 490 L 225 490 L 175 430 L 195 430 Z" fill="#064e3b"/>
+  <path d="M 122 510 L 122 342 L 47 430 L 67 430 L 17 490 L 42 490 L 2 540 L 122 540 L 242 540 L 202 490 L 227 490 L 177 430 L 197 430 Z" fill="#065f46" opacity="0.8"/>
+  <rect x="113" y="540" width="14" height="25" fill="#78350f"/>
+
+  <!-- Schnee auf Tanne -->
+  <ellipse cx="120" cy="350" rx="40" ry="12" fill="#f0f9ff"/>
+  <ellipse cx="120" cy="395" rx="55" ry="14" fill="#f0f9ff"/>
+  <ellipse cx="120" cy="445" rx="70" ry="16" fill="#f0f9ff"/>
+  <ellipse cx="120" cy="500" rx="85" ry="18" fill="#f0f9ff"/>
+  <path d="M 45 430 L 50 427 L 190 427 L 195 430" fill="#e0f2fe"/>
+  <path d="M 15 490 L 20 487 L 220 487 L 225 490" fill="#e0f2fe"/>
+  <path d="M 0 540 L 5 537 L 235 537 L 240 540" fill="#e0f2fe"/>
+
+  <!-- Tannenbaum rechts (verschneit, mittel) -->
+  <path d="M 680 530 L 680 390 L 620 460 L 640 460 L 600 505 L 620 505 L 585 540 L 680 540 L 775 540 L 740 505 L 760 505 L 720 460 L 740 460 Z" fill="#064e3b"/>
+  <path d="M 682 530 L 682 392 L 622 460 L 642 460 L 602 505 L 622 505 L 587 540 L 682 540 L 777 540 L 742 505 L 762 505 L 722 460 L 742 460 Z" fill="#065f46" opacity="0.8"/>
+  <rect x="674" y="540" width="12" height="22" fill="#78350f"/>
+
+  <!-- Schnee auf Tanne rechts -->
+  <ellipse cx="680" cy="400" rx="35" ry="11" fill="#f0f9ff"/>
+  <ellipse cx="680" cy="437" rx="48" ry="13" fill="#f0f9ff"/>
+  <ellipse cx="680" cy="485" rx="62" ry="15" fill="#f0f9ff"/>
+  <path d="M 620 460 L 625 457 L 735 457 L 740 460" fill="#e0f2fe"/>
+  <path d="M 600 505 L 605 502 L 755 502 L 760 505" fill="#e0f2fe"/>
+  <path d="M 585 540 L 590 537 L 770 537 L 775 540" fill="#e0f2fe"/>
+
+  <!-- Kleiner verschneiter Baum im Hintergrund -->
+  <path d="M 520 480 L 520 420 L 490 445 L 500 445 L 480 465 L 490 465 L 470 485 L 520 485 L 570 485 L 550 465 L 560 465 L 540 445 L 550 445 Z" fill="#065f46" opacity="0.6"/>
+  <ellipse cx="520" cy="430" rx="25" ry="8" fill="#f0f9ff" opacity="0.7"/>
+  <ellipse cx="520" cy="453" rx="32" ry="9" fill="#f0f9ff" opacity="0.7"/>
+  <ellipse cx="520" cy="473" rx="40" ry="10" fill="#f0f9ff" opacity="0.7"/>
+
+  <!-- Schneemann (detailliert) -->
+  <circle cx="550" cy="520" r="30" fill="#f0f9ff"/>
+  <circle cx="550" cy="475" r="25" fill="#f0f9ff"/>
+  <circle cx="550" cy="440" r="18" fill="#f0f9ff"/>
+
+  <!-- Gesicht -->
+  <circle cx="542" cy="435" r="2.5" fill="#1e293b"/>
+  <circle cx="558" cy="435" r="2.5" fill="#1e293b"/>
+  <circle cx="545" cy="443" r="1.8" fill="#1e293b"/>
+  <circle cx="550" cy="444" r="1.8" fill="#1e293b"/>
+  <circle cx="555" cy="443" r="1.8" fill="#1e293b"/>
+  <!-- Karottennase -->
+  <path d="M 550 438 L 560 441 L 550 444 Z" fill="#f97316"/>
+
+  <!-- Knöpfe -->
+  <circle cx="550" cy="470" r="2.5" fill="#1e293b"/>
+  <circle cx="550" cy="478" r="2.5" fill="#1e293b"/>
+  <circle cx="550" cy="486" r="2.5" fill="#1e293b"/>
+
+  <!-- Arme (Zweige) -->
+  <line x1="525" y1="475" x2="495" y2="465" stroke="#78350f" stroke-width="3"/>
+  <line x1="495" y1="465" x2="485" y2="455" stroke="#78350f" stroke-width="2"/>
+  <line x1="495" y1="465" x2="490" y2="472" stroke="#78350f" stroke-width="2"/>
+
+  <line x1="575" y1="475" x2="605" y2="465" stroke="#78350f" stroke-width="3"/>
+  <line x1="605" y1="465" x2="615" y2="455" stroke="#78350f" stroke-width="2"/>
+  <line x1="605" y1="465" x2="610" y2="472" stroke="#78350f" stroke-width="2"/>
+
+  <!-- Hut (Zylinder) -->
+  <rect x="540" y="418" width="20" height="10" fill="#1e293b"/>
+  <rect x="535" y="413" width="30" height="5" fill="#1e293b"/>
+
+  <!-- Schal -->
+  <ellipse cx="550" cy="456" rx="22" ry="8" fill="#ef4444"/>
+  <rect x="528" y="452" width="8" height="18" fill="#ef4444"/>
+  <rect x="528" y="468" width="6" height="3" fill="#dc2626"/>
+  <rect x="530" y="468" width="6" height="3" fill="#dc2626"/>
+
+  <!-- Schneeflocken (fallend, viele!) -->
+  <g opacity="0.8">
+    <!-- Große Schneeflocken mit Details -->
+    <g transform="translate(200, 180)">
+      <circle cx="0" cy="0" r="4" fill="#ffffff"/>
+      <line x1="-6" y1="0" x2="6" y2="0" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="0" y1="-6" x2="0" y2="6" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="-4" y1="-4" x2="4" y2="4" stroke="#ffffff" stroke-width="1"/>
+      <line x1="4" y1="-4" x2="-4" y2="4" stroke="#ffffff" stroke-width="1"/>
+    </g>
+
+    <g transform="translate(400, 220)">
+      <circle cx="0" cy="0" r="4" fill="#ffffff"/>
+      <line x1="-6" y1="0" x2="6" y2="0" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="0" y1="-6" x2="0" y2="6" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="-4" y1="-4" x2="4" y2="4" stroke="#ffffff" stroke-width="1"/>
+      <line x1="4" y1="-4" x2="-4" y2="4" stroke="#ffffff" stroke-width="1"/>
+    </g>
+
+    <g transform="translate(650, 200)">
+      <circle cx="0" cy="0" r="4" fill="#ffffff"/>
+      <line x1="-6" y1="0" x2="6" y2="0" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="0" y1="-6" x2="0" y2="6" stroke="#ffffff" stroke-width="1.5"/>
+      <line x1="-4" y1="-4" x2="4" y2="4" stroke="#ffffff" stroke-width="1"/>
+      <line x1="4" y1="-4" x2="-4" y2="4" stroke="#ffffff" stroke-width="1"/>
+    </g>
+
+    <!-- Mittlere Schneeflocken -->
+    <circle cx="280" cy="250" r="3" fill="#ffffff"/>
+    <circle cx="520" cy="270" r="3" fill="#ffffff"/>
+    <circle cx="730" cy="240" r="3" fill="#ffffff"/>
+    <circle cx="150" cy="300" r="3" fill="#ffffff"/>
+    <circle cx="600" cy="290" r="3" fill="#ffffff"/>
+
+    <!-- Kleine Schneeflocken -->
+    <circle cx="320" cy="310" r="2.5" fill="#ffffff"/>
+    <circle cx="470" cy="330" r="2.5" fill="#ffffff"/>
+    <circle cx="640" cy="320" r="2.5" fill="#ffffff"/>
+    <circle cx="220" cy="360" r="2.5" fill="#ffffff"/>
+    <circle cx="560" cy="350" r="2.5" fill="#ffffff"/>
+    <circle cx="380" cy="380" r="2.5" fill="#ffffff"/>
+    <circle cx="700" cy="370" r="2.5" fill="#ffffff"/>
+    <circle cx="170" cy="390" r="2" fill="#ffffff"/>
+    <circle cx="440" cy="410" r="2" fill="#ffffff"/>
+    <circle cx="620" cy="400" r="2" fill="#ffffff"/>
+    <circle cx="750" cy="390" r="2" fill="#ffffff"/>
+    <circle cx="260" cy="420" r="2" fill="#ffffff"/>
   </g>
+
+  <!-- Eiszapfen an Hausdach -->
+  <path d="M 310 360 L 308 375 L 310 360" fill="#bae6fd" opacity="0.7"/>
+  <path d="M 340 360 L 338 380 L 340 360" fill="#bae6fd" opacity="0.7"/>
+  <path d="M 370 360 L 368 378 L 370 360" fill="#bae6fd" opacity="0.7"/>
+  <path d="M 400 360 L 398 385 L 400 360" fill="#bae6fd" opacity="0.7"/>
+  <path d="M 430 360 L 428 377 L 430 360" fill="#bae6fd" opacity="0.7"/>
 </svg>

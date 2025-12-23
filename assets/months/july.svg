@@ -1,47 +1,233 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-  <!-- Juli: Hochsommer / Sonnenblumen -->
+  <!-- Juli: Hochsommer / Sonnenblumenfeld -->
   <defs>
     <linearGradient id="julySky" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.3" />
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.5" />
+      <stop offset="30%" style="stop-color:#fde68a;stop-opacity:0.3" />
+      <stop offset="60%" style="stop-color:#7dd3fc;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" />
     </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#fef08a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fde047;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:0.3" />
+    </radialGradient>
   </defs>
 
-  <!-- Himmel -->
+  <!-- Himmel (heiß und sonnig) -->
   <rect width="800" height="600" fill="url(#julySky)"/>
 
-  <!-- Boden -->
-  <rect y="450" width="800" height="150" fill="#65a30d"/>
+  <!-- Große Sonne (zenith) -->
+  <circle cx="400" cy="120" r="95" fill="#fde047" opacity="0.3"/>
+  <circle cx="400" cy="120" r="75" fill="url(#sunGlow)"/>
+  <circle cx="400" cy="120" r="55" fill="#fef08a"/>
 
-  <!-- Große Sonne -->
-  <circle cx="400" cy="150" r="80" fill="#fde047"/>
-  <circle cx="400" cy="150" r="60" fill="#fef08a"/>
+  <!-- Sonnenstrahlen (intensive Strahlen) -->
+  <line x1="400" y1="10" x2="400" y2="-15" stroke="#fbbf24" stroke-width="7" opacity="0.85"/>
+  <line x1="510" y1="120" x2="535" y2="120" stroke="#fbbf24" stroke-width="7" opacity="0.85"/>
+  <line x1="400" y1="230" x2="400" y2="255" stroke="#fbbf24" stroke-width="7" opacity="0.85"/>
+  <line x1="290" y1="120" x2="265" y2="120" stroke="#fbbf24" stroke-width="7" opacity="0.85"/>
+  <line x1="478" y1="42" x2="500" y2="20" stroke="#fbbf24" stroke-width="6" opacity="0.85"/>
+  <line x1="478" y1="198" x2="500" y2="220" stroke="#fbbf24" stroke-width="6" opacity="0.85"/>
+  <line x1="322" y1="198" x2="300" y2="220" stroke="#fbbf24" stroke-width="6" opacity="0.85"/>
+  <line x1="322" y1="42" x2="300" y2="20" stroke="#fbbf24" stroke-width="6" opacity="0.85"/>
+  <line x1="465" y1="65" x2="482" y2="48" stroke="#fbbf24" stroke-width="5" opacity="0.75"/>
+  <line x1="465" y1="175" x2="482" y2="192" stroke="#fbbf24" stroke-width="5" opacity="0.75"/>
+  <line x1="335" y1="175" x2="318" y2="192" stroke="#fbbf24" stroke-width="5" opacity="0.75"/>
+  <line x1="335" y1="65" x2="318" y2="48" stroke="#fbbf24" stroke-width="5" opacity="0.75"/>
 
-  <!-- Sonnenblumen -->
+  <!-- Hügel im Hintergrund -->
+  <ellipse cx="300" cy="380" rx="300" ry="70" fill="#84cc16" opacity="0.7"/>
+  <ellipse cx="600" cy="400" rx="350" ry="80" fill="#65a30d" opacity="0.7"/>
+
+  <!-- Feld/Wiese -->
+  <rect y="390" width="800" height="210" fill="#a3e635"/>
+  <rect y="420" width="800" height="180" fill="#84cc16" opacity="0.5"/>
+
+  <!-- Bauernhaus im Hintergrund -->
+  <rect x="620" y="320" width="130" height="100" fill="#fed7aa"/>
+
+  <!-- Fachwerk -->
+  <line x1="640" y1="320" x2="640" y2="420" stroke="#92400e" stroke-width="5"/>
+  <line x1="710" y1="320" x2="710" y2="420" stroke="#92400e" stroke-width="5"/>
+  <line x1="620" y1="365" x2="750" y2="365" stroke="#92400e" stroke-width="5"/>
+  <line x1="640" y1="365" x2="710" y2="320" stroke="#92400e" stroke-width="4"/>
+  <line x1="710" y1="365" x2="640" y2="320" stroke="#92400e" stroke-width="4"/>
+
+  <!-- Dach -->
+  <path d="M 610 320 L 685 270 L 760 320 Z" fill="#7c2d12"/>
+  <path d="M 615 320 L 685 275 L 755 320 Z" fill="#92400e"/>
+
+  <!-- Fenster -->
+  <rect x="645" y="340" width="30" height="35" fill="#93c5fd"/>
+  <line x1="660" y1="340" x2="660" y2="375" stroke="#475569" stroke-width="2"/>
+  <line x1="645" y1="357.5" x2="675" y2="357.5" stroke="#475569" stroke-width="2"/>
+
+  <rect x="690" y="340" width="30" height="35" fill="#93c5fd"/>
+  <line x1="705" y1="340" x2="705" y2="375" stroke="#475569" stroke-width="2"/>
+  <line x1="690" y1="357.5" x2="720" y2="357.5" stroke="#475569" stroke-width="2"/>
+
+  <!-- Tür -->
+  <rect x="660" y="385" width="32" height="35" fill="#92400e"/>
+  <circle cx="685" cy="402" r="2.5" fill="#fbbf24"/>
+
+  <!-- Große Sonnenblumen (Vordergrund) -->
+  <!-- Sonnenblume 1 (links) -->
   <g>
-    <!-- Sonnenblume 1 -->
-    <circle cx="200" cy="420" r="40" fill="#fbbf24"/>
-    <circle cx="200" cy="420" r="20" fill="#78350f"/>
-    <rect x="196" y="430" width="8" height="120" fill="#22c55e"/>
-    <ellipse cx="185" cy="480" rx="12" ry="6" fill="#15803d" transform="rotate(-30 185 480)"/>
-    <ellipse cx="215" cy="490" rx="12" ry="6" fill="#15803d" transform="rotate(30 215 490)"/>
+    <circle cx="150" cy="450" r="55" fill="#fbbf24"/>
+    <!-- Blütenblätter -->
+    <ellipse cx="150" cy="395" rx="18" ry="35" fill="#fde047"/>
+    <ellipse cx="205" cy="450" rx="35" ry="18" fill="#fde047"/>
+    <ellipse cx="150" cy="505" rx="18" ry="35" fill="#fde047"/>
+    <ellipse cx="95" cy="450" rx="35" ry="18" fill="#fde047"/>
 
-    <!-- Sonnenblume 2 -->
-    <circle cx="400" cy="400" r="50" fill="#fde047"/>
-    <circle cx="400" cy="400" r="25" fill="#78350f"/>
-    <rect x="395" y="410" width="10" height="140" fill="#16a34a"/>
-    <ellipse cx="380" cy="460" rx="15" ry="7" fill="#15803d" transform="rotate(-25 380 460)"/>
-    <ellipse cx="420" cy="470" rx="15" ry="7" fill="#15803d" transform="rotate(25 420 470)"/>
+    <ellipse cx="182" cy="418" rx="25" ry="30" fill="#fbbf24" transform="rotate(45 182 418)"/>
+    <ellipse cx="182" cy="482" rx="25" ry="30" fill="#fbbf24" transform="rotate(-45 182 482)"/>
+    <ellipse cx="118" cy="482" rx="25" ry="30" fill="#fbbf24" transform="rotate(45 118 482)"/>
+    <ellipse cx="118" cy="418" rx="25" ry="30" fill="#fbbf24" transform="rotate(-45 118 418)"/>
 
-    <!-- Sonnenblume 3 -->
-    <circle cx="600" cy="430" r="45" fill="#fbbf24"/>
-    <circle cx="600" cy="430" r="22" fill="#78350f"/>
-    <rect x="595" y="440" width="10" height="130" fill="#22c55e"/>
-    <ellipse cx="582" cy="485" rx="14" ry="6" fill="#15803d" transform="rotate(-30 582 485)"/>
-    <ellipse cx="618" cy="495" rx="14" ry="6" fill="#15803d" transform="rotate(30 618 495)"/>
+    <!-- Zentrum -->
+    <circle cx="150" cy="450" r="25" fill="#78350f"/>
+    <circle cx="145" cy="445" r="8" fill="#92400e" opacity="0.6"/>
+    <circle cx="155" cy="455" r="6" fill="#92400e" opacity="0.6"/>
+    <circle cx="150" cy="450" r="12" fill="#7c2d12" opacity="0.4"/>
+
+    <!-- Stängel -->
+    <rect x="145" y="460" width="10" height="140" fill="#84cc16"/>
+    <rect x="146" y="461" width="8" height="138" fill="#65a30d"/>
+
+    <!-- Blätter -->
+    <ellipse cx="125" cy="520" rx="18" ry="10" fill="#4ade80" transform="rotate(-40 125 520)"/>
+    <ellipse cx="175" cy="540" rx="20" ry="11" fill="#22c55e" transform="rotate(35 175 540)"/>
   </g>
 
-  <!-- Kleine Wolke -->
-  <ellipse cx="650" cy="120" rx="50" ry="30" fill="#ffffff" opacity="0.6"/>
-  <ellipse cx="680" cy="120" rx="40" ry="25" fill="#ffffff" opacity="0.6"/>
+  <!-- Sonnenblume 2 (Mitte) -->
+  <g>
+    <circle cx="400" cy="420" r="70" fill="#fbbf24"/>
+    <!-- Blütenblätter -->
+    <ellipse cx="400" cy="350" rx="22" ry="45" fill="#fde047"/>
+    <ellipse cx="470" cy="420" rx="45" ry="22" fill="#fde047"/>
+    <ellipse cx="400" cy="490" rx="22" ry="45" fill="#fde047"/>
+    <ellipse cx="330" cy="420" rx="45" ry="22" fill="#fde047"/>
+
+    <ellipse cx="449" cy="371" rx="32" ry="38" fill="#fbbf24" transform="rotate(45 449 371)"/>
+    <ellipse cx="449" cy="469" rx="32" ry="38" fill="#fbbf24" transform="rotate(-45 449 469)"/>
+    <ellipse cx="351" cy="469" rx="32" ry="38" fill="#fbbf24" transform="rotate(45 351 469)"/>
+    <ellipse cx="351" cy="371" rx="32" ry="38" fill="#fbbf24" transform="rotate(-45 351 371)"/>
+
+    <!-- Zentrum -->
+    <circle cx="400" cy="420" r="32" fill="#78350f"/>
+    <circle cx="393" cy="413" r="10" fill="#92400e" opacity="0.6"/>
+    <circle cx="407" cy="427" r="8" fill="#92400e" opacity="0.6"/>
+    <circle cx="400" cy="420" r="15" fill="#7c2d12" opacity="0.4"/>
+
+    <!-- Stängel -->
+    <rect x="394" y="435" width="12" height="165" fill="#84cc16"/>
+    <rect x="395" y="436" width="10" height="163" fill="#65a30d"/>
+
+    <!-- Blätter -->
+    <ellipse cx="365" cy="490" rx="22" ry="12" fill="#4ade80" transform="rotate(-35 365 490)"/>
+    <ellipse cx="435" cy="515" rx="24" ry="13" fill="#22c55e" transform="rotate(40 435 515)"/>
+    <ellipse cx="380" cy="540" rx="20" ry="11" fill="#4ade80" transform="rotate(-30 380 540)"/>
+  </g>
+
+  <!-- Sonnenblume 3 (rechts) -->
+  <g>
+    <circle cx="620" cy="470" r="60" fill="#fbbf24"/>
+    <!-- Blütenblätter -->
+    <ellipse cx="620" cy="410" rx="20" ry="38" fill="#fde047"/>
+    <ellipse cx="680" cy="470" rx="38" ry="20" fill="#fde047"/>
+    <ellipse cx="620" cy="530" rx="20" ry="38" fill="#fde047"/>
+    <ellipse cx="560" cy="470" rx="38" ry="20" fill="#fde047"/>
+
+    <ellipse cx="662" cy="428" rx="28" ry="35" fill="#fbbf24" transform="rotate(45 662 428)"/>
+    <ellipse cx="662" cy="512" rx="28" ry="35" fill="#fbbf24" transform="rotate(-45 662 512)"/>
+    <ellipse cx="578" cy="512" rx="28" ry="35" fill="#fbbf24" transform="rotate(45 578 512)"/>
+    <ellipse cx="578" cy="428" rx="28" ry="35" fill="#fbbf24" transform="rotate(-45 578 428)"/>
+
+    <!-- Zentrum -->
+    <circle cx="620" cy="470" r="28" fill="#78350f"/>
+    <circle cx="614" cy="464" r="9" fill="#92400e" opacity="0.6"/>
+    <circle cx="626" cy="476" r="7" fill="#92400e" opacity="0.6"/>
+    <circle cx="620" cy="470" r="13" fill="#7c2d12" opacity="0.4"/>
+
+    <!-- Stängel -->
+    <rect x="615" y="482" width="10" height="118" fill="#84cc16"/>
+    <rect x="616" y="483" width="8" height="116" fill="#65a30d"/>
+
+    <!-- Blätter -->
+    <ellipse cx="595" cy="530" rx="19" ry="11" fill="#4ade80" transform="rotate(-38 595 530)"/>
+    <ellipse cx="645" cy="550" rx="21" ry="12" fill="#22c55e" transform="rotate(36 645 550)"/>
+  </g>
+
+  <!-- Kleinere Sonnenblumen im Hintergrund -->
+  <g>
+    <circle cx="250" cy="430" r="35" fill="#fbbf24"/>
+    <circle cx="250" cy="430" r="15" fill="#78350f"/>
+    <rect x="246" y="442" width="8" height="100" fill="#65a30d"/>
+
+    <circle cx="320" cy="445" r="30" fill="#fde047"/>
+    <circle cx="320" cy="445" r="12" fill="#7c2d12"/>
+    <rect x="317" y="455" width="6" height="90" fill="#84cc16"/>
+
+    <circle cx="500" cy="440" r="32" fill="#fbbf24"/>
+    <circle cx="500" cy="440" r="13" fill="#78350f"/>
+    <rect x="497" y="450" width="6" height="95" fill="#65a30d"/>
+
+    <circle cx="560" cy="435" r="28" fill="#fde047"/>
+    <circle cx="560" cy="435" r="11" fill="#7c2d12"/>
+    <rect x="557" y="444" width="6" height="88" fill="#84cc16"/>
+  </g>
+
+  <!-- Bienen (fliegend zwischen Sonnenblumen) -->
+  <g transform="translate(180, 420)">
+    <ellipse cx="0" cy="0" rx="7" ry="11" fill="#fbbf24"/>
+    <line x1="0" y1="-4" x2="0" y2="4" stroke="#78350f" stroke-width="2.5"/>
+    <line x1="0" y1="1" x2="0" y2="9" stroke="#78350f" stroke-width="2.5"/>
+    <ellipse cx="-8" cy="-3" rx="6" ry="3" fill="#cbd5e1" opacity="0.6" transform="rotate(-35 -8 -3)"/>
+    <ellipse cx="8" cy="-3" rx="6" ry="3" fill="#cbd5e1" opacity="0.6" transform="rotate(35 8 -3)"/>
+  </g>
+
+  <g transform="translate(470, 390)">
+    <ellipse cx="0" cy="0" rx="6" ry="10" fill="#fbbf24"/>
+    <line x1="0" y1="-3.5" x2="0" y2="3.5" stroke="#78350f" stroke-width="2"/>
+    <line x1="0" y1="0.5" x2="0" y2="8" stroke="#78350f" stroke-width="2"/>
+    <ellipse cx="-7" cy="-2.5" rx="5" ry="2.5" fill="#cbd5e1" opacity="0.6" transform="rotate(-35 -7 -2.5)"/>
+    <ellipse cx="7" cy="-2.5" rx="5" ry="2.5" fill="#cbd5e1" opacity="0.6" transform="rotate(35 7 -2.5)"/>
+  </g>
+
+  <g transform="translate(350, 480)">
+    <ellipse cx="0" cy="0" rx="6" ry="10" fill="#fbbf24"/>
+    <line x1="0" y1="-3.5" x2="0" y2="3.5" stroke="#78350f" stroke-width="2"/>
+    <line x1="0" y1="0.5" x2="0" y2="8" stroke="#78350f" stroke-width="2"/>
+    <ellipse cx="-7" cy="-2.5" rx="5" ry="2.5" fill="#cbd5e1" opacity="0.6" transform="rotate(-35 -7 -2.5)"/>
+    <ellipse cx="7" cy="-2.5" rx="5" ry="2.5" fill="#cbd5e1" opacity="0.6" transform="rotate(35 7 -2.5)"/>
+  </g>
+
+  <!-- Schmetterlinge -->
+  <g transform="translate(280, 370) rotate(-20)">
+    <ellipse cx="-9" cy="0" rx="11" ry="14" fill="#f97316" opacity="0.85"/>
+    <ellipse cx="9" cy="0" rx="11" ry="14" fill="#fb923c" opacity="0.85"/>
+    <ellipse cx="-9" cy="0" rx="4" ry="6" fill="#1e293b" opacity="0.6"/>
+    <ellipse cx="9" cy="0" rx="4" ry="6" fill="#1e293b" opacity="0.6"/>
+    <line x1="-10" y1="-9" x2="10" y2="-9" stroke="#1e293b" stroke-width="2"/>
+    <circle cx="0" cy="-9" r="3" fill="#374151"/>
+    <line x1="-3" y1="-11" x2="-6" y2="-15" stroke="#1e293b" stroke-width="1.5"/>
+    <line x1="3" y1="-11" x2="6" y2="-15" stroke="#1e293b" stroke-width="1.5"/>
+  </g>
+
+  <g transform="translate(530, 410) rotate(25)">
+    <ellipse cx="-8" cy="0" rx="10" ry="13" fill="#a855f7" opacity="0.85"/>
+    <ellipse cx="8" cy="0" rx="10" ry="13" fill="#c084fc" opacity="0.85"/>
+    <ellipse cx="-8" cy="0" rx="3" ry="5" fill="#fbbf24" opacity="0.6"/>
+    <ellipse cx="8" cy="0" rx="3" ry="5" fill="#fbbf24" opacity="0.6"/>
+    <line x1="-9" y1="-8" x2="9" y2="-8" stroke="#1e293b" stroke-width="1.8"/>
+    <circle cx="0" cy="-8" r="2.5" fill="#374151"/>
+    <line x1="-2.5" y1="-9" x2="-5" y2="-13" stroke="#1e293b" stroke-width="1.2"/>
+    <line x1="2.5" y1="-9" x2="5" y2="-13" stroke="#1e293b" stroke-width="1.2"/>
+  </g>
+
+  <!-- Vögel am Himmel -->
+  <path d="M 550 180 Q 565 175 580 180" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+  <path d="M 600 200 Q 615 195 630 200" stroke="#1e293b" stroke-width="2.5" fill="none"/>
 </svg>
