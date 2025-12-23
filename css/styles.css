@@ -217,6 +217,40 @@ body {
 }
 
 /* ========================================
+   Info-Banner
+   ======================================== */
+
+.info-banner {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: var(--primary-dark);
+    font-size: var(--font-size-sm);
+    animation: slideDown 0.3s ease-out;
+}
+
+.info-banner svg {
+    flex-shrink: 0;
+    color: var(--primary);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
    Calendar Wrapper
    ======================================== */
 
@@ -636,5 +670,11 @@ body {
 
     .month-illustration {
         opacity: 0.08;
+    }
+
+    .info-banner {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
+        border-color: rgba(99, 102, 241, 0.3);
+        color: var(--primary-light);
     }
 }

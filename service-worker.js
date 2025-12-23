@@ -1,32 +1,32 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.0.0
+// Version 1.1.0
 
-const CACHE_NAME = 'kalender-cache-v1.0.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.0.0';
+const CACHE_NAME = 'kalender-cache-v1.1.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.1.0';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
-    '/',
-    '/index.html',
-    '/css/styles.css',
-    '/js/app.js',
-    '/js/quotes.js',
-    '/manifest.json',
-    '/assets/icons/icon.svg',
-    '/assets/icons/icon-192.png',
-    '/assets/icons/icon-512.png',
-    '/assets/months/january.svg',
-    '/assets/months/february.svg',
-    '/assets/months/march.svg',
-    '/assets/months/april.svg',
-    '/assets/months/may.svg',
-    '/assets/months/june.svg',
-    '/assets/months/july.svg',
-    '/assets/months/august.svg',
-    '/assets/months/september.svg',
-    '/assets/months/october.svg',
-    '/assets/months/november.svg',
-    '/assets/months/december.svg'
+    './',
+    './index.html',
+    './css/styles.css',
+    './js/app.js',
+    './js/quotes.js',
+    './manifest.json',
+    './assets/icons/icon.svg',
+    './assets/icons/icon-192.png',
+    './assets/icons/icon-512.png',
+    './assets/months/january.svg',
+    './assets/months/february.svg',
+    './assets/months/march.svg',
+    './assets/months/april.svg',
+    './assets/months/may.svg',
+    './assets/months/june.svg',
+    './assets/months/july.svg',
+    './assets/months/august.svg',
+    './assets/months/september.svg',
+    './assets/months/october.svg',
+    './assets/months/november.svg',
+    './assets/months/december.svg'
 ];
 
 // ========================================
@@ -80,23 +80,49 @@ self.addEventListener('activate', (event) => {
 });
 
 // ========================================
-// Fetch Event - Serve from cache, fallback to network
+// Fetch Event - Intelligente Cache-Strategien
 // ========================================
 
 self.addEventListener('fetch', (event) => {
     const { request } = event;
+    const url = new URL(request.url);
 
     // Nur GET-Requests cachen
     if (request.method !== 'GET') {
         return;
     }
 
-    // Strategie: Cache First, dann Network
+    // Strategie 1: Stale-While-Revalidate für JS/CSS
+    // -> Serviere Cache sofort, update im Hintergrund
+    if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
+        event.respondWith(
+            caches.open(CACHE_NAME).then((cache) => {
+                return cache.match(request).then((cachedResponse) => {
+                    const fetchPromise = fetch(request).then((networkResponse) => {
+                        // Update Cache im Hintergrund
+                        if (networkResponse && networkResponse.status === 200) {
+                            cache.put(request, networkResponse.clone());
+                        }
+                        return networkResponse;
+                    }).catch((error) => {
+                        console.error('[Service Worker] Network fetch failed:', error);
+                        return cachedResponse; // Fallback zu Cache bei Netzwerkfehler
+                    });
+
+                    // Serviere Cache sofort (wenn vorhanden), sonst warte auf Netzwerk
+                    return cachedResponse || fetchPromise;
+                });
+            })
+        );
+        return;
+    }
+
+    // Strategie 2: Cache First für Bilder, Icons, Assets
+    // -> Maximale Performance für statische Assets
     event.respondWith(
         caches.match(request)
             .then((cachedResponse) => {
                 if (cachedResponse) {
-                    // Im Cache gefunden - direkt zurückgeben
                     return cachedResponse;
                 }
 
@@ -121,9 +147,8 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch((error) => {
                         console.error('[Service Worker] Fetch failed:', error);
-
                         // Optional: Fallback-Seite bei Offline-Fehler
-                        // return caches.match('/offline.html');
+                        // return caches.match('./offline.html');
                     });
             })
     );
@@ -184,8 +209,8 @@ self.addEventListener('push', (event) => {
 
     const options = {
         body: event.data ? event.data.text() : 'Neue Nachricht',
-        icon: '/assets/icons/icon-192.png',
-        badge: '/assets/icons/icon-192.png',
+        icon: './assets/icons/icon-192.png',
+        badge: './assets/icons/icon-192.png',
         vibrate: [200, 100, 200],
         data: {
             dateOfArrival: Date.now(),

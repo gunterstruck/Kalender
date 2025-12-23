@@ -34,6 +34,8 @@ class CalendarApp {
         this.quoteText = document.getElementById('quote-text');
         this.modalDay = document.getElementById('modal-day');
         this.toast = document.getElementById('toast');
+        this.infoBanner = document.getElementById('info-banner');
+        this.infoBannerText = document.getElementById('info-banner-text');
 
         this.init();
     }
@@ -56,6 +58,10 @@ class CalendarApp {
             }
         });
 
+        // Focus Trap für Modal
+        this.modalFocusTrap = this.handleModalFocusTrap.bind(this);
+        this.lastFocusedElement = null;
+
         // Lade gespeicherten Monat oder setze auf aktuellen Monat
         const savedMonth = this.loadSelectedMonth();
         if (savedMonth !== null) {
@@ -70,25 +76,13 @@ class CalendarApp {
     }
 
     // ========================================
-    // Schaltjahr-Berechnung
-    // ========================================
-
-    isLeapYear(year) {
-        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-    }
-
-    // ========================================
     // Tage im Monat berechnen
+    // Native Date-Methode nutzt automatisch Schaltjahr-Logik
     // ========================================
 
     getDaysInMonth(month, year) {
-        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        if (month === 1 && this.isLeapYear(year)) {
-            return 29; // Februar in Schaltjahr
-        }
-
-        return daysInMonth[month];
+        // Tag 0 des nächsten Monats = letzter Tag des aktuellen Monats
+        return new Date(year, month + 1, 0).getDate();
     }
 
     // ========================================
@@ -271,6 +265,34 @@ class CalendarApp {
     }
 
     // ========================================
+    // Modal Focus Trap Handler
+    // ========================================
+
+    handleModalFocusTrap(e) {
+        if (e.key !== 'Tab' || !this.modal.classList.contains('active')) {
+            return;
+        }
+
+        const focusableElements = this.modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const focusableArray = Array.from(focusableElements);
+        const firstElement = focusableArray[0];
+        const lastElement = focusableArray[focusableArray.length - 1];
+
+        // Shift + Tab auf erstem Element -> springe zum letzten
+        if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+        }
+        // Tab auf letztem Element -> springe zum ersten
+        else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+        }
+    }
+
+    // ========================================
     // Modal mit Spruch anzeigen
     // ========================================
 
@@ -281,7 +303,13 @@ class CalendarApp {
         this.quoteText.textContent = quote;
         this.modalDay.textContent = `${day}. ${monthName} ${this.currentYear}`;
 
+        // Speichere aktuell fokussiertes Element
+        this.lastFocusedElement = document.activeElement;
+
         this.modal.classList.add('active');
+
+        // Aktiviere Focus Trap
+        document.addEventListener('keydown', this.modalFocusTrap);
 
         // Accessibility: Focus auf Modal setzen
         this.modalClose.focus();
@@ -293,6 +321,48 @@ class CalendarApp {
 
     closeModal() {
         this.modal.classList.remove('active');
+
+        // Deaktiviere Focus Trap
+        document.removeEventListener('keydown', this.modalFocusTrap);
+
+        // Stelle vorherigen Fokus wieder her
+        if (this.lastFocusedElement) {
+            this.lastFocusedElement.focus();
+            this.lastFocusedElement = null;
+        }
+    }
+
+    // ========================================
+    // Info-Banner aktualisieren
+    // ========================================
+
+    updateInfoBanner() {
+        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+        let unlockedCount = 0;
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            if (this.isDoorUnlocked(day)) {
+                unlockedCount++;
+            }
+        }
+
+        const lockedCount = daysInMonth - unlockedCount;
+
+        // Zeige Banner nur, wenn mehr als 50% der Türchen gesperrt sind
+        if (lockedCount > daysInMonth / 2) {
+            const nextUnlockDay = unlockedCount + 1;
+            const nextUnlockDate = new Date(this.currentYear, this.selectedMonth, nextUnlockDay);
+            const tomorrow = new Date(this.currentYear, this.currentMonth, this.currentDay + 1);
+
+            if (nextUnlockDate <= tomorrow && nextUnlockDay <= daysInMonth) {
+                this.infoBannerText.textContent = `Komm morgen wieder für das nächste Türchen! 🎁`;
+            } else {
+                this.infoBannerText.textContent = `${lockedCount} von ${daysInMonth} Türchen warten noch darauf, geöffnet zu werden. Schau täglich vorbei! ✨`;
+            }
+            this.infoBanner.style.display = 'flex';
+        } else {
+            this.infoBanner.style.display = 'none';
+        }
     }
 
     // ========================================
@@ -319,6 +389,9 @@ class CalendarApp {
             const door = this.createDoorElement(day);
             this.calendarGrid.appendChild(door);
         }
+
+        // Info-Banner aktualisieren
+        this.updateInfoBanner();
     }
 
     // ========================================
