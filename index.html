@@ -145,11 +145,14 @@
 
         // Entferne Ladeanimation wenn DOM fertig ist
         document.addEventListener('DOMContentLoaded', () => {
-            const spinner = document.getElementById('loading-spinner');
-            if (spinner) {
-                spinner.style.opacity = '0';
-                setTimeout(() => spinner.remove(), 300);
-            }
+            // Warte kurz, damit die App initialisieren kann
+            setTimeout(() => {
+                const spinner = document.getElementById('loading-spinner');
+                if (spinner) {
+                    spinner.style.opacity = '0';
+                    setTimeout(() => spinner.remove(), 300);
+                }
+            }, 100);
         });
 
         // Register Service Worker

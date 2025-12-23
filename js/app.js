@@ -99,9 +99,6 @@ class CalendarApp {
         // Intervall-IDs für Cleanup speichern
         this.dateCheckInterval = null;
 
-        // LocalStorage verfügbar?
-        this.storageAvailable = this.checkStorageAvailability();
-
         // Lade gespeicherten Monat oder setze auf aktuellen Monat
         const savedMonth = this.loadSelectedMonth();
         if (savedMonth !== null) {
@@ -110,6 +107,9 @@ class CalendarApp {
         } else {
             this.monthSelect.value = this.currentMonth;
         }
+
+        // LocalStorage verfügbar? (Prüfe NACH Toast-Initialisierung)
+        this.storageAvailable = this.checkStorageAvailability();
 
         // Initiales Rendering
         this.renderCalendar();
@@ -189,7 +189,10 @@ class CalendarApp {
             return true;
         } catch (error) {
             console.warn('LocalStorage nicht verfügbar:', error);
-            this.showToast('⚠️ Speichern nicht möglich. Daten gehen beim Neuladen verloren.');
+            // Toast nur zeigen wenn Element existiert
+            if (this.toast) {
+                this.showToast('⚠️ Speichern nicht möglich. Daten gehen beim Neuladen verloren.');
+            }
             return false;
         }
     }
