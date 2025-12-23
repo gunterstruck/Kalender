@@ -6,6 +6,19 @@ class CalendarApp {
     constructor() {
         this.selectedMonth = new Date().getMonth();
 
+        // Konfigurationskonstanten
+        this.CONFIG = {
+            DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
+            DOOR_SIZE_PERCENT: 8,              // Türchengröße in %
+            MIN_SPACING_PERCENT: 3,            // Mindestabstand in %
+            PADDING_PERCENT: 3,                // Rand-Padding in %
+            MAX_POSITION_ATTEMPTS: 150,        // Maximale Positionierungsversuche
+            ANIMATION_DURATION: 150,           // Fade-Animation in ms
+            SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
+            TOAST_DURATION: 3000,              // Toast-Anzeigedauer in ms
+            SHAKE_DURATION: 300                // Shake-Animation in ms
+        };
+
         // Monatsnamen
         this.monthNames = [
             'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
@@ -18,6 +31,9 @@ class CalendarApp {
             'may.svg', 'june.svg', 'july.svg', 'august.svg',
             'september.svg', 'october.svg', 'november.svg', 'december.svg'
         ];
+
+        // DOM-Elemente Cache für Performance
+        this.doorElements = new Map();
 
         // DOM-Elemente
         this.monthSelect = document.getElementById('month-select');
@@ -75,9 +91,16 @@ class CalendarApp {
             }
         });
 
-        // Focus Trap für Modal
+        // Focus Trap für Modal (einmal registrieren)
         this.modalFocusTrap = this.handleModalFocusTrap.bind(this);
         this.lastFocusedElement = null;
+        document.addEventListener('keydown', this.modalFocusTrap);
+
+        // Intervall-IDs für Cleanup speichern
+        this.dateCheckInterval = null;
+
+        // LocalStorage verfügbar?
+        this.storageAvailable = this.checkStorageAvailability();
 
         // Lade gespeicherten Monat oder setze auf aktuellen Monat
         const savedMonth = this.loadSelectedMonth();
@@ -105,7 +128,7 @@ class CalendarApp {
         this.lastKnownDay = this.currentDay;
 
         // Prüfe jede Minute, ob sich das Datum geändert hat
-        setInterval(() => {
+        this.dateCheckInterval = setInterval(() => {
             const newYear = this.currentYear;
             const newDay = this.currentDay;
 
@@ -131,7 +154,44 @@ class CalendarApp {
                 // Rendere Kalender neu, um neue Türchen freizuschalten
                 this.renderCalendar();
             }
-        }, 60000); // Prüfe jede Minute (60000 ms)
+        }, this.CONFIG.DATE_CHECK_INTERVAL);
+    }
+
+    // ========================================
+    // Cleanup-Methode (Memory Leak Prevention)
+    // ========================================
+
+    destroy() {
+        // Stoppe Datum-Check Interval
+        if (this.dateCheckInterval) {
+            clearInterval(this.dateCheckInterval);
+            this.dateCheckInterval = null;
+        }
+
+        // Entferne Event Listeners
+        document.removeEventListener('keydown', this.modalFocusTrap);
+
+        // Leere Door Elements Cache
+        this.doorElements.clear();
+
+        console.log('[CalendarApp] Cleanup abgeschlossen');
+    }
+
+    // ========================================
+    // LocalStorage Verfügbarkeit prüfen
+    // ========================================
+
+    checkStorageAvailability() {
+        try {
+            const testKey = '__storage_test__';
+            localStorage.setItem(testKey, 'test');
+            localStorage.removeItem(testKey);
+            return true;
+        } catch (error) {
+            console.warn('LocalStorage nicht verfügbar:', error);
+            this.showToast('⚠️ Speichern nicht möglich. Daten gehen beim Neuladen verloren.');
+            return false;
+        }
     }
 
     // ========================================
@@ -150,10 +210,9 @@ class CalendarApp {
 
     isDoorUnlocked(day) {
         const selectedMonthDate = new Date(this.currentYear, this.selectedMonth, day);
-        const today = new Date(this.currentYear, this.currentMonth, this.currentDay);
-
-        // Setze Zeit auf Mitternacht für korrekten Vergleich
         selectedMonthDate.setHours(0, 0, 0, 0);
+
+        const today = new Date();
         today.setHours(0, 0, 0, 0);
 
         // Türchen ist freigeschaltet, wenn das Datum <= heute ist
@@ -173,17 +232,31 @@ class CalendarApp {
     // ========================================
 
     loadOpenedDoors() {
-        const key = this.getStorageKey('opened');
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : [];
+        if (!this.storageAvailable) return [];
+
+        try {
+            const key = this.getStorageKey('opened');
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        } catch (error) {
+            console.error('Fehler beim Laden der geöffneten Türchen:', error);
+            return [];
+        }
     }
 
     saveOpenedDoor(day) {
-        const opened = this.loadOpenedDoors();
-        if (!opened.includes(day)) {
-            opened.push(day);
-            const key = this.getStorageKey('opened');
-            localStorage.setItem(key, JSON.stringify(opened));
+        if (!this.storageAvailable) return;
+
+        try {
+            const opened = this.loadOpenedDoors();
+            if (!opened.includes(day)) {
+                opened.push(day);
+                const key = this.getStorageKey('opened');
+                localStorage.setItem(key, JSON.stringify(opened));
+            }
+        } catch (error) {
+            console.error('Fehler beim Speichern des Türchens:', error);
+            this.showToast('⚠️ Speichern fehlgeschlagen');
         }
     }
 
@@ -197,23 +270,41 @@ class CalendarApp {
     // ========================================
 
     loadQuoteMapping() {
-        const key = this.getStorageKey('quotes');
-        const data = localStorage.getItem(key);
-
-        if (data) {
-            return JSON.parse(data);
+        if (!this.storageAvailable) {
+            // Fallback: Generiere temporäres Mapping
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            return generateQuoteMapping(daysInMonth);
         }
 
-        // Erstelle neue Zuordnung, falls keine existiert
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
-        const mapping = generateQuoteMapping(daysInMonth);
-        this.saveQuoteMapping(mapping);
-        return mapping;
+        try {
+            const key = this.getStorageKey('quotes');
+            const data = localStorage.getItem(key);
+
+            if (data) {
+                return JSON.parse(data);
+            }
+
+            // Erstelle neue Zuordnung, falls keine existiert
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const mapping = generateQuoteMapping(daysInMonth);
+            this.saveQuoteMapping(mapping);
+            return mapping;
+        } catch (error) {
+            console.error('Fehler beim Laden der Zitate:', error);
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            return generateQuoteMapping(daysInMonth);
+        }
     }
 
     saveQuoteMapping(mapping) {
-        const key = this.getStorageKey('quotes');
-        localStorage.setItem(key, JSON.stringify(mapping));
+        if (!this.storageAvailable) return;
+
+        try {
+            const key = this.getStorageKey('quotes');
+            localStorage.setItem(key, JSON.stringify(mapping));
+        } catch (error) {
+            console.error('Fehler beim Speichern der Zitate:', error);
+        }
     }
 
     getQuoteForDay(day) {
@@ -250,23 +341,40 @@ class CalendarApp {
     // ========================================
 
     loadDoorPositions() {
-        const key = this.getStorageKey('positions');
-        const data = localStorage.getItem(key);
-
-        if (data) {
-            return JSON.parse(data);
+        if (!this.storageAvailable) {
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            return this.generateDoorPositions(daysInMonth);
         }
 
-        // Erstelle neue Positionen, falls keine existieren
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
-        const positions = this.generateDoorPositions(daysInMonth);
-        this.saveDoorPositions(positions);
-        return positions;
+        try {
+            const key = this.getStorageKey('positions');
+            const data = localStorage.getItem(key);
+
+            if (data) {
+                return JSON.parse(data);
+            }
+
+            // Erstelle neue Positionen, falls keine existieren
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const positions = this.generateDoorPositions(daysInMonth);
+            this.saveDoorPositions(positions);
+            return positions;
+        } catch (error) {
+            console.error('Fehler beim Laden der Positionen:', error);
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            return this.generateDoorPositions(daysInMonth);
+        }
     }
 
     saveDoorPositions(positions) {
-        const key = this.getStorageKey('positions');
-        localStorage.setItem(key, JSON.stringify(positions));
+        if (!this.storageAvailable) return;
+
+        try {
+            const key = this.getStorageKey('positions');
+            localStorage.setItem(key, JSON.stringify(positions));
+        } catch (error) {
+            console.error('Fehler beim Speichern der Positionen:', error);
+        }
     }
 
     // ========================================
@@ -275,11 +383,10 @@ class CalendarApp {
 
     generateDoorPositions(daysInMonth) {
         const positions = [];
-        const doorSizePercent = 8; // Türchengröße in Prozent
-        const minSpacingPercent = 3; // Mindestabstand in Prozent
-        const paddingPercent = 3; // Rand-Padding in Prozent
-
-        const maxAttempts = 150; // Maximale Versuche pro Türchen
+        const doorSize = this.CONFIG.DOOR_SIZE_PERCENT;
+        const minSpacing = this.CONFIG.MIN_SPACING_PERCENT;
+        const padding = this.CONFIG.PADDING_PERCENT;
+        const maxAttempts = this.CONFIG.MAX_POSITION_ATTEMPTS;
 
         for (let day = 1; day <= daysInMonth; day++) {
             let validPosition = false;
@@ -288,8 +395,8 @@ class CalendarApp {
 
             while (!validPosition && attempts < maxAttempts) {
                 // Zufällige Position generieren (in Prozent)
-                x = paddingPercent + Math.random() * (100 - doorSizePercent - 2 * paddingPercent);
-                y = paddingPercent + Math.random() * (100 - doorSizePercent - 2 * paddingPercent);
+                x = padding + Math.random() * (100 - doorSize - 2 * padding);
+                y = padding + Math.random() * (100 - doorSize - 2 * padding);
 
                 // Prüfen ob Position gültig ist (keine Überlappung)
                 validPosition = true;
@@ -298,7 +405,7 @@ class CalendarApp {
                     const dy = Math.abs(y - pos.y);
 
                     // Prüfe ob die Türchen sich überlappen würden
-                    if (dx < doorSizePercent + minSpacingPercent && dy < doorSizePercent + minSpacingPercent) {
+                    if (dx < doorSize + minSpacing && dy < doorSize + minSpacing) {
                         validPosition = false;
                         break;
                     }
@@ -325,12 +432,25 @@ class CalendarApp {
     // ========================================
 
     loadSelectedMonth() {
-        const data = localStorage.getItem('calendar_selected_month');
-        return data ? parseInt(data, 10) : null;
+        if (!this.storageAvailable) return null;
+
+        try {
+            const data = localStorage.getItem('calendar_selected_month');
+            return data ? parseInt(data, 10) : null;
+        } catch (error) {
+            console.error('Fehler beim Laden des Monats:', error);
+            return null;
+        }
     }
 
     saveSelectedMonth(month) {
-        localStorage.setItem('calendar_selected_month', month.toString());
+        if (!this.storageAvailable) return;
+
+        try {
+            localStorage.setItem('calendar_selected_month', month.toString());
+        } catch (error) {
+            console.error('Fehler beim Speichern des Monats:', error);
+        }
     }
 
     // ========================================
@@ -338,7 +458,16 @@ class CalendarApp {
     // ========================================
 
     handleMonthChange(e) {
-        this.selectedMonth = parseInt(e.target.value, 10);
+        const month = parseInt(e.target.value, 10);
+
+        // Input-Validierung
+        if (isNaN(month) || month < 0 || month > 11) {
+            console.error('Ungültiger Monat:', e.target.value);
+            this.showToast('⚠️ Ungültiger Monat ausgewählt');
+            return;
+        }
+
+        this.selectedMonth = month;
         this.saveSelectedMonth(this.selectedMonth);
         this.renderCalendar();
 
@@ -346,7 +475,7 @@ class CalendarApp {
         this.calendarGrid.style.opacity = '0';
         setTimeout(() => {
             this.calendarGrid.style.opacity = '1';
-        }, 150);
+        }, this.CONFIG.ANIMATION_DURATION);
     }
 
     // ========================================
@@ -366,7 +495,7 @@ class CalendarApp {
         this.shuffleBtn.style.transform = 'rotate(360deg)';
         setTimeout(() => {
             this.shuffleBtn.style.transform = 'rotate(0deg)';
-        }, 300);
+        }, this.CONFIG.SHUFFLE_ANIMATION_DURATION);
 
         // Toast-Nachricht
         this.showToast('Sprüche und Positionen wurden neu gemischt!');
@@ -385,7 +514,7 @@ class CalendarApp {
 
         setTimeout(() => {
             this.toast.classList.remove('show');
-        }, 3000);
+        }, this.CONFIG.TOAST_DURATION);
     }
 
     // ========================================
@@ -404,13 +533,13 @@ class CalendarApp {
 
             this.showToast(`Dieses Türchen öffnet sich am ${formattedDate}`);
 
-            // Shake-Animation
-            const doorElement = document.querySelector(`[data-day="${day}"]`);
+            // Shake-Animation (aus Cache holen)
+            const doorElement = this.doorElements.get(day);
             if (doorElement) {
                 doorElement.classList.add('shake');
                 setTimeout(() => {
                     doorElement.classList.remove('shake');
-                }, 300);
+                }, this.CONFIG.SHAKE_DURATION);
             }
 
             return;
@@ -431,6 +560,7 @@ class CalendarApp {
     // ========================================
 
     handleModalFocusTrap(e) {
+        // Nur aktiv wenn Modal offen ist UND Tab gedrückt wurde
         if (e.key !== 'Tab' || !this.modal.classList.contains('active')) {
             return;
         }
@@ -486,9 +616,6 @@ class CalendarApp {
 
         this.modal.classList.add('active');
 
-        // Aktiviere Focus Trap
-        document.addEventListener('keydown', this.modalFocusTrap);
-
         // Accessibility: Focus auf Modal setzen
         this.modalClose.focus();
     }
@@ -499,9 +626,6 @@ class CalendarApp {
 
     closeModal() {
         this.modal.classList.remove('active');
-
-        // Deaktiviere Focus Trap
-        document.removeEventListener('keydown', this.modalFocusTrap);
 
         // Stelle vorherigen Fokus wieder her
         if (this.lastFocusedElement) {
@@ -559,8 +683,9 @@ class CalendarApp {
         // Anzahl Tage im ausgewählten Monat
         const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
 
-        // Grid leeren
+        // Grid leeren und Cache zurücksetzen
         this.calendarGrid.innerHTML = '';
+        this.doorElements.clear();
 
         // Türchen erstellen
         for (let day = 1; day <= daysInMonth; day++) {
@@ -625,6 +750,9 @@ class CalendarApp {
                 this.handleDoorClick(day);
             }
         });
+
+        // Speichere Referenz für Performance
+        this.doorElements.set(day, door);
 
         return door;
     }

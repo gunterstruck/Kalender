@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.4.0 - 366 eindeutige Sprüche Datenbank
+// Version 1.5.0 - Code-Optimierungen und Bugfixes
 
-const CACHE_NAME = 'kalender-cache-v1.4.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.4.1';
+const CACHE_NAME = 'kalender-cache-v1.5.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.5.0';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
@@ -147,8 +147,6 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch((error) => {
                         console.error('[Service Worker] Fetch failed:', error);
-                        // Optional: Fallback-Seite bei Offline-Fehler
-                        // return caches.match('./offline.html');
                     });
             })
     );
@@ -183,44 +181,6 @@ self.addEventListener('message', (event) => {
             })
         );
     }
-});
-
-// ========================================
-// Background Sync (Optional - für zukünftige Features)
-// ========================================
-
-self.addEventListener('sync', (event) => {
-    console.log('[Service Worker] Background sync:', event.tag);
-
-    if (event.tag === 'sync-data') {
-        event.waitUntil(
-            // Hier könnte z.B. localStorage mit Server synchronisiert werden
-            Promise.resolve()
-        );
-    }
-});
-
-// ========================================
-// Push Notifications (Optional - für zukünftige Features)
-// ========================================
-
-self.addEventListener('push', (event) => {
-    console.log('[Service Worker] Push notification received');
-
-    const options = {
-        body: event.data ? event.data.text() : 'Neue Nachricht',
-        icon: './assets/icons/icon-192.png',
-        badge: './assets/icons/icon-192.png',
-        vibrate: [200, 100, 200],
-        data: {
-            dateOfArrival: Date.now(),
-            primaryKey: 1
-        }
-    };
-
-    event.waitUntil(
-        self.registration.showNotification('Türchenkalender', options)
-    );
 });
 
 console.log('[Service Worker] Loaded successfully');
