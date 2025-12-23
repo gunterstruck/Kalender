@@ -1,13 +1,13 @@
 {
   "name": "Monatskalender mit Türchen",
   "short_name": "Türchenkalender",
-  "version": "1.1.0",
-  "description": "Eine interaktive PWA mit monatlichen Türchen und inspirierenden Lebensweisheiten",
+  "version": "1.2.0",
+  "description": "Eine interaktive PWA mit monatlichen Türchen und inspirierenden Lebensweisheiten - Adventskalender-Stil",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#6366f1",
+  "background_color": "#1e5a8e",
+  "theme_color": "#FFB84D",
   "orientation": "portrait-primary",
   "icons": [
     {
