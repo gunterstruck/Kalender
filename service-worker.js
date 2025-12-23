@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.3.0 - Historische Zitate Update
+// Version 1.4.0 - 366 eindeutige Sprüche Datenbank
 
-const CACHE_NAME = 'kalender-cache-v1.3.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.3.3';
+const CACHE_NAME = 'kalender-cache-v1.4.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.4.0';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
