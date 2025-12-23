@@ -163,6 +163,81 @@ class CalendarApp {
     }
 
     // ========================================
+    // Türchen-Positionen laden/speichern
+    // ========================================
+
+    loadDoorPositions() {
+        const key = this.getStorageKey('positions');
+        const data = localStorage.getItem(key);
+
+        if (data) {
+            return JSON.parse(data);
+        }
+
+        // Erstelle neue Positionen, falls keine existieren
+        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+        const positions = this.generateDoorPositions(daysInMonth);
+        this.saveDoorPositions(positions);
+        return positions;
+    }
+
+    saveDoorPositions(positions) {
+        const key = this.getStorageKey('positions');
+        localStorage.setItem(key, JSON.stringify(positions));
+    }
+
+    // ========================================
+    // Zufällige Türchen-Positionen generieren
+    // ========================================
+
+    generateDoorPositions(daysInMonth) {
+        const positions = [];
+        const doorSizePercent = 8; // Türchengröße in Prozent
+        const minSpacingPercent = 3; // Mindestabstand in Prozent
+        const paddingPercent = 3; // Rand-Padding in Prozent
+
+        const maxAttempts = 150; // Maximale Versuche pro Türchen
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            let validPosition = false;
+            let attempts = 0;
+            let x, y;
+
+            while (!validPosition && attempts < maxAttempts) {
+                // Zufällige Position generieren (in Prozent)
+                x = paddingPercent + Math.random() * (100 - doorSizePercent - 2 * paddingPercent);
+                y = paddingPercent + Math.random() * (100 - doorSizePercent - 2 * paddingPercent);
+
+                // Prüfen ob Position gültig ist (keine Überlappung)
+                validPosition = true;
+                for (const pos of positions) {
+                    const dx = Math.abs(x - pos.x);
+                    const dy = Math.abs(y - pos.y);
+
+                    // Prüfe ob die Türchen sich überlappen würden
+                    if (dx < doorSizePercent + minSpacingPercent && dy < doorSizePercent + minSpacingPercent) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+
+                attempts++;
+            }
+
+            // Speichere Position (auch wenn nicht perfekt, nach max. Versuchen)
+            positions.push({ day, x, y });
+        }
+
+        return positions;
+    }
+
+    getDoorPosition(day) {
+        const positions = this.loadDoorPositions();
+        const position = positions.find(pos => pos.day === day);
+        return position || { day, x: 50, y: 50 };
+    }
+
+    // ========================================
     // Ausgewählten Monat laden/speichern
     // ========================================
 
@@ -200,6 +275,10 @@ class CalendarApp {
         const newMapping = generateQuoteMapping(daysInMonth);
         this.saveQuoteMapping(newMapping);
 
+        // Neue Positionen generieren
+        const newPositions = this.generateDoorPositions(daysInMonth);
+        this.saveDoorPositions(newPositions);
+
         // Animation für Button
         this.shuffleBtn.style.transform = 'rotate(360deg)';
         setTimeout(() => {
@@ -207,9 +286,9 @@ class CalendarApp {
         }, 300);
 
         // Toast-Nachricht
-        this.showToast('Sprüche wurden neu gemischt!');
+        this.showToast('Sprüche und Positionen wurden neu gemischt!');
 
-        // Kalender neu rendern (nur für bereits geöffnete Türchen relevant)
+        // Kalender neu rendern
         this.renderCalendar();
     }
 
@@ -404,6 +483,11 @@ class CalendarApp {
         door.setAttribute('data-day', day);
         door.setAttribute('role', 'button');
         door.setAttribute('tabindex', '0');
+
+        // Position setzen (in Prozent)
+        const position = this.getDoorPosition(day);
+        door.style.left = `${position.x}%`;
+        door.style.top = `${position.y}%`;
 
         const isUnlocked = this.isDoorUnlocked(day);
         const isOpened = this.isDoorOpened(day);

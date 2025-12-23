@@ -14,7 +14,7 @@
     --primary-dark: #4f46e5;
     --primary-light: #818cf8;
     --secondary: #ec4899;
-    --background: #f8fafc;
+    --background: #0a1929;
     --surface: #ffffff;
     --surface-overlay: rgba(0, 0, 0, 0.5);
     --text-primary: #1e293b;
@@ -27,6 +27,13 @@
     --locked: #cbd5e1;
     --locked-dark: #94a3b8;
     --opened: #34d399;
+
+    /* Advent Calendar Colors */
+    --gold: #FFB84D;
+    --gold-dark: #E8A73E;
+    --gold-light: #FFC976;
+    --winter-blue: #1e5a8e;
+    --winter-blue-dark: #0d3a5e;
 
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -256,11 +263,13 @@ body {
 
 .calendar-wrapper {
     position: relative;
-    background: var(--surface);
+    background: var(--winter-blue);
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
-    min-height: 400px;
+    min-height: 800px;
+    height: 80vh;
+    max-height: 1000px;
 }
 
 /* ========================================
@@ -274,7 +283,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 0.15;
+    opacity: 0.6;
     transition: opacity var(--transition-slow);
     background-size: cover;
     background-position: center;
@@ -288,33 +297,9 @@ body {
 .calendar-grid {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: var(--spacing-sm);
+    width: 100%;
+    height: 100%;
     padding: var(--spacing-lg);
-}
-
-/* Mobile: 4 columns */
-@media (max-width: 480px) {
-    .calendar-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: var(--spacing-xs);
-        padding: var(--spacing-md);
-    }
-}
-
-/* Tablet: 5 columns */
-@media (min-width: 481px) and (max-width: 768px) {
-    .calendar-grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-/* Desktop: 7 columns */
-@media (min-width: 769px) {
-    .calendar-grid {
-        grid-template-columns: repeat(7, 1fr);
-    }
 }
 
 /* ========================================
@@ -322,96 +307,115 @@ body {
    ======================================== */
 
 .door {
-    position: relative;
+    position: absolute;
+    width: 7%;
     aspect-ratio: 1;
-    background: white;
-    border: 3px solid var(--border);
-    border-radius: var(--radius-lg);
+    min-width: 60px;
+    max-width: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 4px solid var(--gold);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
     cursor: pointer;
     transition: all var(--transition-base);
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 184, 77, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .door:hover:not(.locked) {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 184, 77, 0.6), inset 0 0 30px rgba(255, 184, 77, 0.3);
+    border-color: var(--gold-light);
 }
 
 .door:active:not(.locked) {
-    transform: scale(0.98);
+    transform: scale(1.05);
 }
 
 /* Locked Door */
 .door.locked {
-    background: var(--locked);
-    color: var(--text-disabled);
+    background: rgba(100, 100, 100, 0.3);
+    color: rgba(255, 255, 255, 0.3);
     cursor: not-allowed;
-    border-color: var(--locked-dark);
+    border-color: rgba(200, 200, 200, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .door.locked::after {
     content: "🔒";
     position: absolute;
-    bottom: var(--spacing-xs);
-    right: var(--spacing-xs);
-    font-size: var(--font-size-sm);
+    bottom: 4px;
+    right: 4px;
+    font-size: 0.9rem;
     opacity: 0.6;
 }
 
 /* Opened Door */
 .door.opened {
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-    color: white;
-    border-color: var(--primary);
-    box-shadow: var(--shadow-md);
+    background: rgba(255, 184, 77, 0.3);
+    color: var(--gold-light);
+    border-color: var(--gold-light);
+    box-shadow: 0 6px 20px rgba(255, 184, 77, 0.8), inset 0 0 30px rgba(255, 184, 77, 0.4);
+    animation: pulse 2s ease-in-out infinite;
 }
 
 .door.opened::before {
     content: "✓";
     position: absolute;
-    top: var(--spacing-xs);
-    right: var(--spacing-xs);
-    font-size: var(--font-size-sm);
-    background: var(--success);
-    color: white;
-    width: 20px;
-    height: 20px;
+    top: 4px;
+    right: 4px;
+    font-size: 0.9rem;
+    background: var(--gold);
+    color: var(--winter-blue-dark);
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 900;
 }
 
 .door.opened .door-number {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 2px 8px rgba(255, 184, 77, 0.8));
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 6px 20px rgba(255, 184, 77, 0.6), inset 0 0 30px rgba(255, 184, 77, 0.3);
+    }
+    50% {
+        box-shadow: 0 8px 30px rgba(255, 184, 77, 1), inset 0 0 40px rgba(255, 184, 77, 0.5);
+    }
 }
 
 /* Door with Info Icon (for opened doors) */
 .door.opened .info-icon {
     position: absolute;
-    bottom: var(--spacing-xs);
-    right: var(--spacing-xs);
-    width: 24px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.3);
+    bottom: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 184, 77, 0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--font-size-sm);
-    opacity: 0.8;
+    font-size: 0.75rem;
+    opacity: 0.7;
     transition: opacity var(--transition-fast);
 }
 
 .door.opened:hover .info-icon {
     opacity: 1;
+    background: rgba(255, 184, 77, 0.6);
 }
 
 /* ========================================
@@ -598,8 +602,17 @@ body {
         padding: var(--spacing-md);
     }
 
+    .calendar-wrapper {
+        min-height: 600px;
+        height: 70vh;
+    }
+
     .door {
-        font-size: var(--font-size-xl);
+        width: 12%;
+        min-width: 50px;
+        max-width: 70px;
+        font-size: 1.8rem;
+        border-width: 3px;
     }
 
     .modal-content {
@@ -653,7 +666,7 @@ body {
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #0f172a;
+        --background: #0a1929;
         --surface: #1e293b;
         --text-primary: #f1f5f9;
         --text-secondary: #cbd5e1;
@@ -661,15 +674,16 @@ body {
         --border: #334155;
         --locked: #334155;
         --locked-dark: #475569;
+        --winter-blue: #0d3a5e;
+        --winter-blue-dark: #061f35;
     }
 
-    .door {
-        background: var(--surface);
-        color: var(--text-primary);
+    .calendar-wrapper {
+        background: var(--winter-blue-dark);
     }
 
     .month-illustration {
-        opacity: 0.08;
+        opacity: 0.4;
     }
 
     .info-banner {
