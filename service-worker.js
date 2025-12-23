@@ -2,7 +2,7 @@
 // Version 1.4.0 - 366 eindeutige Sprüche Datenbank
 
 const CACHE_NAME = 'kalender-cache-v1.4.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.4.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.4.1';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
