@@ -1,0 +1,201 @@
+// Service Worker für Monatskalender mit Türchen
+// Version 1.0.0
+
+const CACHE_NAME = 'kalender-cache-v1.0.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.0.0';
+
+// Dateien, die beim Install gecacht werden sollen (App Shell)
+const CACHE_URLS = [
+    '/',
+    '/index.html',
+    '/css/styles.css',
+    '/js/app.js',
+    '/js/quotes.js',
+    '/manifest.json',
+    '/assets/icons/icon.svg',
+    '/assets/icons/icon-192.png',
+    '/assets/icons/icon-512.png',
+    '/assets/months/january.svg',
+    '/assets/months/february.svg',
+    '/assets/months/march.svg',
+    '/assets/months/april.svg',
+    '/assets/months/may.svg',
+    '/assets/months/june.svg',
+    '/assets/months/july.svg',
+    '/assets/months/august.svg',
+    '/assets/months/september.svg',
+    '/assets/months/october.svg',
+    '/assets/months/november.svg',
+    '/assets/months/december.svg'
+];
+
+// ========================================
+// Install Event - Cache App Shell
+// ========================================
+
+self.addEventListener('install', (event) => {
+    console.log('[Service Worker] Installing...');
+
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                console.log('[Service Worker] Caching app shell');
+                return cache.addAll(CACHE_URLS);
+            })
+            .then(() => {
+                console.log('[Service Worker] App shell cached successfully');
+                return self.skipWaiting(); // Aktiviere neuen Service Worker sofort
+            })
+            .catch((error) => {
+                console.error('[Service Worker] Cache failed:', error);
+            })
+    );
+});
+
+// ========================================
+// Activate Event - Cleanup old caches
+// ========================================
+
+self.addEventListener('activate', (event) => {
+    console.log('[Service Worker] Activating...');
+
+    event.waitUntil(
+        caches.keys()
+            .then((cacheNames) => {
+                return Promise.all(
+                    cacheNames.map((cacheName) => {
+                        // Lösche alte Caches (außer aktuelle Version)
+                        if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE) {
+                            console.log('[Service Worker] Deleting old cache:', cacheName);
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            })
+            .then(() => {
+                console.log('[Service Worker] Activated successfully');
+                return self.clients.claim(); // Übernimm Kontrolle über alle Clients
+            })
+    );
+});
+
+// ========================================
+// Fetch Event - Serve from cache, fallback to network
+// ========================================
+
+self.addEventListener('fetch', (event) => {
+    const { request } = event;
+
+    // Nur GET-Requests cachen
+    if (request.method !== 'GET') {
+        return;
+    }
+
+    // Strategie: Cache First, dann Network
+    event.respondWith(
+        caches.match(request)
+            .then((cachedResponse) => {
+                if (cachedResponse) {
+                    // Im Cache gefunden - direkt zurückgeben
+                    return cachedResponse;
+                }
+
+                // Nicht im Cache - von Netzwerk holen
+                return fetch(request)
+                    .then((networkResponse) => {
+                        // Prüfe, ob Response gültig ist
+                        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type === 'error') {
+                            return networkResponse;
+                        }
+
+                        // Clone Response (kann nur einmal gelesen werden)
+                        const responseToCache = networkResponse.clone();
+
+                        // Speichere Response in Runtime Cache
+                        caches.open(RUNTIME_CACHE)
+                            .then((cache) => {
+                                cache.put(request, responseToCache);
+                            });
+
+                        return networkResponse;
+                    })
+                    .catch((error) => {
+                        console.error('[Service Worker] Fetch failed:', error);
+
+                        // Optional: Fallback-Seite bei Offline-Fehler
+                        // return caches.match('/offline.html');
+                    });
+            })
+    );
+});
+
+// ========================================
+// Message Event - Manuelles Cache-Update
+// ========================================
+
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+
+    if (event.data && event.data.type === 'CLEAR_CACHE') {
+        event.waitUntil(
+            caches.keys().then((cacheNames) => {
+                return Promise.all(
+                    cacheNames.map((cacheName) => {
+                        return caches.delete(cacheName);
+                    })
+                );
+            }).then(() => {
+                return self.clients.matchAll();
+            }).then((clients) => {
+                clients.forEach((client) => {
+                    client.postMessage({
+                        type: 'CACHE_CLEARED',
+                        message: 'Alle Caches wurden gelöscht'
+                    });
+                });
+            })
+        );
+    }
+});
+
+// ========================================
+// Background Sync (Optional - für zukünftige Features)
+// ========================================
+
+self.addEventListener('sync', (event) => {
+    console.log('[Service Worker] Background sync:', event.tag);
+
+    if (event.tag === 'sync-data') {
+        event.waitUntil(
+            // Hier könnte z.B. localStorage mit Server synchronisiert werden
+            Promise.resolve()
+        );
+    }
+});
+
+// ========================================
+// Push Notifications (Optional - für zukünftige Features)
+// ========================================
+
+self.addEventListener('push', (event) => {
+    console.log('[Service Worker] Push notification received');
+
+    const options = {
+        body: event.data ? event.data.text() : 'Neue Nachricht',
+        icon: '/assets/icons/icon-192.png',
+        badge: '/assets/icons/icon-192.png',
+        vibrate: [200, 100, 200],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        }
+    };
+
+    event.waitUntil(
+        self.registration.showNotification('Türchenkalender', options)
+    );
+});
+
+console.log('[Service Worker] Loaded successfully');

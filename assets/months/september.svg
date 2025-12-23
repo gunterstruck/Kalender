@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- September: Herbstbeginn / Bunte Blätter -->
+  <defs>
+    <linearGradient id="septemberSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fed7aa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fdba74;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Himmel -->
+  <rect width="800" height="600" fill="url(#septemberSky)"/>
+
+  <!-- Boden -->
+  <ellipse cx="400" cy="550" rx="450" ry="80" fill="#78350f" opacity="0.3"/>
+
+  <!-- Baum -->
+  <rect x="350" y="250" width="50" height="250" fill="#78350f"/>
+  <circle cx="375" cy="220" r="100" fill="#f97316" opacity="0.7"/>
+  <circle cx="340" cy="180" r="80" fill="#fb923c" opacity="0.7"/>
+  <circle cx="410" cy="180" r="85" fill="#ea580c" opacity="0.7"/>
+
+  <!-- Fallende Blätter -->
+  <g>
+    <!-- Blatt 1 -->
+    <ellipse cx="200" cy="300" rx="12" ry="18" fill="#f59e0b" transform="rotate(25 200 300)"/>
+
+    <!-- Blatt 2 -->
+    <ellipse cx="500" cy="250" rx="10" ry="15" fill="#ef4444" transform="rotate(-15 500 250)"/>
+
+    <!-- Blatt 3 -->
+    <ellipse cx="600" cy="380" rx="14" ry="20" fill="#fb923c" transform="rotate(45 600 380)"/>
+
+    <!-- Blatt 4 -->
+    <ellipse cx="150" cy="450" rx="11" ry="16" fill="#f59e0b" transform="rotate(-30 150 450)"/>
+
+    <!-- Blatt 5 -->
+    <ellipse cx="650" cy="320" rx="13" ry="19" fill="#ea580c" transform="rotate(10 650 320)"/>
+
+    <!-- Blatt 6 -->
+    <ellipse cx="300" cy="480" rx="12" ry="17" fill="#dc2626" transform="rotate(-40 300 480)"/>
+
+    <!-- Blatt 7 -->
+    <ellipse cx="550" cy="420" rx="10" ry="14" fill="#fbbf24" transform="rotate(20 550 420)"/>
+  </g>
+
+  <!-- Vogelschwarm -->
+  <path d="M 100 100 Q 110 95 120 100" stroke="#334155" stroke-width="2" fill="none"/>
+  <path d="M 140 110 Q 150 105 160 110" stroke="#334155" stroke-width="2" fill="none"/>
+  <path d="M 130 90 Q 140 85 150 90" stroke="#334155" stroke-width="2" fill="none"/>
+  <path d="M 170 105 Q 180 100 190 105" stroke="#334155" stroke-width="2" fill="none"/>
+</svg>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Monatskalender mit Türchen - Eine installierbare Progressive Web App">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+    <title>Monatskalender mit Türchen</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <h1>Monatskalender mit Türchen</h1>
+        <p class="subtitle">Entdecke jeden Tag eine neue Lebensweisheit</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Month Selection -->
+        <div class="month-selector">
+            <label for="month-select" class="visually-hidden">Monat auswählen</label>
+            <select id="month-select" class="month-dropdown" aria-label="Monat auswählen">
+                <option value="0">Januar</option>
+                <option value="1">Februar</option>
+                <option value="2">März</option>
+                <option value="3">April</option>
+                <option value="4">Mai</option>
+                <option value="5">Juni</option>
+                <option value="6">Juli</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">Oktober</option>
+                <option value="10">November</option>
+                <option value="11">Dezember</option>
+            </select>
+
+            <div class="current-month-year" id="current-month-year"></div>
+
+            <button class="shuffle-btn" id="shuffle-btn" aria-label="Sprüche neu mischen">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+                </svg>
+                <span>Sprüche mischen</span>
+            </button>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="calendar-wrapper">
+            <!-- Background Illustration -->
+            <div class="month-illustration" id="month-illustration" aria-hidden="true"></div>
+
+            <!-- Calendar Grid -->
+            <div class="calendar-grid" id="calendar-grid" role="grid" aria-label="Kalender-Türchen">
+                <!-- Generated dynamically by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Quote Display -->
+    <div class="modal" id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Schließen">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 id="modal-title">Lebensweisheit</h2>
+            <div class="modal-body">
+                <p id="quote-text" class="quote-text"></p>
+                <div class="modal-day" id="modal-day"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Locked Door Message -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/quotes.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- PWA Registration -->
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registriert:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker Registrierung fehlgeschlagen:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
