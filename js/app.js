@@ -32,6 +32,10 @@ class CalendarApp {
         this.modalBackdrop = document.getElementById('modal-backdrop');
         this.modalClose = document.getElementById('modal-close');
         this.quoteText = document.getElementById('quote-text');
+        this.quoteAuthor = document.getElementById('quote-author');
+        this.quoteDates = document.getElementById('quote-dates');
+        this.quoteLink = document.getElementById('quote-link');
+        this.quoteLinkTitle = document.getElementById('quote-link-title');
         this.modalDay = document.getElementById('modal-day');
         this.toast = document.getElementById('toast');
         this.infoBanner = document.getElementById('info-banner');
@@ -159,7 +163,31 @@ class CalendarApp {
 
     getQuoteForDay(day) {
         const mapping = this.loadQuoteMapping();
-        return mapping[day - 1] || "Heute ist dein Tag!";
+        const quote = mapping[day - 1];
+
+        // Fallback für alte String-Daten oder fehlende Einträge
+        if (!quote) {
+            return {
+                text: "Heute ist dein Tag!",
+                author: "Unbekannt",
+                dates: "",
+                link: "",
+                linkTitle: ""
+            };
+        }
+
+        // Falls es ein String ist (alte Daten), konvertiere zu Objekt
+        if (typeof quote === 'string') {
+            return {
+                text: quote,
+                author: "Unbekannt",
+                dates: "",
+                link: "",
+                linkTitle: ""
+            };
+        }
+
+        return quote;
     }
 
     // ========================================
@@ -379,8 +407,24 @@ class CalendarApp {
         const quote = this.getQuoteForDay(day);
         const monthName = this.monthNames[this.selectedMonth];
 
-        this.quoteText.textContent = quote;
+        // Setze Zitat-Text
+        this.quoteText.textContent = quote.text;
+
+        // Setze Autor und Lebensdaten
+        this.quoteAuthor.textContent = quote.author || "Unbekannt";
+        this.quoteDates.textContent = quote.dates || "";
+
+        // Setze Datum
         this.modalDay.textContent = `${day}. ${monthName} ${this.currentYear}`;
+
+        // Zeige/Verstecke Link-Button
+        if (quote.link) {
+            this.quoteLink.href = quote.link;
+            this.quoteLinkTitle.textContent = quote.linkTitle || "Mehr erfahren";
+            this.quoteLink.style.display = 'inline-flex';
+        } else {
+            this.quoteLink.style.display = 'none';
+        }
 
         // Speichere aktuell fokussiertes Element
         this.lastFocusedElement = document.activeElement;
