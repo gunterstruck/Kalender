@@ -4,10 +4,7 @@
 
 class CalendarApp {
     constructor() {
-        this.currentYear = new Date().getFullYear();
-        this.currentMonth = new Date().getMonth();
-        this.currentDay = new Date().getDate();
-        this.selectedMonth = this.currentMonth;
+        this.selectedMonth = new Date().getMonth();
 
         // Monatsnamen
         this.monthNames = [
@@ -45,6 +42,22 @@ class CalendarApp {
     }
 
     // ========================================
+    // Aktuelles Datum (dynamisch)
+    // ========================================
+
+    get currentYear() {
+        return new Date().getFullYear();
+    }
+
+    get currentMonth() {
+        return new Date().getMonth();
+    }
+
+    get currentDay() {
+        return new Date().getDate();
+    }
+
+    // ========================================
     // Initialisierung
     // ========================================
 
@@ -77,6 +90,48 @@ class CalendarApp {
 
         // Initiales Rendering
         this.renderCalendar();
+
+        // Prüfe täglich um Mitternacht, ob ein neuer Tag/Jahr begonnen hat
+        this.startDateChangeDetection();
+    }
+
+    // ========================================
+    // Datumswechsel-Erkennung
+    // ========================================
+
+    startDateChangeDetection() {
+        // Speichere das aktuelle Jahr beim Start
+        this.lastKnownYear = this.currentYear;
+        this.lastKnownDay = this.currentDay;
+
+        // Prüfe jede Minute, ob sich das Datum geändert hat
+        setInterval(() => {
+            const newYear = this.currentYear;
+            const newDay = this.currentDay;
+
+            // Wenn sich das Jahr geändert hat
+            if (newYear !== this.lastKnownYear) {
+                console.log(`Jahr gewechselt von ${this.lastKnownYear} zu ${newYear}`);
+                this.lastKnownYear = newYear;
+
+                // Aktualisiere auf den aktuellen Monat
+                this.selectedMonth = this.currentMonth;
+                this.monthSelect.value = this.currentMonth;
+                this.saveSelectedMonth(this.selectedMonth);
+
+                // Rendere Kalender neu
+                this.renderCalendar();
+
+                // Zeige Benachrichtigung
+                this.showToast(`🎉 Frohes neues Jahr ${newYear}! Der Kalender wurde aktualisiert.`);
+            }
+            // Wenn sich nur der Tag geändert hat (neuer Tag)
+            else if (newDay !== this.lastKnownDay) {
+                this.lastKnownDay = newDay;
+                // Rendere Kalender neu, um neue Türchen freizuschalten
+                this.renderCalendar();
+            }
+        }, 60000); // Prüfe jede Minute (60000 ms)
     }
 
     // ========================================
