@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Januar: Winter-Schneeszene -->
+  <defs>
+    <linearGradient id="januarySky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Himmel -->
+  <rect width="800" height="600" fill="url(#januarySky)"/>
+
+  <!-- Schneehügel -->
+  <ellipse cx="200" cy="550" rx="250" ry="80" fill="#e0f2fe" opacity="0.8"/>
+  <ellipse cx="600" cy="570" rx="300" ry="70" fill="#dbeafe" opacity="0.8"/>
+
+  <!-- Winterbäume -->
+  <path d="M 150 450 L 150 350 L 120 380 L 150 350 L 180 380 L 150 350 L 150 300 L 110 340 L 150 300 L 190 340 Z" fill="#1e40af" opacity="0.6"/>
+  <path d="M 700 480 L 700 400 L 675 425 L 700 400 L 725 425 L 700 400 L 700 360 L 670 390 L 700 360 L 730 390 Z" fill="#1e40af" opacity="0.6"/>
+
+  <!-- Schneeflocken -->
+  <circle cx="100" cy="100" r="3" fill="#ffffff" opacity="0.7"/>
+  <circle cx="250" cy="150" r="2.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="400" cy="80" r="3" fill="#ffffff" opacity="0.7"/>
+  <circle cx="550" cy="130" r="2" fill="#ffffff" opacity="0.7"/>
+  <circle cx="650" cy="90" r="3" fill="#ffffff" opacity="0.7"/>
+  <circle cx="300" cy="200" r="2.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="500" cy="180" r="2" fill="#ffffff" opacity="0.7"/>
+
+  <!-- Schneemann -->
+  <circle cx="400" cy="500" r="45" fill="#ffffff"/>
+  <circle cx="400" cy="430" r="35" fill="#ffffff"/>
+  <circle cx="400" cy="375" r="25" fill="#ffffff"/>
+
+  <!-- Gesicht -->
+  <circle cx="390" cy="370" r="2" fill="#000000"/>
+  <circle cx="410" cy="370" r="2" fill="#000000"/>
+  <path d="M 400 380 Q 405 383 400 385" stroke="#ff6b35" stroke-width="2" fill="none"/>
+</svg>

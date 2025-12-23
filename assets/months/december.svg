@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Dezember: Winterwunderland / Schnee -->
+  <defs>
+    <linearGradient id="decemberSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c4a6e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0369a1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Nachthimmel -->
+  <rect width="800" height="600" fill="url(#decemberSky)"/>
+
+  <!-- Sterne -->
+  <circle cx="100" cy="60" r="2" fill="#fef08a"/>
+  <circle cx="180" cy="100" r="1.5" fill="#fef08a"/>
+  <circle cx="280" cy="70" r="2" fill="#fef08a"/>
+  <circle cx="400" cy="50" r="2.5" fill="#fef08a"/>
+  <circle cx="520" cy="90" r="1.5" fill="#fef08a"/>
+  <circle cx="620" cy="65" r="2" fill="#fef08a"/>
+  <circle cx="720" cy="110" r="1.5" fill="#fef08a"/>
+
+  <!-- Schneehügel -->
+  <ellipse cx="400" cy="550" rx="450" ry="90" fill="#f0f9ff"/>
+  <ellipse cx="250" cy="520" rx="280" ry="70" fill="#e0f2fe"/>
+  <ellipse cx="600" cy="540" rx="320" ry="80" fill="#dbeafe"/>
+
+  <!-- Tanne links -->
+  <path d="M 150 500 L 150 350 L 80 420 L 100 420 L 50 470 L 75 470 L 30 520 L 150 520 L 270 520 L 225 470 L 250 470 L 200 420 L 220 420 Z" fill="#064e3b" opacity="0.8"/>
+  <rect x="140" y="520" width="20" height="40" fill="#78350f"/>
+
+  <!-- Tanne rechts -->
+  <path d="M 700 520 L 700 380 L 640 440 L 660 440 L 620 485 L 645 485 L 610 525 L 700 525 L 790 525 L 755 485 L 780 485 L 740 440 L 760 440 Z" fill="#065f46" opacity="0.8"/>
+  <rect x="690" y="525" width="20" height="35" fill="#78350f"/>
+
+  <!-- Schneeflocken -->
+  <g>
+    <circle cx="200" cy="150" r="3" fill="#ffffff" opacity="0.8"/>
+    <circle cx="350" cy="200" r="2.5" fill="#ffffff" opacity="0.8"/>
+    <circle cx="500" cy="180" r="3" fill="#ffffff" opacity="0.8"/>
+    <circle cx="250" cy="280" r="2" fill="#ffffff" opacity="0.8"/>
+    <circle cx="600" cy="220" r="3" fill="#ffffff" opacity="0.8"/>
+    <circle cx="450" cy="310" r="2.5" fill="#ffffff" opacity="0.8"/>
+    <circle cx="320" cy="350" r="2" fill="#ffffff" opacity="0.8"/>
+    <circle cx="680" cy="270" r="3" fill="#ffffff" opacity="0.8"/>
+    <circle cx="150" cy="320" r="2.5" fill="#ffffff" opacity="0.8"/>
+  </g>
+
+  <!-- Geschenke -->
+  <g>
+    <!-- Geschenk 1 -->
+    <rect x="380" y="510" width="50" height="40" fill="#ef4444"/>
+    <rect x="400" y="510" width="10" height="40" fill="#fbbf24"/>
+    <rect x="380" y="525" width="50" height="8" fill="#fbbf24"/>
+
+    <!-- Geschenk 2 -->
+    <rect x="450" y="520" width="40" height="30" fill="#3b82f6"/>
+    <rect x="465" y="520" width="10" height="30" fill="#fde047"/>
+    <rect x="450" y="532" width="40" height="6" fill="#fde047"/>
+  </g>
+</svg>

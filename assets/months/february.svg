@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Februar: Valentinstag / Herzen -->
+  <defs>
+    <linearGradient id="februarySky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fce7f3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbcfe8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Hintergrund -->
+  <rect width="800" height="600" fill="url(#februarySky)"/>
+
+  <!-- Große Herzen -->
+  <path d="M 200 200 Q 200 150 230 150 Q 260 150 260 200 Q 260 150 290 150 Q 320 150 320 200 Q 320 280 200 350 Q 80 280 80 200 Q 80 150 110 150 Q 140 150 140 200 Z" fill="#ec4899" opacity="0.4"/>
+
+  <path d="M 600 300 Q 600 260 625 260 Q 650 260 650 300 Q 650 260 675 260 Q 700 260 700 300 Q 700 360 600 420 Q 500 360 500 300 Q 500 260 525 260 Q 550 260 550 300 Z" fill="#f472b6" opacity="0.4"/>
+
+  <!-- Kleine schwebende Herzen -->
+  <path d="M 150 100 Q 150 85 160 85 Q 170 85 170 100 Q 170 85 180 85 Q 190 85 190 100 Q 190 120 150 140 Q 110 120 110 100 Q 110 85 120 85 Q 130 85 130 100 Z" fill="#ec4899" opacity="0.6"/>
+
+  <path d="M 650 150 Q 650 140 657 140 Q 664 140 664 150 Q 664 140 671 140 Q 678 140 678 150 Q 678 163 650 175 Q 622 163 622 150 Q 622 140 629 140 Q 636 140 636 150 Z" fill="#f472b6" opacity="0.6"/>
+
+  <path d="M 350 450 Q 350 435 360 435 Q 370 435 370 450 Q 370 435 380 435 Q 390 435 390 450 Q 390 470 350 490 Q 310 470 310 450 Q 310 435 320 435 Q 330 435 330 450 Z" fill="#ec4899" opacity="0.5"/>
+</svg>

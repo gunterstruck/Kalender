@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Mai: Blühende Wiese -->
+  <defs>
+    <linearGradient id="maySky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7dd3fc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Himmel -->
+  <rect width="800" height="600" fill="url(#maySky)"/>
+
+  <!-- Hügel -->
+  <ellipse cx="400" cy="450" rx="450" ry="180" fill="#4ade80"/>
+  <ellipse cx="200" cy="500" rx="280" ry="120" fill="#22c55e"/>
+  <ellipse cx="650" cy="520" rx="300" ry="100" fill="#16a34a"/>
+
+  <!-- Baum -->
+  <rect x="120" y="300" width="30" height="150" fill="#78350f"/>
+  <circle cx="135" cy="280" r="60" fill="#22c55e" opacity="0.8"/>
+  <circle cx="105" cy="260" r="45" fill="#16a34a" opacity="0.8"/>
+  <circle cx="165" cy="255" r="50" fill="#4ade80" opacity="0.8"/>
+
+  <!-- Blumen überall -->
+  <circle cx="300" cy="480" r="6" fill="#fde047"/>
+  <circle cx="450" cy="500" r="5" fill="#fde047"/>
+  <circle cx="550" cy="490" r="6" fill="#fde047"/>
+  <circle cx="380" cy="520" r="5" fill="#fde047"/>
+
+  <circle cx="250" cy="510" r="5" fill="#ec4899"/>
+  <circle cx="500" cy="530" r="6" fill="#ec4899"/>
+  <circle cx="600" cy="540" r="5" fill="#ec4899"/>
+
+  <circle cx="350" cy="495" r="5" fill="#a855f7"/>
+  <circle cx="480" cy="515" r="6" fill="#a855f7"/>
+  <circle cx="580" cy="510" r="5" fill="#a855f7"/>
+
+  <!-- Sonne -->
+  <circle cx="650" cy="120" r="60" fill="#fde047"/>
+  <line x1="650" y1="50" x2="650" y2="30" stroke="#fbbf24" stroke-width="4"/>
+  <line x1="720" y1="120" x2="740" y2="120" stroke="#fbbf24" stroke-width="4"/>
+  <line x1="710" y1="70" x2="725" y2="55" stroke="#fbbf24" stroke-width="4"/>
+  <line x1="710" y1="170" x2="725" y2="185" stroke="#fbbf24" stroke-width="4"/>
+  <line x1="590" y1="70" x2="575" y2="55" stroke="#fbbf24" stroke-width="4"/>
+  <line x1="590" y1="170" x2="575" y2="185" stroke="#fbbf24" stroke-width="4"/>
+
+  <!-- Schmetterlinge -->
+  <g transform="translate(400, 350)">
+    <ellipse cx="-5" cy="0" rx="8" ry="12" fill="#ec4899" opacity="0.7"/>
+    <ellipse cx="5" cy="0" rx="8" ry="12" fill="#f472b6" opacity="0.7"/>
+    <line x1="-8" y1="-5" x2="8" y2="-5" stroke="#000000" stroke-width="1"/>
+  </g>
+</svg>

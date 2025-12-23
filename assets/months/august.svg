@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- August: Erntezeit / Kornfeld -->
+  <defs>
+    <linearGradient id="augustSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fde68a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Himmel -->
+  <rect width="800" height="600" fill="url(#augustSky)"/>
+
+  <!-- Kornfeld -->
+  <rect y="350" width="800" height="250" fill="#fbbf24"/>
+  <rect y="380" width="800" height="220" fill="#f59e0b"/>
+
+  <!-- Kornähren (vereinfacht) -->
+  <g>
+    <rect x="100" y="400" width="3" height="150" fill="#d97706"/>
+    <ellipse cx="101.5" cy="395" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="150" y="420" width="3" height="130" fill="#d97706"/>
+    <ellipse cx="151.5" cy="415" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="200" y="410" width="3" height="140" fill="#d97706"/>
+    <ellipse cx="201.5" cy="405" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="300" y="430" width="3" height="120" fill="#d97706"/>
+    <ellipse cx="301.5" cy="425" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="400" y="415" width="3" height="135" fill="#d97706"/>
+    <ellipse cx="401.5" cy="410" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="500" y="425" width="3" height="125" fill="#d97706"/>
+    <ellipse cx="501.5" cy="420" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="600" y="405" width="3" height="145" fill="#d97706"/>
+    <ellipse cx="601.5" cy="400" rx="6" ry="15" fill="#fbbf24"/>
+
+    <rect x="700" y="418" width="3" height="132" fill="#d97706"/>
+    <ellipse cx="701.5" cy="413" rx="6" ry="15" fill="#fbbf24"/>
+  </g>
+
+  <!-- Sonne am Horizont -->
+  <circle cx="400" cy="350" r="70" fill="#fde047" opacity="0.8"/>
+  <circle cx="400" cy="350" r="50" fill="#fef08a" opacity="0.9"/>
+
+  <!-- Windmühle (stilisiert) -->
+  <rect x="680" y="280" width="25" height="120" fill="#78350f"/>
+  <line x1="692" y1="280" x2="640" y2="230" stroke="#475569" stroke-width="8"/>
+  <line x1="692" y1="280" x2="744" y2="230" stroke="#475569" stroke-width="8"/>
+  <line x1="692" y1="280" x2="640" y2="330" stroke="#475569" stroke-width="8"/>
+  <line x1="692" y1="280" x2="744" y2="330" stroke="#475569" stroke-width="8"/>
+  <circle cx="692" cy="280" r="10" fill="#1e293b"/>
+</svg>

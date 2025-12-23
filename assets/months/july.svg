@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Juli: Hochsommer / Sonnenblumen -->
+  <defs>
+    <linearGradient id="julySky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Himmel -->
+  <rect width="800" height="600" fill="url(#julySky)"/>
+
+  <!-- Boden -->
+  <rect y="450" width="800" height="150" fill="#65a30d"/>
+
+  <!-- Große Sonne -->
+  <circle cx="400" cy="150" r="80" fill="#fde047"/>
+  <circle cx="400" cy="150" r="60" fill="#fef08a"/>
+
+  <!-- Sonnenblumen -->
+  <g>
+    <!-- Sonnenblume 1 -->
+    <circle cx="200" cy="420" r="40" fill="#fbbf24"/>
+    <circle cx="200" cy="420" r="20" fill="#78350f"/>
+    <rect x="196" y="430" width="8" height="120" fill="#22c55e"/>
+    <ellipse cx="185" cy="480" rx="12" ry="6" fill="#15803d" transform="rotate(-30 185 480)"/>
+    <ellipse cx="215" cy="490" rx="12" ry="6" fill="#15803d" transform="rotate(30 215 490)"/>
+
+    <!-- Sonnenblume 2 -->
+    <circle cx="400" cy="400" r="50" fill="#fde047"/>
+    <circle cx="400" cy="400" r="25" fill="#78350f"/>
+    <rect x="395" y="410" width="10" height="140" fill="#16a34a"/>
+    <ellipse cx="380" cy="460" rx="15" ry="7" fill="#15803d" transform="rotate(-25 380 460)"/>
+    <ellipse cx="420" cy="470" rx="15" ry="7" fill="#15803d" transform="rotate(25 420 470)"/>
+
+    <!-- Sonnenblume 3 -->
+    <circle cx="600" cy="430" r="45" fill="#fbbf24"/>
+    <circle cx="600" cy="430" r="22" fill="#78350f"/>
+    <rect x="595" y="440" width="10" height="130" fill="#22c55e"/>
+    <ellipse cx="582" cy="485" rx="14" ry="6" fill="#15803d" transform="rotate(-30 582 485)"/>
+    <ellipse cx="618" cy="495" rx="14" ry="6" fill="#15803d" transform="rotate(30 618 495)"/>
+  </g>
+
+  <!-- Kleine Wolke -->
+  <ellipse cx="650" cy="120" rx="50" ry="30" fill="#ffffff" opacity="0.6"/>
+  <ellipse cx="680" cy="120" rx="40" ry="25" fill="#ffffff" opacity="0.6"/>
+</svg>
