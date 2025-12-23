@@ -89,6 +89,77 @@ body {
 }
 
 /* ========================================
+   Loading Spinner
+   ======================================== */
+
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    z-index: 9999;
+    transition: opacity 0.3s ease-out;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(99, 102, 241, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner p {
+    color: var(--primary-light);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+}
+
+/* ========================================
+   Noscript Warning
+   ======================================== */
+
+.noscript-warning {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface);
+    color: var(--text-primary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    max-width: 500px;
+    z-index: 10000;
+}
+
+.noscript-warning h2 {
+    font-size: var(--font-size-2xl);
+    color: var(--error);
+    margin-bottom: var(--spacing-lg);
+}
+
+.noscript-warning p {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+}
+
+/* ========================================
    Utility Classes
    ======================================== */
 
@@ -99,9 +170,9 @@ body {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
-    border-width: 0;
+    border: 0;
 }
 
 /* ========================================
@@ -364,6 +435,7 @@ body {
     border-color: var(--gold-light);
     box-shadow: 0 6px 20px rgba(255, 184, 77, 0.8), inset 0 0 30px rgba(255, 184, 77, 0.4);
     animation: pulse 2s ease-in-out infinite;
+    will-change: box-shadow;
 }
 
 .door.opened::before {
@@ -446,8 +518,14 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--surface-overlay);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
+}
+
+@supports (backdrop-filter: blur(4px)) {
+    .modal-backdrop {
+        background: var(--surface-overlay);
+    }
 }
 
 .modal-content {
@@ -635,6 +713,29 @@ body {
 
 .shake {
     animation: shake 0.3s ease-in-out;
+}
+
+/* ========================================
+   Reduced Motion Support
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .door.opened {
+        animation: none;
+        will-change: auto;
+    }
+
+    .shuffle-btn svg {
+        transition: none;
+    }
 }
 
 /* ========================================
