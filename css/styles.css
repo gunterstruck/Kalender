@@ -146,7 +146,7 @@ body {
     background: var(--surface);
     border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
     box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;

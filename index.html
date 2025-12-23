@@ -25,6 +25,27 @@
 
     <!-- Main Container -->
     <main class="container">
+        <!-- Info-Banner für gesperrte Türchen -->
+        <div class="info-banner" id="info-banner" role="status" aria-live="polite" style="display: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span id="info-banner-text"></span>
+        </div>
+
+        <!-- Calendar Grid -->
+        <div class="calendar-wrapper">
+            <!-- Background Illustration -->
+            <div class="month-illustration" id="month-illustration" aria-hidden="true"></div>
+
+            <!-- Calendar Grid -->
+            <div class="calendar-grid" id="calendar-grid" role="grid" aria-label="Kalender-Türchen">
+                <!-- Generated dynamically by JavaScript -->
+            </div>
+        </div>
+
         <!-- Month Selection -->
         <div class="month-selector">
             <label for="month-select" class="visually-hidden">Monat auswählen</label>
@@ -51,27 +72,6 @@
                 </svg>
                 <span>Sprüche mischen</span>
             </button>
-        </div>
-
-        <!-- Info-Banner für gesperrte Türchen -->
-        <div class="info-banner" id="info-banner" role="status" aria-live="polite" style="display: none;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            <span id="info-banner-text"></span>
-        </div>
-
-        <!-- Calendar Grid -->
-        <div class="calendar-wrapper">
-            <!-- Background Illustration -->
-            <div class="month-illustration" id="month-illustration" aria-hidden="true"></div>
-
-            <!-- Calendar Grid -->
-            <div class="calendar-grid" id="calendar-grid" role="grid" aria-label="Kalender-Türchen">
-                <!-- Generated dynamically by JavaScript -->
-            </div>
         </div>
     </main>
 
