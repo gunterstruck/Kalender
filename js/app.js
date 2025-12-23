@@ -116,6 +116,28 @@ class CalendarApp {
 
         // Prüfe täglich um Mitternacht, ob ein neuer Tag/Jahr begonnen hat
         this.startDateChangeDetection();
+
+        // Entferne Ladeanimation nach erfolgreicher Initialisierung
+        this.removeLoadingSpinner();
+    }
+
+    // ========================================
+    // Ladeanimation entfernen
+    // ========================================
+
+    removeLoadingSpinner() {
+        // Verwende requestAnimationFrame für sanften Übergang
+        requestAnimationFrame(() => {
+            const spinner = document.getElementById('loading-spinner');
+            if (spinner) {
+                spinner.style.opacity = '0';
+                // Entferne Element nach Fade-Animation
+                setTimeout(() => {
+                    spinner.remove();
+                    console.log('[CalendarApp] Ladeanimation entfernt - App bereit');
+                }, 300);
+            }
+        });
     }
 
     // ========================================
