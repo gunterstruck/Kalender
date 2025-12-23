@@ -143,17 +143,7 @@
             console.error('Unbehandeltes Promise:', event.reason);
         });
 
-        // Entferne Ladeanimation wenn DOM fertig ist
-        document.addEventListener('DOMContentLoaded', () => {
-            // Warte kurz, damit die App initialisieren kann
-            setTimeout(() => {
-                const spinner = document.getElementById('loading-spinner');
-                if (spinner) {
-                    spinner.style.opacity = '0';
-                    setTimeout(() => spinner.remove(), 300);
-                }
-            }, 100);
-        });
+        // Ladeanimation wird von der App entfernt, sobald sie vollständig initialisiert ist
 
         // Register Service Worker
         if ('serviceWorker' in navigator) {
