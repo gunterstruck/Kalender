@@ -1,48 +1,237 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-  <!-- März: Frühling erwacht / Blumen -->
+  <!-- März: Frühling erwacht / Dorfszene mit Frühblühern -->
   <defs>
     <linearGradient id="marchSky" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#bae6fd;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#7dd3fc;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#7dd3fc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="marchMeadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a7f3d0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6ee7b7;stop-opacity:1" />
     </linearGradient>
   </defs>
 
-  <!-- Himmel -->
+  <!-- Himmel mit Farbverlauf -->
   <rect width="800" height="600" fill="url(#marchSky)"/>
 
-  <!-- Wiese -->
-  <rect y="400" width="800" height="200" fill="#86efac"/>
+  <!-- Wolken (weiße Schäfchenwolken) -->
+  <ellipse cx="150" cy="80" rx="45" ry="25" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="180" cy="85" rx="38" ry="22" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="120" cy="90" rx="35" ry="20" fill="#ffffff" opacity="0.85"/>
 
-  <!-- Blumen -->
-  <g>
-    <!-- Tulpe 1 -->
-    <ellipse cx="150" cy="450" rx="15" ry="25" fill="#ef4444"/>
-    <rect x="145" y="455" width="10" height="80" fill="#22c55e"/>
-    <ellipse cx="140" cy="490" rx="8" ry="4" fill="#22c55e"/>
+  <ellipse cx="550" cy="100" rx="50" ry="28" fill="#ffffff" opacity="0.80"/>
+  <ellipse cx="590" cy="105" rx="42" ry="24" fill="#ffffff" opacity="0.80"/>
+  <ellipse cx="515" cy="108" rx="38" ry="21" fill="#ffffff" opacity="0.80"/>
 
-    <!-- Tulpe 2 -->
-    <ellipse cx="250" cy="470" rx="12" ry="20" fill="#f59e0b"/>
-    <rect x="246" y="475" width="8" height="70" fill="#22c55e"/>
+  <ellipse cx="700" cy="140" rx="40" ry="23" fill="#ffffff" opacity="0.75"/>
+  <ellipse cx="730" cy="145" rx="35" ry="20" fill="#ffffff" opacity="0.75"/>
 
-    <!-- Tulpe 3 -->
-    <ellipse cx="350" cy="440" rx="18" ry="28" fill="#ec4899"/>
-    <rect x="344" y="445" width="12" height="90" fill="#22c55e"/>
-    <ellipse cx="355" cy="480" rx="10" ry="5" fill="#22c55e"/>
+  <!-- Hügel im Hintergrund -->
+  <ellipse cx="200" cy="380" rx="250" ry="60" fill="#86efac" opacity="0.6"/>
+  <ellipse cx="600" cy="400" rx="280" ry="70" fill="#6ee7b7" opacity="0.6"/>
+  <ellipse cx="400" cy="420" rx="320" ry="80" fill="#4ade80" opacity="0.7"/>
 
-    <!-- Gänseblümchen -->
-    <circle cx="500" cy="480" r="8" fill="#fef3c7"/>
-    <circle cx="490" cy="475" r="4" fill="#ffffff"/>
-    <circle cx="510" cy="475" r="4" fill="#ffffff"/>
-    <circle cx="495" cy="487" r="4" fill="#ffffff"/>
-    <circle cx="505" cy="487" r="4" fill="#ffffff"/>
-    <rect x="497" y="485" width="6" height="50" fill="#22c55e"/>
+  <!-- Wiese im Vordergrund -->
+  <rect y="400" width="800" height="200" fill="url(#marchMeadow)"/>
 
-    <!-- Tulpe 4 -->
-    <ellipse cx="650" cy="460" rx="14" ry="23" fill="#a855f7"/>
-    <rect x="646" y="465" width="8" height="75" fill="#22c55e"/>
+  <!-- Gras-Textur -->
+  <line x1="50" y1="420" x2="52" y2="435" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="80" y1="425" x2="82" y2="438" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="120" y1="415" x2="122" y2="430" stroke="#16a34a" stroke-width="2" opacity="0.4"/>
+  <line x1="180" y1="428" x2="182" y2="442" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="220" y1="418" x2="222" y2="433" stroke="#16a34a" stroke-width="2" opacity="0.4"/>
+  <line x1="280" y1="422" x2="282" y2="437" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="340" y1="416" x2="342" y2="431" stroke="#16a34a" stroke-width="2" opacity="0.4"/>
+  <line x1="400" y1="424" x2="402" y2="439" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="460" y1="419" x2="462" y2="434" stroke="#16a34a" stroke-width="2" opacity="0.4"/>
+  <line x1="520" y1="426" x2="522" y2="441" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="580" y1="421" x2="582" y2="436" stroke="#16a34a" stroke-width="2" opacity="0.4"/>
+  <line x1="640" y1="417" x2="642" y2="432" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+  <line x1="700" y1="423" x2="702" y2="438" stroke="#16a34a" stroke-width="2" opacity="0.4"/>
+  <line x1="750" y1="420" x2="752" y2="435" stroke="#22c55e" stroke-width="2" opacity="0.4"/>
+
+  <!-- Bauernhaus links -->
+  <rect x="50" y="320" width="140" height="120" fill="#fef3c7"/>
+
+  <!-- Fachwerk -->
+  <line x1="70" y1="320" x2="70" y2="440" stroke="#78350f" stroke-width="5"/>
+  <line x1="120" y1="320" x2="120" y2="440" stroke="#78350f" stroke-width="5"/>
+  <line x1="170" y1="320" x2="170" y2="440" stroke="#78350f" stroke-width="5"/>
+  <line x1="50" y1="360" x2="190" y2="360" stroke="#78350f" stroke-width="5"/>
+  <line x1="70" y1="360" x2="120" y2="320" stroke="#78350f" stroke-width="4"/>
+  <line x1="120" y1="360" x2="70" y2="320" stroke="#78350f" stroke-width="4"/>
+  <line x1="120" y1="360" x2="170" y2="320" stroke="#78350f" stroke-width="4"/>
+  <line x1="170" y1="360" x2="120" y2="320" stroke="#78350f" stroke-width="4"/>
+
+  <!-- Dach -->
+  <path d="M 40 320 L 120 260 L 200 320 Z" fill="#dc2626"/>
+  <path d="M 45 320 L 120 265 L 195 320 Z" fill="#b91c1c"/>
+
+  <!-- Schornstein mit Rauch -->
+  <rect x="145" y="275" width="18" height="40" fill="#7c2d12"/>
+  <rect x="143" y="270" width="22" height="8" fill="#78350f"/>
+  <ellipse cx="154" cy="260" rx="8" ry="6" fill="#cbd5e1" opacity="0.6"/>
+  <ellipse cx="152" cy="250" rx="10" ry="7" fill="#cbd5e1" opacity="0.5"/>
+  <ellipse cx="155" cy="238" rx="12" ry="8" fill="#cbd5e1" opacity="0.4"/>
+
+  <!-- Fenster -->
+  <rect x="75" y="340" width="35" height="40" fill="#7dd3fc"/>
+  <line x1="92.5" y1="340" x2="92.5" y2="380" stroke="#475569" stroke-width="2"/>
+  <line x1="75" y1="360" x2="110" y2="360" stroke="#475569" stroke-width="2"/>
+
+  <rect x="130" y="340" width="35" height="40" fill="#7dd3fc"/>
+  <line x1="147.5" y1="340" x2="147.5" y2="380" stroke="#475569" stroke-width="2"/>
+  <line x1="130" y1="360" x2="165" y2="360" stroke="#475569" stroke-width="2"/>
+
+  <!-- Tür -->
+  <rect x="85" y="390" width="30" height="50" fill="#92400e"/>
+  <rect x="86" y="391" width="28" height="48" fill="#b45309"/>
+  <line x1="100" y1="390" x2="100" y2="440" stroke="#78350f" stroke-width="2"/>
+  <circle cx="108" cy="415" r="2.5" fill="#fbbf24"/>
+
+  <!-- Kleines Gartenhaus rechts -->
+  <rect x="620" y="360" width="90" height="80" fill="#a78bfa"/>
+  <path d="M 610 360 L 665 320 L 720 360 Z" fill="#7c3aed"/>
+
+  <!-- Fenster Gartenhaus -->
+  <rect x="640" y="380" width="22" height="25" fill="#fef3c7"/>
+  <line x1="651" y1="380" x2="651" y2="405" stroke="#475569" stroke-width="1.5"/>
+  <line x1="640" y1="392.5" x2="662" y2="392.5" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Tür Gartenhaus -->
+  <rect x="675" y="400" width="25" height="40" fill="#92400e"/>
+  <circle cx="696" cy="420" r="1.8" fill="#fbbf24"/>
+
+  <!-- Tulpen (verschiedene Farben und Höhen) -->
+  <!-- Tulpe 1 - Rot -->
+  <ellipse cx="250" cy="470" rx="18" ry="30" fill="#ef4444"/>
+  <ellipse cx="245" cy="465" rx="6" ry="10" fill="#dc2626" opacity="0.6"/>
+  <rect x="244" y="475" width="12" height="95" fill="#22c55e"/>
+  <ellipse cx="238" cy="510" rx="10" ry="5" fill="#15803d"/>
+  <ellipse cx="256" cy="520" rx="9" ry="4" fill="#15803d"/>
+
+  <!-- Tulpe 2 - Gelb -->
+  <ellipse cx="300" cy="485" rx="15" ry="26" fill="#fbbf24"/>
+  <ellipse cx="296" cy="480" rx="5" ry="9" fill="#f59e0b" opacity="0.6"/>
+  <rect x="295" y="490" width="10" height="80" fill="#16a34a"/>
+  <ellipse cx="290" cy="520" rx="8" ry="4" fill="#15803d"/>
+
+  <!-- Tulpe 3 - Pink -->
+  <ellipse cx="350" cy="460" rx="20" ry="32" fill="#ec4899"/>
+  <ellipse cx="345" cy="455" rx="7" ry="11" fill="#db2777" opacity="0.6"/>
+  <rect x="344" y="467" width="12" height="103" fill="#22c55e"/>
+  <ellipse cx="338" cy="505" rx="11" ry="5" fill="#15803d"/>
+  <ellipse cx="357" cy="515" rx="10" ry="5" fill="#15803d"/>
+
+  <!-- Tulpe 4 - Orange -->
+  <ellipse cx="400" cy="478" rx="16" ry="28" fill="#fb923c"/>
+  <ellipse cx="396" cy="473" rx="6" ry="10" fill="#f97316" opacity="0.6"/>
+  <rect x="395" y="483" width="10" height="87" fill="#16a34a"/>
+  <ellipse cx="389" cy="515" rx="9" ry="4" fill="#15803d"/>
+
+  <!-- Tulpe 5 - Violett -->
+  <ellipse cx="450" cy="468" rx="17" ry="29" fill="#a855f7"/>
+  <ellipse cx="446" cy="463" rx="6" ry="10" fill="#9333ea" opacity="0.6"/>
+  <rect x="445" y="473" width="10" height="97" fill="#22c55e"/>
+  <ellipse cx="439" cy="508" rx="10" ry="5" fill="#15803d"/>
+  <ellipse cx="457" cy="518" rx="9" ry="4" fill="#15803d"/>
+
+  <!-- Schneeglöckchen (weiß, klein, filigraner) -->
+  <!-- Gruppe 1 -->
+  <ellipse cx="180" cy="495" rx="6" ry="10" fill="#ffffff"/>
+  <ellipse cx="180" cy="493" rx="3" ry="5" fill="#f0f9ff"/>
+  <rect x="178" y="498" width="4" height="52" fill="#22c55e"/>
+
+  <ellipse cx="195" cy="500" rx="5" ry="9" fill="#ffffff"/>
+  <rect x="193" y="502" width="4" height="48" fill="#22c55e"/>
+
+  <ellipse cx="210" cy="497" rx="6" ry="10" fill="#ffffff"/>
+  <rect x="208" y="500" width="4" height="50" fill="#22c55e"/>
+
+  <!-- Gruppe 2 -->
+  <ellipse cx="500" cy="508" rx="5" ry="9" fill="#ffffff"/>
+  <rect x="498" y="510" width="4" height="45" fill="#16a34a"/>
+
+  <ellipse cx="515" cy="505" rx="6" ry="10" fill="#ffffff"/>
+  <ellipse cx="515" cy="503" rx="3" ry="5" fill="#f0f9ff"/>
+  <rect x="513" y="508" width="4" height="47" fill="#16a34a"/>
+
+  <ellipse cx="530" cy="510" rx="5" ry="9" fill="#ffffff"/>
+  <rect x="528" y="512" width="4" height="43" fill="#16a34a"/>
+
+  <!-- Narzissen (gelb, trompetenförmig) -->
+  <!-- Narzisse 1 -->
+  <circle cx="550" cy="485" r="15" fill="#fde047"/>
+  <circle cx="545" cy="482" r="3" fill="#ffffff"/>
+  <circle cx="555" cy="482" r="3" fill="#ffffff"/>
+  <circle cx="545" cy="488" r="3" fill="#ffffff"/>
+  <circle cx="555" cy="488" r="3" fill="#ffffff"/>
+  <circle cx="550" cy="485" r="6" fill="#f59e0b"/>
+  <rect x="548" y="492" width="4" height="58" fill="#22c55e"/>
+  <ellipse cx="542" cy="515" rx="8" ry="4" fill="#15803d"/>
+
+  <!-- Narzisse 2 -->
+  <circle cx="590" cy="490" r="13" fill="#fde047"/>
+  <circle cx="586" cy="488" r="2.5" fill="#ffffff"/>
+  <circle cx="594" cy="488" r="2.5" fill="#ffffff"/>
+  <circle cx="586" cy="492" r="2.5" fill="#ffffff"/>
+  <circle cx="594" cy="492" r="2.5" fill="#ffffff"/>
+  <circle cx="590" cy="490" r="5" fill="#f59e0b"/>
+  <rect x="588" y="495" width="4" height="55" fill="#16a34a"/>
+
+  <!-- Schmetterlinge -->
+  <g transform="translate(420, 380) rotate(15)">
+    <ellipse cx="-8" cy="0" rx="10" ry="14" fill="#ec4899" opacity="0.8"/>
+    <ellipse cx="8" cy="0" rx="10" ry="14" fill="#f472b6" opacity="0.8"/>
+    <ellipse cx="-8" cy="0" rx="4" ry="6" fill="#fbbf24" opacity="0.6"/>
+    <ellipse cx="8" cy="0" rx="4" ry="6" fill="#fbbf24" opacity="0.6"/>
+    <line x1="-10" y1="-8" x2="10" y2="-8" stroke="#1e293b" stroke-width="2"/>
+    <circle cx="0" cy="-8" r="3" fill="#374151"/>
+    <line x1="-3" y1="-10" x2="-6" y2="-14" stroke="#1e293b" stroke-width="1.5"/>
+    <line x1="3" y1="-10" x2="6" y2="-14" stroke="#1e293b" stroke-width="1.5"/>
   </g>
 
-  <!-- Sonne -->
-  <circle cx="700" cy="100" r="50" fill="#fbbf24" opacity="0.7"/>
-  <circle cx="700" cy="100" r="35" fill="#fde047" opacity="0.8"/>
+  <g transform="translate(280, 340) rotate(-10)">
+    <ellipse cx="-7" cy="0" rx="9" ry="12" fill="#a855f7" opacity="0.8"/>
+    <ellipse cx="7" cy="0" rx="9" ry="12" fill="#c084fc" opacity="0.8"/>
+    <ellipse cx="-7" cy="0" rx="3" ry="5" fill="#fde047" opacity="0.6"/>
+    <ellipse cx="7" cy="0" rx="3" ry="5" fill="#fde047" opacity="0.6"/>
+    <line x1="-8" y1="-7" x2="8" y2="-7" stroke="#1e293b" stroke-width="1.5"/>
+    <circle cx="0" cy="-7" r="2.5" fill="#374151"/>
+    <line x1="-2" y1="-8" x2="-5" y2="-12" stroke="#1e293b" stroke-width="1"/>
+    <line x1="2" y1="-8" x2="5" y2="-12" stroke="#1e293b" stroke-width="1"/>
+  </g>
+
+  <!-- Bienen -->
+  <g transform="translate(600, 430)">
+    <ellipse cx="0" cy="0" rx="5" ry="8" fill="#fbbf24"/>
+    <line x1="0" y1="-3" x2="0" y2="3" stroke="#78350f" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#78350f" stroke-width="1.5"/>
+    <ellipse cx="-6" cy="-2" rx="4" ry="2" fill="#cbd5e1" opacity="0.6" transform="rotate(-30 -6 -2)"/>
+    <ellipse cx="6" cy="-2" rx="4" ry="2" fill="#cbd5e1" opacity="0.6" transform="rotate(30 6 -2)"/>
+  </g>
+
+  <!-- Sonne (frühlingsfrisch) -->
+  <circle cx="700" cy="100" r="65" fill="#fde047" opacity="0.3"/>
+  <circle cx="700" cy="100" r="50" fill="#fde047" opacity="0.7"/>
+  <circle cx="700" cy="100" r="35" fill="#fef08a"/>
+
+  <!-- Sonnenstrahlen -->
+  <line x1="700" y1="25" x2="700" y2="5" stroke="#fbbf24" stroke-width="5" opacity="0.7"/>
+  <line x1="775" y1="100" x2="795" y2="100" stroke="#fbbf24" stroke-width="5" opacity="0.7"/>
+  <line x1="700" y1="175" x2="700" y2="195" stroke="#fbbf24" stroke-width="5" opacity="0.7"/>
+  <line x1="625" y1="100" x2="605" y2="100" stroke="#fbbf24" stroke-width="5" opacity="0.7"/>
+  <line x1="753" y1="47" x2="768" y2="32" stroke="#fbbf24" stroke-width="4" opacity="0.7"/>
+  <line x1="753" y1="153" x2="768" y2="168" stroke="#fbbf24" stroke-width="4" opacity="0.7"/>
+  <line x1="647" y1="153" x2="632" y2="168" stroke="#fbbf24" stroke-width="4" opacity="0.7"/>
+  <line x1="647" y1="47" x2="632" y2="32" stroke="#fbbf24" stroke-width="4" opacity="0.7"/>
+
+  <!-- Vogelschwarm (Kraniche zurückkehrend) -->
+  <path d="M 100 180 Q 112 174 124 180" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+  <path d="M 140 190 Q 152 184 164 190" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+  <path d="M 120 170 Q 132 164 144 170" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+  <path d="M 160 200 Q 172 194 184 200" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+  <path d="M 180 185 Q 192 179 204 185" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+  <path d="M 200 175 Q 212 169 224 175" stroke="#1e293b" stroke-width="2.5" fill="none"/>
 </svg>
