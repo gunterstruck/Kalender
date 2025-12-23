@@ -5,6 +5,7 @@
 class CalendarApp {
     constructor() {
         this.selectedMonth = new Date().getMonth();
+        this.selectedYear = new Date().getFullYear();
 
         // Konfigurationskonstanten
         this.CONFIG = {
@@ -84,6 +85,29 @@ class CalendarApp {
         this.modalClose.addEventListener('click', () => this.closeModal());
         this.modalBackdrop.addEventListener('click', () => this.closeModal());
 
+        // Event Delegation für Türchen-Klicks (verhindert Memory Leaks)
+        this.calendarGrid.addEventListener('click', (e) => {
+            const door = e.target.closest('.door');
+            if (door) {
+                const day = parseInt(door.getAttribute('data-day'), 10);
+                if (!isNaN(day)) {
+                    this.handleDoorClick(day);
+                }
+            }
+        });
+
+        // Event Delegation für Keyboard Navigation
+        this.calendarGrid.addEventListener('keydown', (e) => {
+            const door = e.target.closest('.door');
+            if (door && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                const day = parseInt(door.getAttribute('data-day'), 10);
+                if (!isNaN(day)) {
+                    this.handleDoorClick(day);
+                }
+            }
+        });
+
         // ESC-Taste zum Schließen des Modals
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.modal.classList.contains('active')) {
@@ -137,8 +161,9 @@ class CalendarApp {
                 console.log(`Jahr gewechselt von ${this.lastKnownYear} zu ${newYear}`);
                 this.lastKnownYear = newYear;
 
-                // Aktualisiere auf den aktuellen Monat
+                // Aktualisiere auf den aktuellen Monat und das neue Jahr
                 this.selectedMonth = this.currentMonth;
+                this.selectedYear = newYear;
                 this.monthSelect.value = this.currentMonth;
                 this.saveSelectedMonth(this.selectedMonth);
 
@@ -202,7 +227,7 @@ class CalendarApp {
     // Native Date-Methode nutzt automatisch Schaltjahr-Logik
     // ========================================
 
-    getDaysInMonth(month, year) {
+    getDaysInMonth(month = this.selectedMonth, year = this.selectedYear) {
         // Tag 0 des nächsten Monats = letzter Tag des aktuellen Monats
         return new Date(year, month + 1, 0).getDate();
     }
@@ -212,7 +237,7 @@ class CalendarApp {
     // ========================================
 
     isDoorUnlocked(day) {
-        const selectedMonthDate = new Date(this.currentYear, this.selectedMonth, day);
+        const selectedMonthDate = new Date(this.selectedYear, this.selectedMonth, day);
         selectedMonthDate.setHours(0, 0, 0, 0);
 
         const today = new Date();
@@ -227,7 +252,7 @@ class CalendarApp {
     // ========================================
 
     getStorageKey(prefix) {
-        return `calendar_${prefix}_${this.currentYear}_${this.selectedMonth}`;
+        return `calendar_${prefix}_${this.selectedYear}_${this.selectedMonth}`;
     }
 
     // ========================================
@@ -275,7 +300,7 @@ class CalendarApp {
     loadQuoteMapping() {
         if (!this.storageAvailable) {
             // Fallback: Generiere temporäres Mapping
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const daysInMonth = this.getDaysInMonth();
             return generateQuoteMapping(daysInMonth);
         }
 
@@ -288,13 +313,13 @@ class CalendarApp {
             }
 
             // Erstelle neue Zuordnung, falls keine existiert
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const daysInMonth = this.getDaysInMonth();
             const mapping = generateQuoteMapping(daysInMonth);
             this.saveQuoteMapping(mapping);
             return mapping;
         } catch (error) {
             console.error('Fehler beim Laden der Zitate:', error);
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const daysInMonth = this.getDaysInMonth();
             return generateQuoteMapping(daysInMonth);
         }
     }
@@ -345,7 +370,7 @@ class CalendarApp {
 
     loadDoorPositions() {
         if (!this.storageAvailable) {
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const daysInMonth = this.getDaysInMonth();
             return this.generateDoorPositions(daysInMonth);
         }
 
@@ -358,13 +383,13 @@ class CalendarApp {
             }
 
             // Erstelle neue Positionen, falls keine existieren
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const daysInMonth = this.getDaysInMonth();
             const positions = this.generateDoorPositions(daysInMonth);
             this.saveDoorPositions(positions);
             return positions;
         } catch (error) {
             console.error('Fehler beim Laden der Positionen:', error);
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+            const daysInMonth = this.getDaysInMonth();
             return this.generateDoorPositions(daysInMonth);
         }
     }
@@ -486,7 +511,7 @@ class CalendarApp {
     // ========================================
 
     handleShuffle() {
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+        const daysInMonth = this.getDaysInMonth();
         const newMapping = generateQuoteMapping(daysInMonth);
         this.saveQuoteMapping(newMapping);
 
@@ -527,7 +552,7 @@ class CalendarApp {
     handleDoorClick(day) {
         if (!this.isDoorUnlocked(day)) {
             // Gesperrtes Türchen
-            const unlockDate = new Date(this.currentYear, this.selectedMonth, day);
+            const unlockDate = new Date(this.selectedYear, this.selectedMonth, day);
             const formattedDate = unlockDate.toLocaleDateString('de-DE', {
                 day: '2-digit',
                 month: '2-digit',
@@ -603,7 +628,7 @@ class CalendarApp {
         this.quoteDates.textContent = quote.dates || "";
 
         // Setze Datum
-        this.modalDay.textContent = `${day}. ${monthName} ${this.currentYear}`;
+        this.modalDay.textContent = `${day}. ${monthName} ${this.selectedYear}`;
 
         // Zeige/Verstecke Link-Button
         if (quote.link) {
@@ -642,7 +667,7 @@ class CalendarApp {
     // ========================================
 
     updateInfoBanner() {
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+        const daysInMonth = this.getDaysInMonth();
         let unlockedCount = 0;
 
         for (let day = 1; day <= daysInMonth; day++) {
@@ -656,7 +681,7 @@ class CalendarApp {
         // Zeige Banner nur, wenn mehr als 50% der Türchen gesperrt sind
         if (lockedCount > daysInMonth / 2) {
             const nextUnlockDay = unlockedCount + 1;
-            const nextUnlockDate = new Date(this.currentYear, this.selectedMonth, nextUnlockDay);
+            const nextUnlockDate = new Date(this.selectedYear, this.selectedMonth, nextUnlockDay);
             const tomorrow = new Date(this.currentYear, this.currentMonth, this.currentDay + 1);
 
             if (nextUnlockDate <= tomorrow && nextUnlockDay <= daysInMonth) {
@@ -677,14 +702,14 @@ class CalendarApp {
     renderCalendar() {
         // Monatstitel aktualisieren
         const monthName = this.monthNames[this.selectedMonth];
-        this.currentMonthYear.textContent = `${monthName} ${this.currentYear}`;
+        this.currentMonthYear.textContent = `${monthName} ${this.selectedYear}`;
 
         // Hintergrund-Illustration aktualisieren
         const illustrationPath = `assets/months/${this.monthIllustrations[this.selectedMonth]}`;
         this.monthIllustration.style.backgroundImage = `url('${illustrationPath}')`;
 
         // Anzahl Tage im ausgewählten Monat
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.currentYear);
+        const daysInMonth = this.getDaysInMonth();
 
         // Grid leeren und Cache zurücksetzen
         this.calendarGrid.innerHTML = '';
@@ -743,16 +768,8 @@ class CalendarApp {
         numberSpan.textContent = day;
         door.appendChild(numberSpan);
 
-        // Event Listener
-        door.addEventListener('click', () => this.handleDoorClick(day));
-
-        // Tastatur-Unterstützung
-        door.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.handleDoorClick(day);
-            }
-        });
+        // Event Listener werden via Event Delegation im calendarGrid gehandelt (init Methode)
+        // Keine direkten Listener mehr nötig → verhindert Memory Leaks
 
         // Speichere Referenz für Performance
         this.doorElements.set(day, door);
