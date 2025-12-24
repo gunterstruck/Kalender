@@ -85,13 +85,11 @@
   <ellipse cx="350" cy="685" rx="60" ry="20" fill="#60a5fa" opacity="0.6"/>
 
   <!-- Emoji-Dekoration -->
-  <text x="485" y="90" font-size="32" opacity="0.6">☀️</text>
   <text x="170" y="140" font-size="36" opacity="0.75">☁️</text>
   <text x="420" y="165" font-size="34" opacity="0.75">☁️</text>
   <text x="270" y="360" font-size="40" opacity="0.8">🌈</text>
   <text x="200" y="240" font-size="24" opacity="0.5">💧</text>
   <text x="390" y="260" font-size="24" opacity="0.5">💧</text>
   <text x="105" y="710" font-size="26" opacity="0.8">🌼</text>
-  <text x="495" y="710" font-size="26" opacity="0.8">🌸</text>
-  <text x="60" y="540" font-size="30" opacity="0.45">🌳</text>
+  <text x="480" y="260" font-size="18" opacity="0.5">🐦</text>
 </svg>

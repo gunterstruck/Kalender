@@ -251,8 +251,4 @@
 
   <!-- Schneemann ⛄ -->
   <text x="350" y="625" font-size="22" opacity="0.3">⛄</text>
-
-  <!-- Tannen 🎄 -->
-  <text x="80" y="575" font-size="28" opacity="0.7">🎄</text>
-  <text x="490" y="605" font-size="26" opacity="0.7">🎄</text>
 </svg>

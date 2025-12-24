@@ -101,10 +101,11 @@
   <!-- Emoji-Dekoration -->
   <text x="70" y="120" font-size="40" opacity="0.5">☀️</text>
   <text x="95" y="710" font-size="32" opacity="0.85">🌺</text>
-  <text x="475" y="715" font-size="30" opacity="0.85">💐</text>
+  <text x="475" y="715" font-size="30" opacity="0.85">🌻</text>
   <text x="285" y="725" font-size="28" opacity="0.8">🌼</text>
   <text x="350" y="435" font-size="28" opacity="0.75">🦋</text>
   <text x="45" y="500" font-size="38" opacity="0.5">🌸</text>
-  <text x="435" y="625" font-size="26" opacity="0.7">🎊</text>
+  <text x="435" y="625" font-size="26" opacity="0.7">🎏</text>
   <text x="485" y="210" font-size="22" opacity="0.6">🐦</text>
+  <text x="380" y="670" font-size="22" opacity="0.75">🐝</text>
 </svg>
