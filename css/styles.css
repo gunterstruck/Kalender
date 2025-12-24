@@ -211,6 +211,232 @@ body {
 }
 
 /* ========================================
+   Seasonal Banner (Animated)
+   ======================================== */
+
+.seasonal-banner {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+    border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+    padding: var(--spacing-lg) var(--spacing-md);
+    min-height: 120px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seasonal-banner.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.seasonal-banner-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.season-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.season-message {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    text-align: center;
+    color: var(--primary);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 3;
+    padding: var(--spacing-md);
+}
+
+/* Winter-Theme (Dezember, Januar, Februar) */
+.seasonal-banner.winter {
+    background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+    border-bottom-color: #60a5fa;
+}
+
+.seasonal-banner.winter .season-message {
+    color: #1e5a8e;
+}
+
+/* Frühling-Theme (März, April, Mai) */
+.seasonal-banner.spring {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-bottom-color: #4ade80;
+}
+
+.seasonal-banner.spring .season-message {
+    color: #166534;
+}
+
+/* Sommer-Theme (Juni, Juli, August) */
+.seasonal-banner.summer {
+    background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
+    border-bottom-color: #facc15;
+}
+
+.seasonal-banner.summer .season-message {
+    color: #a16207;
+}
+
+/* Herbst-Theme (September, Oktober, November) */
+.seasonal-banner.autumn {
+    background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+    border-bottom-color: #fb923c;
+}
+
+.seasonal-banner.autumn .season-message {
+    color: #9a3412;
+}
+
+/* Animierte Elemente - Schneeflocken */
+.snowflake {
+    position: absolute;
+    color: #60a5fa;
+    font-size: 1.5rem;
+    opacity: 0.7;
+    animation: falling 6s linear infinite;
+    user-select: none;
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(130px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Animierte Elemente - Blumen */
+.flower {
+    position: absolute;
+    font-size: 1.8rem;
+    animation: bloom 4s ease-in-out infinite;
+    user-select: none;
+}
+
+@keyframes bloom {
+    0%, 100% {
+        transform: scale(0.8) rotate(-5deg);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 1;
+    }
+}
+
+/* Animierte Elemente - Sonne */
+.sun {
+    position: absolute;
+    font-size: 3rem;
+    animation: sunshine 8s ease-in-out infinite;
+    user-select: none;
+    filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.6));
+}
+
+@keyframes sunshine {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+}
+
+/* Animierte Elemente - Herbstblätter */
+.leaf {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: leafFall 8s ease-in-out infinite;
+    user-select: none;
+}
+
+@keyframes leafFall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(130px) translateX(40px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive Anpassungen für Banner */
+@media (max-width: 480px) {
+    .seasonal-banner {
+        min-height: 100px;
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .season-message {
+        font-size: var(--font-size-lg);
+    }
+
+    .snowflake, .leaf {
+        font-size: 1.2rem;
+    }
+
+    .flower {
+        font-size: 1.5rem;
+    }
+
+    .sun {
+        font-size: 2.5rem;
+    }
+}
+
+/* Dark Mode Support für Banner */
+body.dark-mode .seasonal-banner.winter {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(147, 197, 253, 0.2) 100%);
+}
+
+body.dark-mode .seasonal-banner.spring {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.2) 0%, rgba(134, 239, 172, 0.2) 100%);
+}
+
+body.dark-mode .seasonal-banner.summer {
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.2) 0%, rgba(253, 224, 71, 0.2) 100%);
+}
+
+body.dark-mode .seasonal-banner.autumn {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.2) 0%, rgba(253, 186, 116, 0.2) 100%);
+}
+
+body.dark-mode .season-message {
+    color: var(--text-primary);
+}
+
+/* ========================================
    Theme Toggle Button
    ======================================== */
 
@@ -422,8 +648,29 @@ body.dark-mode .theme-toggle .moon-icon {
     opacity: 0.9;
     transition: opacity var(--transition-slow);
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
+}
+
+/* Hochformat-Optimierung für Monatsbilder */
+@media (max-width: 768px) and (orientation: portrait) {
+    .month-illustration {
+        /* Verwende contain statt cover für bessere Sichtbarkeit wichtiger Elemente */
+        background-size: contain;
+        background-position: center top;
+        /* Füge einen sanften Hintergrund hinzu, falls das Bild nicht den ganzen Bereich füllt */
+        background-color: var(--winter-blue);
+    }
+}
+
+/* Sehr schmale Bildschirme (Smartphones im Hochformat) */
+@media (max-width: 480px) and (orientation: portrait) {
+    .month-illustration {
+        /* Optimiere für sehr schmale Bildschirme */
+        background-size: 100% auto;
+        background-position: center 10%;
+        /* Stelle sicher, dass wichtige Teile oben im Bild sichtbar bleiben */
+    }
 }
 
 /* ========================================
@@ -823,6 +1070,15 @@ body.dark-mode .theme-toggle .moon-icon {
     .calendar-wrapper {
         min-height: 600px;
         height: 70vh;
+    }
+
+    /* Hochformat-spezifische Anpassungen */
+    @media (orientation: portrait) {
+        .calendar-wrapper {
+            /* Erhöhe Höhe im Hochformat für bessere Bilddarstellung */
+            min-height: 650px;
+            height: 75vh;
+        }
     }
 
     .door {

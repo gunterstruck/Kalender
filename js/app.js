@@ -57,6 +57,9 @@ class CalendarApp {
         this.infoBannerText = document.getElementById('info-banner-text');
         this.themeToggle = document.getElementById('theme-toggle');
         this.appHeader = document.querySelector('.app-header');
+        this.seasonalBanner = document.getElementById('seasonal-banner');
+        this.seasonAnimation = document.getElementById('season-animation');
+        this.seasonMessage = document.getElementById('season-message');
 
         this.init();
     }
@@ -156,8 +159,11 @@ class CalendarApp {
         // Entferne Ladeanimation nach erfolgreicher Initialisierung
         this.removeLoadingSpinner();
 
-        // Blende Header nach 5 Sekunden aus
+        // Blende Header nach 5 Sekunden aus und zeige Saisonbanner
         this.hideHeaderAfterDelay();
+
+        // Initialisiere Saisonbanner
+        this.initSeasonalBanner();
     }
 
     // ========================================
@@ -184,13 +190,167 @@ class CalendarApp {
     // ========================================
 
     hideHeaderAfterDelay() {
-        // Warte 5 Sekunden, dann blende Header aus
+        // Warte 5 Sekunden, dann blende Header aus und zeige Banner
         setTimeout(() => {
             if (this.appHeader) {
                 this.appHeader.classList.add('hidden');
                 console.log('[CalendarApp] Header ausgeblendet');
             }
+            // Zeige Saisonbanner nach Header-Ausblendung
+            if (this.seasonalBanner) {
+                this.seasonalBanner.classList.add('visible');
+                console.log('[CalendarApp] Saisonbanner angezeigt');
+            }
         }, 5000);
+    }
+
+    // ========================================
+    // Saisonbanner initialisieren
+    // ========================================
+
+    initSeasonalBanner() {
+        this.updateSeasonalBanner();
+    }
+
+    updateSeasonalBanner() {
+        const month = this.selectedMonth;
+
+        // Bestimme Jahreszeit basierend auf Monat
+        let season, seasonEmoji, seasonText;
+
+        if (month === 11 || month === 0 || month === 1) {
+            // Winter: Dezember, Januar, Februar
+            season = 'winter';
+            seasonEmoji = ['❄️', '⛄', '🌨️'];
+            seasonText = this.getWinterMessage();
+            this.createSnowflakes();
+        } else if (month >= 2 && month <= 4) {
+            // Frühling: März, April, Mai
+            season = 'spring';
+            seasonEmoji = ['🌸', '🌷', '🌺', '🌼'];
+            seasonText = this.getSpringMessage();
+            this.createFlowers();
+        } else if (month >= 5 && month <= 7) {
+            // Sommer: Juni, Juli, August
+            season = 'summer';
+            seasonEmoji = ['☀️', '🌻', '🏖️'];
+            seasonText = this.getSummerMessage();
+            this.createSunshine();
+        } else {
+            // Herbst: September, Oktober, November
+            season = 'autumn';
+            seasonEmoji = ['🍂', '🍁', '🎃'];
+            seasonText = this.getAutumnMessage();
+            this.createLeaves();
+        }
+
+        // Entferne alte Saison-Klassen
+        this.seasonalBanner.classList.remove('winter', 'spring', 'summer', 'autumn');
+        // Füge neue Saison-Klasse hinzu
+        this.seasonalBanner.classList.add(season);
+
+        // Setze Nachricht
+        this.seasonMessage.textContent = seasonText;
+    }
+
+    // ========================================
+    // Saisonale Nachrichten
+    // ========================================
+
+    getWinterMessage() {
+        const messages = [
+            '❄️ Winterzeit - Zeit für Besinnlichkeit',
+            '⛄ Gemütliche Wintertage',
+            '🌨️ Lass es schneien!'
+        ];
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    getSpringMessage() {
+        const messages = [
+            '🌸 Frühling erwacht - Neue Kraft',
+            '🌷 Blütezeit beginnt',
+            '🌺 Frühlingsgefühle erwachen'
+        ];
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    getSummerMessage() {
+        const messages = [
+            '☀️ Sommerzeit - Genieße den Tag',
+            '🌻 Sonnige Aussichten',
+            '🏖️ Sommerliche Leichtigkeit'
+        ];
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    getAutumnMessage() {
+        const messages = [
+            '🍂 Herbstzeit - Zeit der Ernte',
+            '🍁 Goldener Herbst',
+            '🎃 Herbstzauber'
+        ];
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    // ========================================
+    // Animierte Elemente erstellen
+    // ========================================
+
+    createSnowflakes() {
+        this.seasonAnimation.innerHTML = '';
+        const snowflakes = ['❄', '❅', '❆'];
+
+        for (let i = 0; i < 15; i++) {
+            const flake = document.createElement('div');
+            flake.className = 'snowflake';
+            flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            flake.style.left = `${Math.random() * 100}%`;
+            flake.style.animationDelay = `${Math.random() * 6}s`;
+            flake.style.animationDuration = `${4 + Math.random() * 4}s`;
+            this.seasonAnimation.appendChild(flake);
+        }
+    }
+
+    createFlowers() {
+        this.seasonAnimation.innerHTML = '';
+        const flowers = ['🌸', '🌷', '🌺', '🌼', '🌻'];
+
+        for (let i = 0; i < 8; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.style.left = `${10 + (i * 12)}%`;
+            flower.style.top = `${20 + Math.random() * 60}%`;
+            flower.style.animationDelay = `${Math.random() * 4}s`;
+            this.seasonAnimation.appendChild(flower);
+        }
+    }
+
+    createSunshine() {
+        this.seasonAnimation.innerHTML = '';
+
+        const sun = document.createElement('div');
+        sun.className = 'sun';
+        sun.textContent = '☀️';
+        sun.style.right = '5%';
+        sun.style.top = '10%';
+        this.seasonAnimation.appendChild(sun);
+    }
+
+    createLeaves() {
+        this.seasonAnimation.innerHTML = '';
+        const leaves = ['🍂', '🍁'];
+
+        for (let i = 0; i < 12; i++) {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+            leaf.style.left = `${Math.random() * 100}%`;
+            leaf.style.animationDelay = `${Math.random() * 8}s`;
+            leaf.style.animationDuration = `${6 + Math.random() * 4}s`;
+            this.seasonAnimation.appendChild(leaf);
+        }
     }
 
     // ========================================
@@ -915,6 +1075,9 @@ class CalendarApp {
 
         // Info-Banner aktualisieren
         this.updateInfoBanner();
+
+        // Saisonbanner aktualisieren
+        this.updateSeasonalBanner();
     }
 
     // ========================================
