@@ -27,8 +27,15 @@ class CalendarApp {
             'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
         ];
 
-        // Monats-Illustrationen
+        // Monats-Illustrationen (Querformat/Landscape)
         this.monthIllustrations = [
+            'january.svg', 'february.svg', 'march.svg', 'april.svg',
+            'may.svg', 'june.svg', 'july.svg', 'august.svg',
+            'september.svg', 'october.svg', 'november.svg', 'december.svg'
+        ];
+
+        // Monats-Illustrationen (Hochformat/Portrait für Mobile)
+        this.monthIllustrationsPortrait = [
             'january.svg', 'february.svg', 'march.svg', 'april.svg',
             'may.svg', 'june.svg', 'july.svg', 'august.svg',
             'september.svg', 'october.svg', 'november.svg', 'december.svg'
@@ -1148,8 +1155,11 @@ class CalendarApp {
         const monthName = this.monthNames[this.selectedMonth];
         this.currentMonthYear.textContent = `${monthName} ${this.selectedYear}`;
 
-        // Hintergrund-Illustration aktualisieren
-        const illustrationPath = `assets/months/${this.monthIllustrations[this.selectedMonth]}`;
+        // Hintergrund-Illustration aktualisieren (wähle basierend auf Geräteorientierung)
+        const isPortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+        const illustrationFolder = isPortrait ? 'months-portrait' : 'months';
+        const illustrationFile = isPortrait ? this.monthIllustrationsPortrait[this.selectedMonth] : this.monthIllustrations[this.selectedMonth];
+        const illustrationPath = `assets/${illustrationFolder}/${illustrationFile}`;
         this.monthIllustration.style.backgroundImage = `url('${illustrationPath}')`;
 
         // Anzahl Tage im ausgewählten Monat
