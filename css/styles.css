@@ -220,25 +220,28 @@ body {
 
 .seasonal-banner {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-    padding: var(--spacing-lg) var(--spacing-md);
-    margin: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    min-height: 120px;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+    max-height: 0;
     position: relative;
     overflow: hidden;
     opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
+    transition: max-height 0.6s ease-out, opacity 0.6s ease-out, padding 0.6s ease-out, margin 0.6s ease-out;
 }
 
 .seasonal-banner.visible {
     opacity: 1;
-    transform: translateY(0);
+    max-height: 200px;
+    min-height: 120px;
+    padding: var(--spacing-lg) var(--spacing-md);
+    margin: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
 }
 
 .seasonal-banner-content {
@@ -396,8 +399,9 @@ body {
 
 /* Responsive Anpassungen für Banner */
 @media (max-width: 480px) {
-    .seasonal-banner {
+    .seasonal-banner.visible {
         min-height: 100px;
+        max-height: 180px;
         padding: var(--spacing-md) var(--spacing-sm);
         margin: var(--spacing-sm);
         margin-bottom: var(--spacing-md);
