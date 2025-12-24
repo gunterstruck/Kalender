@@ -208,6 +208,10 @@ body {
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* ========================================
