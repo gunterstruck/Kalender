@@ -216,8 +216,9 @@ body {
 
 .seasonal-banner {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-    border-bottom: 2px solid rgba(99, 102, 241, 0.2);
     padding: var(--spacing-lg) var(--spacing-md);
+    margin: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
     min-height: 120px;
     position: relative;
     overflow: hidden;
@@ -227,6 +228,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
 }
 
 .seasonal-banner.visible {
@@ -265,7 +268,6 @@ body {
 /* Winter-Theme (Dezember, Januar, Februar) */
 .seasonal-banner.winter {
     background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
-    border-bottom-color: #60a5fa;
 }
 
 .seasonal-banner.winter .season-message {
@@ -275,7 +277,6 @@ body {
 /* Frühling-Theme (März, April, Mai) */
 .seasonal-banner.spring {
     background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    border-bottom-color: #4ade80;
 }
 
 .seasonal-banner.spring .season-message {
@@ -285,7 +286,6 @@ body {
 /* Sommer-Theme (Juni, Juli, August) */
 .seasonal-banner.summer {
     background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
-    border-bottom-color: #facc15;
 }
 
 .seasonal-banner.summer .season-message {
@@ -295,7 +295,6 @@ body {
 /* Herbst-Theme (September, Oktober, November) */
 .seasonal-banner.autumn {
     background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
-    border-bottom-color: #fb923c;
 }
 
 .seasonal-banner.autumn .season-message {
@@ -396,6 +395,8 @@ body {
     .seasonal-banner {
         min-height: 100px;
         padding: var(--spacing-md) var(--spacing-sm);
+        margin: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
     }
 
     .season-message {
