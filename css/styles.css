@@ -600,7 +600,7 @@ body.dark-mode .theme-toggle .moon-icon {
 
 @media (max-width: 768px) and (orientation: portrait) {
     .mobile-month-decoration {
-        display: block;
+        display: none;
         position: absolute;
         top: 0;
         left: 0;

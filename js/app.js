@@ -375,6 +375,12 @@ class CalendarApp {
     updateMobileMonthDecoration() {
         if (!this.mobileMonthDecoration) return;
 
+        const isPortraitMobile = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+        if (isPortraitMobile) {
+            this.mobileMonthDecoration.innerHTML = '';
+            return;
+        }
+
         const month = this.selectedMonth;
         this.mobileMonthDecoration.innerHTML = '';
 
