@@ -380,6 +380,22 @@ class CalendarApp {
     }
 
     // ========================================
+    // Tag des Jahres berechnen (1-365/366)
+    // ========================================
+
+    getDayOfYear(day, month, year) {
+        // Erstelle ein Datum für den spezifischen Tag
+        const date = new Date(year, month, day);
+        // Erstelle ein Datum für den 1. Januar des gleichen Jahres
+        const startOfYear = new Date(year, 0, 1);
+        // Berechne die Differenz in Millisekunden
+        const diff = date - startOfYear;
+        // Konvertiere in Tage (1-basiert)
+        const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+        return dayOfYear;
+    }
+
+    // ========================================
     // Türchen-Status prüfen
     // ========================================
 
@@ -443,41 +459,41 @@ class CalendarApp {
     }
 
     // ========================================
-    // Spruch-Zuordnung laden/speichern
+    // Jahresweite Spruch-Zuordnung laden/speichern
+    // Stellt sicher, dass jeder Spruch nur einmal pro Jahr verwendet wird
     // ========================================
 
-    loadQuoteMapping() {
+    loadYearlyQuoteMapping() {
         if (!this.storageAvailable) {
-            // Fallback: Generiere temporäres Mapping
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-            return generateQuoteMapping(daysInMonth);
+            // Fallback: Generiere temporäres Jahres-Mapping
+            return generateYearlyQuoteMapping(this.selectedYear);
         }
 
         try {
-            const key = this.getStorageKey('quotes');
+            // Verwende nur Jahr, nicht Monat, für jahresweite Eindeutigkeit
+            const key = `calendar_quotes_${this.selectedYear}`;
             const data = localStorage.getItem(key);
 
             if (data) {
                 return JSON.parse(data);
             }
 
-            // Erstelle neue Zuordnung, falls keine existiert
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-            const mapping = generateQuoteMapping(daysInMonth);
-            this.saveQuoteMapping(mapping);
+            // Erstelle neue jahresweite Zuordnung, falls keine existiert
+            const mapping = generateYearlyQuoteMapping(this.selectedYear);
+            this.saveYearlyQuoteMapping(mapping);
             return mapping;
         } catch (error) {
             console.error('Fehler beim Laden der Zitate:', error);
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-            return generateQuoteMapping(daysInMonth);
+            return generateYearlyQuoteMapping(this.selectedYear);
         }
     }
 
-    saveQuoteMapping(mapping) {
+    saveYearlyQuoteMapping(mapping) {
         if (!this.storageAvailable) return;
 
         try {
-            const key = this.getStorageKey('quotes');
+            // Verwende nur Jahr, nicht Monat
+            const key = `calendar_quotes_${this.selectedYear}`;
             localStorage.setItem(key, JSON.stringify(mapping));
         } catch (error) {
             console.error('Fehler beim Speichern der Zitate:', error);
@@ -485,8 +501,14 @@ class CalendarApp {
     }
 
     getQuoteForDay(day) {
-        const mapping = this.loadQuoteMapping();
-        const quote = mapping[day - 1];
+        // Lade das jahresweite Mapping
+        const yearlyMapping = this.loadYearlyQuoteMapping();
+
+        // Berechne den Tag im Jahr (1-365/366)
+        const dayOfYear = this.getDayOfYear(day, this.selectedMonth, this.selectedYear);
+
+        // Hole den Spruch für diesen Tag im Jahr
+        const quote = yearlyMapping[dayOfYear - 1];
 
         // Fallback für alte String-Daten oder fehlende Einträge
         if (!quote) {
@@ -680,11 +702,12 @@ class CalendarApp {
     // ========================================
 
     handleShuffle() {
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-        const newMapping = generateQuoteMapping(daysInMonth);
-        this.saveQuoteMapping(newMapping);
+        // Generiere neues jahresweites Mapping (für das ganze Jahr)
+        const newYearlyMapping = generateYearlyQuoteMapping(this.selectedYear);
+        this.saveYearlyQuoteMapping(newYearlyMapping);
 
-        // Neue Positionen generieren
+        // Neue Positionen für den aktuellen Monat generieren
+        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
         const newPositions = this.generateDoorPositions(daysInMonth);
         this.saveDoorPositions(newPositions);
 
@@ -695,7 +718,7 @@ class CalendarApp {
         }, this.CONFIG.SHUFFLE_ANIMATION_DURATION);
 
         // Toast-Nachricht
-        this.showToast('Sprüche und Positionen wurden neu gemischt!');
+        this.showToast('Sprüche für das ganze Jahr und Positionen wurden neu gemischt!');
 
         // Kalender neu rendern
         this.renderCalendar();
