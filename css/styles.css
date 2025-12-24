@@ -656,21 +656,44 @@ body.dark-mode .theme-toggle .moon-icon {
 /* Hochformat-Optimierung für Monatsbilder */
 @media (max-width: 768px) and (orientation: portrait) {
     .month-illustration {
-        /* Verwende contain statt cover für bessere Sichtbarkeit wichtiger Elemente */
-        background-size: contain;
-        background-position: center top;
-        /* Füge einen sanften Hintergrund hinzu, falls das Bild nicht den ganzen Bereich füllt */
+        /* Blende SVG-Hintergrund auf Mobil aus - nutze stattdessen dynamische Icons */
+        background-image: none !important;
         background-color: var(--winter-blue);
     }
 }
 
-/* Sehr schmale Bildschirme (Smartphones im Hochformat) */
-@media (max-width: 480px) and (orientation: portrait) {
-    .month-illustration {
-        /* Optimiere für sehr schmale Bildschirme */
-        background-size: 100% auto;
-        background-position: center 10%;
-        /* Stelle sicher, dass wichtige Teile oben im Bild sichtbar bleiben */
+/* Mobile Monat-Dekoration Container */
+.mobile-month-decoration {
+    display: none;
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .mobile-month-decoration {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .mobile-month-icon {
+        position: absolute;
+        opacity: 0.3;
+        user-select: none;
+        animation: floatIcon 6s ease-in-out infinite;
+    }
+
+    @keyframes floatIcon {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(5deg);
+        }
     }
 }
 
