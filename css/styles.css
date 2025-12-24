@@ -185,6 +185,7 @@ body {
     padding: var(--spacing-xl) var(--spacing-md);
     text-align: center;
     box-shadow: var(--shadow-md);
+    position: relative;
 }
 
 .app-header h1 {
@@ -197,6 +198,60 @@ body {
     font-size: var(--font-size-sm);
     opacity: 0.9;
     font-weight: 300;
+}
+
+/* ========================================
+   Theme Toggle Button
+   ======================================== */
+
+.theme-toggle {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle svg {
+    color: white;
+    transition: all var(--transition-base);
+}
+
+/* Toggle icon visibility based on theme */
+.theme-toggle .sun-icon {
+    display: none;
+}
+
+.theme-toggle .moon-icon {
+    display: block;
+}
+
+body.dark-mode .theme-toggle .sun-icon {
+    display: block;
+}
+
+body.dark-mode .theme-toggle .moon-icon {
+    display: none;
 }
 
 /* ========================================
@@ -814,11 +869,64 @@ body {
 }
 
 /* ========================================
-   Dark Mode Support (Optional)
+   Dark Mode Support
    ======================================== */
 
+body.dark-mode {
+    --background: #0a1929;
+    --surface: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-disabled: #64748b;
+    --border: #334155;
+    --locked: #334155;
+    --locked-dark: #475569;
+    --winter-blue: #0d3a5e;
+    --winter-blue-dark: #061f35;
+}
+
+body.dark-mode .calendar-wrapper {
+    background: var(--winter-blue-dark);
+}
+
+body.dark-mode .month-illustration {
+    opacity: 0.7;
+}
+
+body.dark-mode .info-banner {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: var(--primary-light);
+}
+
+body.dark-mode .modal-content {
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+body.dark-mode .modal-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+body.dark-mode .modal-close:hover {
+    background: var(--error);
+    color: white;
+}
+
+body.dark-mode .quote-text {
+    color: var(--text-primary);
+}
+
+body.dark-mode .toast {
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+/* System preference support as fallback */
 @media (prefers-color-scheme: dark) {
-    :root {
+    body:not(.light-mode) {
         --background: #0a1929;
         --surface: #1e293b;
         --text-primary: #f1f5f9;
@@ -831,17 +939,37 @@ body {
         --winter-blue-dark: #061f35;
     }
 
-    .calendar-wrapper {
+    body:not(.light-mode) .calendar-wrapper {
         background: var(--winter-blue-dark);
     }
 
-    .month-illustration {
+    body:not(.light-mode) .month-illustration {
         opacity: 0.7;
     }
 
-    .info-banner {
+    body:not(.light-mode) .info-banner {
         background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
         border-color: rgba(99, 102, 241, 0.3);
         color: var(--primary-light);
+    }
+
+    body:not(.light-mode) .modal-content {
+        background: var(--surface);
+        color: var(--text-primary);
+    }
+
+    body:not(.light-mode) .modal-close {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-secondary);
+    }
+
+    body:not(.light-mode) .quote-text {
+        color: var(--text-primary);
+    }
+
+    body:not(.light-mode) .toast {
+        background: var(--surface);
+        color: var(--text-primary);
+        border: 1px solid var(--border);
     }
 }
