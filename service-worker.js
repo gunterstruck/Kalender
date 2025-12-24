@@ -2,7 +2,7 @@
 // Version 1.5.0 - Code-Optimierungen und Bugfixes
 
 const CACHE_NAME = 'kalender-cache-v1.5.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.1';
+const RUNTIME_CACHE = 'kalender-runtime-v1.5.2';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
