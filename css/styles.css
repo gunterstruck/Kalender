@@ -665,7 +665,7 @@ body.dark-mode .theme-toggle .moon-icon {
 @media (max-width: 768px) and (orientation: portrait) {
     .month-illustration {
         /* Verwende Portrait-optimierte Monatsbilder für Hochformat */
-        background-size: contain;
+        background-size: cover;
         background-position: center center;
     }
 
@@ -1110,8 +1110,9 @@ body.dark-mode .theme-toggle .moon-icon {
     @media (orientation: portrait) {
         .calendar-wrapper {
             /* Erhöhe Höhe im Hochformat für bessere Bilddarstellung */
-            min-height: 650px;
-            height: 75vh;
+            min-height: 700px;
+            height: 82vh;
+            max-height: 900px;
         }
     }
 
