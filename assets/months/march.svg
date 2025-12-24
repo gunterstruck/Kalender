@@ -234,4 +234,33 @@
   <path d="M 160 200 Q 172 194 184 200" stroke="#1e293b" stroke-width="2.5" fill="none"/>
   <path d="M 180 185 Q 192 179 204 185" stroke="#1e293b" stroke-width="2.5" fill="none"/>
   <path d="M 200 175 Q 212 169 224 175" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+
+  <!-- Emoji-Dekoration: Frühling erwacht -->
+  <!-- Blumen 🌸🌷🌼🌺 -->
+  <text x="220" y="490" font-size="26" opacity="0.8">🌷</text>
+  <text x="275" y="505" font-size="24" opacity="0.75">🌼</text>
+  <text x="330" y="485" font-size="28" opacity="0.8">🌺</text>
+  <text x="380" y="495" font-size="24" opacity="0.75">🌸</text>
+  <text x="480" y="515" font-size="22" opacity="0.7">🌸</text>
+  <text x="570" y="520" font-size="20" opacity="0.65">🌷</text>
+
+  <!-- Schmetterlinge 🦋 -->
+  <text x="390" y="365" font-size="22" opacity="0.85">🦋</text>
+  <text x="250" y="330" font-size="20" opacity="0.75">🦋</text>
+  <text x="510" y="390" font-size="18" opacity="0.7">🦋</text>
+
+  <!-- Bienen 🐝 -->
+  <text x="570" y="420" font-size="18" opacity="0.8">🐝</text>
+  <text x="320" y="455" font-size="16" opacity="0.7">🐝</text>
+
+  <!-- Sonne ☀️ -->
+  <text x="665" y="100" font-size="32" opacity="0.4">☀️</text>
+
+  <!-- Vögel 🐦 -->
+  <text x="90" y="190" font-size="16" opacity="0.5">🐦</text>
+  <text x="150" y="205" font-size="14" opacity="0.5">🐦</text>
+
+  <!-- Blätter 🍃 -->
+  <text x="650" y="510" font-size="20" opacity="0.6">🍃</text>
+  <text x="110" y="530" font-size="18" opacity="0.55">🍃</text>
 </svg>

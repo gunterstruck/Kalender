@@ -234,4 +234,35 @@
   <path d="M 370 360 L 368 378 L 370 360" fill="#bae6fd" opacity="0.7"/>
   <path d="M 400 360 L 398 385 L 400 360" fill="#bae6fd" opacity="0.7"/>
   <path d="M 430 360 L 428 377 L 430 360" fill="#bae6fd" opacity="0.7"/>
+
+  <!-- Emoji-Dekoration: Winterwunderland / Verschneites Dorf -->
+  <!-- Schneeflocken ❄️ (fallend) -->
+  <text x="175" y="195" font-size="28" opacity="0.85">❄️</text>
+  <text x="375" y="235" font-size="26" opacity="0.8">❄️</text>
+  <text x="625" y="215" font-size="28" opacity="0.85">❄️</text>
+  <text x="255" y="265" font-size="24" opacity="0.75">❄️</text>
+  <text x="495" y="285" font-size="26" opacity="0.8">❄️</text>
+  <text x="705" y="255" font-size="24" opacity="0.75">❄️</text>
+  <text x="145" y="315" font-size="22" opacity="0.7">❄️</text>
+  <text x="595" y="305" font-size="24" opacity="0.75">❄️</text>
+  <text x="305" y="325" font-size="20" opacity="0.65">❄️</text>
+  <text x="455" y="345" font-size="22" opacity="0.7">❄️</text>
+
+  <!-- Tannenbaum 🎄 -->
+  <text x="90" y="480" font-size="38" opacity="0.75">🎄</text>
+  <text x="650" y="500" font-size="34" opacity="0.7">🎄</text>
+  <text x="490" y="460" font-size="24" opacity="0.5">🎄</text>
+
+  <!-- Schneemann ⛄ -->
+  <text x="515" y="500" font-size="32" opacity="0.75">⛄</text>
+
+  <!-- Mond 🌙 -->
+  <text x="115" y="130" font-size="38" opacity="0.4">🌙</text>
+
+  <!-- Sterne ✨ -->
+  <text x="280" y="75" font-size="22" opacity="0.85">✨</text>
+  <text x="580" y="65" font-size="20" opacity="0.8">✨</text>
+  <text x="430" y="95" font-size="18" opacity="0.75">✨</text>
+  <text x="670" y="120" font-size="20" opacity="0.8">✨</text>
+  <text x="360" y="135" font-size="18" opacity="0.75">✨</text>
 </svg>

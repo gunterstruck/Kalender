@@ -240,4 +240,38 @@
   <ellipse cx="180" cy="560" rx="150" ry="38" fill="#f1f5f9" opacity="0.5" transform="rotate(-2 180 560)"/>
   <ellipse cx="520" cy="570" rx="170" ry="40" fill="#f1f5f9" opacity="0.5" transform="rotate(3 520 570)"/>
   <ellipse cx="710" cy="565" rx="140" ry="35" fill="#f1f5f9" opacity="0.5" transform="rotate(-3 710 565)"/>
+
+  <!-- Emoji-Dekoration: November = Nebel, Wind, kahle Bäume -->
+  <!-- Wind 💨 -->
+  <text x="30" y="270" font-size="28" opacity="0.6">💨</text>
+  <text x="430" y="235" font-size="26" opacity="0.6">💨</text>
+  <text x="530" y="315" font-size="24" opacity="0.55">💨</text>
+
+  <!-- Fliegende Herbstblätter 🍂🍁 (vom Wind getrieben) -->
+  <text x="155" y="290" font-size="22" opacity="0.75">🍂</text>
+  <text x="295" y="250" font-size="20" opacity="0.7">🍁</text>
+  <text x="425" y="320" font-size="24" opacity="0.75">🍂</text>
+  <text x="555" y="280" font-size="22" opacity="0.7">🍁</text>
+  <text x="195" y="360" font-size="20" opacity="0.65">🍂</text>
+  <text x="365" y="340" font-size="22" opacity="0.7">🍁</text>
+  <text x="495" y="370" font-size="20" opacity="0.65">🍂</text>
+  <text x="645" y="330" font-size="24" opacity="0.7">🍁</text>
+
+  <!-- Wolken ☁️ (dicht, bewegt) -->
+  <text x="170" y="110" font-size="32" opacity="0.4">☁️</text>
+  <text x="420" y="125" font-size="34" opacity="0.45">☁️</text>
+  <text x="630" y="95" font-size="30" opacity="0.4">☁️</text>
+
+  <!-- Nebel 🌫️ -->
+  <text x="250" y="485" font-size="28" opacity="0.35">🌫️</text>
+  <text x="500" y="505" font-size="30" opacity="0.35">🌫️</text>
+
+  <!-- Kahle Bäume 🌳 -->
+  <text x="120" y="350" font-size="26" opacity="0.3">🌳</text>
+  <text x="370" y="380" font-size="24" opacity="0.3">🌳</text>
+  <text x="620" y="365" font-size="26" opacity="0.3">🌳</text>
+
+  <!-- Vögel 🐦 (vom Wind getrieben) -->
+  <text x="470" y="210" font-size="16" opacity="0.4">🐦</text>
+  <text x="520" y="230" font-size="14" opacity="0.4">🐦</text>
 </svg>

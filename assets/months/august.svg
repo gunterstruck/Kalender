@@ -219,4 +219,38 @@
     <line x1="-2.5" y1="-9" x2="-5" y2="-13" stroke="#1e293b" stroke-width="1.2"/>
     <line x1="2.5" y1="-9" x2="5" y2="-13" stroke="#1e293b" stroke-width="1.2"/>
   </g>
+
+  <!-- Emoji-Dekoration: Erntezeit / Kornfeld -->
+  <!-- Sonne ☀️ -->
+  <text x="60" y="145" font-size="38" opacity="0.4">☀️</text>
+
+  <!-- Getreide/Kornähren 🌾 -->
+  <text x="55" y="455" font-size="26" opacity="0.85">🌾</text>
+  <text x="120" y="470" font-size="24" opacity="0.8">🌾</text>
+  <text x="190" y="465" font-size="26" opacity="0.85">🌾</text>
+  <text x="270" y="480" font-size="24" opacity="0.8">🌾</text>
+  <text x="340" y="472" font-size="26" opacity="0.85">🌾</text>
+  <text x="410" y="485" font-size="24" opacity="0.8">🌾</text>
+  <text x="480" y="478" font-size="26" opacity="0.85">🌾</text>
+  <text x="540" y="470" font-size="24" opacity="0.8">🌾</text>
+
+  <!-- Mohnblumen 🌺 -->
+  <text x="225" y="540" font-size="22" opacity="0.75">🌺</text>
+  <text x="355" y="550" font-size="20" opacity="0.7">🌺</text>
+  <text x="455" y="545" font-size="22" opacity="0.75">🌺</text>
+
+  <!-- Kornblumen 💙 (als kleine Akzente) -->
+  <text x="285" y="555" font-size="18" opacity="0.7">🌸</text>
+  <text x="395" y="560" font-size="16" opacity="0.65">🌸</text>
+
+  <!-- Schmetterlinge 🦋 -->
+  <text x="160" y="470" font-size="20" opacity="0.8">🦋</text>
+
+  <!-- Vögel 🐦 -->
+  <text x="290" y="210" font-size="16" opacity="0.5">🐦</text>
+  <text x="340" y="230" font-size="14" opacity="0.5">🐦</text>
+  <text x="390" y="250" font-size="14" opacity="0.5">🐦</text>
+
+  <!-- Windmühle -->
+  <text x="660" y="340" font-size="24" opacity="0.3">⚙️</text>
 </svg>
