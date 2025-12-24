@@ -46,10 +46,8 @@ class CalendarApp {
 
         // DOM-Elemente
         this.monthSelect = document.getElementById('month-select');
-        this.currentMonthYear = document.getElementById('current-month-year');
         this.calendarGrid = document.getElementById('calendar-grid');
         this.monthIllustration = document.getElementById('month-illustration');
-        this.shuffleBtn = document.getElementById('shuffle-btn');
         this.modal = document.getElementById('quote-modal');
         this.modalBackdrop = document.getElementById('modal-backdrop');
         this.modalClose = document.getElementById('modal-close');
@@ -95,7 +93,6 @@ class CalendarApp {
     init() {
         // Event Listener
         this.monthSelect.addEventListener('change', (e) => this.handleMonthChange(e));
-        this.shuffleBtn.addEventListener('click', () => this.handleShuffle());
         this.modalClose.addEventListener('click', () => this.closeModal());
         this.modalBackdrop.addEventListener('click', () => this.closeModal());
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
@@ -314,8 +311,7 @@ class CalendarApp {
             flake.className = 'snowflake';
             flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
             flake.style.left = `${Math.random() * 100}%`;
-            flake.style.animationDelay = `${Math.random() * 6}s`;
-            flake.style.animationDuration = `${4 + Math.random() * 4}s`;
+            flake.style.top = `${Math.random() * 100}%`;
             this.seasonAnimation.appendChild(flake);
         }
     }
@@ -329,8 +325,8 @@ class CalendarApp {
             flower.className = 'flower';
             flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
             flower.style.left = `${10 + (i * 12)}%`;
-            flower.style.top = `${20 + Math.random() * 60}%`;
-            flower.style.animationDelay = `${Math.random() * 4}s`;
+            // Blumen am Boden (untere 30%)
+            flower.style.top = `${70 + Math.random() * 30}%`;
             this.seasonAnimation.appendChild(flower);
         }
     }
@@ -355,8 +351,13 @@ class CalendarApp {
             leaf.className = 'leaf';
             leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
             leaf.style.left = `${Math.random() * 100}%`;
-            leaf.style.animationDelay = `${Math.random() * 8}s`;
-            leaf.style.animationDuration = `${6 + Math.random() * 4}s`;
+            // Blätter verteilt (mehr am Boden)
+            const isOnGround = Math.random() > 0.3; // 70% am Boden
+            if (isOnGround) {
+                leaf.style.top = `${70 + Math.random() * 30}%`;
+            } else {
+                leaf.style.top = `${Math.random() * 70}%`;
+            }
             this.seasonAnimation.appendChild(leaf);
         }
     }
@@ -426,24 +427,33 @@ class CalendarApp {
                 break;
         }
 
+        // Definiere Icons die im Himmel erscheinen sollen (Vögel, Schmetterlinge, Sonne, Wolken, etc.)
+        const skyIcons = ['🦋', '🐝', '🐦', '🕊️', '☀️', '⭐', '🌙', '🦇', '☁️', '🌈'];
+
         // Erstelle 20-25 Icons verteilt über den gesamten Bereich
         const iconCount = 20 + Math.floor(Math.random() * 6);
 
         for (let i = 0; i < iconCount; i++) {
             const icon = document.createElement('div');
             icon.className = 'mobile-month-icon';
-            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            const selectedIcon = icons[Math.floor(Math.random() * icons.length)];
+            icon.textContent = selectedIcon;
 
-            // Zufällige Position
+            // Zufällige horizontale Position
             icon.style.left = `${Math.random() * 95}%`;
-            icon.style.top = `${Math.random() * 95}%`;
+
+            // Positioniere Icons sinnvoll: Himmel-Icons oben, andere unten oder verteilt
+            const isSkyIcon = skyIcons.includes(selectedIcon);
+            if (isSkyIcon) {
+                // Himmel-Icons in der oberen Hälfte
+                icon.style.top = `${Math.random() * 50}%`;
+            } else {
+                // Andere Icons in der unteren Hälfte (z.B. Blumen, Kürbisse)
+                icon.style.top = `${50 + Math.random() * 45}%`;
+            }
 
             // Zufällige Größe
             icon.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
-
-            // Zufällige Verzögerung für Animation
-            icon.style.animationDelay = `${Math.random() * 6}s`;
-            icon.style.animationDuration = `${4 + Math.random() * 4}s`;
 
             // Zufällige Opazität (zwischen 0.2 und 0.4)
             icon.style.opacity = (0.2 + Math.random() * 0.2).toString();
@@ -956,32 +966,6 @@ class CalendarApp {
         }, this.CONFIG.ANIMATION_DURATION);
     }
 
-    // ========================================
-    // Shuffle-Handler
-    // ========================================
-
-    handleShuffle() {
-        // Generiere neues jahresweites Mapping (für das ganze Jahr)
-        const newYearlyMapping = generateYearlyQuoteMapping(this.selectedYear);
-        this.saveYearlyQuoteMapping(newYearlyMapping);
-
-        // Neue Positionen für den aktuellen Monat generieren
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-        const newPositions = this.generateDoorPositions(daysInMonth);
-        this.saveDoorPositions(newPositions);
-
-        // Animation für Button
-        this.shuffleBtn.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-            this.shuffleBtn.style.transform = 'rotate(0deg)';
-        }, this.CONFIG.SHUFFLE_ANIMATION_DURATION);
-
-        // Toast-Nachricht
-        this.showToast('Sprüche für das ganze Jahr und Positionen wurden neu gemischt!');
-
-        // Kalender neu rendern
-        this.renderCalendar();
-    }
 
     // ========================================
     // Toast-Nachricht anzeigen
@@ -1151,10 +1135,6 @@ class CalendarApp {
     // ========================================
 
     renderCalendar() {
-        // Monatstitel aktualisieren
-        const monthName = this.monthNames[this.selectedMonth];
-        this.currentMonthYear.textContent = `${monthName} ${this.selectedYear}`;
-
         // Hintergrund-Illustration aktualisieren (wähle basierend auf Geräteorientierung)
         const isPortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
         const illustrationFolder = isPortrait ? 'months-portrait' : 'months';
