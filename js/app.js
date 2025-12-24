@@ -60,6 +60,7 @@ class CalendarApp {
         this.seasonalBanner = document.getElementById('seasonal-banner');
         this.seasonAnimation = document.getElementById('season-animation');
         this.seasonMessage = document.getElementById('season-message');
+        this.mobileMonthDecoration = document.getElementById('mobile-month-decoration');
 
         this.init();
     }
@@ -350,6 +351,97 @@ class CalendarApp {
             leaf.style.animationDelay = `${Math.random() * 8}s`;
             leaf.style.animationDuration = `${6 + Math.random() * 4}s`;
             this.seasonAnimation.appendChild(leaf);
+        }
+    }
+
+    // ========================================
+    // Mobile Monat-Dekoration (für Hochformat)
+    // ========================================
+
+    updateMobileMonthDecoration() {
+        if (!this.mobileMonthDecoration) return;
+
+        const month = this.selectedMonth;
+        this.mobileMonthDecoration.innerHTML = '';
+
+        // Bestimme Icons basierend auf Monat
+        let icons = [];
+        let sizes = [];
+
+        switch (month) {
+            case 0: // Januar
+                icons = ['❄️', '⛄', '🌨️', '❄', '❅', '🎿', '⛷️'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 1: // Februar
+                icons = ['❤️', '💝', '🌹', '❄️', '💕', '🎈'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 2: // März
+                icons = ['🌸', '🌷', '🌼', '🦋', '🐝', '🌺'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 3: // April
+                icons = ['🌧️', '☂️', '🌈', '🌸', '🐣', '🌷'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 4: // Mai
+                icons = ['🌺', '🌻', '🦋', '🐝', '🌼', '🌷'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 5: // Juni
+                icons = ['☀️', '🌻', '🍓', '🦋', '🌈', '🏖️'];
+                sizes = ['2.5rem', '3rem', '3.5rem', '2rem'];
+                break;
+            case 6: // Juli
+                icons = ['☀️', '🌊', '🏖️', '🍉', '🌻', '⛱️'];
+                sizes = ['2.5rem', '3rem', '3.5rem', '2rem'];
+                break;
+            case 7: // August
+                icons = ['☀️', '🌻', '🌾', '🦋', '🍇', '🏖️'];
+                sizes = ['2.5rem', '3rem', '3.5rem', '2rem'];
+                break;
+            case 8: // September
+                icons = ['🍂', '🍁', '🍄', '🌾', '🦊', '🎒'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 9: // Oktober
+                icons = ['🎃', '🍂', '🍁', '🦇', '👻', '🌙'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 10: // November
+                icons = ['🍂', '🍁', '🦃', '🌰', '☕', '🕯️'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+            case 11: // Dezember
+                icons = ['🎄', '⭐', '🎅', '❄️', '🎁', '⛄', '🔔'];
+                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
+                break;
+        }
+
+        // Erstelle 20-25 Icons verteilt über den gesamten Bereich
+        const iconCount = 20 + Math.floor(Math.random() * 6);
+
+        for (let i = 0; i < iconCount; i++) {
+            const icon = document.createElement('div');
+            icon.className = 'mobile-month-icon';
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+
+            // Zufällige Position
+            icon.style.left = `${Math.random() * 95}%`;
+            icon.style.top = `${Math.random() * 95}%`;
+
+            // Zufällige Größe
+            icon.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
+
+            // Zufällige Verzögerung für Animation
+            icon.style.animationDelay = `${Math.random() * 6}s`;
+            icon.style.animationDuration = `${4 + Math.random() * 4}s`;
+
+            // Zufällige Opazität (zwischen 0.2 und 0.4)
+            icon.style.opacity = (0.2 + Math.random() * 0.2).toString();
+
+            this.mobileMonthDecoration.appendChild(icon);
         }
     }
 
@@ -1078,6 +1170,9 @@ class CalendarApp {
 
         // Saisonbanner aktualisieren
         this.updateSeasonalBanner();
+
+        // Mobile Monat-Dekoration aktualisieren
+        this.updateMobileMonthDecoration();
     }
 
     // ========================================
