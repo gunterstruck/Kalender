@@ -200,6 +200,16 @@ body {
     font-weight: 300;
 }
 
+.app-header {
+    transition: transform var(--transition-slow), opacity var(--transition-slow);
+}
+
+.app-header.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* ========================================
    Theme Toggle Button
    ======================================== */
