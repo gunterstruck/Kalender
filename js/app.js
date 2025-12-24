@@ -56,6 +56,7 @@ class CalendarApp {
         this.infoBanner = document.getElementById('info-banner');
         this.infoBannerText = document.getElementById('info-banner-text');
         this.themeToggle = document.getElementById('theme-toggle');
+        this.appHeader = document.querySelector('.app-header');
 
         this.init();
     }
@@ -154,6 +155,9 @@ class CalendarApp {
 
         // Entferne Ladeanimation nach erfolgreicher Initialisierung
         this.removeLoadingSpinner();
+
+        // Blende Header nach 5 Sekunden aus
+        this.hideHeaderAfterDelay();
     }
 
     // ========================================
@@ -173,6 +177,20 @@ class CalendarApp {
                 }, 300);
             }
         });
+    }
+
+    // ========================================
+    // Header nach 5 Sekunden ausblenden
+    // ========================================
+
+    hideHeaderAfterDelay() {
+        // Warte 5 Sekunden, dann blende Header aus
+        setTimeout(() => {
+            if (this.appHeader) {
+                this.appHeader.classList.add('hidden');
+                console.log('[CalendarApp] Header ausgeblendet');
+            }
+        }, 5000);
     }
 
     // ========================================
