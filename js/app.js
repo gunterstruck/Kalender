@@ -55,6 +55,7 @@ class CalendarApp {
         this.toast = document.getElementById('toast');
         this.infoBanner = document.getElementById('info-banner');
         this.infoBannerText = document.getElementById('info-banner-text');
+        this.themeToggle = document.getElementById('theme-toggle');
 
         this.init();
     }
@@ -85,6 +86,7 @@ class CalendarApp {
         this.shuffleBtn.addEventListener('click', () => this.handleShuffle());
         this.modalClose.addEventListener('click', () => this.closeModal());
         this.modalBackdrop.addEventListener('click', () => this.closeModal());
+        this.themeToggle.addEventListener('click', () => this.toggleTheme());
 
         // Event Delegation für Türchen-Clicks (verhindert Memory Leaks)
         this.calendarGrid.addEventListener('click', (e) => {
@@ -137,6 +139,9 @@ class CalendarApp {
 
         // LocalStorage verfügbar? (Prüfe NACH Toast-Initialisierung)
         this.storageAvailable = this.checkStorageAvailability();
+
+        // Lade gespeichertes Theme
+        this.initTheme();
 
         // Initiales Rendering
         this.renderCalendar();
@@ -278,6 +283,72 @@ class CalendarApp {
             }
             return false;
         }
+    }
+
+    // ========================================
+    // Theme Management
+    // ========================================
+
+    initTheme() {
+        const savedTheme = this.loadTheme();
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
+        } else if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+        } else {
+            // Kein gespeichertes Theme - verwende Systemeinstellung
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // System ist Dark Mode, aber keine explizite Auswahl
+                document.body.classList.remove('light-mode');
+                document.body.classList.remove('dark-mode');
+            }
+        }
+    }
+
+    loadTheme() {
+        if (!this.storageAvailable) return null;
+
+        try {
+            return localStorage.getItem('calendar_theme');
+        } catch (error) {
+            console.error('Fehler beim Laden des Themes:', error);
+            return null;
+        }
+    }
+
+    saveTheme(theme) {
+        if (!this.storageAvailable) return;
+
+        try {
+            localStorage.setItem('calendar_theme', theme);
+        } catch (error) {
+            console.error('Fehler beim Speichern des Themes:', error);
+        }
+    }
+
+    toggleTheme() {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        if (isDarkMode) {
+            // Wechsel zu Light Mode
+            document.body.classList.remove('dark-mode');
+            document.body.classList.add('light-mode');
+            this.saveTheme('light');
+        } else {
+            // Wechsel zu Dark Mode
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
+            this.saveTheme('dark');
+        }
+
+        // Animation für den Toggle Button
+        this.themeToggle.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+            this.themeToggle.style.transform = 'rotate(0deg)';
+        }, 300);
     }
 
     // ========================================
