@@ -312,6 +312,8 @@ class CalendarApp {
             flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
             flake.style.left = `${Math.random() * 100}%`;
             flake.style.top = `${Math.random() * 100}%`;
+            flake.style.setProperty('--fall-duration', `${16 + Math.random() * 10}s`);
+            flake.style.setProperty('--fall-delay', `${-Math.random() * 10}s`);
             this.seasonAnimation.appendChild(flake);
         }
     }
@@ -327,6 +329,8 @@ class CalendarApp {
             flower.style.left = `${10 + (i * 12)}%`;
             // Blumen am Boden (untere 30%)
             flower.style.top = `${70 + Math.random() * 30}%`;
+            flower.style.setProperty('--fall-duration', `${18 + Math.random() * 12}s`);
+            flower.style.setProperty('--fall-delay', `${-Math.random() * 8}s`);
             this.seasonAnimation.appendChild(flower);
         }
     }
@@ -358,6 +362,8 @@ class CalendarApp {
             } else {
                 leaf.style.top = `${Math.random() * 70}%`;
             }
+            leaf.style.setProperty('--fall-duration', `${20 + Math.random() * 12}s`);
+            leaf.style.setProperty('--fall-delay', `${-Math.random() * 10}s`);
             this.seasonAnimation.appendChild(leaf);
         }
     }
