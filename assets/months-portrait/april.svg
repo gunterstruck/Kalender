@@ -1,186 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="April - Frühlingsregen Portrait">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="April - Aprilwetter Portrait">
   <defs>
     <linearGradient id="aprilPortraitSky" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#8bb8c9;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#6fa8bb;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#5898ad;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#94a3b8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#cbd5e1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
     </linearGradient>
   </defs>
 
-  <!-- Regenhimmel -->
   <rect width="600" height="800" fill="url(#aprilPortraitSky)"/>
 
   <!-- Regenwolken -->
-  <ellipse cx="180" cy="100" rx="100" ry="60" fill="#b0bec5" opacity="0.9"/>
-  <ellipse cx="240" cy="105" rx="90" ry="55" fill="#90a4ae" opacity="0.9"/>
-  <ellipse cx="120" cy="110" rx="80" ry="50" fill="#b0bec5" opacity="0.9"/>
+  <ellipse cx="200" cy="120" rx="110" ry="65" fill="#9ca3af" opacity="0.85"/>
+  <ellipse cx="280" cy="130" rx="95" ry="58" fill="#94a3b8" opacity="0.85"/>
+  <ellipse cx="150" cy="135" rx="88" ry="55" fill="#9ca3af" opacity="0.85"/>
+  <ellipse cx="450" cy="150" rx="105" ry="62" fill="#94a3b8" opacity="0.8"/>
+  <ellipse cx="520" cy="145" rx="92" ry="56" fill="#9ca3af" opacity="0.8"/>
 
-  <ellipse cx="420" cy="140" rx="110" ry="65" fill="#90a4ae" opacity="0.85"/>
-  <ellipse cx="490" cy="145" rx="95" ry="58" fill="#b0bec5" opacity="0.85"/>
-  <ellipse cx="360" cy="150" rx="85" ry="52" fill="#78909c" opacity="0.85"/>
+  <!-- Sonne durchbrechend -->
+  <circle cx="520" cy="80" r="60" fill="#fef08a" opacity="0.6"/>
+  <circle cx="520" cy="80" r="48" fill="#fde047" opacity="0.7"/>
 
-  <!-- Sonne blinzelt durch (oben rechts) -->
-  <circle cx="500" cy="80" r="45" fill="#fff59d" opacity="0.5"/>
-  <circle cx="500" cy="80" r="35" fill="#ffee58" opacity="0.6"/>
+  <!-- Regenbogen -->
+  <path d="M 50 400 Q 300 250 550 400" stroke="#ef4444" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 58 408 Q 300 265 542 408" stroke="#f97316" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 66 416 Q 300 280 534 416" stroke="#fbbf24" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 74 424 Q 300 295 526 424" stroke="#84cc16" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 82 432 Q 300 310 518 432" stroke="#3b82f6" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 90 440 Q 300 325 510 440" stroke="#8b5cf6" stroke-width="15" fill="none" opacity="0.7"/>
 
-  <!-- Regentropfen -->
-  <g opacity="0.7">
-    <line x1="140" y1="180" x2="145" y2="220" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="180" y1="190" x2="185" y2="230" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="220" y1="185" x2="225" y2="225" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="260" y1="195" x2="265" y2="235" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
+  <!-- Wiese -->
+  <ellipse cx="300" cy="720" rx="450" ry="95" fill="#4ade80"/>
+  <rect x="0" y="650" width="600" height="150" fill="#4ade80"/>
 
-    <line x1="370" y1="210" x2="375" y2="250" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="410" y1="220" x2="415" y2="260" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="450" y1="215" x2="455" y2="255" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="490" y1="225" x2="495" y2="265" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
+  <!-- Bauernhaus -->
+  <rect x="230" y="480" width="140" height="120" fill="#c85542"/>
+  <polygon points="300,420 215,480 385,480" fill="#8b5433"/>
+  <path d="M 215,480 Q 270,460 300,456 Q 330,460 385,480" fill="#ffffff" opacity="0.4"/>
+  <rect x="255" y="505" width="28" height="32" fill="#ffd98e"/>
+  <rect x="268" y="505" width="2" height="32" fill="#6b4423"/>
+  <rect x="255" y="520" width="28" height="2" fill="#6b4423"/>
+  <rect x="297" y="505" width="28" height="32" fill="#ffd98e"/>
+  <rect x="310" y="505" width="2" height="32" fill="#6b4423"/>
+  <rect x="297" y="520" width="28" height="2" fill="#6b4423"/>
+  <rect x="273" y="555" width="34" height="45" fill="#6a4a30"/>
+  <circle cx="300" cy="578" r="2.5" fill="#d4a020"/>
 
-    <line x1="100" y1="270" x2="105" y2="310" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="160" y1="280" x2="165" y2="320" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="240" y1="275" x2="245" y2="315" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="320" y1="285" x2="325" y2="325" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="400" y1="290" x2="405" y2="330" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="480" y1="295" x2="485" y2="335" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
-    <line x1="540" y1="300" x2="545" y2="340" stroke="#7986cb" stroke-width="3" stroke-linecap="round"/>
+  <!-- Schornstein -->
+  <rect x="330" y="432" width="16" height="48" fill="#a85543"/>
+  <ellipse cx="338" cy="423" rx="8" ry="11" fill="#d8d8d8" opacity="0.6"/>
+
+  <!-- Regenlinien -->
+  <g opacity="0.4">
+    <line x1="120" y1="180" x2="115" y2="240" stroke="#64748b" stroke-width="2"/>
+    <line x1="150" y1="190" x2="145" y2="250" stroke="#64748b" stroke-width="2"/>
+    <line x1="180" y1="185" x2="175" y2="245" stroke="#64748b" stroke-width="2"/>
+    <line x1="210" y1="195" x2="205" y2="255" stroke="#64748b" stroke-width="2"/>
+    <line x1="240" y1="200" x2="235" y2="260" stroke="#64748b" stroke-width="2"/>
+    <line x1="270" y1="205" x2="265" y2="265" stroke="#64748b" stroke-width="2"/>
+    <line x1="300" y1="210" x2="295" y2="270" stroke="#64748b" stroke-width="2"/>
+    <line x1="380" y1="215" x2="375" y2="275" stroke="#64748b" stroke-width="2"/>
+    <line x1="420" y1="220" x2="415" y2="280" stroke="#64748b" stroke-width="2"/>
+    <line x1="460" y1="215" x2="455" y2="275" stroke="#64748b" stroke-width="2"/>
   </g>
 
-  <!-- Grüne Hügel (frisch und saftig) -->
-  <ellipse cx="300" cy="520" rx="400" ry="85" fill="#8bc34a" opacity="0.8"/>
-  <ellipse cx="150" cy="540" rx="260" ry="70" fill="#9ccc65" opacity="0.8"/>
-  <ellipse cx="450" cy="530" rx="240" ry="75" fill="#7cb342" opacity="0.8"/>
-
-  <!-- Bauernhaus mit Regendach -->
-  <rect x="210" y="390" width="190" height="160" fill="#ffecb3"/>
-  <rect x="215" y="395" width="180" height="150" fill="#fff9c4"/>
-
-  <!-- Rotes Dach -->
-  <polygon points="305,320 190,390 420,390" fill="#c62828"/>
-  <polygon points="305,320 200,385 410,385" fill="#d32f2f"/>
-  <path d="M 190,390 Q 265,360 305,355 Q 345,360 420,390" fill="#ffebee" opacity="0.3"/>
-
-  <!-- Fenster -->
-  <rect x="240" y="415" width="50" height="55" fill="#90caf9"/>
-  <rect x="264" y="415" width="2" height="55" fill="#5d4037"/>
-  <rect x="240" y="441" width="50" height="2" fill="#5d4037"/>
-
-  <rect x="320" y="415" width="50" height="55" fill="#90caf9"/>
-  <rect x="344" y="415" width="2" height="55" fill="#5d4037"/>
-  <rect x="320" y="441" width="50" height="2" fill="#5d4037"/>
-
-  <!-- Dachfenster -->
-  <circle cx="305" cy="355" r="15" fill="#b3e5fc"/>
-  <line x1="305" y1="340" x2="305" y2="370" stroke="#5d4037" stroke-width="2"/>
-  <line x1="290" y1="355" x2="320" y2="355" stroke="#5d4037" stroke-width="2"/>
-
-  <!-- Tür -->
-  <rect x="275" y="495" width="60" height="55" fill="#8d6e63"/>
-  <rect x="280" y="500" width="50" height="48" fill="#a1887f"/>
-  <circle cx="322" cy="527" r="3.5" fill="#ffeb3b"/>
-
-  <!-- Schornstein (Rauch im Regen) -->
-  <rect x="350" y="325" width="20" height="65" fill="#6d4c41"/>
-  <rect x="352" y="327" width="16" height="61" fill="#795548"/>
-  <ellipse cx="360" cy="313" rx="10" ry="14" fill="#cfd8dc" opacity="0.6"/>
-  <ellipse cx="363" cy="295" rx="12" ry="16" fill="#cfd8dc" opacity="0.4"/>
-
-  <!-- Regenbogen (groß und zentral) -->
-  <path d="M 50 400 Q 300 250 550 400" stroke="#ff1744" stroke-width="12" fill="none" opacity="0.85"/>
-  <path d="M 50 410 Q 300 260 550 410" stroke="#ff9100" stroke-width="12" fill="none" opacity="0.85"/>
-  <path d="M 50 420 Q 300 270 550 420" stroke="#ffea00" stroke-width="12" fill="none" opacity="0.85"/>
-  <path d="M 50 430 Q 300 280 550 430" stroke="#00e676" stroke-width="12" fill="none" opacity="0.85"/>
-  <path d="M 50 440 Q 300 290 550 440" stroke="#00b0ff" stroke-width="12" fill="none" opacity="0.85"/>
-  <path d="M 50 450 Q 300 300 550 450" stroke="#651fff" stroke-width="12" fill="none" opacity="0.85"/>
-
-  <!-- Baum mit Regenschirm-Krone -->
-  <rect x="90" y="470" width="26" height="120" fill="#6d4c41"/>
-  <circle cx="103" cy="445" r="75" fill="#66bb6a" opacity="0.9"/>
-  <circle cx="70" cy="420" r="60" fill="#81c784" opacity="0.9"/>
-  <circle cx="136" cy="425" r="63" fill="#4caf50" opacity="0.9"/>
-  <circle cx="78" cy="465" r="52" fill="#66bb6a" opacity="0.85"/>
-  <circle cx="128" cy="470" r="55" fill="#81c784" opacity="0.85"/>
-
-  <!-- Pfützen am Boden -->
-  <ellipse cx="200" cy="650" rx="60" ry="20" fill="#90caf9" opacity="0.7"/>
-  <ellipse cx="400" cy="660" rx="70" ry="22" fill="#90caf9" opacity="0.7"/>
-  <ellipse cx="480" cy="670" rx="55" ry="18" fill="#90caf9" opacity="0.7"/>
-
-  <!-- Spiegelungen in Pfützen (Himmel) -->
-  <ellipse cx="200" cy="650" rx="40" ry="12" fill="#5898ad" opacity="0.4"/>
-  <ellipse cx="400" cy="660" rx="50" ry="14" fill="#5898ad" opacity="0.4"/>
-
-  <!-- Frühlingsblumen (trotz Regen) -->
-  <!-- Tulpen -->
+  <!-- Blumen (Frühling) -->
   <g>
-    <ellipse cx="440" cy="610" rx="9" ry="16" fill="#ff1744"/>
-    <circle cx="440" cy="606" r="6" fill="#ff5252"/>
-    <rect x="438" y="620" width="4" height="60" fill="#558b2f"/>
-
-    <ellipse cx="470" cy="620" rx="9" ry="16" fill="#ff6f00"/>
-    <circle cx="470" cy="616" r="6" fill="#ffa726"/>
-    <rect x="468" y="630" width="4" height="58" fill="#558b2f"/>
-
-    <ellipse cx="510" cy="615" rx="9" ry="16" fill="#d500f9"/>
-    <circle cx="510" cy="611" r="6" fill="#e040fb"/>
-    <rect x="508" y="625" width="4" height="60" fill="#558b2f"/>
+    <ellipse cx="100" cy="690" rx="7" ry="13" fill="#fbbf24"/>
+    <line x1="100" y1="703" x2="100" y2="725" stroke="#15803d" stroke-width="2.5"/>
+    <ellipse cx="130" cy="695" rx="7" ry="13" fill="#f97316"/>
+    <line x1="130" y1="708" x2="130" y2="730" stroke="#15803d" stroke-width="2.5"/>
+    <ellipse cx="490" cy="685" rx="7" ry="13" fill="#ec4899"/>
+    <line x1="490" y1="698" x2="490" y2="720" stroke="#15803d" stroke-width="2.5"/>
+    <ellipse cx="520" cy="692" rx="7" ry="13" fill="#f43f5e"/>
+    <line x1="520" y1="705" x2="520" y2="727" stroke="#15803d" stroke-width="2.5"/>
   </g>
 
-  <!-- Narzissen -->
-  <g>
-    <circle cx="150" cy="640" r="11" fill="#ffeb3b"/>
-    <circle cx="143" cy="637" r="4.5" fill="#fff9c4"/>
-    <circle cx="157" cy="637" r="4.5" fill="#fff9c4"/>
-    <circle cx="150" cy="640" r="5.5" fill="#ff9800"/>
-    <rect x="148" y="645" width="4" height="55" fill="#689f38"/>
-  </g>
+  <!-- Baum -->
+  <rect x="80" y="500" width="30" height="200" fill="#78350f"/>
+  <circle cx="95" cy="475" r="75" fill="#22c55e" opacity="0.8"/>
+  <circle cx="65" cy="455" r="60" fill="#4ade80" opacity="0.8"/>
+  <circle cx="125" cy="460" r="65" fill="#22c55e" opacity="0.8"/>
 
-  <!-- Grashalme (nass vom Regen) -->
-  <line x1="130" y1="710" x2="125" y2="690" stroke="#66bb6a" stroke-width="3" opacity="0.7"/>
-  <line x1="290" y1="720" x2="285" y2="698" stroke="#66bb6a" stroke-width="3" opacity="0.7"/>
-  <line x1="520" y1="715" x2="515" y2="695" stroke="#66bb6a" stroke-width="3" opacity="0.7"/>
-
-  <!-- Wiese/Boden (nass, satt grün) -->
-  <ellipse cx="300" cy="750" rx="440" ry="110" fill="#9ccc65"/>
-  <rect x="0" y="710" width="600" height="90" fill="#9ccc65"/>
-
-  <!-- Regenschirm (rot, im Vordergrund) -->
-  <g transform="translate(350, 610)">
-    <path d="M -40 0 Q 0 -45 40 0" fill="#e53935"/>
-    <path d="M -40 0 Q 0 -42 40 0" fill="#ef5350"/>
-    <line x1="0" y1="0" x2="0" y2="60" stroke="#6d4c41" stroke-width="4"/>
-    <path d="M -3 60 Q 0 65 3 60" stroke="#6d4c41" stroke-width="3" fill="none"/>
-  </g>
-
-  <!-- Gummistiefel unter Schirm -->
-  <rect x="335" y="665" width="14" height="25" fill="#fdd835" rx="3"/>
-  <rect x="335" y="685" width="18" height="8" fill="#fdd835" rx="2"/>
-
-  <!-- Vögel (über Regenbogen) -->
-  <path d="M 220 340 Q 235 335 250 340" stroke="#424242" stroke-width="2.5" fill="none"/>
-  <path d="M 350 330 Q 365 325 380 330" stroke="#424242" stroke-width="2.5" fill="none"/>
-
-  <!-- Schnecke (Aprilwetter-Liebhaber) -->
-  <g transform="translate(520, 700)">
-    <ellipse cx="0" cy="0" rx="14" ry="10" fill="#d7ccc8"/>
-    <circle cx="-4" cy="-2" r="10" fill="#bcaaa4"/>
-    <circle cx="-4" cy="-2" r="7" fill="#8d6e63"/>
-    <circle cx="-4" cy="-2" r="4" fill="#6d4c41"/>
-    <ellipse cx="8" cy="2" rx="10" ry="4" fill="#d7ccc8"/>
-    <circle cx="12" cy="-1" r="2" fill="#424242"/>
-    <line x1="12" y1="-1" x2="16" y2="-5" stroke="#424242" stroke-width="1.5"/>
-    <line x1="12" y1="-1" x2="14" y2="-6" stroke="#424242" stroke-width="1.5"/>
-  </g>
+  <!-- Pfütze -->
+  <ellipse cx="350" cy="685" rx="60" ry="20" fill="#60a5fa" opacity="0.6"/>
 
   <!-- Emoji-Dekoration -->
-  <text x="465" y="90" font-size="32" opacity="0.45">☀️</text>
-  <text x="150" y="115" font-size="38" opacity="0.4">☁️</text>
-  <text x="390" y="160" font-size="36" opacity="0.4">☁️</text>
-  <text x="120" y="240" font-size="28" opacity="0.75">🌧️</text>
-  <text x="360" y="260" font-size="26" opacity="0.75">☔</text>
-  <text x="280" y="370" font-size="48" opacity="0.85">🌈</text>
-  <text x="60" y="520" font-size="32" opacity="0.75">🌳</text>
-  <text x="415" y="635" font-size="30" opacity="0.85">🌷</text>
-  <text x="125" y="665" font-size="26" opacity="0.85">🌼</text>
-  <text x="315" y="645" font-size="34" opacity="0.8">☂️</text>
-  <text x="485" y="715" font-size="24" opacity="0.7">🐌</text>
-  <text x="175" y="675" font-size="22" opacity="0.65">💧</text>
+  <text x="485" y="90" font-size="32" opacity="0.6">☀️</text>
+  <text x="170" y="140" font-size="36" opacity="0.75">☁️</text>
+  <text x="420" y="165" font-size="34" opacity="0.75">☁️</text>
+  <text x="270" y="360" font-size="40" opacity="0.8">🌈</text>
+  <text x="200" y="240" font-size="24" opacity="0.5">💧</text>
+  <text x="390" y="260" font-size="24" opacity="0.5">💧</text>
+  <text x="105" y="710" font-size="26" opacity="0.8">🌼</text>
+  <text x="495" y="710" font-size="26" opacity="0.8">🌸</text>
+  <text x="60" y="540" font-size="30" opacity="0.45">🌳</text>
 </svg>

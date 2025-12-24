@@ -1,213 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="August - Spätsommer Portrait">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="August - Erntezeit Portrait">
   <defs>
     <linearGradient id="augustPortraitSky" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#0277bd;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#0288d1;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#039be5;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#fed7aa;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fdba74;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fb923c;stop-opacity:1" />
     </linearGradient>
   </defs>
 
-  <!-- Spätsommer-Himmel -->
   <rect width="600" height="800" fill="url(#augustPortraitSky)"/>
 
-  <!-- Sonne (immer noch warm) -->
-  <circle cx="120" cy="100" r="75" fill="#ffffcc" opacity="0.5"/>
-  <circle cx="120" cy="100" r="62" fill="#ffff99" opacity="0.7"/>
-  <circle cx="120" cy="100" r="50" fill="#ffffee"/>
+  <!-- Warme Abendsonne -->
+  <circle cx="90" cy="100" r="75" fill="#fef08a" opacity="0.5"/>
+  <circle cx="90" cy="100" r="60" fill="#fde047" opacity="0.7"/>
+  <circle cx="90" cy="100" r="48" fill="#fef08a"/>
 
-  <!-- Sonnenstrahlen -->
-  <line x1="120" y1="20" x2="120" y2="0" stroke="#fdd835" stroke-width="6" opacity="0.8"/>
-  <line x1="200" y1="100" x2="220" y2="100" stroke="#fdd835" stroke-width="6" opacity="0.8"/>
-  <line x1="40" y1="100" x2="20" y2="100" stroke="#fdd835" stroke-width="6" opacity="0.8"/>
-  <line x1="178" y1="42" x2="195" y2="25" stroke="#fdd835" stroke-width="5" opacity="0.8"/>
-  <line x1="178" y1="158" x2="195" y2="175" stroke="#fdd835" stroke-width="5" opacity="0.8"/>
-  <line x1="62" y1="158" x2="45" y2="175" stroke="#fdd835" stroke-width="5" opacity="0.8"/>
-  <line x1="62" y1="42" x2="45" y2="25" stroke="#fdd835" stroke-width="5" opacity="0.8"/>
+  <!-- Kornfeld (golden) -->
+  <rect x="0" y="550" width="600" height="250" fill="#ca8a04"/>
+  <ellipse cx="300" cy="580" rx="450" ry="70" fill="#eab308"/>
+  <ellipse cx="200" cy="610" rx="250" ry="45" fill="#facc15" opacity="0.8"/>
+  <ellipse cx="420" cy="620" rx="220" ry="42" fill="#facc15" opacity="0.8"/>
 
-  <!-- Sommerwolken -->
-  <ellipse cx="420" cy="120" rx="80" ry="48" fill="#ffffff" opacity="0.85"/>
-  <ellipse cx="470" cy="125" rx="68" ry="42" fill="#ffffff" opacity="0.85"/>
-  <ellipse cx="375" cy="130" rx="60" ry="38" fill="#ffffff" opacity="0.85"/>
+  <!-- Windmühle (rechts) -->
+  <polygon points="480,450 470,520 490,520" fill="#e8dcc0"/>
+  <polygon points="480,380 465,450 495,450" fill="#f5ecd8"/>
+  <circle cx="480" cy="380" r="25" fill="#6a4a30"/>
 
-  <ellipse cx="520" cy="180" rx="70" ry="42" fill="#ffffff" opacity="0.8"/>
-  <ellipse cx="560" cy="185" rx="55" ry="35" fill="#ffffff" opacity="0.8"/>
+  <!-- Windmühlenflügel -->
+  <g transform="translate(480, 380) rotate(25)">
+    <rect x="-8" y="-95" width="16" height="90" fill="#f5f5f5"/>
+    <rect x="-95" y="-8" width="90" height="16" fill="#f5f5f5"/>
+    <rect x="-8" y="5" width="16" height="90" fill="#f5f5f5"/>
+    <rect x="5" y="-8" width="90" height="16" fill="#f5f5f5"/>
+  </g>
 
-  <!-- Goldene Felder im Hintergrund -->
-  <ellipse cx="300" cy="480" rx="380" ry="85" fill="#f9a825" opacity="0.7"/>
-  <ellipse cx="150" cy="500" rx="260" ry="70" fill="#fdd835" opacity="0.7"/>
-  <ellipse cx="450" cy="490" rx="240" ry="75" fill="#ffeb3b" opacity="0.7"/>
+  <!-- Bauernhaus (links) -->
+  <rect x="80" y="470" width="150" height="125" fill="#c85542"/>
+  <polygon points="155,410 65,470 245,470" fill="#8b5433"/>
+  <path d="M 65,470 Q 120,448 155,444 Q 190,448 245,470" fill="#ffffff" opacity="0.4"/>
+  <rect x="105" y="492" width="32" height="38" fill="#ffd98e"/>
+  <rect x="120" y="492" width="2" height="38" fill="#6b4423"/>
+  <rect x="105" y="510" width="32" height="2" fill="#6b4423"/>
+  <rect x="163" y="492" width="32" height="38" fill="#ffd98e"/>
+  <rect x="178" y="492" width="2" height="38" fill="#6b4423"/>
+  <rect x="163" y="510" width="32" height="2" fill="#6b4423"/>
+  <rect x="135" y="550" width="36" height="45" fill="#6a4a30"/>
 
-  <!-- Grüne Wiesen (Vordergrund) -->
-  <ellipse cx="300" cy="600" rx="420" ry="100" fill="#9ccc65"/>
-  <ellipse cx="150" cy="620" rx="270" ry="85" fill="#aed581"/>
-  <ellipse cx="450" cy="610" rx="250" ry="90" fill="#8bc34a"/>
-
-  <!-- Bauernhaus mit Garten -->
-  <rect x="210" y="370" width="190" height="170" fill="#fff9c4"/>
-  <rect x="215" y="375" width="180" height="160" fill="#fffef0"/>
-
-  <!-- Dach (dunkelrot) -->
-  <polygon points="305,300 190,370 420,370" fill="#b71c1c"/>
-  <polygon points="305,300 200,365 410,365" fill="#c62828"/>
-
-  <!-- Fenster -->
-  <rect x="240" y="395" width="50" height="55" fill="#b3e5fc"/>
-  <rect x="264" y="395" width="2" height="55" fill="#6d4c41"/>
-  <rect x="240" y="421" width="50" height="2" fill="#6d4c41"/>
-
-  <rect x="320" y="395" width="50" height="55" fill="#b3e5fc"/>
-  <rect x="344" y="395" width="2" height="55" fill="#6d4c41"/>
-  <rect x="320" y="421" width="50" height="2" fill="#6d4c41"/>
-
-  <!-- Rundfenster Dach -->
-  <circle cx="305" cy="335" r="16" fill="#ffecb3"/>
-  <line x1="305" y1="319" x2="305" y2="351" stroke="#6d4c41" stroke-width="2"/>
-  <line x1="289" y1="335" x2="321" y2="335" stroke="#6d4c41" stroke-width="2"/>
-
-  <!-- Tür -->
-  <rect x="272" y="485" width="66" height="55" fill="#8d6e63"/>
-  <rect x="277" y="490" width="56" height="48" fill="#a1887f"/>
-  <circle cx="325" cy="517" r="3.5" fill="#ffd54f"/>
-
-  <!-- Schornstein -->
-  <rect x="345" y="305" width="20" height="65" fill="#8d6e63"/>
-  <rect x="347" y="307" width="16" height="61" fill="#a1887f"/>
-  <ellipse cx="355" cy="293" rx="10" ry="14" fill="#e0e0e0" opacity="0.5"/>
-
-  <!-- Gemüsegarten vor dem Haus -->
-  <!-- Tomatenstauden -->
+  <!-- Korngarben -->
   <g>
-    <rect x="150" y="540" width="6" height="70" fill="#6d4c41"/>
-    <circle cx="153" cy="545" r="8" fill="#f44336"/>
-    <circle cx="150" cy="560" r="8" fill="#d32f2f"/>
-    <circle cx="156" cy="575" r="8" fill="#e53935"/>
-    <ellipse cx="153" cy="535" rx="15" ry="12" fill="#66bb6a" opacity="0.8"/>
-    <ellipse cx="153" cy="550" rx="14" ry="11" fill="#66bb6a" opacity="0.8"/>
+    <rect x="280" y="650" width="45" height="80" fill="#d97706"/>
+    <rect x="275" y="640" width="55" height="15" fill="#ca8a04"/>
+    <line x1="280" y1="650" x2="280" y2="730" stroke="#b45309" stroke-width="2"/>
+    <line x1="295" y1="650" x2="295" y2="730" stroke="#b45309" stroke-width="2"/>
+    <line x1="310" y1="650" x2="310" y2="730" stroke="#b45309" stroke-width="2"/>
+    <line x1="325" y1="650" x2="325" y2="730" stroke="#b45309" stroke-width="2"/>
+
+    <rect x="360" y="660" width="42" height="75" fill="#d97706"/>
+    <rect x="356" y="650" width="50" height="15" fill="#ca8a04"/>
+    <line x1="361" y1="660" x2="361" y2="735" stroke="#b45309" stroke-width="2"/>
+    <line x1="375" y1="660" x2="375" y2="735" stroke="#b45309" stroke-width="2"/>
+    <line x1="390" y1="660" x2="390" y2="735" stroke="#b45309" stroke-width="2"/>
   </g>
 
-  <!-- Kürbispflanze (beginnt zu wachsen) -->
+  <!-- Sense (Erntewerk zeug) -->
+  <g transform="translate(200, 650)">
+    <path d="M 0 0 Q 40 10 80 0" stroke="#475569" stroke-width="3" fill="none"/>
+    <line x1="0" y1="0" x2="-10" y2="-60" stroke="#78350f" stroke-width="4"/>
+  </g>
+
+  <!-- Kornähren im Vordergrund -->
   <g>
-    <circle cx="450" cy="570" r="28" fill="#ff9800"/>
-    <circle cx="450" cy="570" r="25" fill="#ffa726"/>
-    <path d="M 450 542 L 450 532" stroke="#689f38" stroke-width="5"/>
-    <ellipse cx="445" cy="565" rx="8" ry="6" fill="#6d4c41" opacity="0.3"/>
-    <ellipse cx="455" cy="565" rx="8" ry="6" fill="#6d4c41" opacity="0.3"/>
+    <line x1="450" y1="700" x2="448" y2="750" stroke="#d97706" stroke-width="3"/>
+    <ellipse cx="450" cy="695" rx="4" ry="12" fill="#eab308"/>
+    <line x1="480" y1="710" x2="478" y2="760" stroke="#d97706" stroke-width="3"/>
+    <ellipse cx="480" cy="705" rx="4" ry="12" fill="#eab308"/>
+    <line x1="510" y1="705" x2="508" y2="755" stroke="#d97706" stroke-width="3"/>
+    <ellipse cx="510" cy="700" rx="4" ry="12" fill="#eab308"/>
   </g>
 
-  <!-- Sonnenblumen (reif) -->
-  <g>
-    <circle cx="520" cy="560" r="24" fill="#fdd835"/>
-    <circle cx="507" cy="553" r="9" fill="#fff9c4"/>
-    <circle cx="533" cy="553" r="9" fill="#fff9c4"/>
-    <circle cx="507" cy="567" r="9" fill="#fff9c4"/>
-    <circle cx="533" cy="567" r="9" fill="#fff9c4"/>
-    <circle cx="520" cy="560" r="13" fill="#f57c00"/>
-    <rect x="518" y="572" width="4" height="85" fill="#689f38"/>
-
-    <circle cx="70" cy="550" r="22" fill="#ffeb3b"/>
-    <circle cx="58" cy="544" r="8" fill="#fff9c4"/>
-    <circle cx="82" cy="544" r="8" fill="#fff9c4"/>
-    <circle cx="70" cy="550" r="12" fill="#f57c00"/>
-    <rect x="68" y="562" width="4" height="80" fill="#689f38"/>
+  <!-- Schmetterling -->
+  <g transform="translate(340, 540)">
+    <ellipse cx="-6" cy="0" rx="10" ry="13" fill="#ea580c" transform="rotate(-25 -6 0)"/>
+    <ellipse cx="6" cy="0" rx="10" ry="13" fill="#ea580c" transform="rotate(25 6 0)"/>
+    <ellipse cx="-6" cy="10" rx="7" ry="10" fill="#fb923c" transform="rotate(-20 -6 10)"/>
+    <ellipse cx="6" cy="10" rx="7" ry="10" fill="#fb923c" transform="rotate(20 6 10)"/>
+    <line x1="0" y1="-5" x2="0" y2="16" stroke="#000000" stroke-width="1.6"/>
   </g>
 
-  <!-- Obstbaum (Äpfel) -->
-  <rect x="90" y="420" width="32" height="160" fill="#6d4c41"/>
-  <circle cx="106" cy="395" r="80" fill="#66bb6a" opacity="0.9"/>
-  <circle cx="70" cy="370" r="65" fill="#4caf50" opacity="0.9"/>
-  <circle cx="142" cy="375" r="68" fill="#81c784" opacity="0.9"/>
-  <circle cx="80" cy="420" r="58" fill="#66bb6a" opacity="0.85"/>
-  <circle cx="132" cy="425" r="62" fill="#4caf50" opacity="0.85"/>
-
-  <!-- Rote Äpfel im Baum -->
-  <circle cx="85" cy="390" r="10" fill="#f44336"/>
-  <circle cx="105" cy="385" r="10" fill="#e53935"/>
-  <circle cx="120" cy="400" r="10" fill="#d32f2f"/>
-  <circle cx="95" cy="415" r="10" fill="#f44336"/>
-  <circle cx="115" cy="425" r="10" fill="#ef5350"/>
-
-  <!-- Blumenwiese (Spätsommer) -->
-  <!-- Wilde Astern (lila) -->
-  <g>
-    <circle cx="240" cy="660" r="9" fill="#9c27b0"/>
-    <circle cx="236" cy="658" r="3" fill="#ffffff" opacity="0.5"/>
-    <rect x="238" y="667" width="4" height="55" fill="#558b2f"/>
-
-    <circle cx="380" cy="670" r="9" fill="#7b1fa2"/>
-    <rect x="378" y="677" width="4" height="53" fill="#558b2f"/>
-  </g>
-
-  <!-- Schafgarbe (weiß/rosa) -->
-  <g>
-    <circle cx="310" cy="665" r="12" fill="#f8bbd0"/>
-    <circle cx="303" cy="662" r="4" fill="#ffffff"/>
-    <circle cx="317" cy="662" r="4" fill="#ffffff"/>
-    <circle cx="303" cy="668" r="4" fill="#ffffff"/>
-    <circle cx="317" cy="668" r="4" fill="#ffffff"/>
-    <rect x="308" y="673" width="4" height="58" fill="#7cb342"/>
-  </g>
-
-  <!-- Heidekraut (rosa/lila) -->
-  <ellipse cx="470" cy="685" rx="18" ry="28" fill="#ce93d8" opacity="0.8"/>
-  <rect x="468" y="700" width="4" height="45" fill="#689f38"/>
-
-  <!-- Wiese/Boden -->
-  <ellipse cx="300" cy="760" rx="450" ry="120" fill="#c5e1a5"/>
-  <rect x="0" y="720" width="600" height="80" fill="#c5e1a5"/>
-
-  <!-- Grashalme -->
-  <line x1="190" y1="735" x2="185" y2="715" stroke="#7cb342" stroke-width="3" opacity="0.7"/>
-  <line x1="420" y1="740" x2="415" y2="720" stroke="#7cb342" stroke-width="3" opacity="0.7"/>
-  <line x1="550" y1="745" x2="545" y2="725" stroke="#7cb342" stroke-width="3" opacity="0.7"/>
-
-  <!-- Schmetterlinge (noch viele unterwegs) -->
-  <g transform="translate(270, 530) rotate(-15)">
-    <ellipse cx="-11" cy="0" rx="13" ry="17" fill="#ff6f00" opacity="0.9"/>
-    <ellipse cx="11" cy="0" rx="13" ry="17" fill="#ffa726" opacity="0.9"/>
-    <ellipse cx="-11" cy="0" rx="5" ry="7" fill="#ffffff" opacity="0.7"/>
-    <ellipse cx="11" cy="0" rx="5" ry="7" fill="#ffffff" opacity="0.7"/>
-    <line x1="-12" y1="-11" x2="12" y2="-11" stroke="#212121" stroke-width="2"/>
-    <circle cx="0" cy="-11" r="3" fill="#424242"/>
-    <line x1="-3" y1="-12" x2="-6" y2="-17" stroke="#212121" stroke-width="1.5"/>
-    <line x1="3" y1="-12" x2="6" y2="-17" stroke="#212121" stroke-width="1.5"/>
-  </g>
-
-  <!-- Biene -->
-  <g transform="translate(160, 595)">
-    <ellipse cx="0" cy="0" rx="10" ry="14" fill="#fdd835"/>
-    <ellipse cx="0" cy="-4" rx="10" ry="4" fill="#212121" opacity="0.7"/>
-    <ellipse cx="0" cy="4" rx="10" ry="4" fill="#212121" opacity="0.7"/>
-    <ellipse cx="-12" cy="-3" rx="10" ry="4" fill="#e3f2fd" opacity="0.6"/>
-    <ellipse cx="12" cy="-3" rx="10" ry="4" fill="#e3f2fd" opacity="0.6"/>
-  </g>
-
-  <!-- Libelle -->
-  <g transform="translate(360, 610)">
-    <ellipse cx="0" cy="0" rx="13" ry="5" fill="#00acc1" opacity="0.7"/>
-    <ellipse cx="0" cy="0" rx="4" ry="13" fill="#0097a7" opacity="0.8"/>
-    <rect x="-1.8" y="-20" width="3.6" height="20" fill="#00838f"/>
-    <circle cx="0" cy="-22" r="3.5" fill="#006064"/>
-    <ellipse cx="-11" cy="-6" rx="11" ry="3.5" fill="#b3e5fc" opacity="0.6"/>
-    <ellipse cx="11" cy="-6" rx="11" ry="3.5" fill="#b3e5fc" opacity="0.6"/>
-  </g>
-
-  <!-- Vögel (ziehen langsam südwärts) -->
-  <path d="M 340 250 Q 355 245 370 250" stroke="#0277bd" stroke-width="2.5" fill="none"/>
-  <path d="M 380 270 Q 395 265 410 270" stroke="#0277bd" stroke-width="2.5" fill="none"/>
-  <path d="M 360 230 Q 375 225 390 230" stroke="#0277bd" stroke-width="2.5" fill="none"/>
-  <path d="M 420 290 Q 435 285 450 290" stroke="#0277bd" stroke-width="2.5" fill="none"/>
+  <!-- Vögel -->
+  <path d="M 520 220 Q 535 215 550 220" stroke="#78350f" stroke-width="2.5" fill="none"/>
+  <path d="M 540 250 Q 555 245 570 250" stroke="#78350f" stroke-width="2.5" fill="none"/>
 
   <!-- Emoji-Dekoration -->
-  <text x="80" y="115" font-size="48" opacity="0.45">☀️</text>
-  <text x="390" y="135" font-size="34" opacity="0.4">☁️</text>
-  <text x="495" y="595" font-size="40" opacity="0.9">🌻</text>
-  <text x="40" y="585" font-size="36" opacity="0.85">🌻</text>
-  <text x="60" y="465" font-size="38" opacity="0.8">🌳</text>
-  <text x="75" y="415" font-size="28" opacity="0.85">🍎</text>
-  <text x="240" y="555" font-size="28" opacity="0.85">🦋</text>
-  <text x="130" y="620" font-size="26" opacity="0.8">🐝</text>
-  <text x="420" y="605" font-size="32" opacity="0.75">🎃</text>
-  <text x="285" y="690" font-size="30" opacity="0.85">🌸</text>
-  <text x="330" y="635" font-size="24" opacity="0.75">🦋</text>
-  <text x="325" y="275" font-size="20" opacity="0.65">🐦</text>
+  <text x="50" y="110" font-size="38" opacity="0.6">🌅</text>
+  <text x="255" y="685" font-size="38" opacity="0.85">🌾</text>
+  <text x="335" y="695" font-size="36" opacity="0.85">🌾</text>
+  <text x="175" y="675" font-size="28" opacity="0.7">🔨</text>
+  <text x="450" y="425" font-size="32" opacity="0.65">🏭</text>
+  <text x="310" y="555" font-size="26" opacity="0.75">🦋</text>
+  <text x="505" y="235" font-size="20" opacity="0.6">🐦</text>
 </svg>

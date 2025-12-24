@@ -1,208 +1,216 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Oktober - Goldener Herbst Portrait">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Oktober - Goldener Oktober Portrait">
   <defs>
     <linearGradient id="octoberPortraitSky" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#4a6572;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#607d8b;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#78909c;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#fde68a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
     </linearGradient>
+    <radialGradient id="sunGlowOct" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fef08a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fde047;stop-opacity:0.4" />
+    </radialGradient>
   </defs>
 
-  <!-- Herbstlicher Himmel (grau-blau) -->
+  <!-- Goldener Himmel -->
   <rect width="600" height="800" fill="url(#octoberPortraitSky)"/>
 
-  <!-- Herbstmond (sichtbar am Tag) -->
-  <circle cx="140" cy="110" r="55" fill="#ffeaa7" opacity="0.7"/>
-  <circle cx="140" cy="110" r="48" fill="#ffd97f" opacity="0.8"/>
+  <!-- Sonne (warm und tief stehend) -->
+  <circle cx="480" cy="130" r="95" fill="url(#sunGlowOct)" opacity="0.4"/>
+  <circle cx="480" cy="130" r="75" fill="#fde047" opacity="0.6"/>
+  <circle cx="480" cy="130" r="58" fill="#fef08a"/>
 
-  <!-- Mondkrater -->
-  <circle cx="130" cy="100" r="8" fill="#ffc866" opacity="0.4"/>
-  <circle cx="148" cy="112" r="6" fill="#ffc866" opacity="0.4"/>
+  <!-- Sonnenstrahlen -->
+  <line x1="480" y1="40" x2="480" y2="10" stroke="#fbbf24" stroke-width="7" opacity="0.6"/>
+  <line x1="575" y1="130" x2="605" y2="130" stroke="#fbbf24" stroke-width="7" opacity="0.6"/>
+  <line x1="550" y1="68" x2="572" y2="46" stroke="#fbbf24" stroke-width="6" opacity="0.6"/>
+  <line x1="550" y1="192" x2="572" y2="214" stroke="#fbbf24" stroke-width="6" opacity="0.6"/>
+  <line x1="410" y1="68" x2="388" y2="46" stroke="#fbbf24" stroke-width="6" opacity="0.6"/>
+  <line x1="410" y1="192" x2="388" y2="214" stroke="#fbbf24" stroke-width="6" opacity="0.6"/>
 
-  <!-- Herbstwolken (dicht und grau) -->
-  <ellipse cx="380" cy="90" rx="100" ry="58" fill="#b0bec5" opacity="0.9"/>
-  <ellipse cx="450" cy="95" rx="88" ry="52" fill="#90a4ae" opacity="0.9"/>
-  <ellipse cx="320" cy="100" rx="78" ry="48" fill="#b0bec5" opacity="0.9"/>
+  <!-- Hügel im Hintergrund (herbstlich) -->
+  <ellipse cx="300" cy="550" rx="400" ry="90" fill="#a16207" opacity="0.5"/>
+  <ellipse cx="150" cy="570" rx="250" ry="75" fill="#92400e" opacity="0.5"/>
+  <ellipse cx="450" cy="560" rx="280" ry="80" fill="#b8860b" opacity="0.5"/>
 
-  <ellipse cx="510" cy="140" rx="90" ry="54" fill="#90a4ae" opacity="0.85"/>
-  <ellipse cx="560" cy="145" rx="75" ry="48" fill="#b0bec5" opacity="0.85"/>
+  <!-- Weinberg-Hügel (Vordergrund) -->
+  <rect y="540" width="600" height="260" fill="#854d0e"/>
+  <rect y="570" width="600" height="230" fill="#713f12" opacity="0.5"/>
 
-  <!-- Herbstberge/Hügel (braun-orange) -->
-  <ellipse cx="300" cy="470" rx="400" ry="85" fill="#a0522d" opacity="0.7"/>
-  <ellipse cx="150" cy="490" rx="280" ry="75" fill="#8b4513" opacity="0.7"/>
-  <ellipse cx="450" cy="480" rx="260" ry="80" fill="#b8860b" opacity="0.7"/>
+  <!-- Großer goldener Baum links -->
+  <rect x="60" y="380" width="65" height="280" fill="#78350f"/>
+  <rect x="62" y="382" width="61" height="276" fill="#92400e"/>
 
-  <!-- Herbstwald im Hintergrund -->
-  <g opacity="0.6">
-    <polygon points="80,520 60,580 100,580" fill="#a0522d"/>
-    <polygon points="120,510 100,580 140,580" fill="#8b4513"/>
-    <polygon points="160,525 140,580 180,580" fill="#a0522d"/>
-    <polygon points="200,515 180,580 220,580" fill="#b8860b"/>
-  </g>
+  <!-- Baumkrone (golden) -->
+  <circle cx="92.5" cy="345" r="125" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="40" cy="300" r="95" fill="#fde047" opacity="0.9"/>
+  <circle cx="145" cy="295" r="100" fill="#f59e0b" opacity="0.9"/>
+  <circle cx="30" cy="375" r="85" fill="#fbbf24" opacity="0.85"/>
+  <circle cx="155" cy="370" r="90" fill="#fb923c" opacity="0.85"/>
+  <circle cx="92.5" cy="415" r="80" fill="#fde047" opacity="0.8"/>
 
-  <!-- Bauernhaus mit Halloween-Dekoration -->
-  <rect x="220" y="380" width="180" height="165" fill="#fffbf0"/>
-  <rect x="225" y="385" width="170" height="155" fill="#fffef5"/>
+  <!-- Blätter-Details (golden) -->
+  <circle cx="55" cy="320" r="14" fill="#fef08a"/>
+  <circle cx="100" cy="310" r="16" fill="#fde047"/>
+  <circle cx="130" cy="345" r="13" fill="#fb923c"/>
+  <circle cx="70" cy="385" r="15" fill="#fbbf24"/>
+  <circle cx="120" cy="395" r="12" fill="#f59e0b"/>
 
-  <!-- Dach (dunkel) -->
-  <polygon points="310,315 200,380 420,380" fill="#5d4037"/>
-  <polygon points="310,315 210,375 410,375" fill="#6d4c41"/>
+  <!-- Mittlerer Baum rechts (orange/rot) -->
+  <rect x="480" y="420" width="55" height="260" fill="#78350f"/>
+  <rect x="482" y="422" width="51" height="256" fill="#92400e"/>
 
-  <!-- Fenster (orange beleuchtet - Halloween) -->
-  <rect x="250" y="405" width="48" height="53" fill="#ff9800"/>
-  <rect x="273" y="405" width="2" height="53" fill="#5d4037"/>
-  <rect x="250" y="430" width="48" height="2" fill="#5d4037"/>
+  <!-- Baumkrone -->
+  <circle cx="507.5" cy="390" r="100" fill="#fb923c" opacity="0.9"/>
+  <circle cx="470" cy="355" r="80" fill="#f97316" opacity="0.9"/>
+  <circle cx="545" cy="350" r="85" fill="#ea580c" opacity="0.9"/>
+  <circle cx="465" cy="410" r="70" fill="#fb923c" opacity="0.85"/>
+  <circle cx="550" cy="405" r="75" fill="#dc2626" opacity="0.85"/>
 
-  <rect x="322" y="405" width="48" height="53" fill="#ff9800"/>
-  <rect x="345" y="405" width="2" height="53" fill="#5d4037"/>
-  <rect x="322" y="430" width="48" height="2" fill="#5d4037"/>
+  <!-- Blätter-Details -->
+  <circle cx="485" cy="370" r="12" fill="#f97316"/>
+  <circle cx="510" cy="365" r="13" fill="#ea580c"/>
+  <circle cx="530" cy="385" r="11" fill="#dc2626"/>
 
-  <!-- Halloween-Kürbis-Fenster (Dach) -->
-  <circle cx="310" cy="348" r="16" fill="#ff9800"/>
-  <circle cx="305" cy="344" r="3" fill="#212121"/>
-  <circle cx="315" cy="344" r="3" fill="#212121"/>
-  <path d="M 305 352 Q 310 355 315 352" stroke="#212121" stroke-width="2" fill="none"/>
+  <!-- Weinlese-Szene: Weinbauer mit Korb -->
+  <g transform="translate(320, 640)">
+    <!-- Korb mit Trauben -->
+    <ellipse cx="0" cy="25" rx="30" ry="22" fill="#78350f"/>
+    <rect x="-30" y="12" width="60" height="30" fill="#92400e"/>
+    <path d="M -30 12 L -24 0 L 24 0 L 30 12" fill="#a16207"/>
 
-  <!-- Tür mit Herbstdeko -->
-  <rect x="278" y="495" width="64" height="50" fill="#8d6e63"/>
-  <rect x="283" y="500" width="54" height="43" fill="#a1887f"/>
-  <circle cx="328" cy="524" r="3.5" fill="#ffd54f"/>
+    <!-- Trauben im Korb -->
+    <circle cx="-10" cy="5" r="6" fill="#7c3aed"/>
+    <circle cx="0" cy="3" r="6" fill="#6d28d9"/>
+    <circle cx="10" cy="5" r="6" fill="#7c3aed"/>
+    <circle cx="-15" cy="12" r="6" fill="#6d28d9"/>
+    <circle cx="-5" cy="13" r="6" fill="#7c3aed"/>
+    <circle cx="5" cy="13" r="6" fill="#6d28d9"/>
+    <circle cx="15" cy="12" r="6" fill="#7c3aed"/>
 
-  <!-- Schornstein (Rauch - kühler) -->
-  <rect x="350" y="320" width="20" height="60" fill="#5d4037"/>
-  <rect x="352" y="322" width="16" height="56" fill="#6d4c41"/>
-  <ellipse cx="360" cy="308" rx="10" ry="14" fill="#90a4ae" opacity="0.7"/>
-  <ellipse cx="363" cy="290" rx="12" ry="16" fill="#90a4ae" opacity="0.5"/>
-  <ellipse cx="367" cy="268" rx="14" ry="19" fill="#90a4ae" opacity="0.3"/>
+    <!-- Person (vereinfacht) -->
+    <circle cx="-60" cy="-25" r="14" fill="#fef3c7"/>
+    <rect x="-72" y="-10" width="24" height="42" fill="#dc2626"/>
+    <line x1="-60" y1="0" x2="-36" y2="18" stroke="#fef3c7" stroke-width="6"/>
+    <line x1="-60" y1="0" x2="-78" y2="12" stroke="#fef3c7" stroke-width="6"/>
+    <line x1="-60" y1="32" x2="-72" y2="54" stroke="#1e3a8a" stroke-width="7"/>
+    <line x1="-60" y1="32" x2="-48" y2="54" stroke="#1e3a8a" stroke-width="7"/>
 
-  <!-- Halloween-Kürbisse vor dem Haus -->
-  <g>
-    <circle cx="180" cy="560" r="36" fill="#ff9800"/>
-    <circle cx="180" cy="560" r="32" fill="#ffa726"/>
-    <path d="M 180 524 L 180 512" stroke="#689f38" stroke-width="7"/>
-    <!-- Jack-O'-Lantern Gesicht -->
-    <circle cx="170" cy="552" r="4" fill="#212121"/>
-    <circle cx="190" cy="552" r="4" fill="#212121"/>
-    <path d="M 172 566 Q 180 572 188 566" stroke="#212121" stroke-width="3" fill="none"/>
-    <path d="M 180 558 L 178 563 L 180 563" fill="#ff6f00"/>
-
-    <circle cx="430" cy="575" r="40" fill="#ff6f00"/>
-    <circle cx="430" cy="575" r="36" fill="#ff9800"/>
-    <path d="M 430 535 L 430 520" stroke="#689f38" stroke-width="8"/>
-    <circle cx="418" cy="566" r="4.5" fill="#212121"/>
-    <circle cx="442" cy="566" r="4.5" fill="#212121"/>
-    <path d="M 420 583 Q 430 590 440 583" stroke="#212121" stroke-width="3.5" fill="none"/>
-  </g>
-
-  <!-- Herbstbäume (intensive Farben) -->
-  <!-- Linker Baum (orange-rot) -->
-  <rect x="60" y="435" width="36" height="155" fill="#6d4c41"/>
-  <circle cx="78" cy="405" r="88" fill="#ff6f00" opacity="0.9"/>
-  <circle cx="40" cy="378" r="73" fill="#f4511e" opacity="0.9"/>
-  <circle cx="116" cy="383" r="76" fill="#ff5722" opacity="0.9"/>
-  <circle cx="50" cy="428" r="65" fill="#ff6f00" opacity="0.85"/>
-  <circle cx="106" cy="433" r="68" fill="#f4511e" opacity="0.85"/>
-
-  <!-- Rechter Baum (gelb-orange) -->
-  <rect x="500" y="450" width="32" height="145" fill="#6d4c41"/>
-  <circle cx="516" cy="425" r="80" fill="#ffd54f" opacity="0.9"/>
-  <circle cx="482" cy="400" r="68" fill="#ffca28" opacity="0.9"/>
-  <circle cx="550" cy="405" r="71" fill="#ffb300" opacity="0.9"/>
-  <circle cx="492" cy="445" r="60" fill="#ffd54f" opacity="0.85"/>
-  <circle cx="540" cy="450" r="64" fill="#ffca28" opacity="0.85"/>
-
-  <!-- Fallende Herbstblätter (viele!) -->
-  <g opacity="0.85">
-    <path d="M 150 280 Q 147 278 145 280 Q 143 282 145 284 Q 147 286 149 284 Q 151 282 149 280" fill="#d84315" transform="rotate(45 147 282)"/>
-    <path d="M 290 320 Q 287 318 285 320 Q 283 322 285 324 Q 287 326 289 324 Q 291 322 289 320" fill="#bf360c" transform="rotate(-30 287 322)"/>
-    <path d="M 420 360 Q 417 358 415 360 Q 413 362 415 364 Q 417 366 419 364 Q 421 362 419 360" fill="#ff6f00" transform="rotate(60 417 362)"/>
-    <path d="M 230 450 Q 227 448 225 450 Q 223 452 225 454 Q 227 456 229 454 Q 231 452 229 450" fill="#f57c00" transform="rotate(-15 227 452)"/>
-    <path d="M 380 490 Q 377 488 375 490 Q 373 492 375 494 Q 377 496 379 494 Q 381 492 379 490" fill="#ff9800" transform="rotate(25 377 492)"/>
-    <path d="M 110 540 Q 107 538 105 540 Q 103 542 105 544 Q 107 546 109 544 Q 111 542 109 540" fill="#ffd54f" transform="rotate(-40 107 542)"/>
-    <path d="M 520 580 Q 517 578 515 580 Q 513 582 515 584 Q 517 586 519 584 Q 521 582 519 580" fill="#ffca28" transform="rotate(50 517 582)"/>
-    <path d="M 340 610 Q 337 608 335 610 Q 333 612 335 614 Q 337 616 339 614 Q 341 612 339 610" fill="#d84315" transform="rotate(-20 337 612)"/>
-  </g>
-
-  <!-- Herbstlaub am Boden (Haufen) -->
-  <g>
-    <ellipse cx="280" cy="650" rx="50" ry="28" fill="#f4511e" opacity="0.8"/>
-    <ellipse cx="270" cy="645" rx="45" ry="24" fill="#ff6f00" opacity="0.8"/>
-    <ellipse cx="290" cy="647" rx="48" ry="26" fill="#ff9800" opacity="0.8"/>
-  </g>
-
-  <!-- Pilze im Laub -->
-  <g>
-    <ellipse cx="320" cy="680" rx="12" ry="6" fill="#d7ccc8"/>
-    <path d="M 308 680 Q 320 665 332 680" fill="#d32f2f"/>
-    <circle cx="315" cy="670" r="3" fill="#ffffff" opacity="0.6"/>
-    <circle cx="325" cy="672" r="2.5" fill="#ffffff" opacity="0.6"/>
-  </g>
-
-  <!-- Herbstwiese/Boden (braun-orange) -->
-  <ellipse cx="300" cy="750" rx="460" ry="125" fill="#b8860b"/>
-  <rect x="0" y="715" width="600" height="85" fill="#b8860b"/>
-
-  <!-- Trockene Gräser -->
-  <line x1="240" y1="735" x2="235" y2="715" stroke="#8d6e63" stroke-width="3" opacity="0.7"/>
-  <line x1="450" y1="740" x2="445" y2="720" stroke="#8d6e63" stroke-width="3" opacity="0.7"/>
-  <line x1="150" y1="745" x2="145" y2="725" stroke="#8d6e63" stroke-width="3" opacity="0.7"/>
-
-  <!-- Fledermäuse (Halloween!) -->
-  <g transform="translate(480, 350)">
-    <ellipse cx="0" cy="0" rx="8" ry="4" fill="#212121"/>
-    <path d="M -8 -2 Q -14 -6 -18 -2 Q -14 2 -8 0" fill="#212121"/>
-    <path d="M 8 -2 Q 14 -6 18 -2 Q 14 2 8 0" fill="#212121"/>
-    <circle cx="-2" cy="-1" r="1.5" fill="#f44336"/>
-    <circle cx="2" cy="-1" r="1.5" fill="#f44336"/>
-  </g>
-
-  <g transform="translate(140, 310)">
-    <ellipse cx="0" cy="0" rx="7" ry="3.5" fill="#212121"/>
-    <path d="M -7 -1.5 Q -12 -5 -16 -1.5 Q -12 1.5 -7 0" fill="#212121"/>
-    <path d="M 7 -1.5 Q 12 -5 16 -1.5 Q 12 1.5 7 0" fill="#212121"/>
-    <circle cx="-1.5" cy="-0.8" r="1.2" fill="#f44336"/>
-    <circle cx="1.5" cy="-0.8" r="1.2" fill="#f44336"/>
-  </g>
-
-  <!-- Vogelscheuche -->
-  <g transform="translate(350, 610)">
-    <!-- Pfahl -->
-    <rect x="-4" y="20" width="8" height="90" fill="#8d6e63"/>
-    <!-- Querbalken (Arme) -->
-    <rect x="-50" y="40" width="100" height="6" fill="#8d6e63"/>
-    <!-- Kopf (Kürbis) -->
-    <circle cx="0" cy="10" r="18" fill="#ff9800"/>
-    <circle cx="-6" cy="6" r="3" fill="#212121"/>
-    <circle cx="6" cy="6" r="3" fill="#212121"/>
-    <path d="M -6 14 Q 0 17 6 14" stroke="#212121" stroke-width="2" fill="none"/>
     <!-- Hut -->
-    <rect x="-14" y="-10" width="28" height="6" fill="#212121"/>
-    <rect x="-10" y="-22" width="20" height="12" fill="#212121"/>
-    <!-- Körper (Stroh) -->
-    <rect x="-12" y="28" width="24" height="40" fill="#ffd54f"/>
-    <line x1="-12" y1="35" x2="-18" y2="35" stroke="#fdd835" stroke-width="2"/>
-    <line x1="12" y1="35" x2="18" y2="35" stroke="#fdd835" stroke-width="2"/>
-    <line x1="-12" y1="50" x2="-16" y2="50" stroke="#fdd835" stroke-width="2"/>
-    <line x1="12" y1="50" x2="16" y2="50" stroke="#fdd835" stroke-width="2"/>
-    <!-- Kleidung -->
-    <rect x="-15" y="25" width="30" height="45" fill="#795548" opacity="0.6"/>
+    <ellipse cx="-60" cy="-30" rx="16" ry="6" fill="#78350f"/>
+    <rect x="-67" y="-42" width="14" height="14" fill="#92400e"/>
   </g>
 
-  <!-- Krähen -->
-  <path d="M 200 240 Q 215 235 230 240" stroke="#212121" stroke-width="2.5" fill="none"/>
-  <path d="M 400 260 Q 415 255 430 260" stroke="#212121" stroke-width="2.5" fill="none"/>
+  <!-- Weinreben im Vordergrund -->
+  <g>
+    <line x1="80" y1="610" x2="520" y2="610" stroke="#422006" stroke-width="5"/>
+    <rect x="80" y="590" width="12" height="50" fill="#422006"/>
+    <rect x="200" y="590" width="12" height="50" fill="#422006"/>
+    <rect x="320" y="590" width="12" height="50" fill="#422006"/>
+    <rect x="440" y="590" width="12" height="50" fill="#422006"/>
+    <rect x="520" y="590" width="12" height="50" fill="#422006"/>
 
-  <!-- Emoji-Dekoration -->
-  <text x="105" y="125" font-size="40" opacity="0.6">🌙</text>
-  <text x="350" y="105" font-size="38" opacity="0.45">☁️</text>
-  <text x="30" y="490" font-size="44" opacity="0.9">🍂</text>
-  <text x="470" y="510" font-size="42" opacity="0.9">🍁</text>
-  <text x="150" y="595" font-size="42" opacity="0.95">🎃</text>
-  <text x="400" y="620" font-size="44" opacity="0.95">🎃</text>
-  <text x="290" y="675" font-size="30" opacity="0.85">🍄</text>
-  <text x="315" y="650" font-size="28" opacity="0.8">👻</text>
-  <text x="445" y="375" font-size="26" opacity="0.85">🦇</text>
-  <text x="110" y="335" font-size="24" opacity="0.8">🦇</text>
-  <text x="175" y="265" font-size="22" opacity="0.75">🐦</text>
-  <text x="135" y="575" font-size="26" opacity="0.75">🍂</text>
-  <text x="505" y="615" font-size="26" opacity="0.75">🍁</text>
+    <!-- Weinblätter (groß, vorne) -->
+    <circle cx="86" cy="578" r="18" fill="#d97706" opacity="0.9"/>
+    <circle cx="96" cy="582" r="16" fill="#ea580c" opacity="0.9"/>
+    <circle cx="82" cy="588" r="14" fill="#ca8a04" opacity="0.9"/>
+
+    <circle cx="206" cy="578" r="18" fill="#ca8a04" opacity="0.9"/>
+    <circle cx="216" cy="582" r="16" fill="#d97706" opacity="0.9"/>
+    <circle cx="202" cy="588" r="14" fill="#a16207" opacity="0.9"/>
+
+    <circle cx="326" cy="578" r="18" fill="#ea580c" opacity="0.9"/>
+    <circle cx="336" cy="582" r="16" fill="#dc2626" opacity="0.9"/>
+    <circle cx="322" cy="588" r="14" fill="#d97706" opacity="0.9"/>
+  </g>
+
+  <!-- Weintrauben an Reben (Details) -->
+  <g>
+    <circle cx="200" cy="605" r="7" fill="#7c3aed" opacity="0.9"/>
+    <circle cx="209" cy="607" r="7" fill="#6d28d9" opacity="0.9"/>
+    <circle cx="205" cy="613" r="7" fill="#7c3aed" opacity="0.9"/>
+    <circle cx="196" cy="610" r="6" fill="#6d28d9" opacity="0.9"/>
+    <circle cx="213" cy="613" r="6" fill="#7c3aed" opacity="0.9"/>
+  </g>
+
+  <g>
+    <circle cx="440" cy="603" r="7" fill="#6d28d9" opacity="0.9"/>
+    <circle cx="449" cy="605" r="7" fill="#7c3aed" opacity="0.9"/>
+    <circle cx="445" cy="611" r="7" fill="#6d28d9" opacity="0.9"/>
+    <circle cx="436" cy="608" r="6" fill="#7c3aed" opacity="0.9"/>
+    <circle cx="453" cy="611" r="6" fill="#6d28d9" opacity="0.9"/>
+  </g>
+
+  <!-- Herbstblätter in der Luft (fallend) -->
+  <g>
+    <!-- Blatt 1 -->
+    <ellipse cx="180" cy="180" rx="15" ry="21" fill="#fbbf24" transform="rotate(25 180 180)"/>
+    <line x1="180" y1="180" x2="186" y2="195" stroke="#f59e0b" stroke-width="2.5"/>
+
+    <!-- Blatt 2 -->
+    <ellipse cx="350" cy="240" rx="14" ry="20" fill="#fb923c" transform="rotate(-20 350 240)"/>
+    <line x1="350" y1="240" x2="356" y2="254" stroke="#f97316" stroke-width="2.2"/>
+
+    <!-- Blatt 3 -->
+    <ellipse cx="260" cy="320" rx="16" ry="22" fill="#f59e0b" transform="rotate(35 260 320)"/>
+    <line x1="260" y1="320" x2="254" y2="336" stroke="#d97706" stroke-width="2.5"/>
+
+    <!-- Blatt 4 -->
+    <ellipse cx="480" cy="260" rx="15" ry="21" fill="#ea580c" transform="rotate(-15 480 260)"/>
+    <line x1="480" y1="260" x2="486" y2="275" stroke="#c2410c" stroke-width="2.2"/>
+
+    <!-- Blatt 5 -->
+    <ellipse cx="140" cy="380" rx="14" ry="20" fill="#fde047" transform="rotate(40 140 380)"/>
+    <line x1="140" y1="380" x2="134" y2="394" stroke="#fbbf24" stroke-width="2.2"/>
+
+    <!-- Blatt 6 -->
+    <ellipse cx="520" cy="320" rx="15" ry="21" fill="#dc2626" transform="rotate(-25 520 320)"/>
+    <line x1="520" y1="320" x2="526" y2="335" stroke="#b91c1c" stroke-width="2.5"/>
+
+    <!-- Blatt 7 -->
+    <ellipse cx="220" cy="450" rx="13" ry="19" fill="#fb923c" transform="rotate(15 220 450)"/>
+    <line x1="220" y1="450" x2="226" y2="463" stroke="#f97316" stroke-width="2"/>
+
+    <!-- Blatt 8 -->
+    <ellipse cx="420" cy="420" rx="14" ry="20" fill="#fbbf24" transform="rotate(-30 420 420)"/>
+    <line x1="420" y1="420" x2="426" y2="434" stroke="#f59e0b" stroke-width="2.2"/>
+  </g>
+
+  <!-- Vögel (ziehend) -->
+  <path d="M 200 140 Q 218 135 236 140" stroke="#78350f" stroke-width="3" fill="none"/>
+  <path d="M 220 165 Q 238 160 256 165" stroke="#78350f" stroke-width="3" fill="none"/>
+  <path d="M 240 115 Q 258 110 276 115" stroke="#78350f" stroke-width="3" fill="none"/>
+
+  <!-- Lichtstrahlen (golden hour) -->
+  <path d="M 470 170 L 240 620" stroke="#fef08a" stroke-width="4" opacity="0.15"/>
+  <path d="M 490 190 L 280 640" stroke="#fef08a" stroke-width="5" opacity="0.15"/>
+  <path d="M 450 210 L 220 660" stroke="#fef08a" stroke-width="4" opacity="0.15"/>
+  <path d="M 510 150 L 320 600" stroke="#fef08a" stroke-width="4" opacity="0.15"/>
+
+  <!-- Emoji-Dekoration: Goldener Oktober / Weinlese -->
+  <!-- Weintrauben 🍇 -->
+  <text x="175" y="625" font-size="28" opacity="0.85">🍇</text>
+  <text x="415" y="630" font-size="28" opacity="0.85">🍇</text>
+  <text x="295" y="620" font-size="24" opacity="0.75">🍇</text>
+
+  <!-- Herbstblätter 🍂🍁 (fallend) -->
+  <text x="155" y="190" font-size="28" opacity="0.85">🍁</text>
+  <text x="325" y="250" font-size="26" opacity="0.8">🍂</text>
+  <text x="235" y="330" font-size="30" opacity="0.85">🍁</text>
+  <text x="455" y="270" font-size="28" opacity="0.8">🍂</text>
+  <text x="115" y="390" font-size="24" opacity="0.75">🍁</text>
+  <text x="495" y="330" font-size="28" opacity="0.8">🍂</text>
+  <text x="195" y="460" font-size="26" opacity="0.75">🍁</text>
+  <text x="395" y="430" font-size="24" opacity="0.7">🍂</text>
+
+  <!-- Goldene Bäume 🌳 -->
+  <text x="50" y="375" font-size="35" opacity="0.35">🌳</text>
+  <text x="460" y="425" font-size="32" opacity="0.35">🌳</text>
+
+  <!-- Sonne 🌤️ -->
+  <text x="440" y="135" font-size="42" opacity="0.4">🌤️</text>
+
+  <!-- Vögel 🐦 (ziehend) -->
+  <text x="190" y="150" font-size="18" opacity="0.5">🐦</text>
+  <text x="240" y="175" font-size="16" opacity="0.5">🐦</text>
+  <text x="260" y="125" font-size="16" opacity="0.5">🐦</text>
 </svg>
