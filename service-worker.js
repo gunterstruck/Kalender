@@ -1,7 +1,7 @@
 // Service Worker für Monatskalender mit Türchen
 // Version 1.5.0 - Code-Optimierungen und Bugfixes
 
-const CACHE_NAME = 'kalender-cache-v1.5.0';
+const CACHE_NAME = 'kalender-cache-v1.5.4';
 const RUNTIME_CACHE = 'kalender-runtime-v1.5.4';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
