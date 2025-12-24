@@ -295,7 +295,7 @@ body.dark-mode .theme-toggle .moon-icon {
     font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--text-primary);
-    background: var(--background);
+    background: var(--surface);
     border: 2px solid var(--border);
     border-radius: var(--radius-lg);
     cursor: pointer;

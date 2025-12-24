@@ -2620,7 +2620,18 @@ function generateQuoteMapping(numberOfDays) {
     return mapping;
 }
 
+// Funktion zum Erstellen einer jahresweiten Spruchzuordnung
+// Stellt sicher, dass jeder Spruch nur einmal pro Jahr verwendet wird
+function generateYearlyQuoteMapping(year) {
+    // Prüfe ob Schaltjahr
+    const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    const daysInYear = isLeapYear ? 366 : 365;
+
+    // Verwende die bestehende generateQuoteMapping Funktion
+    return generateQuoteMapping(daysInYear);
+}
+
 // Export für Verwendung in anderen Dateien
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { QUOTES, getRandomQuote, generateQuoteMapping, getQuoteForDay };
+    module.exports = { QUOTES, getRandomQuote, generateQuoteMapping, generateYearlyQuoteMapping, getQuoteForDay };
 }
