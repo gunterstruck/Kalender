@@ -79,10 +79,11 @@
 
   <!-- Emoji-Dekoration -->
   <text x="440" y="105" font-size="38" opacity="0.6">☀️</text>
-  <text x="280" y="655" font-size="32" opacity="0.75">⛵</text>
+  <text x="190" y="150" font-size="30" opacity="0.7">☁️</text>
   <text x="75" y="555" font-size="34" opacity="0.5">🌳</text>
-  <text x="190" y="730" font-size="26" opacity="0.8">🌻</text>
+  <text x="190" y="730" font-size="26" opacity="0.8">🌼</text>
+  <text x="340" y="725" font-size="26" opacity="0.8">🌸</text>
   <text x="230" y="575" font-size="26" opacity="0.75">🦋</text>
   <text x="135" y="195" font-size="20" opacity="0.6">🐦</text>
-  <text x="260" y="665" font-size="24" opacity="0.6">🎣</text>
+  <text x="280" y="655" font-size="30" opacity="0.75">🦆</text>
 </svg>

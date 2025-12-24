@@ -92,13 +92,12 @@
   <path d="M 290 175 Q 305 170 320 175" stroke="#78350f" stroke-width="2.5" fill="none"/>
 
   <!-- Emoji-Dekoration -->
-  <text x="480" y="125" font-size="38" opacity="0.6">🌅</text>
+  <text x="480" y="125" font-size="38" opacity="0.6">🌤️</text>
   <text x="35" y="485" font-size="42" opacity="0.85">🍂</text>
   <text x="455" y="525" font-size="40" opacity="0.85">🍁</text>
   <text x="155" y="315" font-size="28" opacity="0.8">🍁</text>
   <text x="325" y="365" font-size="26" opacity="0.8">🍂</text>
   <text x="95" y="595" font-size="24" opacity="0.75">🍂</text>
-  <text x="320" y="745" font-size="32" opacity="0.75">🍄</text>
-  <text x="370" y="260" font-size="30" opacity="0.75">🪁</text>
+  <text x="60" y="555" font-size="30" opacity="0.5">🌳</text>
   <text x="235" y="200" font-size="20" opacity="0.6">🐦</text>
 </svg>

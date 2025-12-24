@@ -195,13 +195,13 @@
   <!-- Kirche ⛪ -->
   <text x="265" y="360" font-size="28" opacity="0.4">⛪</text>
 
-  <!-- Schneemann ⛄ -->
-  <text x="140" y="650" font-size="22" opacity="0.35">⛄</text>
+  <!-- Herzen ❤️💕 (Valentinstag) -->
+  <text x="320" y="190" font-size="26" opacity="0.75">💕</text>
+  <text x="220" y="225" font-size="22" opacity="0.65">❤️</text>
+  <text x="530" y="280" font-size="24" opacity="0.7">💕</text>
+  <text x="380" y="165" font-size="20" opacity="0.6">❤️</text>
 
-  <!-- Tannen 🎄 -->
-  <text x="75" y="710" font-size="26" opacity="0.75">🎄</text>
-  <text x="480" y="725" font-size="24" opacity="0.75">🎄</text>
-
-  <!-- Glocke 🔔 -->
-  <text x="285" y="225" font-size="20" opacity="0.5">🔔</text>
+  <!-- Vögel 🐦 -->
+  <text x="60" y="250" font-size="18" opacity="0.5">🐦</text>
+  <text x="115" y="270" font-size="16" opacity="0.5">🐦</text>
 </svg>
