@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Februar - Spätwinter Portrait">
+  <defs>
+    <linearGradient id="februaryPortraitSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e0c5d5;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#d5b5ca;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c5a5ba;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="sunGlowFeb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffe8e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffc0cb;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+
+  <!-- Rosiger Winterhimmel -->
+  <rect width="600" height="800" fill="url(#februaryPortraitSky)"/>
+
+  <!-- Sonne (sanftes rosa/gelb) -->
+  <circle cx="450" cy="140" r="70" fill="url(#sunGlowFeb)" opacity="0.4"/>
+  <circle cx="450" cy="140" r="55" fill="#ffe8cc" opacity="0.8"/>
+  <circle cx="450" cy="140" r="45" fill="#fff0e0"/>
+
+  <!-- Sonnenstrahlen (zart) -->
+  <line x1="450" y1="70" x2="450" y2="50" stroke="#ffccaa" stroke-width="4" opacity="0.6"/>
+  <line x1="520" y1="140" x2="540" y2="140" stroke="#ffccaa" stroke-width="4" opacity="0.6"/>
+  <line x1="505" y1="95" x2="520" y2="80" stroke="#ffccaa" stroke-width="3" opacity="0.6"/>
+  <line x1="505" y1="185" x2="520" y2="200" stroke="#ffccaa" stroke-width="3" opacity="0.6"/>
+
+  <!-- Zarte Wolken -->
+  <ellipse cx="200" cy="100" rx="60" ry="35" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="240" cy="105" rx="50" ry="30" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="165" cy="110" rx="45" ry="28" fill="#ffffff" opacity="0.85"/>
+
+  <!-- Verschneiter Hügel Hintergrund -->
+  <ellipse cx="300" cy="450" rx="350" ry="70" fill="#f5e8f0" opacity="0.7"/>
+  <ellipse cx="150" cy="470" rx="220" ry="55" fill="#ead8e5" opacity="0.7"/>
+  <ellipse cx="450" cy="460" rx="200" ry="60" fill="#e5d0e0" opacity="0.7"/>
+
+  <!-- Romantisches Cottage (Mitte) -->
+  <rect x="200" y="380" width="200" height="160" fill="#f5d8e5"/>
+  <rect x="205" y="385" width="190" height="150" fill="#fce8f3"/>
+
+  <!-- Dach (rötlich) -->
+  <polygon points="300,300 180,380 420,380" fill="#b8456d"/>
+  <polygon points="300,300 190,375 410,375" fill="#c85680"/>
+  <path d="M 180,380 Q 250,345 300,340 Q 350,345 420,380" fill="#f0e8f5" opacity="0.95"/>
+
+  <!-- Herz-Details auf Dach -->
+  <path d="M 280 340 Q 275 330 270 335 Q 265 340 270 345 Q 275 350 280 345 Q 285 340 280 335 Z" fill="#ff69b4" opacity="0.6"/>
+  <path d="M 320 340 Q 315 330 310 335 Q 305 340 310 345 Q 315 350 320 345 Q 325 340 320 335 Z" fill="#ff69b4" opacity="0.6"/>
+
+  <!-- Fenster (warm beleuchtet) -->
+  <rect x="230" y="410" width="50" height="55" fill="#ffd9a0"/>
+  <rect x="249" y="410" width="2" height="55" fill="#8b6545"/>
+  <rect x="230" y="436" width="50" height="2" fill="#8b6545"/>
+
+  <!-- Herz-Fenster oben -->
+  <path d="M 300 350 Q 295 340 285 345 Q 275 350 285 365 Q 295 380 300 375 Q 305 380 315 365 Q 325 350 315 345 Q 305 340 300 350 Z" fill="#ffc080" opacity="0.9"/>
+
+  <rect x="320" y="410" width="50" height="55" fill="#ffd9a0"/>
+  <rect x="339" y="410" width="2" height="55" fill="#8b6545"/>
+  <rect x="320" y="436" width="50" height="2" fill="#8b6545"/>
+
+  <!-- Tür (rosa/rot) -->
+  <rect x="255" y="485" width="90" height="55" fill="#c85680"/>
+  <rect x="260" y="490" width="80" height="48" fill="#d87098"/>
+  <circle cx="330" cy="518" r="4" fill="#ffd700"/>
+
+  <!-- Türkranz (Herz-Form) -->
+  <circle cx="300" cy="510" r="15" fill="#228b22" opacity="0.7"/>
+  <path d="M 292 505 Q 290 500 286 503 Q 282 506 286 512 Q 290 516 292 513 Z" fill="#ff69b4"/>
+  <path d="M 308 505 Q 310 500 314 503 Q 318 506 314 512 Q 310 516 308 513 Z" fill="#ff69b4"/>
+
+  <!-- Schornstein mit Rauch -->
+  <rect x="340" y="310" width="24" height="70" fill="#945060"/>
+  <rect x="342" y="312" width="20" height="66" fill="#a86070"/>
+  <ellipse cx="352" cy="297" rx="12" ry="16" fill="#e8d8e8" opacity="0.7"/>
+  <ellipse cx="356" cy="275" rx="14" ry="19" fill="#e8d8e8" opacity="0.5"/>
+  <ellipse cx="361" cy="248" rx="16" ry="22" fill="#e8d8e8" opacity="0.3"/>
+
+  <!-- Verschneite Büsche/Sträucher -->
+  <ellipse cx="140" cy="530" rx="50" ry="35" fill="#d0e0d5"/>
+  <ellipse cx="140" cy="520" rx="45" ry="30" fill="#e0f0e5"/>
+  <ellipse cx="140" cy="515" rx="40" ry="25" fill="#f0f8ff"/>
+
+  <ellipse cx="460" cy="540" rx="55" ry="38" fill="#d0e0d5"/>
+  <ellipse cx="460" cy="530" rx="50" ry="33" fill="#e0f0e5"/>
+  <ellipse cx="460" cy="525" rx="45" ry="28" fill="#f0f8ff"/>
+
+  <!-- Kleiner Baum mit Herzchen -->
+  <rect x="105" y="440" width="18" height="90" fill="#6b4a3a"/>
+  <circle cx="114" cy="420" r="50" fill="#c58590" opacity="0.6"/>
+  <circle cx="90" cy="400" r="35" fill="#d59aa0" opacity="0.6"/>
+  <circle cx="138" cy="405" r="38" fill="#c08595" opacity="0.6"/>
+
+  <!-- Herzblätter im Baum -->
+  <path d="M 105 410 Q 102 405 98 408 Q 94 411 98 418 Q 102 423 105 420 Q 108 423 112 418 Q 116 411 112 408 Q 108 405 105 410 Z" fill="#ff6b8a" opacity="0.8"/>
+  <path d="M 120 405 Q 117 400 113 403 Q 109 406 113 413 Q 117 418 120 415 Q 123 418 127 413 Q 131 406 127 403 Q 123 400 120 405 Z" fill="#ff6b8a" opacity="0.8"/>
+
+  <!-- Schneemann mit Herz -->
+  <g>
+    <circle cx="480" cy="630" r="32" fill="#ffffff"/>
+    <circle cx="480" cy="590" r="26" fill="#ffffff"/>
+    <circle cx="480" cy="558" r="19" fill="#ffffff"/>
+
+    <!-- Gesicht -->
+    <circle cx="472" cy="554" r="2.5" fill="#000000"/>
+    <circle cx="488" cy="554" r="2.5" fill="#000000"/>
+    <polygon points="480,558 475,560 480,562" fill="#ff6600"/>
+
+    <!-- Lächeln -->
+    <path d="M 474 564 Q 480 568 486 564" stroke="#000000" stroke-width="1.5" fill="none"/>
+
+    <!-- Knöpfe als Herzen -->
+    <path d="M 480 585 Q 478 582 475 584 Q 472 586 475 590 Q 478 593 480 591 Q 482 593 485 590 Q 488 586 485 584 Q 482 582 480 585 Z" fill="#ff1493"/>
+    <circle cx="480" cy="600" r="2.2" fill="#ff1493"/>
+    <circle cx="480" cy="620" r="2.5" fill="#ff1493"/>
+
+    <!-- Arme -->
+    <line x1="462" y1="590" x2="442" y2="580" stroke="#6a4a30" stroke-width="3"/>
+    <line x1="498" y1="590" x2="518" y2="580" stroke="#6a4a30" stroke-width="3"/>
+
+    <!-- Hut -->
+    <rect x="471" y="540" width="18" height="8" fill="#c85680"/>
+    <rect x="466" y="535" width="28" height="5" fill="#c85680"/>
+
+    <!-- Schal (rosa) -->
+    <ellipse cx="480" cy="571" rx="20" ry="7" fill="#ff69b4"/>
+    <rect x="460" y="568" width="7" height="18" fill="#ff69b4"/>
+  </g>
+
+  <!-- Schneebedeckter Boden vorne -->
+  <ellipse cx="300" cy="720" rx="400" ry="110" fill="#fef5ff"/>
+  <rect x="0" y="680" width="600" height="120" fill="#fef5ff"/>
+
+  <!-- Rosa Schneeverwehungen -->
+  <ellipse cx="200" cy="740" rx="100" ry="30" fill="#f8e8f8"/>
+  <ellipse cx="450" cy="750" rx="120" fill="#f0e0f5"/>
+
+  <!-- Herzförmige Dekoration am Boden -->
+  <path d="M 120 680 Q 115 670 105 675 Q 95 680 105 695 Q 115 710 120 705 Q 125 710 135 695 Q 145 680 135 675 Q 125 670 120 680 Z" fill="#ff69b4" opacity="0.5"/>
+  <path d="M 350 710 Q 345 700 335 705 Q 325 710 335 725 Q 345 740 350 735 Q 355 740 365 725 Q 375 710 365 705 Q 355 700 350 710 Z" fill="#ffb6c1" opacity="0.5"/>
+
+  <!-- Vögel als Herz-Formation -->
+  <path d="M 70 210 Q 82 205 94 210" stroke="#6a5060" stroke-width="2" fill="none"/>
+  <path d="M 110 230 Q 122 225 134 230" stroke="#6a5060" stroke-width="2" fill="none"/>
+  <path d="M 90 220 Q 102 215 114 220" stroke="#6a5060" stroke-width="2" fill="none"/>
+
+  <!-- Schneeflocken (zart rosa getönt) -->
+  <g opacity="0.8">
+    <circle cx="180" cy="280" r="3" fill="#ffe8f0"/>
+    <circle cx="420" cy="320" r="2.8" fill="#ffe8f0"/>
+    <circle cx="290" cy="360" r="3.2" fill="#ffe8f0"/>
+    <circle cx="520" cy="420" r="2.5" fill="#ffe8f0"/>
+    <circle cx="150" cy="460" r="3" fill="#ffe8f0"/>
+    <circle cx="380" cy="500" r="2.8" fill="#ffe8f0"/>
+  </g>
+
+  <!-- Emoji-Dekoration -->
+  <text x="410" y="150" font-size="38" opacity="0.4">☀️</text>
+  <text x="170" y="115" font-size="28" opacity="0.35">☁️</text>
+  <text x="110" y="525" font-size="26" opacity="0.75">❄️</text>
+  <text x="430" y="560" font-size="24" opacity="0.7">❄️</text>
+  <text x="85" y="470" font-size="28" opacity="0.6">🌸</text>
+  <text x="250" y="340" font-size="32" opacity="0.85">💝</text>
+  <text x="90" y="700" font-size="36" opacity="0.7">❤️</text>
+  <text x="320" y="735" font-size="34" opacity="0.65">💕</text>
+  <text x="445" y="650" font-size="32" opacity="0.75">⛄</text>
+  <text x="520" y="240" font-size="20" opacity="0.7">✨</text>
+</svg>

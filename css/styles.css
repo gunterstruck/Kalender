@@ -660,10 +660,12 @@ body.dark-mode .theme-toggle .moon-icon {
 /* Hochformat-Optimierung für Monatsbilder */
 @media (max-width: 768px) and (orientation: portrait) {
     .month-illustration {
-        /* Blende SVG-Hintergrund auf Mobil aus - nutze stattdessen dynamische Icons */
-        background-image: none !important;
-        background-color: var(--winter-blue);
+        /* Verwende Portrait-optimierte Monatsbilder für Hochformat */
+        background-size: contain;
+        background-position: center center;
     }
+
+    /* Portrait-Bildpfade werden via JavaScript gesetzt */
 }
 
 /* Mobile Monat-Dekoration Container */

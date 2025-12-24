@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="November - Spätherbst Portrait">
+  <defs>
+    <linearGradient id="novemberPortraitSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#546e7a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#607d8b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#78909c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Grauer November-Himmel -->
+  <rect width="600" height="800" fill="url(#novemberPortraitSky)"/>
+
+  <!-- Trübe Sonne (kaum sichtbar) -->
+  <circle cx="450" cy="120" r="60" fill="#e0e0e0" opacity="0.5"/>
+  <circle cx="450" cy="120" r="50" fill="#d0d0d0" opacity="0.6"/>
+
+  <!-- Dichte graue Wolken -->
+  <ellipse cx="200" cy="80" rx="110" ry="65" fill="#9e9e9e" opacity="0.9"/>
+  <ellipse cx="280" cy="85" rx="98" ry="60" fill="#757575" opacity="0.9"/>
+  <ellipse cx="130" cy="90" rx="88" ry="55" fill="#9e9e9e" opacity="0.9"/>
+
+  <ellipse cx="480" cy="140" rx="105" ry="62" fill="#757575" opacity="0.85"/>
+  <ellipse cx="550" cy="145" rx="90" ry="56" fill="#9e9e9e" opacity="0.85"/>
+  <ellipse cx="420" cy="150" rx="80" ry="52" fill="#757575" opacity="0.85"/>
+
+  <!-- Kahle Hügel (braun-grau) -->
+  <ellipse cx="300" cy="490" rx="410" ry="90" fill="#6d6d6d" opacity="0.7"/>
+  <ellipse cx="150" cy="510" rx="290" ry="80" fill="#5d5d5d" opacity="0.7"/>
+  <ellipse cx="450" cy="500" rx="270" ry="85" fill="#757575" opacity="0.7"/>
+
+  <!-- Bauernhaus im November-Nebel -->
+  <rect x="220" y="385" width="180" height="160" fill="#ece5dd"/>
+  <rect x="225" y="390" width="170" height="150" fill="#f5f0eb"/>
+
+  <!-- Dach (dunkel) -->
+  <polygon points="310,320 200,385 420,385" fill="#4e342e"/>
+  <polygon points="310,320 210,380 410,380" fill="#5d4037"/>
+
+  <!-- Fenster (schwach beleuchtet) -->
+  <rect x="250" y="410" width="48" height="52" fill="#ffd180"/>
+  <rect x="273" y="410" width="2" height="52" fill="#5d4037"/>
+  <rect x="250" y="435" width="48" height="2" fill="#5d4037"/>
+
+  <rect x="322" y="410" width="48" height="52" fill="#ffd180"/>
+  <rect x="345" y="410" width="2" height="52" fill="#5d4037"/>
+  <rect x="322" y="435" width="48" height="2" fill="#5d4037"/>
+
+  <!-- Rundfenster Dach -->
+  <circle cx="310" cy="353" r="15" fill="#ffcc80"/>
+  <line x1="310" y1="338" x2="310" y2="368" stroke="#5d4037" stroke-width="2"/>
+  <line x1="295" y1="353" x2="325" y2="353" stroke="#5d4037" stroke-width="2"/>
+
+  <!-- Tür -->
+  <rect x="280" y="500" width="60" height="45" fill="#8d6e63"/>
+  <rect x="285" y="505" width="50" height="38" fill="#a1887f"/>
+  <circle cx="328" cy="527" r="3.5" fill="#ffd54f"/>
+
+  <!-- Adventskranz (Vorbereitung auf Weihnacht) -->
+  <circle cx="310" cy="520" r="14" fill="#558b2f"/>
+  <circle cx="304" cy="516" r="4" fill="#d32f2f"/>
+  <circle cx="316" cy="516" r="4" fill="#d32f2f"/>
+  <circle cx="304" cy="524" r="4" fill="#d32f2f"/>
+  <circle cx="316" cy="524" r="4" fill="#d32f2f"/>
+
+  <!-- Schornstein (Rauch - es ist kalt) -->
+  <rect x="350" y="325" width="20" height="60" fill="#4e342e"/>
+  <rect x="352" y="327" width="16" height="56" fill="#5d4037"/>
+  <ellipse cx="360" cy="313" rx="10" ry="14" fill="#757575" opacity="0.8"/>
+  <ellipse cx="363" cy="295" rx="12" ry="16" fill="#757575" opacity="0.6"/>
+  <ellipse cx="367" cy="273" rx="14" ry="19" fill="#757575" opacity="0.4"/>
+  <ellipse cx="371" cy="248" rx="16" ry="22" fill="#757575" opacity="0.2"/>
+
+  <!-- Kahle Bäume (ohne Blätter) -->
+  <!-- Linker Baum -->
+  <rect x="75" y="440" width="28" height="150" fill="#6d4c41"/>
+  <!-- Äste -->
+  <line x1="89" y1="480" x2="65" y2="460" stroke="#6d4c41" stroke-width="8"/>
+  <line x1="89" y1="480" x2="70" y2="470" stroke="#6d4c41" stroke-width="6"/>
+  <line x1="89" y1="500" x2="115" y2="485" stroke="#6d4c41" stroke-width="8"/>
+  <line x1="89" y1="500" x2="108" y2="493" stroke="#6d4c41" stroke-width="6"/>
+  <line x1="89" y1="460" x2="105" y2="445" stroke="#6d4c41" stroke-width="7"/>
+  <line x1="89" y1="460" x2="95" y2="452" stroke="#6d4c41" stroke-width="5"/>
+  <line x1="65" y1="460" x2="58" y2="448" stroke="#6d4c41" stroke-width="5"/>
+  <line x1="115" y1="485" x2="125" y2="478" stroke="#6d4c41" stroke-width="5"/>
+
+  <!-- Rechter Baum -->
+  <rect x="505" y="455" width="26" height="140" fill="#6d4c41"/>
+  <line x1="518" y1="495" x2="495" y2="478" stroke="#6d4c41" stroke-width="7"/>
+  <line x1="518" y1="495" x2="502" y2="487" stroke="#6d4c41" stroke-width="5"/>
+  <line x1="518" y1="515" x2="540" y2="502" stroke="#6d4c41" stroke-width="7"/>
+  <line x1="518" y1="515" x2="532" y2="508" stroke="#6d4c41" stroke-width="5"/>
+  <line x1="518" y1="475" x2="532" y2="462" stroke="#6d4c41" stroke-width="6"/>
+  <line x1="495" y1="478" x2="487" y2="468" stroke="#6d4c41" stroke-width="4"/>
+  <line x1="540" y1="502" x2="548" y2="496" stroke="#6d4c41" stroke-width="4"/>
+
+  <!-- Kleine kahle Büsche -->
+  <g opacity="0.7">
+    <line x1="180" y1="580" x2="165" y2="565" stroke="#8d6e63" stroke-width="5"/>
+    <line x1="180" y1="580" x2="172" y2="572" stroke="#8d6e63" stroke-width="4"/>
+    <line x1="180" y1="580" x2="195" y2="570" stroke="#8d6e63" stroke-width="5"/>
+    <line x1="180" y1="580" x2="188" y2="574" stroke="#8d6e63" stroke-width="4"/>
+
+    <line x1="450" y1="590" x2="438" y2="577" stroke="#8d6e63" stroke-width="5"/>
+    <line x1="450" y1="590" x2="444" y2="583" stroke="#8d6e63" stroke-width="4"/>
+    <line x1="450" y1="590" x2="462" y2="580" stroke="#8d6e63" stroke-width="5"/>
+  </g>
+
+  <!-- Letzte Herbstblätter (wenige, am Boden) -->
+  <g opacity="0.7">
+    <path d="M 220 650 Q 217 648 215 650 Q 213 652 215 654 Q 217 656 219 654 Q 221 652 219 650" fill="#8d6e63" transform="rotate(30 217 652)"/>
+    <path d="M 380 660 Q 377 658 375 660 Q 373 662 375 664 Q 377 666 379 664 Q 381 662 379 660" fill="#6d4c41" transform="rotate(-25 377 662)"/>
+    <path d="M 480 670 Q 477 668 475 670 Q 473 672 475 674 Q 477 676 479 674 Q 481 672 479 670" fill="#8d6e63" transform="rotate(45 477 672)"/>
+  </g>
+
+  <!-- Nebelschwaden am Boden -->
+  <ellipse cx="150" cy="680" rx="120" ry="40" fill="#b0bec5" opacity="0.4"/>
+  <ellipse cx="400" cy="690" rx="140" ry="45" fill="#b0bec5" opacity="0.4"/>
+  <ellipse cx="280" cy="720" rx="100" ry="35" fill="#b0bec5" opacity="0.3"/>
+
+  <!-- Brunnen/Heuschober (November-Szene) -->
+  <g>
+    <ellipse cx="350" cy="630" rx="45" ry="28" fill="#8d6e63"/>
+    <ellipse cx="350" cy="620" rx="42" ry="25" fill="#a1887f"/>
+    <ellipse cx="350" cy="610" rx="40" ry="23" fill="#bcaaa4"/>
+    <ellipse cx="350" cy="600" rx="38" ry="21" fill="#d7ccc8"/>
+    <line x1="340" y1="600" x2="360" y2="600" stroke="#6d4c41" stroke-width="2"/>
+  </g>
+
+  <!-- Wintervögel (suchen Futter) -->
+  <g transform="translate(280, 560)">
+    <ellipse cx="0" cy="0" rx="10" ry="7" fill="#5d4037"/>
+    <circle cx="-3" cy="-2" r="6" fill="#6d4c41"/>
+    <circle cx="0" cy="-4" r="4" fill="#8d6e63"/>
+    <circle cx="-1" cy="-5" r="1.5" fill="#212121"/>
+    <path d="M 2 -3 L 7 -4 L 6 -2 Z" fill="#ff9800"/>
+  </g>
+
+  <g transform="translate(420, 575)">
+    <ellipse cx="0" cy="0" rx="9" ry="6.5" fill="#5d4037"/>
+    <circle cx="-2.5" cy="-1.5" r="5.5" fill="#6d4c41"/>
+    <circle cx="0" cy="-3.5" r="3.5" fill="#8d6e63"/>
+    <circle cx="-0.8" cy="-4.5" r="1.3" fill="#212121"/>
+    <path d="M 1.8 -2.5 L 6.3 -3.5 L 5.4 -1.5 Z" fill="#ff9800"/>
+  </g>
+
+  <!-- Karger November-Boden -->
+  <ellipse cx="300" cy="760" rx="470" ry="130" fill="#6d6d6d"/>
+  <rect x="0" y="720" width="600" height="80" fill="#6d6d6d"/>
+
+  <!-- Trockene Grashalme (braun) -->
+  <line x1="120" y1="740" x2="115" y2="720" stroke="#8d6e63" stroke-width="3" opacity="0.7"/>
+  <line x1="320" y1="745" x2="315" y2="725" stroke="#8d6e63" stroke-width="3" opacity="0.7"/>
+  <line x1="510" y1="750" x2="505" y2="730" stroke="#8d6e63" stroke-width="3" opacity="0.7"/>
+
+  <!-- Pfützen (Regenwasser) -->
+  <ellipse cx="240" cy="710" rx="55" ry="18" fill="#607d8b" opacity="0.6"/>
+  <ellipse cx="460" cy="720" rx="62" ry="20" fill="#607d8b" opacity="0.6"/>
+
+  <!-- Spiegelung in Pfützen -->
+  <ellipse cx="240" cy="710" rx="38" ry="10" fill="#546e7a" opacity="0.4"/>
+  <ellipse cx="460" cy="720" rx="42" ry="12" fill="#546e7a" opacity="0.4"/>
+
+  <!-- Krähen/Raben (typisch November) -->
+  <path d="M 150 210 Q 165 205 180 210" stroke="#212121" stroke-width="2.8" fill="none"/>
+  <path d="M 320 240 Q 335 235 350 240" stroke="#212121" stroke-width="2.8" fill="none"/>
+  <path d="M 220 190 Q 235 185 250 190" stroke="#212121" stroke-width="2.8" fill="none"/>
+
+  <!-- Raben sitzend (auf kahlen Ästen) -->
+  <g transform="translate(105, 450)">
+    <ellipse cx="0" cy="0" rx="12" ry="8" fill="#212121"/>
+    <circle cx="-3" cy="-2" r="7" fill="#1a1a1a"/>
+    <circle cx="0" cy="-4" r="5" fill="#2a2a2a"/>
+    <circle cx="-1" cy="-5" r="1.8" fill="#ffffff" opacity="0.3"/>
+    <path d="M 3 -3 L 9 -4 L 8 -1 Z" fill="#424242"/>
+  </g>
+
+  <!-- Emoji-Dekoration -->
+  <text x="415" y="135" font-size="38" opacity="0.35">☀️</text>
+  <text x="170" y="95" font-size="40" opacity="0.5">☁️</text>
+  <text x="450" y="165" font-size="38" opacity="0.5">☁️</text>
+  <text x="45" y="540" font-size="40" opacity="0.75">🍂</text>
+  <text x="475" y="555" font-size="38" opacity="0.75">🍁</text>
+  <text x="195" y="675" font-size="28" opacity="0.65">🍂</text>
+  <text x="135" y="225" font-size="26" opacity="0.85">🐦</text>
+  <text x="305" y="255" font-size="26" opacity="0.85">🐦</text>
+  <text x="250" y="585" font-size="28" opacity="0.8">🐦</text>
+  <text x="325" y="655" font-size="30" opacity="0.75">🌰</text>
+  <text x="215" y="730" font-size="24" opacity="0.65">💧</text>
+  <text x="75" y="485" font-size="22" opacity="0.75">🦅</text>
+  <text x="280" y="545" font-size="20" opacity="0.7">☕</text>
+</svg>

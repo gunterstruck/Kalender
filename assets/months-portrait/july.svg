@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Juli - Hochsommer Portrait">
+  <defs>
+    <linearGradient id="julyPortraitSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#01579b;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#0277bd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0288d1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Tiefblauer Hochsommerhimmel -->
+  <rect width="600" height="800" fill="url(#julyPortraitSky)"/>
+
+  <!-- Brennende Sonne (sehr intensiv, zentral oben) -->
+  <circle cx="300" cy="90" r="90" fill="#ffffcc" opacity="0.6"/>
+  <circle cx="300" cy="90" r="75" fill="#ffff99" opacity="0.8"/>
+  <circle cx="300" cy="90" r="60" fill="#ffffee"/>
+
+  <!-- Intensive Sonnenstrahlen -->
+  <line x1="300" y1="0" x2="300" y2="-20" stroke="#fdd835" stroke-width="8" opacity="0.9"/>
+  <line x1="400" y1="90" x2="420" y2="90" stroke="#fdd835" stroke-width="8" opacity="0.9"/>
+  <line x1="200" y1="90" x2="180" y2="90" stroke="#fdd835" stroke-width="8" opacity="0.9"/>
+  <line x1="300" y1="180" x2="300" y2="200" stroke="#fdd835" stroke-width="8" opacity="0.9"/>
+  <line x1="370" y1="20" x2="390" y2="0" stroke="#fdd835" stroke-width="7" opacity="0.9"/>
+  <line x1="370" y1="160" x2="390" y2="180" stroke="#fdd835" stroke-width="7" opacity="0.9"/>
+  <line x1="230" y1="160" x2="210" y2="180" stroke="#fdd835" stroke-width="7" opacity="0.9"/>
+  <line x1="230" y1="20" x2="210" y2="0" stroke="#fdd835" stroke-width="7" opacity="0.9"/>
+
+  <!-- Hitzeflimmern (transparente Wellen) -->
+  <path d="M 0 220 Q 50 215 100 220 Q 150 225 200 220 Q 250 215 300 220 Q 350 225 400 220 Q 450 215 500 220 Q 550 225 600 220" stroke="#ffeaa7" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 0 240 Q 50 235 100 240 Q 150 245 200 240 Q 250 235 300 240 Q 350 245 400 240 Q 450 235 500 240 Q 550 245 600 240" stroke="#ffeaa7" stroke-width="2" fill="none" opacity="0.3"/>
+
+  <!-- Goldene Kornfelder (Vordergrund-Mitte) -->
+  <ellipse cx="300" cy="550" rx="420" ry="100" fill="#f9a825" opacity="0.8"/>
+  <ellipse cx="150" cy="570" rx="270" ry="85" fill="#fdd835" opacity="0.8"/>
+  <ellipse cx="450" cy="560" rx="250" ry="90" fill="#ffeb3b" opacity="0.8"/>
+
+  <!-- Weizenähren-Details -->
+  <line x1="180" y1="600" x2="175" y2="570" stroke="#f57c00" stroke-width="3"/>
+  <ellipse cx="175" cy="565" rx="4" ry="10" fill="#ffa726"/>
+  <line x1="280" y1="590" x2="275" y2="560" stroke="#f57c00" stroke-width="3"/>
+  <ellipse cx="275" cy="555" rx="4" ry="10" fill="#ffa726"/>
+  <line x1="400" y1="595" x2="395" y2="565" stroke="#f57c00" stroke-width="3"/>
+  <ellipse cx="395" cy="560" rx="4" ry="10" fill="#ffa726"/>
+  <line x1="520" y1="600" x2="515" y2="570" stroke="#f57c00" stroke-width="3"/>
+  <ellipse cx="515" cy="565" rx="4" ry="10" fill="#ffa726"/>
+
+  <!-- Bauernhof im Sommer -->
+  <rect x="200" y="360" width="200" height="180" fill="#fff3e0"/>
+  <rect x="205" y="365" width="190" height="170" fill="#fffaf0"/>
+
+  <!-- Rotes Sommerdach -->
+  <polygon points="300,290 180,360 420,360" fill="#b71c1c"/>
+  <polygon points="300,290 190,355 410,355" fill="#c62828"/>
+
+  <!-- Fenster -->
+  <rect x="230" y="390" width="55" height="60" fill="#64b5f6"/>
+  <rect x="256" y="390" width="2.5" height="60" fill="#5d4037"/>
+  <rect x="230" y="418" width="55" height="2.5" fill="#5d4037"/>
+
+  <rect x="315" y="390" width="55" height="60" fill="#64b5f6"/>
+  <rect x="341" y="390" width="2.5" height="60" fill="#5d4037"/>
+  <rect x="315" y="418" width="55" height="2.5" fill="#5d4037"/>
+
+  <!-- Fensterläden (geöffnet) -->
+  <rect x="220" y="390" width="8" height="60" fill="#8d6e63"/>
+  <rect x="286" y="390" width="8" height="60" fill="#8d6e63"/>
+  <rect x="305" y="390" width="8" height="60" fill="#8d6e63"/>
+  <rect x="371" y="390" width="8" height="60" fill="#8d6e63"/>
+
+  <!-- Rundfenster Dach -->
+  <circle cx="300" cy="325" r="18" fill="#ffecb3"/>
+  <line x1="300" y1="307" x2="300" y2="343" stroke="#6d4c41" stroke-width="2.5"/>
+  <line x1="282" y1="325" x2="318" y2="325" stroke="#6d4037" stroke-width="2.5"/>
+
+  <!-- Tür -->
+  <rect x="265" y="480" width="70" height="60" fill="#8d6e63"/>
+  <rect x="270" y="485" width="60" height="53" fill="#a1887f"/>
+  <circle cx="322" cy="515" r="4" fill="#ffd54f"/>
+
+  <!-- Schornstein (keine Rauchsäule - zu heiß) -->
+  <rect x="345" y="295" width="22" height="65" fill="#8d6e63"/>
+  <rect x="347" y="297" width="18" height="61" fill="#a1887f"/>
+
+  <!-- Sonnenblumenfeld (links) -->
+  <g>
+    <circle cx="110" cy="540" r="22" fill="#fdd835"/>
+    <circle cx="97" cy="533" r="8" fill="#fff9c4"/>
+    <circle cx="123" cy="533" r="8" fill="#fff9c4"/>
+    <circle cx="97" cy="547" r="8" fill="#fff9c4"/>
+    <circle cx="123" cy="547" r="8" fill="#fff9c4"/>
+    <circle cx="110" cy="540" r="12" fill="#f57c00"/>
+    <rect x="108" y="552" width="4" height="80" fill="#689f38"/>
+
+    <circle cx="150" cy="555" r="20" fill="#ffeb3b"/>
+    <circle cx="138" cy="549" r="7" fill="#fff9c4"/>
+    <circle cx="162" cy="549" r="7" fill="#fff9c4"/>
+    <circle cx="150" cy="555" r="11" fill="#f57c00"/>
+    <rect x="148" y="565" width="4" height="75" fill="#689f38"/>
+
+    <circle cx="80" cy="565" r="19" fill="#fdd835"/>
+    <circle cx="70" cy="560" r="6.5" fill="#fff9c4"/>
+    <circle cx="90" cy="560" r="6.5" fill="#fff9c4"/>
+    <circle cx="80" cy="565" r="10" fill="#f57c00"/>
+    <rect x="78" y="575" width="4" height="72" fill="#689f38"/>
+  </g>
+
+  <!-- Alter Baum (spendet Schatten, rechts) -->
+  <rect x="470" y="420" width="40" height="200" fill="#6d4c41"/>
+  <circle cx="490" cy="390" r="90" fill="#7cb342" opacity="0.9"/>
+  <circle cx="450" cy="360" r="75" fill="#8bc34a" opacity="0.9"/>
+  <circle cx="530" cy="365" r="78" fill="#66bb6a" opacity="0.9"/>
+  <circle cx="460" cy="410" r="65" fill="#7cb342" opacity="0.85"/>
+  <circle cx="520" cy="415" r="68" fill="#8bc34a" opacity="0.85"/>
+
+  <!-- Schaukel am Baum (heißer Sommertag) -->
+  <line x1="465" y1="395" x2="465" y2="480" stroke="#8d6e63" stroke-width="5"/>
+  <line x1="505" y1="395" x2="505" y2="480" stroke="#8d6e63" stroke-width="5"/>
+  <rect x="458" y="480" width="50" height="12" fill="#a1887f"/>
+
+  <!-- Kind auf Schaukel (Silhouette) -->
+  <circle cx="485" cy="470" r="12" fill="#5d4037"/>
+  <ellipse cx="485" cy="490" rx="10" ry="15" fill="#5d4037"/>
+
+  <!-- Heuballen im Feld -->
+  <g>
+    <ellipse cx="340" cy="600" rx="35" ry="25" fill="#d4a017"/>
+    <ellipse cx="340" cy="595" rx="32" ry="22" fill="#e8b923"/>
+    <line x1="315" y1="595" x2="365" y2="595" stroke="#a37714" stroke-width="2"/>
+    <line x1="340" y1="575" x2="340" y2="615" stroke="#a37714" stroke-width="2"/>
+
+    <ellipse cx="250" cy="620" rx="32" ry="23" fill="#d4a017"/>
+    <ellipse cx="250" cy="615" rx="29" ry="20" fill="#e8b923"/>
+  </g>
+
+  <!-- Sommerwiese/Boden (goldgelb-grün) -->
+  <ellipse cx="300" cy="740" rx="450" ry="120" fill="#c5e1a5"/>
+  <rect x="0" y="700" width="600" height="100" fill="#c5e1a5"/>
+
+  <!-- Kornblumen im Weizenfeld -->
+  <circle cx="220" cy="640" r="8" fill="#2196f3"/>
+  <circle cx="380" cy="650" r="8" fill="#1976d2"/>
+  <circle cx="480" cy="645" r="8" fill="#2196f3"/>
+
+  <!-- Mohnblumen -->
+  <circle cx="190" cy="655" r="10" fill="#f44336"/>
+  <circle cx="420" cy="665" r="10" fill="#d32f2f"/>
+
+  <!-- Schmetterlinge (Hochsommer) -->
+  <g transform="translate(280, 450) rotate(20)">
+    <ellipse cx="-12" cy="0" rx="14" ry="18" fill="#ff6f00" opacity="0.9"/>
+    <ellipse cx="12" cy="0" rx="14" ry="18" fill="#ffa726" opacity="0.9"/>
+    <ellipse cx="-12" cy="0" rx="5" ry="7" fill="#ffffff" opacity="0.7"/>
+    <ellipse cx="12" cy="0" rx="5" ry="7" fill="#ffffff" opacity="0.7"/>
+    <line x1="-13" y1="-12" x2="13" y2="-12" stroke="#212121" stroke-width="2"/>
+    <circle cx="0" cy="-12" r="3" fill="#424242"/>
+    <line x1="-3" y1="-13" x2="-6" y2="-18" stroke="#212121" stroke-width="1.5"/>
+    <line x1="3" y1="-13" x2="6" y2="-18" stroke="#212121" stroke-width="1.5"/>
+  </g>
+
+  <!-- Bienen (fleißig bei Hitze) -->
+  <g transform="translate(120, 580)">
+    <ellipse cx="0" cy="0" rx="10" ry="14" fill="#fdd835"/>
+    <ellipse cx="0" cy="-4" rx="10" ry="4" fill="#212121" opacity="0.7"/>
+    <ellipse cx="0" cy="4" rx="10" ry="4" fill="#212121" opacity="0.7"/>
+    <ellipse cx="-12" cy="-3" rx="10" ry="4" fill="#e3f2fd" opacity="0.6"/>
+    <ellipse cx="12" cy="-3" rx="10" ry="4" fill="#e3f2fd" opacity="0.6"/>
+  </g>
+
+  <!-- Heuschrecke -->
+  <g transform="translate(540, 660)">
+    <ellipse cx="0" cy="0" rx="12" ry="6" fill="#7cb342"/>
+    <ellipse cx="5" cy="0" rx="8" ry="5" fill="#8bc34a"/>
+    <line x1="-8" y1="0" x2="-18" y2="-8" stroke="#558b2f" stroke-width="2"/>
+    <line x1="-8" y1="0" x2="-16" y2="8" stroke="#558b2f" stroke-width="2"/>
+    <circle cx="10" cy="-2" r="2" fill="#212121"/>
+    <line x1="10" y1="-2" x2="15" y2="-6" stroke="#558b2f" stroke-width="1.5"/>
+    <line x1="10" y1="-2" x2="14" y2="-4" stroke="#558b2f" stroke-width="1.5"/>
+  </g>
+
+  <!-- Vögel am Himmel (hoch fliegend) -->
+  <path d="M 120 260 Q 135 255 150 260" stroke="#01579b" stroke-width="2.5" fill="none"/>
+  <path d="M 450 240 Q 465 235 480 240" stroke="#01579b" stroke-width="2.5" fill="none"/>
+  <path d="M 280 250 Q 295 245 310 250" stroke="#01579b" stroke-width="2.5" fill="none"/>
+
+  <!-- Emoji-Dekoration -->
+  <text x="255" y="110" font-size="56" opacity="0.5">☀️</text>
+  <text x="75" y="585" font-size="42" opacity="0.9">🌻</text>
+  <text x="165" y="680" font-size="28" opacity="0.85">🌺</text>
+  <text x="195" y="675" font-size="26" opacity="0.85">🌼</text>
+  <text x="440" y="510" font-size="38" opacity="0.75">🌳</text>
+  <text x="245" y="475" font-size="28" opacity="0.85">🦋</text>
+  <text x="90" y="605" font-size="26" opacity="0.8">🐝</text>
+  <text x="305" y="630" font-size="32" opacity="0.75">🌾</text>
+  <text x="510" y="685" font-size="24" opacity="0.7">🦗</text>
+  <text x="100" y="280" font-size="20" opacity="0.6">🐦</text>
+  <text x="455" y="535" font-size="24" opacity="0.65">👦</text>
+</svg>
