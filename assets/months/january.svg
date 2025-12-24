@@ -238,4 +238,23 @@
   <path d="M 50 190 Q 60 185 70 190" stroke="#2a2a2a" stroke-width="1.5" fill="none"/>
   <path d="M 90 210 Q 100 205 110 210" stroke="#2a2a2a" stroke-width="1.5" fill="none"/>
   <path d="M 75 200 Q 85 195 95 200" stroke="#2a2a2a" stroke-width="1.5" fill="none"/>
+
+  <!-- Emoji-Dekoration: Winter-Theme -->
+  <!-- Schneeflocken ❄️ -->
+  <text x="50" y="350" font-size="24" opacity="0.8">❄️</text>
+  <text x="720" y="480" font-size="20" opacity="0.7">❄️</text>
+  <text x="580" y="280" font-size="18" opacity="0.6">❄️</text>
+  <text x="140" y="520" font-size="22" opacity="0.75">❄️</text>
+  <text x="750" y="350" font-size="20" opacity="0.65">❄️</text>
+
+  <!-- Funkelnde Sterne ✨ -->
+  <text x="420" y="140" font-size="20" opacity="0.85">✨</text>
+  <text x="580" y="110" font-size="18" opacity="0.75">✨</text>
+  <text x="210" y="130" font-size="16" opacity="0.7">✨</text>
+
+  <!-- Mond 🌙 -->
+  <text x="650" y="90" font-size="28" opacity="0.4">🌙</text>
+
+  <!-- Schneemann ⛄ (beim existierenden Schneemann) -->
+  <text x="555" y="425" font-size="18" opacity="0.3">⛄</text>
 </svg>

@@ -233,4 +233,27 @@
   <!-- Vögel fliegen trotz Regen -->
   <path d="M 550 230 Q 565 225 580 230" stroke="#1e293b" stroke-width="2.5" fill="none"/>
   <path d="M 590 245 Q 605 240 620 245" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+
+  <!-- Emoji-Dekoration: Aprilwetter -->
+  <!-- Regenbogen 🌈 -->
+  <text x="360" y="330" font-size="32" opacity="0.5">🌈</text>
+
+  <!-- Regentropfen 💧 -->
+  <text x="105" y="190" font-size="20" opacity="0.75">💧</text>
+  <text x="175" y="240" font-size="18" opacity="0.7">💧</text>
+  <text x="425" y="220" font-size="20" opacity="0.75">💧</text>
+  <text x="495" y="270" font-size="18" opacity="0.7">💧</text>
+  <text x="685" y="235" font-size="20" opacity="0.75">💧</text>
+
+  <!-- Wolken ☁️ -->
+  <text x="110" y="115" font-size="28" opacity="0.4">☁️</text>
+  <text x="420" y="95" font-size="30" opacity="0.4">☁️</text>
+  <text x="655" y="130" font-size="26" opacity="0.4">☁️</text>
+
+  <!-- Blumen 🌼 (trotz Regen) -->
+  <text x="255" y="495" font-size="22" opacity="0.75">🌼</text>
+  <text x="540" y="510" font-size="20" opacity="0.7">🌼</text>
+
+  <!-- Vögel 🐦 -->
+  <text x="540" y="240" font-size="16" opacity="0.5">🐦</text>
 </svg>

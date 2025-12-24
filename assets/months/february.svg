@@ -230,4 +230,24 @@
   <ellipse cx="550" cy="100" rx="45" ry="25" fill="#e8f0f8" opacity="0.6"/>
   <ellipse cx="580" cy="100" rx="35" ry="20" fill="#e8f0f8" opacity="0.6"/>
   <ellipse cx="530" cy="108" rx="30" ry="18" fill="#e8f0f8" opacity="0.6"/>
+
+  <!-- Emoji-Dekoration: Februar = Winter & Valentinstag -->
+  <!-- Schneeflocken ❄️ -->
+  <text x="85" y="260" font-size="22" opacity="0.7">❄️</text>
+  <text x="660" y="290" font-size="20" opacity="0.65">❄️</text>
+  <text x="550" y="480" font-size="18" opacity="0.7">❄️</text>
+  <text x="30" y="420" font-size="20" opacity="0.6">❄️</text>
+
+  <!-- Herzen ❤️💕 (Valentinstag-Theme) -->
+  <text x="320" y="170" font-size="22" opacity="0.75">💕</text>
+  <text x="240" y="210" font-size="18" opacity="0.65">❤️</text>
+  <text x="730" y="260" font-size="20" opacity="0.7">💕</text>
+  <text x="400" y="145" font-size="16" opacity="0.6">❤️</text>
+
+  <!-- Kirche ⛪ -->
+  <text x="145" y="220" font-size="20" opacity="0.3">⛪</text>
+
+  <!-- Vögel 🐦 -->
+  <text x="45" y="230" font-size="16" opacity="0.5">🐦</text>
+  <text x="100" y="245" font-size="14" opacity="0.5">🐦</text>
 </svg>

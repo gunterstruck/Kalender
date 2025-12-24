@@ -190,4 +190,36 @@
   <path d="M 190 160 Q 205 155 220 160" stroke="#1e293b" stroke-width="2.5" fill="none"/>
   <path d="M 210 185 Q 225 180 240 185" stroke="#1e293b" stroke-width="2.5" fill="none"/>
   <path d="M 140 195 Q 155 190 170 195" stroke="#1e293b" stroke-width="2.5" fill="none"/>
+
+  <!-- Emoji-Dekoration: Herbstbeginn / bunte Bäume -->
+  <!-- Herbstblätter 🍂🍁 (fallend) -->
+  <text x="175" y="330" font-size="24" opacity="0.85">🍁</text>
+  <text x="455" y="290" font-size="22" opacity="0.8">🍂</text>
+  <text x="555" y="380" font-size="26" opacity="0.85">🍁</text>
+  <text x="125" y="440" font-size="20" opacity="0.75">🍂</text>
+  <text x="625" y="250" font-size="24" opacity="0.8">🍁</text>
+  <text x="275" y="370" font-size="22" opacity="0.75">🍂</text>
+  <text x="515" y="420" font-size="20" opacity="0.7">🍁</text>
+  <text x="395" y="360" font-size="18" opacity="0.65">🍂</text>
+  <text x="225" y="510" font-size="24" opacity="0.8">🍁</text>
+  <text x="665" y="430" font-size="22" opacity="0.75">🍂</text>
+  <text x="355" y="480" font-size="20" opacity="0.7">🍁</text>
+
+  <!-- Herbstbäume 🌳 -->
+  <text x="85" y="320" font-size="28" opacity="0.35">🌳</text>
+  <text x="345" y="345" font-size="26" opacity="0.35">🌳</text>
+  <text x="605" y="370" font-size="24" opacity="0.35">🌳</text>
+
+  <!-- Sonne 🌤️ -->
+  <text x="615" y="185" font-size="32" opacity="0.4">🌤️</text>
+
+  <!-- Zugvögel 🐦 -->
+  <text x="90" y="170" font-size="16" opacity="0.5">🐦</text>
+  <text x="140" y="190" font-size="14" opacity="0.5">🐦</text>
+  <text x="180" y="210" font-size="14" opacity="0.5">🐦</text>
+  <text x="110" y="150" font-size="14" opacity="0.5">🐦</text>
+
+  <!-- Blätterhaufen 🍂 (am Boden) -->
+  <text x="155" y="570" font-size="20" opacity="0.6">🍂</text>
+  <text x="475" y="575" font-size="20" opacity="0.6">🍂</text>
 </svg>
