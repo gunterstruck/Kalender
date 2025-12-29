@@ -1361,10 +1361,10 @@ body.dark-mode .theme-toggle .moon-icon {
     /* Hochformat-spezifische Anpassungen */
     @media (orientation: portrait) {
         .calendar-wrapper {
-            /* Maximiere Höhe im Hochformat für optimale Bilddarstellung */
-            min-height: 720px;
-            height: 85vh;
-            max-height: 950px;
+            /* Reduzierte Höhe im Hochformat, damit Monatsbild nicht durch Steuerleiste überdeckt wird */
+            min-height: 600px;
+            height: 70vh;
+            max-height: 800px;
         }
     }
 
