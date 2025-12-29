@@ -196,19 +196,10 @@ class CalendarApp {
         this.updateCalendarHeight();
 
         // Event Listener für Fenstergrößenänderungen und Orientierungswechsel
-        this.resizeHandler = () => {
-            this.updateCalendarHeight();
-            // Container-Höhe auch bei Resize neu berechnen
-            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-            this.adjustCalendarContainerHeight(daysInMonth);
-        };
+        this.resizeHandler = () => this.updateCalendarHeight();
         this.orientationHandler = () => {
             // Kleine Verzögerung nach Orientierungswechsel
-            setTimeout(() => {
-                this.updateCalendarHeight();
-                const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-                this.adjustCalendarContainerHeight(daysInMonth);
-            }, 100);
+            setTimeout(() => this.updateCalendarHeight(), 100);
         };
         window.addEventListener('resize', this.resizeHandler);
         window.addEventListener('orientationchange', this.orientationHandler);
@@ -1217,7 +1208,6 @@ class CalendarApp {
     // ========================================
 
     generateDoorPositions(daysInMonth) {
-        console.log(`[generateDoorPositions] Generiere Positionen für ${daysInMonth} Türchen`);
         const positions = [];
         const doorSize = this.CONFIG.DOOR_SIZE_PERCENT;
         const minSpacing = this.CONFIG.MIN_SPACING_PERCENT;
@@ -1276,7 +1266,6 @@ class CalendarApp {
             positions.push({ day, x, y });
         }
 
-        console.log(`[generateDoorPositions] ${positions.length} Positionen generiert`);
         return positions;
     }
 
@@ -1503,60 +1492,6 @@ class CalendarApp {
     }
 
     // ========================================
-    // Container-Höhe an Türchenanzahl anpassen
-    // ========================================
-
-    adjustCalendarContainerHeight(daysInMonth) {
-        const calendarWrapper = document.querySelector('.calendar-wrapper');
-        if (!calendarWrapper) return;
-
-        // Nur im Portrait-Modus auf Smartphones anpassen
-        const isPortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
-
-        if (!isPortrait) {
-            // Im Landscape/Desktop: Entferne custom height
-            calendarWrapper.style.minHeight = '';
-            return;
-        }
-
-        // Mobile Portrait-Modus: Berechne benötigte Höhe
-        const doorSize = this.CONFIG.DOOR_SIZE_PERCENT; // 12%
-        const minSpacing = this.CONFIG.MIN_SPACING_PERCENT; // 7%
-        const padding = this.CONFIG.PADDING_PERCENT; // 8%
-
-        // Berechne wie viele Spalten möglich sind
-        const cellSize = doorSize + minSpacing; // 19%
-        const availableWidth = 100 - (2 * padding); // 84%
-        const cols = Math.floor(availableWidth / cellSize); // ca. 4 Spalten
-
-        // Berechne benötigte Reihen
-        const rows = Math.ceil(daysInMonth / cols);
-
-        // Berechne Container-Breite in Pixel (für Prozent-zu-Pixel Konvertierung)
-        const containerWidth = calendarWrapper.offsetWidth || window.innerWidth - 32; // -32px für margins
-
-        // Berechne Türchen-Höhe in Pixel basierend auf Container-Breite
-        // Da Türchen aspect-ratio: 1 haben, ist Höhe = Breite
-        const doorPixelWidth = (containerWidth * doorSize) / 100;
-        const doorPixelHeight = doorPixelWidth; // aspect-ratio 1:1
-
-        // Berechne Spacing in Pixel
-        const spacingPixel = (containerWidth * minSpacing) / 100;
-        const paddingPixel = (containerWidth * padding) / 100;
-
-        // Berechne benötigte Gesamthöhe
-        const totalHeight = (2 * paddingPixel) + (rows * doorPixelHeight) + ((rows - 1) * spacingPixel);
-
-        // Setze minimale Höhe mit etwas Puffer (10%)
-        const minHeight = Math.ceil(totalHeight * 1.1);
-
-        this.log(`Dynamische Höhenberechnung: ${daysInMonth} Tage, ${cols} Spalten, ${rows} Reihen → ${minHeight}px`);
-
-        // Setze die berechnete Höhe
-        calendarWrapper.style.minHeight = `${minHeight}px`;
-    }
-
-    // ========================================
     // Kalender rendern
     // ========================================
 
@@ -1570,10 +1505,6 @@ class CalendarApp {
 
         // Anzahl Tage im ausgewählten Monat
         const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-        console.log(`[Kalender] Monat: ${this.monthNames[this.selectedMonth]} ${this.selectedYear} - Tage: ${daysInMonth}`);
-
-        // WICHTIG: Erst die optimale Container-Höhe berechnen und setzen (vor Türchen-Positionierung)
-        this.adjustCalendarContainerHeight(daysInMonth);
 
         // Grid leeren (replaceChildren ist performanter als innerHTML = '')
         this.calendarGrid.replaceChildren();
@@ -1584,8 +1515,6 @@ class CalendarApp {
             const door = this.createDoorElement(day);
             this.calendarGrid.appendChild(door);
         }
-
-        console.log(`[Kalender] ${daysInMonth} Türchen erstellt und hinzugefügt`);
 
         // Info-Banner aktualisieren
         this.updateInfoBanner();
