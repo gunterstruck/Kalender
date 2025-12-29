@@ -172,6 +172,18 @@ class CalendarApp {
 
         // Auto-Scroll zum Ausblenden der mobilen Browser-Adressleiste
         this.hideMobileAddressBar();
+
+        // Dynamische Höhenberechnung für Portrait-Modus
+        this.updateCalendarHeight();
+
+        // Event Listener für Fenstergrößenänderungen und Orientierungswechsel
+        this.resizeHandler = () => this.updateCalendarHeight();
+        this.orientationHandler = () => {
+            // Kleine Verzögerung nach Orientierungswechsel
+            setTimeout(() => this.updateCalendarHeight(), 100);
+        };
+        window.addEventListener('resize', this.resizeHandler);
+        window.addEventListener('orientationchange', this.orientationHandler);
     }
 
     // ========================================
@@ -191,6 +203,56 @@ class CalendarApp {
                 }, 50);
             }, 100);
         }
+    }
+
+    // ========================================
+    // Dynamische Höhenberechnung für Calendar Wrapper
+    // ========================================
+
+    updateCalendarHeight() {
+        // Nur im Portrait-Modus auf mobilen Geräten
+        const isPortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+
+        if (!isPortrait) {
+            // Im Landscape-Modus oder Desktop: Entferne custom property
+            document.documentElement.style.removeProperty('--available-offset');
+            return;
+        }
+
+        // Berechne die Höhe der UI-Elemente
+        let totalOffset = 0;
+
+        // Höhe des Headers (falls sichtbar)
+        if (this.appHeader && !this.appHeader.classList.contains('hidden')) {
+            totalOffset += this.appHeader.offsetHeight;
+        }
+
+        // Höhe des Seasonal Banners (falls sichtbar)
+        if (this.seasonalBanner && this.seasonalBanner.classList.contains('visible')) {
+            totalOffset += this.seasonalBanner.offsetHeight;
+        }
+
+        // Höhe der Monatsauswahl
+        const monthSelector = document.querySelector('.month-selector');
+        if (monthSelector) {
+            totalOffset += monthSelector.offsetHeight;
+        }
+
+        // Container Padding
+        const container = document.querySelector('.container');
+        if (container) {
+            const containerStyles = window.getComputedStyle(container);
+            totalOffset += parseFloat(containerStyles.paddingTop) + parseFloat(containerStyles.paddingBottom);
+        }
+
+        // Zusätzlicher Puffer für Spacing und Ränder (ca. 40-60px)
+        const buffer = 50;
+        totalOffset += buffer;
+
+        // Setze CSS Custom Property
+        document.documentElement.style.setProperty('--available-offset', `${totalOffset}px`);
+
+        console.log(`[CalendarApp] Dynamische Höhe berechnet - Offset: ${totalOffset}px`);
     }
 
     // ========================================
@@ -228,6 +290,10 @@ class CalendarApp {
                 this.seasonalBanner.classList.add('visible');
                 console.log('[CalendarApp] Saisonbanner angezeigt');
             }
+            // Aktualisiere Höhenberechnung nach UI-Änderungen
+            setTimeout(() => {
+                this.updateCalendarHeight();
+            }, 100);
         }, 5000);
     }
 
@@ -713,6 +779,12 @@ class CalendarApp {
 
         // Entferne Event Listeners
         document.removeEventListener('keydown', this.modalFocusTrap);
+        if (this.resizeHandler) {
+            window.removeEventListener('resize', this.resizeHandler);
+        }
+        if (this.orientationHandler) {
+            window.removeEventListener('orientationchange', this.orientationHandler);
+        }
 
         // Leere Door Elements Cache
         this.doorElements.clear();
