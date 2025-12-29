@@ -21,12 +21,12 @@
   <circle cx="520" cy="80" r="48" fill="#fde047" opacity="0.7"/>
 
   <!-- Regenbogen -->
-  <path d="M 50 400 Q 300 250 550 400" stroke="#ef4444" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 58 408 Q 300 265 542 408" stroke="#f97316" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 66 416 Q 300 280 534 416" stroke="#fbbf24" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 74 424 Q 300 295 526 424" stroke="#84cc16" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 82 432 Q 300 310 518 432" stroke="#3b82f6" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 90 440 Q 300 325 510 440" stroke="#8b5cf6" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 50 230 Q 300 120 550 230" stroke="#ef4444" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 58 238 Q 300 135 542 238" stroke="#f97316" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 66 246 Q 300 150 534 246" stroke="#fbbf24" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 74 254 Q 300 165 526 254" stroke="#84cc16" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 82 262 Q 300 180 518 262" stroke="#3b82f6" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 90 270 Q 300 195 510 270" stroke="#8b5cf6" stroke-width="15" fill="none" opacity="0.7"/>
 
   <!-- Wiese -->
   <ellipse cx="300" cy="720" rx="450" ry="95" fill="#4ade80"/>
