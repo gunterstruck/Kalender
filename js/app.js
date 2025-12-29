@@ -420,17 +420,11 @@ class CalendarApp {
     updateMobileMonthDecoration() {
         if (!this.mobileMonthDecoration) return;
 
-        const isPortraitMobile = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
-        if (isPortraitMobile) {
-            this.mobileMonthDecoration.innerHTML = '';
-            return;
-        }
-
         const month = this.selectedMonth;
         this.mobileMonthDecoration.innerHTML = '';
 
         // Monatsspezifische Animationskonfiguration
-        // position: 'top' (0-30%), 'center' (35-65%), 'bottom' (60-90%), 'sky' (0-50%)
+        // position: 'top' (0-30%), 'very-top' (0-15%), 'center' (35-65%), 'bottom' (60-90%), 'sky' (0-50%)
         // opacity: 1 = voll sichtbar, 0.3-0.6 = transparent
         const monthConfig = {
             0: { // Januar - Sterne und Schneeflocken blinken
@@ -441,28 +435,28 @@ class CalendarApp {
                 ],
                 staticIcons: ['⛄', '🌨️']
             },
-            1: { // Februar - Herzen schweben (voll sichtbar)
+            1: { // Februar - Herzen schweben in der Mitte (etwas transparent)
                 animatedIcons: [
-                    { emoji: '❤️', class: 'february-heart', count: 10, duration: [3, 5], delay: [0, 4], opacity: 1 },
-                    { emoji: '💝', class: 'february-heart', count: 8, duration: [3.5, 5.5], delay: [0, 4], opacity: 1 },
-                    { emoji: '💕', class: 'february-heart', count: 6, duration: [4, 6], delay: [0, 4], opacity: 1 }
+                    { emoji: '❤️', class: 'february-heart', count: 10, duration: [3, 5], delay: [0, 4], opacity: 0.6, position: 'center' },
+                    { emoji: '💝', class: 'february-heart', count: 8, duration: [3.5, 5.5], delay: [0, 4], opacity: 0.6, position: 'center' },
+                    { emoji: '💕', class: 'february-heart', count: 6, duration: [4, 6], delay: [0, 4], opacity: 0.6, position: 'center' }
                 ],
                 staticIcons: ['🌹', '🎈']
             },
-            2: { // März - Schmetterlinge und Bienen fliegen (voll sichtbar, Mitte unten)
+            2: { // März - Insekten tauchen auf und verschwinden (Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
-                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
+                    { emoji: '🦋', class: 'march-insect', count: 10, duration: [4, 7], delay: [0, 6], position: 'bottom' },
+                    { emoji: '🐝', class: 'march-insect', count: 8, duration: [4, 7], delay: [0, 6], position: 'bottom' }
                 ],
                 staticIcons: ['🌸', '🌷', '🌼', '🌺']
             },
-            3: { // April - Regentropfen fallen, Regenbogen oben
+            3: { // April - Regentropfen fallen leicht seitlich, Regenbogen ganz oben
                 animatedIcons: [
-                    { emoji: '🌧️', class: 'april-raindrop', count: 15, duration: [1.5, 2.5], delay: [0, 2], position: 'top' },
-                    { emoji: '💧', class: 'april-raindrop', count: 10, duration: [1.5, 2.5], delay: [0, 2], position: 'top' }
+                    { emoji: '🌧️', class: 'april-raindrop-diagonal', count: 18, duration: [1.5, 2.5], delay: [0, 2], position: 'top' },
+                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 12, duration: [1.5, 2.5], delay: [0, 2], position: 'top' }
                 ],
                 staticIcons: [
-                    { emoji: '🌈', position: 'top' },
+                    { emoji: '🌈', position: 'very-top' },
                     { emoji: '☂️', position: 'bottom' },
                     { emoji: '🌸', position: 'bottom' },
                     { emoji: '🌷', position: 'bottom' }
@@ -496,18 +490,18 @@ class CalendarApp {
                 ],
                 staticIcons: ['☀️', '🌻', '🌾', '🍇']
             },
-            8: { // September - Blätter wirbeln (mittig)
+            8: { // September - Blätter fliegen seitlich weg (mittig)
                 animatedIcons: [
-                    { emoji: '🍂', class: 'swirling-leaf', count: 12, duration: [7, 10], delay: [0, 8], position: 'center' },
-                    { emoji: '🍁', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8], position: 'center' }
+                    { emoji: '🍂', class: 'september-leaf', count: 12, duration: [7, 11], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'september-leaf', count: 10, duration: [7, 11], delay: [0, 8], position: 'center' }
                 ],
                 staticIcons: ['🍄', '🌾', '🦊', '🎒']
             },
-            9: { // Oktober - Blätter wirbeln (mittig), Vögel fliegen
+            9: { // Oktober - Blätter fliegen seitlich weg, Vögel fliegen am Himmel weg
                 animatedIcons: [
-                    { emoji: '🍂', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8], position: 'center' },
-                    { emoji: '🍁', class: 'swirling-leaf', count: 8, duration: [7, 10], delay: [0, 8], position: 'center' },
-                    { emoji: '🐦', class: 'flying-bird', count: 5, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' }
+                    { emoji: '🍂', class: 'september-leaf', count: 10, duration: [7, 11], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'september-leaf', count: 8, duration: [7, 11], delay: [0, 8], position: 'center' },
+                    { emoji: '🐦', class: 'october-bird', count: 6, duration: [6, 10], delay: [0, 6], position: 'sky' }
                 ],
                 staticIcons: ['🎃', '🦇', '👻', '🌙']
             },
@@ -546,6 +540,9 @@ class CalendarApp {
                 // Positionierung basierend auf Konfiguration
                 const position = iconConfig.position || 'sky';
                 switch (position) {
+                    case 'very-top':
+                        icon.style.top = `${Math.random() * 15}%`;
+                        break;
                     case 'top':
                         icon.style.top = `${Math.random() * 30}%`;
                         break;
@@ -571,8 +568,8 @@ class CalendarApp {
                 icon.style.setProperty('--duration', `${duration}s`);
                 icon.style.setProperty('--delay', `${delay}s`);
 
-                // Spezielle Properties für November-Blätter (seitliche Richtung)
-                if (iconConfig.class === 'november-leaf') {
+                // Spezielle Properties für seitlich wegfliegende Elemente (zufällige Richtung)
+                if (iconConfig.class === 'november-leaf' || iconConfig.class === 'september-leaf' || iconConfig.class === 'october-bird') {
                     const direction = Math.random() > 0.5 ? '100vw' : '-100vw';
                     icon.style.setProperty('--direction', direction);
                 }
@@ -612,6 +609,9 @@ class CalendarApp {
 
             // Positionierung basierend auf Konfiguration
             switch (iconPosition) {
+                case 'very-top':
+                    icon.style.top = `${Math.random() * 15}%`;
+                    break;
                 case 'top':
                     icon.style.top = `${Math.random() * 30}%`;
                     break;

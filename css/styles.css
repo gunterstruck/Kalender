@@ -567,6 +567,83 @@ body {
     will-change: transform, opacity;
 }
 
+/* März: Insekten tauchen auf und verschwinden (fade in/out) */
+@keyframes fade-in-out {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    90% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.march-insect {
+    animation: fade-in-out var(--duration, 4s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: opacity, transform;
+}
+
+/* April: Regentropfen fallen leicht seitlich (diagonal) */
+@keyframes raindrop-diagonal {
+    0% {
+        transform: translate(0, -20px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(30px, 100vh);
+        opacity: 0;
+    }
+}
+
+.april-raindrop-diagonal {
+    animation: raindrop-diagonal var(--duration, 2s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+/* Oktober: Vögel fliegen seitlich weg (am Himmel) */
+@keyframes bird-fly-away {
+    0% {
+        transform: translateX(0) translateY(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateX(var(--direction, 100vw)) translateY(-30vh) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.october-bird {
+    animation: bird-fly-away var(--duration, 8s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+/* September: Blätter fliegen seitlich weg (wie November) */
+.september-leaf {
+    animation: leaf-fly-away var(--duration, 8s) ease-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
 /* Responsive Anpassungen für Banner */
 @media (max-width: 480px) {
     .seasonal-banner {
@@ -827,10 +904,11 @@ body.dark-mode .theme-toggle .moon-icon {
     -webkit-transform: translateZ(0);
 }
 
-/* Verstecke Dekoration nur auf Portrait-Mobile */
+/* Portrait-Mobile: Reduziere Icon-Größen für bessere Sichtbarkeit */
 @media (max-width: 768px) and (orientation: portrait) {
-    .mobile-month-decoration {
-        display: none;
+    .mobile-month-icon {
+        font-size: 1.5rem !important;
+        max-font-size: 2rem !important;
     }
 }
 
