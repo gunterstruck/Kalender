@@ -13,10 +13,10 @@ class CalendarApp {
         // Konfigurationskonstanten
         this.CONFIG = {
             DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
-            DOOR_SIZE_PERCENT: 8,              // Türchengröße in %
-            MIN_SPACING_PERCENT: 5,            // Mindestabstand in % (erhöht von 3 auf 5)
-            PADDING_PERCENT: 5,                // Rand-Padding in % (erhöht von 3 auf 5)
-            MAX_POSITION_ATTEMPTS: 150,        // Maximale Positionierungsversuche
+            DOOR_SIZE_PERCENT: 12,             // Türchengröße in % (12% für Mobile, Desktop ist 7%)
+            MIN_SPACING_PERCENT: 7,            // Mindestabstand in % (erhöht für Mobile)
+            PADDING_PERCENT: 8,                // Rand-Padding in % (erhöht für besseren Rand-Abstand)
+            MAX_POSITION_ATTEMPTS: 200,        // Maximale Positionierungsversuche (erhöht wegen größeren Türchen)
             ANIMATION_DURATION: 150,           // Fade-Animation in ms
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
             TOAST_DURATION: 3000,              // Toast-Anzeigedauer in ms
@@ -972,7 +972,8 @@ class CalendarApp {
 
     getStorageKey(prefix) {
         // Verwende selectedYear statt currentYear für korrekten Storage-Zugriff
-        return `calendar_${prefix}_${this.selectedYear}_${this.selectedMonth}`;
+        // v2: Neue Türchen-Abstände (12% size, 7% spacing, 8% padding)
+        return `calendar_${prefix}_v2_${this.selectedYear}_${this.selectedMonth}`;
     }
 
     // ========================================
@@ -1252,10 +1253,13 @@ class CalendarApp {
             // Fallback: Wenn keine gültige Position gefunden wurde, verwende Grid-Layout
             if (!validPosition) {
                 this.warn(`Keine valide Position für Tag ${day} nach ${attempts} Versuchen. Verwende Grid-Fallback.`);
-                const gridX = ((day - 1) % 6) * 15 + padding;
-                const gridY = Math.floor((day - 1) / 6) * 15 + padding;
-                x = gridX;
-                y = gridY;
+                // Grid-Spacing: Türchengröße + Mindestabstand
+                const gridSpacing = doorSize + minSpacing;
+                const cols = Math.floor((100 - 2 * padding) / gridSpacing);
+                const row = Math.floor((day - 1) / cols);
+                const col = (day - 1) % cols;
+                x = padding + col * gridSpacing;
+                y = padding + row * gridSpacing;
             }
 
             // Speichere Position
