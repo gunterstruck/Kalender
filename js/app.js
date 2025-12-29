@@ -13,9 +13,9 @@ class CalendarApp {
         // Konfigurationskonstanten
         this.CONFIG = {
             DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
-            DOOR_SIZE_PERCENT: 12,             // Türchengröße in % (12% für Mobile, Desktop ist 7%)
-            MIN_SPACING_PERCENT: 7,            // Mindestabstand in % (erhöht für Mobile)
-            PADDING_PERCENT: 8,                // Rand-Padding in % (erhöht für besseren Rand-Abstand)
+            DOOR_SIZE_PERCENT: 7,              // Türchengröße in % (wird über updateDoorConfig angepasst)
+            MIN_SPACING_PERCENT: 4,            // Mindestabstand in % (wird über updateDoorConfig angepasst)
+            PADDING_PERCENT: 6,                // Rand-Padding in % (wird über updateDoorConfig angepasst)
             MAX_POSITION_ATTEMPTS: 200,        // Maximale Positionierungsversuche (erhöht wegen größeren Türchen)
             ANIMATION_DURATION: 150,           // Fade-Animation in ms
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
@@ -171,6 +171,9 @@ class CalendarApp {
         // Lade gespeichertes Theme
         this.initTheme();
 
+        // Responsive Door-Konfiguration setzen
+        this.updateDoorConfig();
+
         // Initiales Rendering
         this.renderCalendar();
 
@@ -196,10 +199,20 @@ class CalendarApp {
         this.updateCalendarHeight();
 
         // Event Listener für Fenstergrößenänderungen und Orientierungswechsel
-        this.resizeHandler = () => this.updateCalendarHeight();
+        this.resizeHandler = () => {
+            this.updateCalendarHeight();
+            if (this.updateDoorConfig()) {
+                this.clearPositionCache();
+                this.renderCalendar();
+            }
+        };
         this.orientationHandler = () => {
             // Kleine Verzögerung nach Orientierungswechsel
             setTimeout(() => this.updateCalendarHeight(), 100);
+            if (this.updateDoorConfig()) {
+                this.clearPositionCache();
+                this.renderCalendar();
+            }
         };
         window.addEventListener('resize', this.resizeHandler);
         window.addEventListener('orientationchange', this.orientationHandler);
@@ -272,6 +285,24 @@ class CalendarApp {
         document.documentElement.style.setProperty('--available-offset', `${totalOffset}px`);
 
         this.log(`Dynamische Höhe berechnet - Offset: ${totalOffset}px`);
+    }
+
+    // ========================================
+    // Responsive Door-Konfiguration
+    // ========================================
+
+    updateDoorConfig() {
+        const isSmallScreen = window.matchMedia('(max-width: 480px)').matches;
+        const nextConfig = isSmallScreen
+            ? { DOOR_SIZE_PERCENT: 10, MIN_SPACING_PERCENT: 4, PADDING_PERCENT: 6 }
+            : { DOOR_SIZE_PERCENT: 7, MIN_SPACING_PERCENT: 4, PADDING_PERCENT: 6 };
+
+        const hasChanged = Object.entries(nextConfig).some(([key, value]) => this.CONFIG[key] !== value);
+        if (hasChanged) {
+            this.CONFIG = { ...this.CONFIG, ...nextConfig };
+        }
+
+        return hasChanged;
     }
 
     // ========================================
@@ -972,8 +1003,14 @@ class CalendarApp {
 
     getStorageKey(prefix) {
         // Verwende selectedYear statt currentYear für korrekten Storage-Zugriff
-        // v2: Neue Türchen-Abstände (12% size, 7% spacing, 8% padding)
         return `calendar_${prefix}_v2_${this.selectedYear}_${this.selectedMonth}`;
+    }
+
+    getPositionsStorageKey() {
+        const size = this.CONFIG.DOOR_SIZE_PERCENT;
+        const spacing = this.CONFIG.MIN_SPACING_PERCENT;
+        const padding = this.CONFIG.PADDING_PERCENT;
+        return `calendar_positions_v3_${size}_${spacing}_${padding}_${this.selectedYear}_${this.selectedMonth}`;
     }
 
     // ========================================
@@ -1138,7 +1175,7 @@ class CalendarApp {
         }
 
         try {
-            const key = this.getStorageKey('positions');
+            const key = this.getPositionsStorageKey();
             const data = localStorage.getItem(key);
             console.log(`[DEBUG] Loading positions from localStorage key: ${key}`);
 
@@ -1199,7 +1236,7 @@ class CalendarApp {
         if (!this.storageAvailable) return;
 
         try {
-            const key = this.getStorageKey('positions');
+            const key = this.getPositionsStorageKey();
             localStorage.setItem(key, JSON.stringify(positions));
             // Clear cache when saving new positions
             this.clearPositionCache();

@@ -1387,9 +1387,9 @@ body.dark-mode .theme-toggle .moon-icon {
     }
 
     .door {
-        width: 12%;
-        min-width: 50px;
-        max-width: 70px;
+        width: 10%;
+        min-width: 40px;
+        max-width: 64px;
         font-size: 1.8rem;
         border-width: 3px;
     }
