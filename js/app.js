@@ -1520,9 +1520,9 @@ class CalendarApp {
         if (quote.link) {
             this.quoteLink.href = quote.link;
             this.quoteLinkTitle.textContent = quote.linkTitle || "Mehr erfahren";
-            this.quoteLink.style.display = 'inline-flex';
+            this.quoteLink.classList.remove('is-hidden');
         } else {
-            this.quoteLink.style.display = 'none';
+            this.quoteLink.classList.add('is-hidden');
         }
 
         // Speichere aktuell fokussiertes Element
@@ -1554,7 +1554,7 @@ class CalendarApp {
 
     updateInfoBanner() {
         // Info-Banner komplett ausblenden
-        this.infoBanner.style.display = 'none';
+        this.infoBanner.classList.add('is-hidden');
     }
 
     // ========================================

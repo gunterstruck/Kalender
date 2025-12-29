@@ -34,16 +34,12 @@ const CACHE_URLS = [
 // ========================================
 
 self.addEventListener('install', (event) => {
-    console.log('[Service Worker] Installing...');
-
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                console.log('[Service Worker] Caching app shell');
                 return cache.addAll(CACHE_URLS);
             })
             .then(() => {
-                console.log('[Service Worker] App shell cached successfully');
                 return self.skipWaiting(); // Aktiviere neuen Service Worker sofort
             })
             .catch((error) => {
@@ -57,8 +53,6 @@ self.addEventListener('install', (event) => {
 // ========================================
 
 self.addEventListener('activate', (event) => {
-    console.log('[Service Worker] Activating...');
-
     event.waitUntil(
         caches.keys()
             .then((cacheNames) => {
@@ -66,14 +60,12 @@ self.addEventListener('activate', (event) => {
                     cacheNames.map((cacheName) => {
                         // Lösche alte Caches (außer aktuelle Version)
                         if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE) {
-                            console.log('[Service Worker] Deleting old cache:', cacheName);
                             return caches.delete(cacheName);
                         }
                     })
                 );
             })
             .then(() => {
-                console.log('[Service Worker] Activated successfully');
                 return self.clients.claim(); // Übernimm Kontrolle über alle Clients
             })
     );
@@ -182,5 +174,3 @@ self.addEventListener('message', (event) => {
         );
     }
 });
-
-console.log('[Service Worker] Loaded successfully');
