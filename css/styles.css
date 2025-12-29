@@ -848,8 +848,10 @@ body.dark-mode .theme-toggle .moon-icon {
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
-    min-height: 800px;
-    height: 80vh;
+    /* Dynamische Höhe mit clamp() für bessere Responsivität */
+    height: clamp(600px, 80vh, 1000px);
+    /* Fallback für ältere Browser */
+    min-height: 600px;
     max-height: 1000px;
 }
 
@@ -1354,17 +1356,20 @@ body.dark-mode .theme-toggle .moon-icon {
     }
 
     .calendar-wrapper {
-        min-height: 650px;
-        height: 75vh;
+        /* Dynamische Höhe für kleine Bildschirme */
+        height: clamp(500px, 75vh, 800px);
+        min-height: 500px;
+        max-height: 800px;
     }
 
     /* Hochformat-spezifische Anpassungen */
     @media (orientation: portrait) {
         .calendar-wrapper {
-            /* Maximiere Höhe im Hochformat für optimale Bilddarstellung */
-            min-height: 720px;
-            height: 85vh;
-            max-height: 950px;
+            /* Dynamische Höhe im Hochformat - passt sich automatisch an verschiedene Handys an */
+            /* dvh = dynamic viewport height (berücksichtigt Browser-UI), vh als Fallback */
+            height: clamp(550px, 70dvh, 75vh);
+            min-height: 550px;
+            max-height: min(75vh, 800px);
         }
     }
 
