@@ -169,6 +169,28 @@ class CalendarApp {
 
         // Initialisiere Saisonbanner
         this.initSeasonalBanner();
+
+        // Auto-Scroll zum Ausblenden der mobilen Browser-Adressleiste
+        this.hideMobileAddressBar();
+    }
+
+    // ========================================
+    // Mobile Address Bar ausblenden
+    // ========================================
+
+    hideMobileAddressBar() {
+        // Nur auf mobilen Geräten ausführen
+        if (window.innerWidth <= 768) {
+            // Kleine Verzögerung, damit die Seite vollständig geladen ist
+            setTimeout(() => {
+                // Minimal nach unten scrollen, um Browser-UI auszublenden
+                window.scrollTo(0, 1);
+                // Nach kurzer Zeit zurück nach oben scrollen
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 50);
+            }, 100);
+        }
     }
 
     // ========================================
