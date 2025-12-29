@@ -1201,6 +1201,8 @@ class CalendarApp {
         try {
             const key = this.getStorageKey('positions');
             localStorage.setItem(key, JSON.stringify(positions));
+            // Clear cache when saving new positions
+            this.clearPositionCache();
         } catch (error) {
             console.error('Fehler beim Speichern der Positionen:', error);
         }
@@ -1275,9 +1277,16 @@ class CalendarApp {
     }
 
     getDoorPosition(day) {
-        const positions = this.loadDoorPositions();
-        const position = positions.find(pos => pos.day === day);
+        // Cache positions to avoid loading from localStorage 31 times
+        if (!this._cachedPositions) {
+            this._cachedPositions = this.loadDoorPositions();
+        }
+        const position = this._cachedPositions.find(pos => pos.day === day);
         return position || { day, x: 50, y: 50 };
+    }
+
+    clearPositionCache() {
+        this._cachedPositions = null;
     }
 
     // ========================================
@@ -1333,6 +1342,7 @@ class CalendarApp {
 
         this.selectedMonth = month;
         this.saveSelectedMonth(this.selectedMonth);
+        this.clearPositionCache(); // Clear cache when month changes
         this.renderCalendar();
 
         // Sanfte Animation
@@ -1518,12 +1528,23 @@ class CalendarApp {
         this.doorElements.clear();
 
         // Türchen erstellen
+        const doorPositions = [];
         for (let day = 1; day <= daysInMonth; day++) {
             const door = this.createDoorElement(day);
             this.calendarGrid.appendChild(door);
+            const pos = this.getDoorPosition(day);
+            doorPositions.push({day, x: pos.x, y: pos.y});
         }
 
         console.log(`[DEBUG] Created ${daysInMonth} doors`);
+        console.log(`[DEBUG] Grid children count: ${this.calendarGrid.children.length}`);
+        console.log(`[DEBUG] Door positions:`, doorPositions);
+
+        // Check for doors outside visible area (y > 100%)
+        const outsideDoors = doorPositions.filter(p => p.y > 85);
+        if (outsideDoors.length > 0) {
+            console.warn(`[DEBUG] ${outsideDoors.length} doors are positioned outside visible area (y > 85%):`, outsideDoors);
+        }
 
         // Info-Banner aktualisieren
         this.updateInfoBanner();
