@@ -224,10 +224,11 @@ body {
 .seasonal-banner {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
     padding: 0;
-    margin: 0 var(--spacing-md);
+    margin: 0 auto;
     min-height: 0;
     max-height: 0;
     max-width: 1200px;
+    width: calc(100% - (var(--spacing-md) * 2));
     position: relative;
     overflow: hidden;
     opacity: 0;
@@ -249,7 +250,7 @@ body {
     max-height: 100px;
     min-height: 60px;
     padding: var(--spacing-sm) var(--spacing-md);
-    margin: var(--spacing-sm) var(--spacing-md) var(--spacing-xs) var(--spacing-md);
+    margin: var(--spacing-sm) auto var(--spacing-xs);
 }
 
 .seasonal-banner-content {
@@ -702,8 +703,8 @@ body.dark-mode .season-message {
 
 .theme-toggle {
     position: fixed;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
+    top: var(--spacing-sm);
+    right: max(var(--spacing-md), calc((100vw - 1200px) / 2 + var(--spacing-md)));
     width: 48px;
     height: 48px;
     background: rgba(99, 102, 241, 0.9);
