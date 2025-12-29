@@ -228,34 +228,57 @@ class CalendarApp {
             season = 'winter';
             seasonEmoji = ['❄️', '⛄', '🌨️'];
             seasonText = this.getWinterMessage();
-            this.createSnowflakes();
         } else if (month >= 2 && month <= 4) {
             // Frühling: März, April, Mai
             season = 'spring';
             seasonEmoji = ['🌸', '🌷', '🌺', '🌼'];
             seasonText = this.getSpringMessage();
-            this.createFlowers();
         } else if (month >= 5 && month <= 7) {
             // Sommer: Juni, Juli, August
             season = 'summer';
             seasonEmoji = ['☀️', '🌻', '🏖️'];
             seasonText = this.getSummerMessage();
-            this.createSunshine();
         } else {
             // Herbst: September, Oktober, November
             season = 'autumn';
             seasonEmoji = ['🍂', '🍁', '🎃'];
             seasonText = this.getAutumnMessage();
-            this.createLeaves();
         }
 
-        // Entferne alte Saison-Klassen
-        this.seasonalBanner.classList.remove('winter', 'spring', 'summer', 'autumn');
-        // Füge neue Saison-Klasse hinzu
-        this.seasonalBanner.classList.add(season);
+        // Prüfe ob bereits die richtige Saison angezeigt wird
+        if (this.seasonalBanner.classList.contains(season)) {
+            // Keine Animation nötig, bereits die richtige Saison
+            return;
+        }
 
-        // Setze Nachricht
-        this.seasonMessage.textContent = seasonText;
+        // Sanfte Crossfade-Animation
+        this.seasonalBanner.classList.add('transitioning');
+
+        setTimeout(() => {
+            // Entferne alte Saison-Klassen
+            this.seasonalBanner.classList.remove('winter', 'spring', 'summer', 'autumn');
+            // Füge neue Saison-Klasse hinzu
+            this.seasonalBanner.classList.add(season);
+
+            // Setze Nachricht
+            this.seasonMessage.textContent = seasonText;
+
+            // Erstelle neue animierte Elemente
+            if (month === 11 || month === 0 || month === 1) {
+                this.createSnowflakes();
+            } else if (month >= 2 && month <= 4) {
+                this.createFlowers();
+            } else if (month >= 5 && month <= 7) {
+                this.createSunshine();
+            } else {
+                this.createLeaves();
+            }
+
+            // Entferne transitioning-Klasse nach kurzer Verzögerung
+            setTimeout(() => {
+                this.seasonalBanner.classList.remove('transitioning');
+            }, 50);
+        }, 300);
     }
 
     // ========================================

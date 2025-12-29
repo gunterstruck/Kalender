@@ -239,6 +239,11 @@ body {
     transition: max-height 0.6s ease-out, opacity 0.6s ease-out, padding 0.6s ease-out, margin 0.6s ease-out;
 }
 
+.seasonal-banner.transitioning .seasonal-banner-content {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
 .seasonal-banner.visible {
     opacity: 1;
     max-height: 200px;
@@ -252,6 +257,7 @@ body {
     z-index: 2;
     width: 100%;
     max-width: 1200px;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .season-animation {
