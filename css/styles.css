@@ -1373,9 +1373,11 @@ body.dark-mode .theme-toggle .moon-icon {
         .calendar-wrapper {
             /* Dynamische Höhe im Hochformat mit dvh (dynamic viewport height) */
             /* dvh berücksichtigt automatisch mobile Browser-Toolbars */
-            min-height: 500px;
+            min-height: 650px;
             height: calc(100dvh - var(--available-offset, 250px));
             max-height: none;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         /* Fallback für Browser ohne dvh-Support */
