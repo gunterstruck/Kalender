@@ -11,6 +11,23 @@
   <!-- Himmel (grau-weiß) -->
   <rect width="800" height="600" fill="url(#aprilSky)"/>
 
+  <!-- Sonne oben links mit Sonnenstrahlen -->
+  <g id="sun">
+    <!-- Sonnenstrahlen -->
+    <line x1="100" y1="30" x2="100" y2="10" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="135" y1="45" x2="150" y2="30" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="150" y1="80" x2="170" y2="80" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="135" y1="115" x2="150" y2="130" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="130" x2="100" y2="150" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="65" y1="115" x2="50" y2="130" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="80" x2="30" y2="80" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="65" y1="45" x2="50" y2="30" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Sonnenkern -->
+    <circle cx="100" cy="80" r="35" fill="#fef08a"/>
+    <circle cx="100" cy="80" r="28" fill="#fde047"/>
+  </g>
+
   <!-- Hügel im Hintergrund -->
   <ellipse cx="300" cy="420" rx="280" ry="70" fill="#86efac" opacity="0.7"/>
   <ellipse cx="600" cy="440" rx="320" ry="80" fill="#4ade80" opacity="0.7"/>
@@ -127,13 +144,13 @@
   </g>
 
   <!-- Regenbogen (großer Bogen über alles) -->
-  <path d="M 50 420 Q 400 160 750 420" stroke="#ef4444" stroke-width="18" fill="none" opacity="0.75"/>
-  <path d="M 50 432 Q 400 172 750 432" stroke="#f97316" stroke-width="18" fill="none" opacity="0.75"/>
-  <path d="M 50 444 Q 400 184 750 444" stroke="#fbbf24" stroke-width="18" fill="none" opacity="0.75"/>
-  <path d="M 50 456 Q 400 196 750 456" stroke="#84cc16" stroke-width="18" fill="none" opacity="0.75"/>
-  <path d="M 50 468 Q 400 208 750 468" stroke="#3b82f6" stroke-width="18" fill="none" opacity="0.75"/>
-  <path d="M 50 480 Q 400 220 750 480" stroke="#6366f1" stroke-width="18" fill="none" opacity="0.75"/>
-  <path d="M 50 492 Q 400 232 750 492" stroke="#a855f7" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 220 Q 400 40 750 220" stroke="#ef4444" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 232 Q 400 52 750 232" stroke="#f97316" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 244 Q 400 64 750 244" stroke="#fbbf24" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 256 Q 400 76 750 256" stroke="#84cc16" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 268 Q 400 88 750 268" stroke="#3b82f6" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 280 Q 400 100 750 280" stroke="#6366f1" stroke-width="18" fill="none" opacity="0.75"/>
+  <path d="M 50 292 Q 400 112 750 292" stroke="#a855f7" stroke-width="18" fill="none" opacity="0.75"/>
 
   <!-- Regenwolken (groß und dunkel) -->
   <ellipse cx="150" cy="120" rx="75" ry="45" fill="#94a3b8" opacity="0.85"/>
@@ -244,11 +261,6 @@
   <text x="425" y="220" font-size="20" opacity="0.75">💧</text>
   <text x="495" y="270" font-size="18" opacity="0.7">💧</text>
   <text x="685" y="235" font-size="20" opacity="0.75">💧</text>
-
-  <!-- Wolken ☁️ -->
-  <text x="110" y="115" font-size="28" opacity="0.4">☁️</text>
-  <text x="420" y="95" font-size="30" opacity="0.4">☁️</text>
-  <text x="655" y="130" font-size="26" opacity="0.4">☁️</text>
 
   <!-- Blumen 🌼 (trotz Regen) -->
   <text x="255" y="495" font-size="22" opacity="0.75">🌼</text>

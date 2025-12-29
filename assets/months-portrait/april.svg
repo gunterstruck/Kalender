@@ -9,6 +9,23 @@
 
   <rect width="600" height="800" fill="url(#aprilPortraitSky)"/>
 
+  <!-- Sonne oben links mit Sonnenstrahlen -->
+  <g id="sunLeft">
+    <!-- Sonnenstrahlen -->
+    <line x1="80" y1="35" x2="80" y2="15" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="108" y1="47" x2="120" y2="35" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="120" y1="75" x2="140" y2="75" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="108" y1="103" x2="120" y2="115" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="80" y1="115" x2="80" y2="135" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="103" x2="40" y2="115" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="40" y1="75" x2="20" y2="75" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="47" x2="40" y2="35" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Sonnenkern -->
+    <circle cx="80" cy="75" r="30" fill="#fef08a" opacity="0.7"/>
+    <circle cx="80" cy="75" r="24" fill="#fde047" opacity="0.8"/>
+  </g>
+
   <!-- Regenwolken -->
   <ellipse cx="200" cy="120" rx="110" ry="65" fill="#9ca3af" opacity="0.85"/>
   <ellipse cx="280" cy="130" rx="95" ry="58" fill="#94a3b8" opacity="0.85"/>
@@ -21,12 +38,12 @@
   <circle cx="520" cy="80" r="48" fill="#fde047" opacity="0.7"/>
 
   <!-- Regenbogen -->
-  <path d="M 50 400 Q 300 250 550 400" stroke="#ef4444" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 58 408 Q 300 265 542 408" stroke="#f97316" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 66 416 Q 300 280 534 416" stroke="#fbbf24" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 74 424 Q 300 295 526 424" stroke="#84cc16" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 82 432 Q 300 310 518 432" stroke="#3b82f6" stroke-width="15" fill="none" opacity="0.7"/>
-  <path d="M 90 440 Q 300 325 510 440" stroke="#8b5cf6" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 50 230 Q 300 120 550 230" stroke="#ef4444" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 58 238 Q 300 135 542 238" stroke="#f97316" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 66 246 Q 300 150 534 246" stroke="#fbbf24" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 74 254 Q 300 165 526 254" stroke="#84cc16" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 82 262 Q 300 180 518 262" stroke="#3b82f6" stroke-width="15" fill="none" opacity="0.7"/>
+  <path d="M 90 270 Q 300 195 510 270" stroke="#8b5cf6" stroke-width="15" fill="none" opacity="0.7"/>
 
   <!-- Wiese -->
   <ellipse cx="300" cy="720" rx="450" ry="95" fill="#4ade80"/>
@@ -85,8 +102,6 @@
   <ellipse cx="350" cy="685" rx="60" ry="20" fill="#60a5fa" opacity="0.6"/>
 
   <!-- Emoji-Dekoration -->
-  <text x="170" y="140" font-size="36" opacity="0.75">☁️</text>
-  <text x="420" y="165" font-size="34" opacity="0.75">☁️</text>
   <text x="270" y="360" font-size="40" opacity="0.8">🌈</text>
   <text x="200" y="240" font-size="24" opacity="0.5">💧</text>
   <text x="390" y="260" font-size="24" opacity="0.5">💧</text>

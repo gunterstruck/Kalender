@@ -452,8 +452,8 @@ class CalendarApp {
             },
             3: { // April - Regentropfen fallen leicht seitlich, Regenbogen ganz oben
                 animatedIcons: [
-                    { emoji: '🌧️', class: 'april-raindrop-diagonal', count: 18, duration: [1.5, 2.5], delay: [0, 2], position: 'top' },
-                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 12, duration: [1.5, 2.5], delay: [0, 2], position: 'top' }
+                    { emoji: '🌧️', class: 'april-raindrop-diagonal', count: 18, duration: [3.5, 5.5], delay: [0, 3], position: 'top' },
+                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 12, duration: [3.5, 5.5], delay: [0, 3], position: 'top' }
                 ],
                 staticIcons: [
                     { emoji: '🌈', position: 'very-top' },
