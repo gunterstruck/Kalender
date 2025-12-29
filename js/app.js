@@ -1180,6 +1180,17 @@ class CalendarApp {
                     return positions;
                 }
 
+                // Validierung: Prüfe ob Türchen außerhalb des sichtbaren Bereichs liegen
+                // Dies ist ein Fix für alte Positionen, die vor der Y-Begrenzung generiert wurden
+                const outsideCount = parsed.filter(pos => pos.y > 75).length;
+                if (outsideCount > 0) {
+                    console.log(`[DEBUG] ${outsideCount} doors outside visible area, regenerating all positions...`);
+                    this.warn(`${outsideCount} Türchen außerhalb sichtbarem Bereich, regeneriere Positionen...`);
+                    const positions = this.generateDoorPositions(daysInMonth);
+                    this.saveDoorPositions(positions);
+                    return positions;
+                }
+
                 return parsed;
             }
 
@@ -1228,7 +1239,11 @@ class CalendarApp {
             while (!validPosition && attempts < maxAttempts) {
                 // Zufällige Position generieren (in Prozent)
                 x = padding + Math.random() * (100 - doorSize - 2 * padding);
-                y = padding + Math.random() * (100 - doorSize - 2 * padding);
+
+                // Begrenze Y-Position auf max 70% um sicherzustellen, dass alle Türchen
+                // sichtbar bleiben (70% + doorSize 12% = 82% < 85% visible threshold)
+                const maxYRange = Math.min(100 - doorSize - 2 * padding, 70 - padding);
+                y = padding + Math.random() * maxYRange;
 
                 // Prüfen ob Position gültig ist (keine Überlappung)
                 validPosition = true;
