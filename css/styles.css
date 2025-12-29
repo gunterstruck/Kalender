@@ -240,7 +240,7 @@ body {
     max-height: 200px;
     min-height: 120px;
     padding: var(--spacing-lg) var(--spacing-md);
-    margin: var(--spacing-md);
+    margin: 0;
     margin-bottom: var(--spacing-lg);
 }
 
@@ -365,7 +365,7 @@ body {
         min-height: 100px;
         max-height: 180px;
         padding: var(--spacing-md) var(--spacing-sm);
-        margin: var(--spacing-sm);
+        margin: 0;
         margin-bottom: var(--spacing-md);
     }
 
