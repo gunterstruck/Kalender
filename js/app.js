@@ -204,7 +204,7 @@ class CalendarApp {
             this.updateCalendarHeight();
             this.updateDoorConfig();
             this.clearPositionCache();
-            this.scheduleRenderCalendar({ forceRegenerate: true });
+            this.scheduleRenderCalendar();
         };
         this.orientationHandler = () => {
             // Kleine Verzögerung nach Orientierungswechsel
@@ -212,7 +212,7 @@ class CalendarApp {
                 this.updateCalendarHeight();
                 this.updateDoorConfig();
                 this.clearPositionCache();
-                this.scheduleRenderCalendar({ forceRegenerate: true });
+                this.scheduleRenderCalendar();
             }, 100);
         };
         window.addEventListener('resize', this.resizeHandler);
@@ -1008,10 +1008,7 @@ class CalendarApp {
     }
 
     getPositionsStorageKey() {
-        const size = this.CONFIG.DOOR_SIZE_PERCENT;
-        const spacing = this.CONFIG.MIN_SPACING_PERCENT;
-        const padding = this.CONFIG.PADDING_PERCENT;
-        return `calendar_positions_v3_${size}_${spacing}_${padding}_${this.selectedYear}_${this.selectedMonth}`;
+        return `calendar_positions_v4_${this.selectedYear}_${this.selectedMonth}`;
     }
 
     // ========================================
