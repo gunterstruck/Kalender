@@ -712,7 +712,7 @@ body.dark-mode .season-message {
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: calc(var(--spacing-sm) + 3rem);
+    top: calc(env(safe-area-inset-top, 0px) + var(--spacing-sm));
     right: max(var(--spacing-md), calc((100vw - 1200px) / 2 + var(--spacing-md)));
     transition: all var(--transition-base);
     backdrop-filter: blur(10px);
