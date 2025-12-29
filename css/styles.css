@@ -1478,3 +1478,184 @@ body.dark-mode .toast {
         border: 1px solid var(--border);
     }
 }
+
+/* ========================================
+   PWA Install Prompt
+   ======================================== */
+
+.install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    z-index: 1001;
+    max-width: 500px;
+    width: calc(100% - 40px);
+    opacity: 0;
+    transition: all var(--transition-base);
+    pointer-events: none;
+}
+
+.install-prompt.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.install-prompt-content {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    animation: slideUpBounce 0.5s ease-out;
+}
+
+@keyframes slideUpBounce {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.install-prompt-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.install-prompt-text {
+    flex: 1;
+}
+
+.install-prompt-text h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0 0 var(--spacing-xs) 0;
+    color: white;
+}
+
+.install-prompt-text p {
+    font-size: var(--font-size-sm);
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.install-prompt-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.install-button {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.install-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.install-button:active {
+    transform: scale(0.98);
+}
+
+.install-dismiss {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+.install-dismiss:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.install-dismiss:active {
+    transform: rotate(90deg) scale(0.9);
+}
+
+/* Dark Mode Support für Install Prompt */
+body.dark-mode .install-prompt-content {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .install-prompt-content {
+        background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .install-prompt {
+        bottom: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .install-prompt-content {
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    .install-prompt-icon {
+        font-size: 2rem;
+    }
+
+    .install-prompt-text h3 {
+        font-size: var(--font-size-base);
+    }
+
+    .install-prompt-text p {
+        font-size: var(--font-size-xs);
+    }
+
+    .install-button {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: var(--font-size-xs);
+    }
+
+    .install-dismiss {
+        width: 28px;
+        height: 28px;
+    }
+}
