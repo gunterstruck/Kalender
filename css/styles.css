@@ -1373,15 +1373,18 @@ body.dark-mode .theme-toggle .moon-icon {
         .calendar-wrapper {
             /* Dynamische Höhe im Hochformat mit dvh (dynamic viewport height) */
             /* dvh berücksichtigt automatisch mobile Browser-Toolbars */
-            min-height: 500px;
-            height: calc(100dvh - var(--available-offset, 250px));
-            max-height: none;
+            /* min-height wird dynamisch via JavaScript gesetzt basierend auf Türchenanzahl */
+            min-height: 500px; /* Fallback-Wert */
+            height: auto; /* Lasse Container sich an Inhalt anpassen */
+            max-height: calc(100dvh - var(--available-offset, 250px));
+            overflow-y: auto; /* Fallback-Scrolling, falls nötig */
+            overflow-x: hidden;
         }
 
         /* Fallback für Browser ohne dvh-Support */
         @supports not (height: 100dvh) {
             .calendar-wrapper {
-                height: calc(100vh - var(--available-offset, 250px));
+                max-height: calc(100vh - var(--available-offset, 250px));
             }
         }
     }
