@@ -979,6 +979,45 @@ body.dark-mode .theme-toggle .moon-icon {
     opacity: 0.6;
 }
 
+/* Missed Door (verpasst) */
+.door.missed {
+    background: rgba(150, 80, 80, 0.3);
+    color: rgba(255, 150, 150, 0.5);
+    cursor: not-allowed;
+    border-color: rgba(200, 100, 100, 0.4);
+    box-shadow: 0 2px 8px rgba(150, 0, 0, 0.3);
+}
+
+.door.missed::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.door.missed .missed-icon {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(150, 80, 80, 0.4);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+}
+
+.door.missed:hover .missed-icon {
+    opacity: 1;
+    background: rgba(200, 100, 100, 0.5);
+}
+
 /* Opened Door */
 .door.opened {
     background: rgba(255, 184, 77, 0.3);

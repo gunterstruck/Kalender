@@ -844,8 +844,32 @@ class CalendarApp {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // Türchen ist freigeschaltet, wenn das Datum <= heute ist
-        return selectedMonthDate <= today;
+        // Datum liegt in der Zukunft → gesperrt
+        if (selectedMonthDate > today) {
+            return false;
+        }
+
+        // Datum ist heute → freigeschaltet
+        if (selectedMonthDate.getTime() === today.getTime()) {
+            return true;
+        }
+
+        // Datum liegt in der Vergangenheit → nur freigeschaltet wenn bereits geöffnet wurde
+        return this.isDoorOpened(day);
+    }
+
+    // Prüfe ob Türchen verpasst wurde (vergangenes Datum, aber nie geöffnet)
+    isDoorMissed(day) {
+        const selectedMonthDate = new Date(this.selectedYear, this.selectedMonth, day);
+        selectedMonthDate.setHours(0, 0, 0, 0);
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Türchen wurde verpasst wenn:
+        // 1. Datum liegt in der Vergangenheit (nicht heute)
+        // 2. Wurde nie geöffnet
+        return selectedMonthDate < today && !this.isDoorOpened(day);
     }
 
     // ========================================
@@ -1154,15 +1178,29 @@ class CalendarApp {
 
     handleDoorClick(day) {
         if (!this.isDoorUnlocked(day)) {
-            // Gesperrtes Türchen
-            const unlockDate = new Date(this.selectedYear, this.selectedMonth, day);
-            const formattedDate = unlockDate.toLocaleDateString(this.CONFIG.LOCALE, {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            });
+            // Prüfe ob Türchen verpasst wurde oder noch in der Zukunft liegt
+            if (this.isDoorMissed(day)) {
+                // Verpasstes Türchen → zeige "Nächstes Jahr" Nachricht
+                const nextYear = this.selectedYear + 1;
+                const nextYearDate = new Date(nextYear, this.selectedMonth, day);
+                const formattedDate = nextYearDate.toLocaleDateString(this.CONFIG.LOCALE, {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
 
-            this.showToast(`Dieses Türchen öffnet sich am ${formattedDate}`);
+                this.showToast(`⏰ Verpasst! Nächste Chance: ${formattedDate}`);
+            } else {
+                // Zukünftiges Türchen → zeige normales "Öffnet sich am" Nachricht
+                const unlockDate = new Date(this.selectedYear, this.selectedMonth, day);
+                const formattedDate = unlockDate.toLocaleDateString(this.CONFIG.LOCALE, {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+
+                this.showToast(`Dieses Türchen öffnet sich am ${formattedDate}`);
+            }
 
             // Shake-Animation (aus Cache holen)
             const doorElement = this.doorElements.get(day);
@@ -1351,12 +1389,31 @@ class CalendarApp {
 
         const isUnlocked = this.isDoorUnlocked(day);
         const isOpened = this.isDoorOpened(day);
+        const isMissed = this.isDoorMissed(day);
 
         // Status-Klassen
         if (!isUnlocked) {
             door.classList.add('locked');
-            door.setAttribute('aria-label', `Tag ${day} - Gesperrt`);
-            door.setAttribute('aria-disabled', 'true');
+
+            if (isMissed) {
+                // Verpasstes Türchen → spezielle Klasse und Label
+                door.classList.add('missed');
+                const nextYear = this.selectedYear + 1;
+                door.setAttribute('aria-label', `Tag ${day} - Verpasst - Nächste Chance: ${nextYear}`);
+                door.setAttribute('aria-disabled', 'true');
+
+                // Verpasst-Icon
+                const missedIcon = document.createElement('div');
+                missedIcon.className = 'missed-icon';
+                missedIcon.setAttribute('aria-label', 'Verpasst');
+                missedIcon.setAttribute('role', 'img');
+                missedIcon.innerHTML = '⏰';
+                door.appendChild(missedIcon);
+            } else {
+                // Zukünftiges Türchen
+                door.setAttribute('aria-label', `Tag ${day} - Gesperrt`);
+                door.setAttribute('aria-disabled', 'true');
+            }
         } else if (isOpened) {
             door.classList.add('opened');
             door.setAttribute('aria-label', `Tag ${day} - Geöffnet - Klicken für Spruch`);
