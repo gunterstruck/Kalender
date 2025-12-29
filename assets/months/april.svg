@@ -11,6 +11,23 @@
   <!-- Himmel (grau-weiß) -->
   <rect width="800" height="600" fill="url(#aprilSky)"/>
 
+  <!-- Sonne oben links mit Sonnenstrahlen -->
+  <g id="sun">
+    <!-- Sonnenstrahlen -->
+    <line x1="100" y1="30" x2="100" y2="10" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="135" y1="45" x2="150" y2="30" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="150" y1="80" x2="170" y2="80" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="135" y1="115" x2="150" y2="130" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="130" x2="100" y2="150" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="65" y1="115" x2="50" y2="130" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="80" x2="30" y2="80" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+    <line x1="65" y1="45" x2="50" y2="30" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Sonnenkern -->
+    <circle cx="100" cy="80" r="35" fill="#fef08a"/>
+    <circle cx="100" cy="80" r="28" fill="#fde047"/>
+  </g>
+
   <!-- Hügel im Hintergrund -->
   <ellipse cx="300" cy="420" rx="280" ry="70" fill="#86efac" opacity="0.7"/>
   <ellipse cx="600" cy="440" rx="320" ry="80" fill="#4ade80" opacity="0.7"/>

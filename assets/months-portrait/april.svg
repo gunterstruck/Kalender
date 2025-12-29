@@ -9,6 +9,23 @@
 
   <rect width="600" height="800" fill="url(#aprilPortraitSky)"/>
 
+  <!-- Sonne oben links mit Sonnenstrahlen -->
+  <g id="sunLeft">
+    <!-- Sonnenstrahlen -->
+    <line x1="80" y1="35" x2="80" y2="15" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="108" y1="47" x2="120" y2="35" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="120" y1="75" x2="140" y2="75" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="108" y1="103" x2="120" y2="115" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="80" y1="115" x2="80" y2="135" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="103" x2="40" y2="115" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="40" y1="75" x2="20" y2="75" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+    <line x1="52" y1="47" x2="40" y2="35" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Sonnenkern -->
+    <circle cx="80" cy="75" r="30" fill="#fef08a" opacity="0.7"/>
+    <circle cx="80" cy="75" r="24" fill="#fde047" opacity="0.8"/>
+  </g>
+
   <!-- Regenwolken -->
   <ellipse cx="200" cy="120" rx="110" ry="65" fill="#9ca3af" opacity="0.85"/>
   <ellipse cx="280" cy="130" rx="95" ry="58" fill="#94a3b8" opacity="0.85"/>
