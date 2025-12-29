@@ -16,7 +16,7 @@ class CalendarApp {
             DOOR_SIZE_PERCENT: 7,              // Türchengröße in % (wird über updateDoorConfig angepasst)
             MIN_SPACING_PERCENT: 4,            // Mindestabstand in % (wird über updateDoorConfig angepasst)
             PADDING_PERCENT: 6,                // Rand-Padding in % (wird über updateDoorConfig angepasst)
-            MAX_POSITION_ATTEMPTS: 200,        // Maximale Positionierungsversuche (erhöht wegen größeren Türchen)
+            MAX_POSITION_ATTEMPTS: 500,        // Maximale Positionierungsversuche (erhöht wegen größeren Türchen)
             ANIMATION_DURATION: 150,           // Fade-Animation in ms
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
             TOAST_DURATION: 3000,              // Toast-Anzeigedauer in ms
@@ -46,6 +46,7 @@ class CalendarApp {
 
         // DOM-Elemente Cache für Performance
         this.doorElements = new Map();
+        this.forcePositionRegeneration = false;
 
         // DOM-Elemente
         this.monthSelect = document.getElementById('month-select');
@@ -174,8 +175,11 @@ class CalendarApp {
         // Responsive Door-Konfiguration setzen
         this.updateDoorConfig();
 
+        // Dynamische Höhenberechnung für Portrait-Modus
+        this.updateCalendarHeight();
+
         // Initiales Rendering
-        this.renderCalendar();
+        this.scheduleRenderCalendar();
 
         // Prüfe täglich um Mitternacht, ob ein neuer Tag/Jahr begonnen hat
         this.startDateChangeDetection();
@@ -195,24 +199,21 @@ class CalendarApp {
         // Auto-Scroll zum Ausblenden der mobilen Browser-Adressleiste
         this.hideMobileAddressBar();
 
-        // Dynamische Höhenberechnung für Portrait-Modus
-        this.updateCalendarHeight();
-
         // Event Listener für Fenstergrößenänderungen und Orientierungswechsel
         this.resizeHandler = () => {
             this.updateCalendarHeight();
-            if (this.updateDoorConfig()) {
-                this.clearPositionCache();
-                this.renderCalendar();
-            }
+            this.updateDoorConfig();
+            this.clearPositionCache();
+            this.scheduleRenderCalendar({ forceRegenerate: true });
         };
         this.orientationHandler = () => {
             // Kleine Verzögerung nach Orientierungswechsel
-            setTimeout(() => this.updateCalendarHeight(), 100);
-            if (this.updateDoorConfig()) {
+            setTimeout(() => {
+                this.updateCalendarHeight();
+                this.updateDoorConfig();
                 this.clearPositionCache();
-                this.renderCalendar();
-            }
+                this.scheduleRenderCalendar({ forceRegenerate: true });
+            }, 100);
         };
         window.addEventListener('resize', this.resizeHandler);
         window.addEventListener('orientationchange', this.orientationHandler);
@@ -1169,6 +1170,14 @@ class CalendarApp {
     // ========================================
 
     loadDoorPositions() {
+        if (this.forcePositionRegeneration) {
+            const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+            const positions = this.generateDoorPositions(daysInMonth);
+            this.saveDoorPositions(positions);
+            this.forcePositionRegeneration = false;
+            return positions;
+        }
+
         if (!this.storageAvailable) {
             const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
             return this.generateDoorPositions(daysInMonth);
@@ -1252,65 +1261,73 @@ class CalendarApp {
     generateDoorPositions(daysInMonth) {
         console.log(`[DEBUG] generateDoorPositions called for ${daysInMonth} days`);
         const positions = [];
-        const doorSize = this.CONFIG.DOOR_SIZE_PERCENT;
-        const minSpacing = this.CONFIG.MIN_SPACING_PERCENT;
-        const padding = this.CONFIG.PADDING_PERCENT;
+        const gridRect = this.calendarGrid.getBoundingClientRect();
+        const gridWidth = gridRect.width;
+        const gridHeight = gridRect.height;
+
+        if (!gridWidth || !gridHeight) {
+            this.warn('Kalender-Grid hat keine gültigen Abmessungen. Positionen werden später neu berechnet.');
+            return positions;
+        }
+
+        const isSmallScreen = window.matchMedia('(max-width: 480px)').matches;
+        const minDoorSizePx = isSmallScreen ? 40 : 60;
+        const doorSizePx = Math.max((this.CONFIG.DOOR_SIZE_PERCENT / 100) * gridWidth, minDoorSizePx);
+        const baseSpacingPx = (this.CONFIG.MIN_SPACING_PERCENT / 100) * gridWidth;
+        const paddingPx = (this.CONFIG.PADDING_PERCENT / 100) * gridWidth;
         const maxAttempts = this.CONFIG.MAX_POSITION_ATTEMPTS;
 
         for (let day = 1; day <= daysInMonth; day++) {
             let validPosition = false;
-            let attempts = 0;
-            let x, y;
+            let xPx = paddingPx;
+            let yPx = paddingPx;
+            let spacingPx = baseSpacingPx;
 
-            while (!validPosition && attempts < maxAttempts) {
-                // Zufällige Position generieren (in Prozent)
-                x = padding + Math.random() * (100 - doorSize - 2 * padding);
-                y = padding + Math.random() * (100 - doorSize - 2 * padding);
+            const maxX = Math.max(paddingPx, gridWidth - doorSizePx - paddingPx);
+            const maxY = Math.max(paddingPx, gridHeight - doorSizePx - paddingPx);
 
-                // Prüfen ob Position gültig ist (keine Überlappung)
-                validPosition = true;
-                for (const pos of positions) {
-                    // Berechne Bounding Boxes für beide Türchen
-                    const x1 = x;
-                    const y1 = y;
-                    const x2 = pos.x;
-                    const y2 = pos.y;
+            while (!validPosition && spacingPx >= 0) {
+                let attempts = 0;
 
-                    // Mindestabstand ist doorSize (kein Überlappen) + minSpacing (zusätzlicher Abstand)
-                    const minDist = doorSize + minSpacing;
+                while (!validPosition && attempts < maxAttempts) {
+                    xPx = paddingPx + Math.random() * (maxX - paddingPx);
+                    yPx = paddingPx + Math.random() * (maxY - paddingPx);
 
-                    // Prüfe ob die Türchen sich zu nahe sind (inkl. Größe)
-                    const dx = Math.abs(x1 - x2);
-                    const dy = Math.abs(y1 - y2);
+                    validPosition = positions.every((pos) => {
+                        const otherX = pos.xPx;
+                        const otherY = pos.yPx;
+                        const overlapX = xPx < otherX + doorSizePx + spacingPx &&
+                            xPx + doorSizePx + spacingPx > otherX;
+                        const overlapY = yPx < otherY + doorSizePx + spacingPx &&
+                            yPx + doorSizePx + spacingPx > otherY;
+                        return !(overlapX && overlapY);
+                    });
 
-                    // Türchen überlappen oder sind zu nahe, wenn dx < minDist UND dy < minDist
-                    if (dx < minDist && dy < minDist) {
-                        validPosition = false;
-                        break;
-                    }
+                    attempts++;
                 }
 
-                attempts++;
+                if (!validPosition) {
+                    spacingPx = Math.max(0, spacingPx - baseSpacingPx * 0.2);
+                }
             }
 
-            // Fallback: Wenn keine gültige Position gefunden wurde, verwende Grid-Layout
             if (!validPosition) {
-                this.warn(`Keine valide Position für Tag ${day} nach ${attempts} Versuchen. Verwende Grid-Fallback.`);
-                // Grid-Spacing: Türchengröße + Mindestabstand
-                const gridSpacing = doorSize + minSpacing;
-                const cols = Math.floor((100 - 2 * padding) / gridSpacing);
-                const row = Math.floor((day - 1) / cols);
-                const col = (day - 1) % cols;
-                x = padding + col * gridSpacing;
-                y = padding + row * gridSpacing;
+                this.warn(`Keine valide Position für Tag ${day} nach ${maxAttempts} Versuchen. Verwende minimalen Abstand.`);
             }
 
-            // Speichere Position
-            positions.push({ day, x, y });
+            positions.push({
+                day,
+                x: (xPx / gridWidth) * 100,
+                y: (yPx / gridHeight) * 100,
+                xPx,
+                yPx
+            });
         }
 
-        console.log(`[DEBUG] Generated ${positions.length} positions`);
-        return positions;
+        const normalizedPositions = positions.map(({ day, x, y }) => ({ day, x, y }));
+
+        console.log(`[DEBUG] Generated ${normalizedPositions.length} positions`);
+        return normalizedPositions;
     }
 
     getDoorPosition(day) {
@@ -1547,7 +1564,31 @@ class CalendarApp {
     // Kalender rendern
     // ========================================
 
+    scheduleRenderCalendar({ forceRegenerate = false } = {}) {
+        if (forceRegenerate) {
+            this.forcePositionRegeneration = true;
+        }
+
+        if (this.renderCalendarFrame) {
+            cancelAnimationFrame(this.renderCalendarFrame);
+        }
+
+        this.renderCalendarFrame = requestAnimationFrame(() => {
+            this.renderCalendarFrame = requestAnimationFrame(() => {
+                this.renderCalendarFrame = null;
+                this.renderCalendar();
+            });
+        });
+    }
+
     renderCalendar() {
+        const gridRect = this.calendarGrid.getBoundingClientRect();
+        if (gridRect.width === 0 || gridRect.height === 0) {
+            this.warn('Kalender-Layout noch nicht bereit, Rendering verschoben.');
+            this.scheduleRenderCalendar();
+            return;
+        }
+
         // Hintergrund-Illustration aktualisieren (wähle basierend auf Geräteorientierung)
         const isPortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
         const illustrationFolder = isPortrait ? 'months-portrait' : 'months';
