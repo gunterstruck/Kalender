@@ -1361,10 +1361,18 @@ body.dark-mode .theme-toggle .moon-icon {
     /* Hochformat-spezifische Anpassungen */
     @media (orientation: portrait) {
         .calendar-wrapper {
-            /* Reduzierte Höhe im Hochformat, damit Monatsbild nicht durch Steuerleiste überdeckt wird */
-            min-height: 600px;
-            height: 70vh;
-            max-height: 800px;
+            /* Dynamische Höhe im Hochformat mit dvh (dynamic viewport height) */
+            /* dvh berücksichtigt automatisch mobile Browser-Toolbars */
+            min-height: 500px;
+            height: calc(100dvh - var(--available-offset, 250px));
+            max-height: none;
+        }
+
+        /* Fallback für Browser ohne dvh-Support */
+        @supports not (height: 100dvh) {
+            .calendar-wrapper {
+                height: calc(100vh - var(--available-offset, 250px));
+            }
         }
     }
 
