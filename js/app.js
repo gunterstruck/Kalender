@@ -430,92 +430,99 @@ class CalendarApp {
         this.mobileMonthDecoration.innerHTML = '';
 
         // Monatsspezifische Animationskonfiguration
+        // position: 'top' (0-30%), 'center' (35-65%), 'bottom' (60-90%), 'sky' (0-50%)
+        // opacity: 1 = voll sichtbar, 0.3-0.6 = transparent
         const monthConfig = {
             0: { // Januar - Sterne und Schneeflocken blinken
                 animatedIcons: [
-                    { emoji: '⭐', class: 'january-star', count: 12, duration: [2, 4], delay: [0, 3] },
-                    { emoji: '🌙', class: 'january-star', count: 3, duration: [3, 5], delay: [0, 2] },
-                    { emoji: '❄️', class: 'january-star', count: 8, duration: [2.5, 4.5], delay: [0, 3] }
+                    { emoji: '⭐', class: 'january-star', count: 12, duration: [2, 4], delay: [0, 3], position: 'sky' },
+                    { emoji: '🌙', class: 'january-star', count: 3, duration: [3, 5], delay: [0, 2], position: 'sky' },
+                    { emoji: '❄️', class: 'january-star', count: 8, duration: [2.5, 4.5], delay: [0, 3], position: 'sky' }
                 ],
                 staticIcons: ['⛄', '🌨️']
             },
-            1: { // Februar - Herzen schweben
+            1: { // Februar - Herzen schweben (voll sichtbar)
                 animatedIcons: [
-                    { emoji: '❤️', class: 'february-heart', count: 10, duration: [3, 5], delay: [0, 4] },
-                    { emoji: '💝', class: 'february-heart', count: 8, duration: [3.5, 5.5], delay: [0, 4] },
-                    { emoji: '💕', class: 'february-heart', count: 6, duration: [4, 6], delay: [0, 4] }
+                    { emoji: '❤️', class: 'february-heart', count: 10, duration: [3, 5], delay: [0, 4], opacity: 1 },
+                    { emoji: '💝', class: 'february-heart', count: 8, duration: [3.5, 5.5], delay: [0, 4], opacity: 1 },
+                    { emoji: '💕', class: 'february-heart', count: 6, duration: [4, 6], delay: [0, 4], opacity: 1 }
                 ],
                 staticIcons: ['🌹', '🎈']
             },
-            2: { // März - Schmetterlinge und Bienen fliegen
+            2: { // März - Schmetterlinge und Bienen fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5] },
-                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5] }
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['🌸', '🌷', '🌼', '🌺']
             },
-            3: { // April - Regentropfen fallen, Wolken gleiten
+            3: { // April - Regentropfen fallen, Regenbogen oben
                 animatedIcons: [
-                    { emoji: '🌧️', class: 'april-raindrop', count: 15, duration: [1.5, 2.5], delay: [0, 2] },
-                    { emoji: '☁️', class: 'drifting-cloud', count: 4, duration: [15, 25], delay: [0, 10] }
+                    { emoji: '🌧️', class: 'april-raindrop', count: 15, duration: [1.5, 2.5], delay: [0, 2], position: 'top' },
+                    { emoji: '💧', class: 'april-raindrop', count: 10, duration: [1.5, 2.5], delay: [0, 2], position: 'top' }
                 ],
-                staticIcons: ['☂️', '🌈', '🌸', '🌷']
+                staticIcons: [
+                    { emoji: '🌈', position: 'top' },
+                    { emoji: '☂️', position: 'bottom' },
+                    { emoji: '🌸', position: 'bottom' },
+                    { emoji: '🌷', position: 'bottom' }
+                ]
             },
-            4: { // Mai - Schmetterlinge und Bienen fliegen
+            4: { // Mai - Schmetterlinge und Bienen fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5] },
-                    { emoji: '🐝', class: 'flying-insect', count: 10, duration: [3.5, 5.5], delay: [0, 5] }
+                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐝', class: 'flying-insect', count: 10, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['🌺', '🌻', '🌼', '🌷']
             },
-            5: { // Juni - Vögel und Schmetterlinge fliegen
+            5: { // Juni - Vögel und Schmetterlinge fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🐦', class: 'flying-bird', count: 10, duration: [4, 6], delay: [0, 5] },
-                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4.5, 6.5], delay: [0, 5] }
+                    { emoji: '🐦', class: 'flying-bird', count: 10, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4.5, 6.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['☀️', '🌻', '🍓', '🏖️']
             },
-            6: { // Juli - Schmetterlinge und Bienen fliegen
+            6: { // Juli - Schmetterlinge und Bienen fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5] },
-                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5] }
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['☀️', '🌊', '🏖️', '🍉', '🌻']
             },
-            7: { // August - Schmetterlinge und Vögel fliegen
+            7: { // August - Schmetterlinge und Vögel fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5] },
-                    { emoji: '🐦', class: 'flying-bird', count: 8, duration: [4.5, 6.5], delay: [0, 5] }
+                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐦', class: 'flying-bird', count: 8, duration: [4.5, 6.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['☀️', '🌻', '🌾', '🍇']
             },
-            8: { // September - Blätter wirbeln
+            8: { // September - Blätter wirbeln (mittig)
                 animatedIcons: [
-                    { emoji: '🍂', class: 'swirling-leaf', count: 12, duration: [7, 10], delay: [0, 8] },
-                    { emoji: '🍁', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8] }
+                    { emoji: '🍂', class: 'swirling-leaf', count: 12, duration: [7, 10], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8], position: 'center' }
                 ],
                 staticIcons: ['🍄', '🌾', '🦊', '🎒']
             },
-            9: { // Oktober - Blätter wirbeln, Vögel fliegen
+            9: { // Oktober - Blätter wirbeln (mittig), Vögel fliegen
                 animatedIcons: [
-                    { emoji: '🍂', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8] },
-                    { emoji: '🍁', class: 'swirling-leaf', count: 8, duration: [7, 10], delay: [0, 8] },
-                    { emoji: '🐦', class: 'flying-bird', count: 5, duration: [4, 6], delay: [0, 5] }
+                    { emoji: '🍂', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'swirling-leaf', count: 8, duration: [7, 10], delay: [0, 8], position: 'center' },
+                    { emoji: '🐦', class: 'flying-bird', count: 5, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['🎃', '🦇', '👻', '🌙']
             },
-            10: { // November - Blätter wirbeln, Nebel gleitet
+            10: { // November - Blätter fliegen seitlich weg (mittig), Nebel gleitet
                 animatedIcons: [
-                    { emoji: '🍂', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8] },
-                    { emoji: '🍁', class: 'swirling-leaf', count: 8, duration: [7, 10], delay: [0, 8] },
-                    { emoji: '☁️', class: 'november-fog', count: 4, duration: [20, 30], delay: [0, 15] }
+                    { emoji: '🍂', class: 'november-leaf', count: 10, duration: [8, 12], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'november-leaf', count: 8, duration: [8, 12], delay: [0, 8], position: 'center' },
+                    { emoji: '☁️', class: 'november-fog', count: 4, duration: [20, 30], delay: [0, 15], position: 'center' }
                 ],
                 staticIcons: ['🦃', '🌰', '☕', '🕯️']
             },
-            11: { // Dezember - Schneeflocken fallen diagonal
+            11: { // Dezember - Schneeflocken fallen diagonal (oben im Himmel)
                 animatedIcons: [
-                    { emoji: '❄️', class: 'december-snow', count: 15, duration: [10, 15], delay: [0, 10] },
-                    { emoji: '⭐', class: 'january-star', count: 8, duration: [2, 4], delay: [0, 3] }
+                    { emoji: '❄️', class: 'december-snow', count: 15, duration: [10, 15], delay: [0, 10], position: 'top' },
+                    { emoji: '⭐', class: 'january-star', count: 8, duration: [2, 4], delay: [0, 3], position: 'sky' }
                 ],
                 staticIcons: ['🎄', '🎅', '🎁', '⛄', '🔔']
             }
@@ -525,7 +532,6 @@ class CalendarApp {
         if (!config) return;
 
         const sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-        const skyIcons = ['🦋', '🐝', '🐦', '🕊️', '☀️', '⭐', '🌙', '🦇', '☁️', '🌈'];
 
         // Erstelle animierte Icons
         config.animatedIcons.forEach(iconConfig => {
@@ -534,14 +540,25 @@ class CalendarApp {
                 icon.className = `mobile-month-icon ${iconConfig.class}`;
                 icon.textContent = iconConfig.emoji;
 
-                // Zufällige Position
+                // Zufällige horizontale Position
                 icon.style.left = `${Math.random() * 95}%`;
 
-                const isSkyIcon = skyIcons.includes(iconConfig.emoji);
-                if (isSkyIcon) {
-                    icon.style.top = `${Math.random() * 50}%`;
-                } else {
-                    icon.style.top = `${50 + Math.random() * 45}%`;
+                // Positionierung basierend auf Konfiguration
+                const position = iconConfig.position || 'sky';
+                switch (position) {
+                    case 'top':
+                        icon.style.top = `${Math.random() * 30}%`;
+                        break;
+                    case 'center':
+                        icon.style.top = `${35 + Math.random() * 30}%`;
+                        break;
+                    case 'bottom':
+                        icon.style.top = `${60 + Math.random() * 30}%`;
+                        break;
+                    case 'sky':
+                    default:
+                        icon.style.top = `${Math.random() * 50}%`;
+                        break;
                 }
 
                 // Zufällige Größe
@@ -554,8 +571,16 @@ class CalendarApp {
                 icon.style.setProperty('--duration', `${duration}s`);
                 icon.style.setProperty('--delay', `${delay}s`);
 
-                // Basis-Opazität für animierte Icons (wird durch Animation überschrieben wenn nötig)
-                if (!iconConfig.class.includes('fog') && !iconConfig.class.includes('cloud')) {
+                // Spezielle Properties für November-Blätter (seitliche Richtung)
+                if (iconConfig.class === 'november-leaf') {
+                    const direction = Math.random() > 0.5 ? '100vw' : '-100vw';
+                    icon.style.setProperty('--direction', direction);
+                }
+
+                // Opazität: entweder aus Konfiguration oder Standard für animierte Icons
+                if (iconConfig.opacity !== undefined) {
+                    icon.style.opacity = iconConfig.opacity.toString();
+                } else if (!iconConfig.class.includes('fog') && !iconConfig.class.includes('cloud')) {
                     icon.style.opacity = (0.3 + Math.random() * 0.3).toString();
                 }
 
@@ -568,16 +593,35 @@ class CalendarApp {
         for (let i = 0; i < staticCount && config.staticIcons.length > 0; i++) {
             const icon = document.createElement('div');
             icon.className = 'mobile-month-icon';
-            const selectedIcon = config.staticIcons[Math.floor(Math.random() * config.staticIcons.length)];
+
+            // Statische Icons können jetzt Objekte mit Position sein
+            let selectedIcon;
+            let iconPosition = 'bottom';
+            const randomIcon = config.staticIcons[Math.floor(Math.random() * config.staticIcons.length)];
+
+            if (typeof randomIcon === 'object') {
+                selectedIcon = randomIcon.emoji;
+                iconPosition = randomIcon.position || 'bottom';
+            } else {
+                selectedIcon = randomIcon;
+            }
+
             icon.textContent = selectedIcon;
 
             icon.style.left = `${Math.random() * 95}%`;
 
-            const isSkyIcon = skyIcons.includes(selectedIcon);
-            if (isSkyIcon) {
-                icon.style.top = `${Math.random() * 50}%`;
-            } else {
-                icon.style.top = `${50 + Math.random() * 45}%`;
+            // Positionierung basierend auf Konfiguration
+            switch (iconPosition) {
+                case 'top':
+                    icon.style.top = `${Math.random() * 30}%`;
+                    break;
+                case 'center':
+                    icon.style.top = `${35 + Math.random() * 30}%`;
+                    break;
+                case 'bottom':
+                default:
+                    icon.style.top = `${60 + Math.random() * 30}%`;
+                    break;
             }
 
             icon.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];

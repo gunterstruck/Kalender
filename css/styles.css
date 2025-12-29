@@ -543,6 +543,30 @@ body {
     will-change: transform, opacity;
 }
 
+/* November: Blätter fliegen seitlich weg (mittig) */
+@keyframes leaf-fly-away {
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateX(var(--direction, 100vw)) translateY(20vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.november-leaf {
+    animation: leaf-fly-away var(--duration, 10s) ease-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
 /* Responsive Anpassungen für Banner */
 @media (max-width: 480px) {
     .seasonal-banner {
