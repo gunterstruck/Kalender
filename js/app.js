@@ -7,12 +7,15 @@ class CalendarApp {
         this.selectedMonth = new Date().getMonth();
         this.selectedYear = new Date().getFullYear();
 
+        // Debug-Modus (setze auf true für detaillierte Logs)
+        this.DEBUG = false;
+
         // Konfigurationskonstanten
         this.CONFIG = {
             DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
             DOOR_SIZE_PERCENT: 8,              // Türchengröße in %
-            MIN_SPACING_PERCENT: 3,            // Mindestabstand in %
-            PADDING_PERCENT: 3,                // Rand-Padding in %
+            MIN_SPACING_PERCENT: 5,            // Mindestabstand in % (erhöht von 3 auf 5)
+            PADDING_PERCENT: 5,                // Rand-Padding in % (erhöht von 3 auf 5)
             MAX_POSITION_ATTEMPTS: 150,        // Maximale Positionierungsversuche
             ANIMATION_DURATION: 150,           // Fade-Animation in ms
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
@@ -68,6 +71,22 @@ class CalendarApp {
         this.mobileMonthDecoration = document.getElementById('mobile-month-decoration');
 
         this.init();
+    }
+
+    // ========================================
+    // Debug-Logging
+    // ========================================
+
+    log(...args) {
+        if (this.DEBUG) {
+            console.log('[CalendarApp]', ...args);
+        }
+    }
+
+    warn(...args) {
+        if (this.DEBUG) {
+            console.warn('[CalendarApp]', ...args);
+        }
     }
 
     // ========================================
@@ -252,7 +271,7 @@ class CalendarApp {
         // Setze CSS Custom Property
         document.documentElement.style.setProperty('--available-offset', `${totalOffset}px`);
 
-        console.log(`[CalendarApp] Dynamische Höhe berechnet - Offset: ${totalOffset}px`);
+        this.log(`Dynamische Höhe berechnet - Offset: ${totalOffset}px`);
     }
 
     // ========================================
@@ -268,7 +287,7 @@ class CalendarApp {
                 // Entferne Element nach Fade-Animation
                 setTimeout(() => {
                     spinner.remove();
-                    console.log('[CalendarApp] Ladeanimation entfernt - App bereit');
+                    this.log('Ladeanimation entfernt - App bereit');
                 }, 300);
             }
         });
@@ -283,12 +302,12 @@ class CalendarApp {
         setTimeout(() => {
             if (this.appHeader) {
                 this.appHeader.classList.add('hidden');
-                console.log('[CalendarApp] Header ausgeblendet');
+                this.log('Header ausgeblendet');
             }
             // Zeige Saisonbanner nach Header-Ausblendung
             if (this.seasonalBanner) {
                 this.seasonalBanner.classList.add('visible');
-                console.log('[CalendarApp] Saisonbanner angezeigt');
+                this.log('Saisonbanner angezeigt');
             }
             // Aktualisiere Höhenberechnung nach UI-Änderungen
             setTimeout(() => {
@@ -573,11 +592,11 @@ class CalendarApp {
             10: { // November - Windiges, stürmisches Wetter mit Wolken und Wind im oberen Drittel
                 animatedIcons: [
                     // Wind- und Wolken-Icons im oberen Drittel (windiges, stürmisches Wetter)
-                    { emoji: '☁️', class: 'drifting-cloud', count: 8, duration: [15, 20], delay: [0, 10], position: 'top', opacity: 0.5 },
-                    { emoji: '💨', class: 'drifting-cloud', count: 5, duration: [10, 15], delay: [0, 7], position: 'top', opacity: 0.5 },
+                    { emoji: '☁️', class: 'drifting-cloud', count: 5, duration: [15, 20], delay: [0, 10], position: 'top', opacity: 0.5 },
+                    { emoji: '💨', class: 'drifting-cloud', count: 3, duration: [10, 15], delay: [0, 7], position: 'top', opacity: 0.5 },
                     // Blätter fliegen seitlich weg (mittig) - reduzierte Anzahl
-                    { emoji: '🍂', class: 'november-leaf', count: 6, duration: [8, 12], delay: [0, 8], position: 'center' },
-                    { emoji: '🍁', class: 'november-leaf', count: 5, duration: [8, 12], delay: [0, 8], position: 'center' }
+                    { emoji: '🍂', class: 'november-leaf', count: 4, duration: [8, 12], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'november-leaf', count: 3, duration: [8, 12], delay: [0, 8], position: 'center' }
                 ],
                 staticIcons: ['🦃', '🌰', '☕', '🕯️']
             },
@@ -730,7 +749,7 @@ class CalendarApp {
 
         // Wenn sich das Jahr geändert hat
         if (newYear !== this.lastKnownYear) {
-            console.log(`Jahr gewechselt von ${this.lastKnownYear} zu ${newYear}`);
+            this.log(`Jahr gewechselt von ${this.lastKnownYear} zu ${newYear}`);
             this.lastKnownYear = newYear;
 
             // Aktualisiere auf den aktuellen Monat und Jahr
@@ -792,7 +811,7 @@ class CalendarApp {
         // Leere Door Elements Cache
         this.doorElements.clear();
 
-        console.log('[CalendarApp] Cleanup abgeschlossen');
+        this.log('Cleanup abgeschlossen');
     }
 
     // ========================================
@@ -806,7 +825,7 @@ class CalendarApp {
             localStorage.removeItem(testKey);
             return true;
         } catch (error) {
-            console.warn('LocalStorage nicht verfügbar:', error);
+            this.warn('LocalStorage nicht verfügbar:', error);
             // Toast nur zeigen wenn Element existiert
             if (this.toast) {
                 this.showToast('⚠️ Speichern nicht möglich. Daten gehen beim Neuladen verloren.');
@@ -1011,7 +1030,39 @@ class CalendarApp {
             const data = localStorage.getItem(key);
 
             if (data) {
-                return JSON.parse(data);
+                const parsed = JSON.parse(data);
+
+                // Validierung: Prüfe ob das Mapping ein Array ist und die richtige Größe hat
+                const expectedSize = this.isLeapYear(this.selectedYear) ? 366 : 365;
+                if (!Array.isArray(parsed)) {
+                    this.warn('Quote mapping ist kein Array, regeneriere...', parsed);
+                    const mapping = generateYearlyQuoteMapping(this.selectedYear);
+                    this.saveYearlyQuoteMapping(mapping);
+                    return mapping;
+                }
+
+                if (parsed.length !== expectedSize) {
+                    this.warn(`Quote mapping hat falsche Größe (${parsed.length} statt ${expectedSize}), regeneriere...`);
+                    const mapping = generateYearlyQuoteMapping(this.selectedYear);
+                    this.saveYearlyQuoteMapping(mapping);
+                    return mapping;
+                }
+
+                // Validierung: Prüfe ob alle Elemente valide Quote-Objekte sind
+                const isValid = parsed.every(quote => {
+                    return quote && typeof quote === 'object' &&
+                           typeof quote.text === 'string' &&
+                           typeof quote.author === 'string';
+                });
+
+                if (!isValid) {
+                    this.warn('Quote mapping enthält ungültige Einträge, regeneriere...');
+                    const mapping = generateYearlyQuoteMapping(this.selectedYear);
+                    this.saveYearlyQuoteMapping(mapping);
+                    return mapping;
+                }
+
+                return parsed;
             }
 
             // Erstelle neue jahresweite Zuordnung, falls keine existiert
@@ -1022,6 +1073,10 @@ class CalendarApp {
             console.error('Fehler beim Laden der Zitate:', error);
             return generateYearlyQuoteMapping(this.selectedYear);
         }
+    }
+
+    isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     }
 
     saveYearlyQuoteMapping(mapping) {
@@ -1086,7 +1141,42 @@ class CalendarApp {
             const data = localStorage.getItem(key);
 
             if (data) {
-                return JSON.parse(data);
+                const parsed = JSON.parse(data);
+                const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+
+                // Validierung: Prüfe ob Positionen ein Array ist
+                if (!Array.isArray(parsed)) {
+                    this.warn('Door positions ist kein Array, regeneriere...', parsed);
+                    const positions = this.generateDoorPositions(daysInMonth);
+                    this.saveDoorPositions(positions);
+                    return positions;
+                }
+
+                // Validierung: Prüfe ob die Anzahl stimmt
+                if (parsed.length !== daysInMonth) {
+                    this.warn(`Door positions hat falsche Größe (${parsed.length} statt ${daysInMonth}), regeneriere...`);
+                    const positions = this.generateDoorPositions(daysInMonth);
+                    this.saveDoorPositions(positions);
+                    return positions;
+                }
+
+                // Validierung: Prüfe ob alle Positionen gültig sind
+                const isValid = parsed.every(pos => {
+                    return pos && typeof pos === 'object' &&
+                           typeof pos.day === 'number' &&
+                           typeof pos.x === 'number' &&
+                           typeof pos.y === 'number' &&
+                           pos.day >= 1 && pos.day <= daysInMonth;
+                });
+
+                if (!isValid) {
+                    this.warn('Door positions enthält ungültige Einträge, regeneriere...');
+                    const positions = this.generateDoorPositions(daysInMonth);
+                    this.saveDoorPositions(positions);
+                    return positions;
+                }
+
+                return parsed;
             }
 
             // Erstelle neue Positionen, falls keine existieren
@@ -1136,11 +1226,21 @@ class CalendarApp {
                 // Prüfen ob Position gültig ist (keine Überlappung)
                 validPosition = true;
                 for (const pos of positions) {
-                    const dx = Math.abs(x - pos.x);
-                    const dy = Math.abs(y - pos.y);
+                    // Berechne Bounding Boxes für beide Türchen
+                    const x1 = x;
+                    const y1 = y;
+                    const x2 = pos.x;
+                    const y2 = pos.y;
 
-                    // Prüfe ob die Türchen sich überlappen würden
-                    if (dx < doorSize + minSpacing && dy < doorSize + minSpacing) {
+                    // Mindestabstand ist doorSize (kein Überlappen) + minSpacing (zusätzlicher Abstand)
+                    const minDist = doorSize + minSpacing;
+
+                    // Prüfe ob die Türchen sich zu nahe sind (inkl. Größe)
+                    const dx = Math.abs(x1 - x2);
+                    const dy = Math.abs(y1 - y2);
+
+                    // Türchen überlappen oder sind zu nahe, wenn dx < minDist UND dy < minDist
+                    if (dx < minDist && dy < minDist) {
                         validPosition = false;
                         break;
                     }
@@ -1151,7 +1251,7 @@ class CalendarApp {
 
             // Fallback: Wenn keine gültige Position gefunden wurde, verwende Grid-Layout
             if (!validPosition) {
-                console.warn(`Keine valide Position für Tag ${day} nach ${attempts} Versuchen. Verwende Grid-Fallback.`);
+                this.warn(`Keine valide Position für Tag ${day} nach ${attempts} Versuchen. Verwende Grid-Fallback.`);
                 const gridX = ((day - 1) % 6) * 15 + padding;
                 const gridY = Math.floor((day - 1) / 6) * 15 + padding;
                 x = gridX;
@@ -1186,7 +1286,7 @@ class CalendarApp {
 
             // Validiere das Ergebnis
             if (isNaN(month) || month < 0 || month > 11) {
-                console.warn('Ungültiger gespeicherter Monat:', data);
+                this.warn('Ungültiger gespeicherter Monat:', data);
                 localStorage.removeItem('calendar_selected_month');
                 return null;
             }
