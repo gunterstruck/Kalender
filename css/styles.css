@@ -241,7 +241,8 @@ body {
     min-height: 120px;
     padding: var(--spacing-lg) var(--spacing-md);
     margin: 0;
-    margin-bottom: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
 }
 
 .seasonal-banner-content {
@@ -366,7 +367,8 @@ body {
         max-height: 180px;
         padding: var(--spacing-md) var(--spacing-sm);
         margin: 0;
-        margin-bottom: var(--spacing-md);
+        margin-top: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
     }
 
     .season-message {
