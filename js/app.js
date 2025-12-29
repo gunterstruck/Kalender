@@ -1217,6 +1217,7 @@ class CalendarApp {
     // ========================================
 
     generateDoorPositions(daysInMonth) {
+        console.log(`[generateDoorPositions] Generiere Positionen für ${daysInMonth} Türchen`);
         const positions = [];
         const doorSize = this.CONFIG.DOOR_SIZE_PERCENT;
         const minSpacing = this.CONFIG.MIN_SPACING_PERCENT;
@@ -1275,6 +1276,7 @@ class CalendarApp {
             positions.push({ day, x, y });
         }
 
+        console.log(`[generateDoorPositions] ${positions.length} Positionen generiert`);
         return positions;
     }
 
@@ -1568,6 +1570,7 @@ class CalendarApp {
 
         // Anzahl Tage im ausgewählten Monat
         const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+        console.log(`[Kalender] Monat: ${this.monthNames[this.selectedMonth]} ${this.selectedYear} - Tage: ${daysInMonth}`);
 
         // WICHTIG: Erst die optimale Container-Höhe berechnen und setzen (vor Türchen-Positionierung)
         this.adjustCalendarContainerHeight(daysInMonth);
@@ -1581,6 +1584,8 @@ class CalendarApp {
             const door = this.createDoorElement(day);
             this.calendarGrid.appendChild(door);
         }
+
+        console.log(`[Kalender] ${daysInMonth} Türchen erstellt und hinzugefügt`);
 
         // Info-Banner aktualisieren
         this.updateInfoBanner();
