@@ -1011,33 +1011,40 @@ body.dark-mode .theme-toggle .moon-icon {
 @media (max-width: 480px) {
     .app-header {
         border-radius: 0;
-        padding: var(--spacing-lg) var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-sm);
     }
 
     .app-header h1 {
-        font-size: var(--font-size-xl);
+        font-size: 1rem;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .app-header .subtitle {
+        font-size: var(--font-size-xs);
+        opacity: 0.85;
     }
 
     .container {
-        padding: var(--spacing-md) var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md) var(--spacing-sm);
     }
 
     .month-selector {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-top: var(--spacing-sm);
     }
 
     .calendar-wrapper {
-        min-height: 600px;
-        height: 70vh;
+        min-height: 650px;
+        height: 75vh;
     }
 
     /* Hochformat-spezifische Anpassungen */
     @media (orientation: portrait) {
         .calendar-wrapper {
-            /* Erhöhe Höhe im Hochformat für bessere Bilddarstellung */
-            min-height: 700px;
-            height: 82vh;
-            max-height: 900px;
+            /* Maximiere Höhe im Hochformat für optimale Bilddarstellung */
+            min-height: 720px;
+            height: 85vh;
+            max-height: 950px;
         }
     }
 
