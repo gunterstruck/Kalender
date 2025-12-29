@@ -608,7 +608,7 @@ body {
 }
 
 .april-raindrop-diagonal {
-    animation: raindrop-diagonal var(--duration, 2s) linear infinite;
+    animation: raindrop-diagonal var(--duration, 4.5s) linear infinite;
     animation-delay: var(--delay, 0s);
     will-change: transform, opacity;
 }
