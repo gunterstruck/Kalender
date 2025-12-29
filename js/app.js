@@ -503,9 +503,9 @@ class CalendarApp {
             },
             1: { // Februar - Herzen schweben in der Mitte (etwas transparent)
                 animatedIcons: [
-                    { emoji: '❤️', class: 'february-heart', count: 10, duration: [3, 5], delay: [0, 4], opacity: 0.6, position: 'center' },
-                    { emoji: '💝', class: 'february-heart', count: 8, duration: [3.5, 5.5], delay: [0, 4], opacity: 0.6, position: 'center' },
-                    { emoji: '💕', class: 'february-heart', count: 6, duration: [4, 6], delay: [0, 4], opacity: 0.6, position: 'center' }
+                    { emoji: '❤️', class: 'february-heart', count: 5, duration: [3, 5], delay: [0, 4], opacity: 0.6, position: 'center' },
+                    { emoji: '💝', class: 'february-heart', count: 4, duration: [3.5, 5.5], delay: [0, 4], opacity: 0.6, position: 'center' },
+                    { emoji: '💕', class: 'february-heart', count: 3, duration: [4, 6], delay: [0, 4], opacity: 0.6, position: 'center' }
                 ],
                 staticIcons: ['🌹', '🎈']
             },
@@ -518,7 +518,7 @@ class CalendarApp {
             },
             3: { // April - Regentropfen fallen leicht seitlich, Regenbogen ganz oben
                 animatedIcons: [
-                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 18, duration: [3.5, 5.5], delay: [0, 3], position: 'top' }
+                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 9, duration: [3.5, 5.5], delay: [0, 3], position: 'top' }
                 ],
                 staticIcons: [
                     { emoji: '🌈', position: 'very-top' },
@@ -529,29 +529,29 @@ class CalendarApp {
             },
             4: { // Mai - Schmetterlinge und Bienen fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
-                    { emoji: '🐝', class: 'flying-insect', count: 10, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
+                    { emoji: '🦋', class: 'flying-insect', count: 6, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐝', class: 'flying-insect', count: 5, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['🌺', '🌻', '🌼', '🌷']
             },
             5: { // Juni - Vögel und Schmetterlinge fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🐦', class: 'flying-bird', count: 10, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
-                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4.5, 6.5], delay: [0, 5], opacity: 1, position: 'bottom' }
+                    { emoji: '🐦', class: 'flying-bird', count: 5, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🦋', class: 'flying-insect', count: 5, duration: [4.5, 6.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['☀️', '🌻', '🍓', '🏖️']
             },
             6: { // Juli - Schmetterlinge und Bienen fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
-                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
+                    { emoji: '🦋', class: 'flying-insect', count: 5, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐝', class: 'flying-insect', count: 4, duration: [3.5, 5.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['☀️', '🌊', '🏖️', '🍉', '🌻']
             },
             7: { // August - Schmetterlinge und Vögel fliegen (voll sichtbar, Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
-                    { emoji: '🐦', class: 'flying-bird', count: 8, duration: [4.5, 6.5], delay: [0, 5], opacity: 1, position: 'bottom' }
+                    { emoji: '🦋', class: 'flying-insect', count: 6, duration: [4, 6], delay: [0, 5], opacity: 1, position: 'bottom' },
+                    { emoji: '🐦', class: 'flying-bird', count: 4, duration: [4.5, 6.5], delay: [0, 5], opacity: 1, position: 'bottom' }
                 ],
                 staticIcons: ['☀️', '🌻', '🌾', '🍇']
             },
