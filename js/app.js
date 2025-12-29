@@ -570,11 +570,14 @@ class CalendarApp {
                 ],
                 staticIcons: ['🎃', '🦇', '👻', '🌙']
             },
-            10: { // November - Blätter fliegen seitlich weg (mittig), Nebel gleitet
+            10: { // November - Windiges, stürmisches Wetter mit Wolken und Wind im oberen Drittel
                 animatedIcons: [
-                    { emoji: '🍂', class: 'november-leaf', count: 10, duration: [8, 12], delay: [0, 8], position: 'center' },
-                    { emoji: '🍁', class: 'november-leaf', count: 8, duration: [8, 12], delay: [0, 8], position: 'center' },
-                    { emoji: '☁️', class: 'november-fog', count: 4, duration: [20, 30], delay: [0, 15], position: 'center' }
+                    // Wind- und Wolken-Icons im oberen Drittel (windiges, stürmisches Wetter)
+                    { emoji: '☁️', class: 'drifting-cloud', count: 8, duration: [15, 20], delay: [0, 10], position: 'top', opacity: 0.5 },
+                    { emoji: '💨', class: 'drifting-cloud', count: 5, duration: [10, 15], delay: [0, 7], position: 'top', opacity: 0.5 },
+                    // Blätter fliegen seitlich weg (mittig) - reduzierte Anzahl
+                    { emoji: '🍂', class: 'november-leaf', count: 6, duration: [8, 12], delay: [0, 8], position: 'center' },
+                    { emoji: '🍁', class: 'november-leaf', count: 5, duration: [8, 12], delay: [0, 8], position: 'center' }
                 ],
                 staticIcons: ['🦃', '🌰', '☕', '🕯️']
             },
