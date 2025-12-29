@@ -364,6 +364,10 @@ body {
 
 /* Responsive Anpassungen für Banner */
 @media (max-width: 480px) {
+    .seasonal-banner {
+        border-radius: 0;
+    }
+
     .seasonal-banner.visible {
         min-height: 100px;
         max-height: 180px;
@@ -999,6 +1003,11 @@ body.dark-mode .theme-toggle .moon-icon {
    ======================================== */
 
 @media (max-width: 480px) {
+    .app-header {
+        border-radius: 0;
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
     .app-header h1 {
         font-size: var(--font-size-xl);
     }
