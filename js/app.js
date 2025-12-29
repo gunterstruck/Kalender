@@ -1140,10 +1140,12 @@ class CalendarApp {
         try {
             const key = this.getStorageKey('positions');
             const data = localStorage.getItem(key);
+            console.log(`[DEBUG] Loading positions from localStorage key: ${key}`);
 
             if (data) {
                 const parsed = JSON.parse(data);
                 const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+                console.log(`[DEBUG] Found ${parsed.length} stored positions, need ${daysInMonth}`);
 
                 // Validierung: Prüfe ob Positionen ein Array ist
                 if (!Array.isArray(parsed)) {
@@ -1155,6 +1157,7 @@ class CalendarApp {
 
                 // Validierung: Prüfe ob die Anzahl stimmt
                 if (parsed.length !== daysInMonth) {
+                    console.log(`[DEBUG] Position count mismatch! Regenerating...`);
                     this.warn(`Door positions hat falsche Größe (${parsed.length} statt ${daysInMonth}), regeneriere...`);
                     const positions = this.generateDoorPositions(daysInMonth);
                     this.saveDoorPositions(positions);
@@ -1208,6 +1211,7 @@ class CalendarApp {
     // ========================================
 
     generateDoorPositions(daysInMonth) {
+        console.log(`[DEBUG] generateDoorPositions called for ${daysInMonth} days`);
         const positions = [];
         const doorSize = this.CONFIG.DOOR_SIZE_PERCENT;
         const minSpacing = this.CONFIG.MIN_SPACING_PERCENT;
@@ -1266,6 +1270,7 @@ class CalendarApp {
             positions.push({ day, x, y });
         }
 
+        console.log(`[DEBUG] Generated ${positions.length} positions`);
         return positions;
     }
 
@@ -1505,6 +1510,8 @@ class CalendarApp {
 
         // Anzahl Tage im ausgewählten Monat
         const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
+        console.log(`[DEBUG] Rendering calendar for ${this.monthNames[this.selectedMonth]} ${this.selectedYear}`);
+        console.log(`[DEBUG] Days in month: ${daysInMonth}`);
 
         // Grid leeren (replaceChildren ist performanter als innerHTML = '')
         this.calendarGrid.replaceChildren();
@@ -1515,6 +1522,8 @@ class CalendarApp {
             const door = this.createDoorElement(day);
             this.calendarGrid.appendChild(door);
         }
+
+        console.log(`[DEBUG] Created ${daysInMonth} doors`);
 
         // Info-Banner aktualisieren
         this.updateInfoBanner();
