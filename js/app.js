@@ -1308,32 +1308,8 @@ class CalendarApp {
     // ========================================
 
     updateInfoBanner() {
-        const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-        let unlockedCount = 0;
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            if (this.isDoorUnlocked(day)) {
-                unlockedCount++;
-            }
-        }
-
-        const lockedCount = daysInMonth - unlockedCount;
-
-        // Zeige Banner nur, wenn mehr als 50% der Türchen gesperrt sind
-        if (lockedCount > daysInMonth / 2) {
-            const nextUnlockDay = unlockedCount + 1;
-            const nextUnlockDate = new Date(this.selectedYear, this.selectedMonth, nextUnlockDay);
-            const tomorrow = new Date(this.currentYear, this.currentMonth, this.currentDay + 1);
-
-            if (nextUnlockDate <= tomorrow && nextUnlockDay <= daysInMonth) {
-                this.infoBannerText.textContent = `Komm morgen wieder für das nächste Türchen! 🎁`;
-            } else {
-                this.infoBannerText.textContent = `${lockedCount} von ${daysInMonth} Türchen warten noch darauf, geöffnet zu werden. Schau täglich vorbei! ✨`;
-            }
-            this.infoBanner.style.display = 'flex';
-        } else {
-            this.infoBanner.style.display = 'none';
-        }
+        // Info-Banner komplett ausblenden
+        this.infoBanner.style.display = 'none';
     }
 
     // ========================================
