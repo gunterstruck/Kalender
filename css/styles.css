@@ -711,15 +711,12 @@ body.dark-mode .season-message {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
     transition: all var(--transition-base);
     backdrop-filter: blur(10px);
     z-index: 1000;
-}
-
-.app-header .theme-toggle {
-    position: absolute;
-    top: var(--spacing-sm);
-    right: var(--spacing-sm);
 }
 
 .theme-toggle:hover {
