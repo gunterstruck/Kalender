@@ -143,6 +143,21 @@
     <!-- Locked Door Message -->
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+    <!-- PWA Install Prompt -->
+    <div class="install-prompt" id="install-prompt" style="display: none;">
+        <div class="install-prompt-content">
+            <div class="install-prompt-icon">📱</div>
+            <div class="install-prompt-text">
+                <h3>App installieren</h3>
+                <p>Installiere den Türchenkalender für schnellen Zugriff!</p>
+            </div>
+            <div class="install-prompt-actions">
+                <button id="install-button" class="install-button">Installieren</button>
+                <button id="install-dismiss" class="install-dismiss" aria-label="Schließen">✕</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/quotes.js"></script>
     <script src="js/app.js"></script>
@@ -178,6 +193,103 @@
                     });
             });
         }
+
+        // PWA Install Prompt Logic
+        let deferredPrompt = null;
+        const installPrompt = document.getElementById('install-prompt');
+        const installButton = document.getElementById('install-button');
+        const installDismiss = document.getElementById('install-dismiss');
+
+        // Prüfe ob die App bereits installiert ist
+        function isAppInstalled() {
+            // Prüfe ob die App im standalone mode läuft
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                return true;
+            }
+            // Prüfe localStorage Flag
+            return localStorage.getItem('pwa_installed') === 'true';
+        }
+
+        // Zeige Install Prompt
+        function showInstallPrompt() {
+            if (installPrompt && !isAppInstalled()) {
+                installPrompt.style.display = 'block';
+                // Sanfte Einblendung
+                setTimeout(() => {
+                    installPrompt.classList.add('show');
+                }, 100);
+            }
+        }
+
+        // Verstecke Install Prompt
+        function hideInstallPrompt() {
+            if (installPrompt) {
+                installPrompt.classList.remove('show');
+                setTimeout(() => {
+                    installPrompt.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // Erfasse beforeinstallprompt Event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('[PWA] beforeinstallprompt Event erfasst');
+            // Verhindere automatisches Anzeigen des Browser-Prompts
+            e.preventDefault();
+            // Speichere Event für späteren Aufruf
+            deferredPrompt = e;
+            // Zeige eigenen Install Prompt
+            showInstallPrompt();
+        });
+
+        // Install Button Click Handler
+        if (installButton) {
+            installButton.addEventListener('click', async () => {
+                if (!deferredPrompt) {
+                    console.log('[PWA] Kein deferred prompt verfügbar');
+                    return;
+                }
+
+                // Zeige Browser Install Prompt
+                deferredPrompt.prompt();
+
+                // Warte auf User-Entscheidung
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log('[PWA] User choice:', outcome);
+
+                if (outcome === 'accepted') {
+                    console.log('[PWA] Installation akzeptiert');
+                }
+
+                // Deferred Prompt kann nur einmal verwendet werden
+                deferredPrompt = null;
+                hideInstallPrompt();
+            });
+        }
+
+        // Dismiss Button Click Handler
+        if (installDismiss) {
+            installDismiss.addEventListener('click', () => {
+                hideInstallPrompt();
+            });
+        }
+
+        // Wenn App installiert wird
+        window.addEventListener('appinstalled', () => {
+            console.log('[PWA] App wurde installiert');
+            localStorage.setItem('pwa_installed', 'true');
+            hideInstallPrompt();
+        });
+
+        // Zeige Install Prompt bei jedem Laden (wenn nicht installiert)
+        window.addEventListener('load', () => {
+            // Kurze Verzögerung damit der User die Seite erst sieht
+            setTimeout(() => {
+                if (deferredPrompt && !isAppInstalled()) {
+                    showInstallPrompt();
+                }
+            }, 2000);
+        });
     </script>
 </body>
 </html>
