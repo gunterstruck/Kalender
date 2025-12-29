@@ -429,90 +429,158 @@ class CalendarApp {
         const month = this.selectedMonth;
         this.mobileMonthDecoration.innerHTML = '';
 
-        // Bestimme Icons basierend auf Monat
-        let icons = [];
-        let sizes = [];
+        // Monatsspezifische Animationskonfiguration
+        const monthConfig = {
+            0: { // Januar - Sterne und Schneeflocken blinken
+                animatedIcons: [
+                    { emoji: '⭐', class: 'january-star', count: 12, duration: [2, 4], delay: [0, 3] },
+                    { emoji: '🌙', class: 'january-star', count: 3, duration: [3, 5], delay: [0, 2] },
+                    { emoji: '❄️', class: 'january-star', count: 8, duration: [2.5, 4.5], delay: [0, 3] }
+                ],
+                staticIcons: ['⛄', '🌨️']
+            },
+            1: { // Februar - Herzen schweben
+                animatedIcons: [
+                    { emoji: '❤️', class: 'february-heart', count: 10, duration: [3, 5], delay: [0, 4] },
+                    { emoji: '💝', class: 'february-heart', count: 8, duration: [3.5, 5.5], delay: [0, 4] },
+                    { emoji: '💕', class: 'february-heart', count: 6, duration: [4, 6], delay: [0, 4] }
+                ],
+                staticIcons: ['🌹', '🎈']
+            },
+            2: { // März - Schmetterlinge und Bienen fliegen
+                animatedIcons: [
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5] },
+                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5] }
+                ],
+                staticIcons: ['🌸', '🌷', '🌼', '🌺']
+            },
+            3: { // April - Regentropfen fallen, Wolken gleiten
+                animatedIcons: [
+                    { emoji: '🌧️', class: 'april-raindrop', count: 15, duration: [1.5, 2.5], delay: [0, 2] },
+                    { emoji: '☁️', class: 'drifting-cloud', count: 4, duration: [15, 25], delay: [0, 10] }
+                ],
+                staticIcons: ['☂️', '🌈', '🌸', '🌷']
+            },
+            4: { // Mai - Schmetterlinge und Bienen fliegen
+                animatedIcons: [
+                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5] },
+                    { emoji: '🐝', class: 'flying-insect', count: 10, duration: [3.5, 5.5], delay: [0, 5] }
+                ],
+                staticIcons: ['🌺', '🌻', '🌼', '🌷']
+            },
+            5: { // Juni - Vögel und Schmetterlinge fliegen
+                animatedIcons: [
+                    { emoji: '🐦', class: 'flying-bird', count: 10, duration: [4, 6], delay: [0, 5] },
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4.5, 6.5], delay: [0, 5] }
+                ],
+                staticIcons: ['☀️', '🌻', '🍓', '🏖️']
+            },
+            6: { // Juli - Schmetterlinge und Bienen fliegen
+                animatedIcons: [
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 6], delay: [0, 5] },
+                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [3.5, 5.5], delay: [0, 5] }
+                ],
+                staticIcons: ['☀️', '🌊', '🏖️', '🍉', '🌻']
+            },
+            7: { // August - Schmetterlinge und Vögel fliegen
+                animatedIcons: [
+                    { emoji: '🦋', class: 'flying-insect', count: 12, duration: [4, 6], delay: [0, 5] },
+                    { emoji: '🐦', class: 'flying-bird', count: 8, duration: [4.5, 6.5], delay: [0, 5] }
+                ],
+                staticIcons: ['☀️', '🌻', '🌾', '🍇']
+            },
+            8: { // September - Blätter wirbeln
+                animatedIcons: [
+                    { emoji: '🍂', class: 'swirling-leaf', count: 12, duration: [7, 10], delay: [0, 8] },
+                    { emoji: '🍁', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8] }
+                ],
+                staticIcons: ['🍄', '🌾', '🦊', '🎒']
+            },
+            9: { // Oktober - Blätter wirbeln, Vögel fliegen
+                animatedIcons: [
+                    { emoji: '🍂', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8] },
+                    { emoji: '🍁', class: 'swirling-leaf', count: 8, duration: [7, 10], delay: [0, 8] },
+                    { emoji: '🐦', class: 'flying-bird', count: 5, duration: [4, 6], delay: [0, 5] }
+                ],
+                staticIcons: ['🎃', '🦇', '👻', '🌙']
+            },
+            10: { // November - Blätter wirbeln, Nebel gleitet
+                animatedIcons: [
+                    { emoji: '🍂', class: 'swirling-leaf', count: 10, duration: [7, 10], delay: [0, 8] },
+                    { emoji: '🍁', class: 'swirling-leaf', count: 8, duration: [7, 10], delay: [0, 8] },
+                    { emoji: '☁️', class: 'november-fog', count: 4, duration: [20, 30], delay: [0, 15] }
+                ],
+                staticIcons: ['🦃', '🌰', '☕', '🕯️']
+            },
+            11: { // Dezember - Schneeflocken fallen diagonal
+                animatedIcons: [
+                    { emoji: '❄️', class: 'december-snow', count: 15, duration: [10, 15], delay: [0, 10] },
+                    { emoji: '⭐', class: 'january-star', count: 8, duration: [2, 4], delay: [0, 3] }
+                ],
+                staticIcons: ['🎄', '🎅', '🎁', '⛄', '🔔']
+            }
+        };
 
-        switch (month) {
-            case 0: // Januar
-                icons = ['❄️', '⛄', '🌨️', '❄', '❅', '🎿', '⛷️'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 1: // Februar
-                icons = ['❤️', '💝', '🌹', '❄️', '💕', '🎈'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 2: // März
-                icons = ['🌸', '🌷', '🌼', '🦋', '🐝', '🌺'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 3: // April
-                icons = ['🌧️', '☂️', '🌈', '🌸', '🐣', '🌷'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 4: // Mai
-                icons = ['🌺', '🌻', '🦋', '🐝', '🌼', '🌷'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 5: // Juni
-                icons = ['☀️', '🌻', '🍓', '🦋', '🌈', '🏖️'];
-                sizes = ['2.5rem', '3rem', '3.5rem', '2rem'];
-                break;
-            case 6: // Juli
-                icons = ['☀️', '🌊', '🏖️', '🍉', '🌻', '⛱️'];
-                sizes = ['2.5rem', '3rem', '3.5rem', '2rem'];
-                break;
-            case 7: // August
-                icons = ['☀️', '🌻', '🌾', '🦋', '🍇', '🏖️'];
-                sizes = ['2.5rem', '3rem', '3.5rem', '2rem'];
-                break;
-            case 8: // September
-                icons = ['🍂', '🍁', '🍄', '🌾', '🦊', '🎒'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 9: // Oktober
-                icons = ['🎃', '🍂', '🍁', '🦇', '👻', '🌙'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 10: // November
-                icons = ['🍂', '🍁', '🦃', '🌰', '☕', '🕯️'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-            case 11: // Dezember
-                icons = ['🎄', '⭐', '🎅', '❄️', '🎁', '⛄', '🔔'];
-                sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
-                break;
-        }
+        const config = monthConfig[month];
+        if (!config) return;
 
-        // Definiere Icons die im Himmel erscheinen sollen (Vögel, Schmetterlinge, Sonne, Wolken, etc.)
+        const sizes = ['2rem', '2.5rem', '3rem', '1.8rem'];
         const skyIcons = ['🦋', '🐝', '🐦', '🕊️', '☀️', '⭐', '🌙', '🦇', '☁️', '🌈'];
 
-        // Erstelle 20-25 Icons verteilt über den gesamten Bereich
-        const iconCount = 20 + Math.floor(Math.random() * 6);
+        // Erstelle animierte Icons
+        config.animatedIcons.forEach(iconConfig => {
+            for (let i = 0; i < iconConfig.count; i++) {
+                const icon = document.createElement('div');
+                icon.className = `mobile-month-icon ${iconConfig.class}`;
+                icon.textContent = iconConfig.emoji;
 
-        for (let i = 0; i < iconCount; i++) {
+                // Zufällige Position
+                icon.style.left = `${Math.random() * 95}%`;
+
+                const isSkyIcon = skyIcons.includes(iconConfig.emoji);
+                if (isSkyIcon) {
+                    icon.style.top = `${Math.random() * 50}%`;
+                } else {
+                    icon.style.top = `${50 + Math.random() * 45}%`;
+                }
+
+                // Zufällige Größe
+                icon.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
+
+                // Zufällige Animation-Dauer und Verzögerung
+                const duration = iconConfig.duration[0] + Math.random() * (iconConfig.duration[1] - iconConfig.duration[0]);
+                const delay = Math.random() * iconConfig.delay[1];
+
+                icon.style.setProperty('--duration', `${duration}s`);
+                icon.style.setProperty('--delay', `${delay}s`);
+
+                // Basis-Opazität für animierte Icons (wird durch Animation überschrieben wenn nötig)
+                if (!iconConfig.class.includes('fog') && !iconConfig.class.includes('cloud')) {
+                    icon.style.opacity = (0.3 + Math.random() * 0.3).toString();
+                }
+
+                this.mobileMonthDecoration.appendChild(icon);
+            }
+        });
+
+        // Erstelle statische dekorative Icons
+        const staticCount = 5 + Math.floor(Math.random() * 5);
+        for (let i = 0; i < staticCount && config.staticIcons.length > 0; i++) {
             const icon = document.createElement('div');
             icon.className = 'mobile-month-icon';
-            const selectedIcon = icons[Math.floor(Math.random() * icons.length)];
+            const selectedIcon = config.staticIcons[Math.floor(Math.random() * config.staticIcons.length)];
             icon.textContent = selectedIcon;
 
-            // Zufällige horizontale Position
             icon.style.left = `${Math.random() * 95}%`;
 
-            // Positioniere Icons sinnvoll: Himmel-Icons oben, andere unten oder verteilt
             const isSkyIcon = skyIcons.includes(selectedIcon);
             if (isSkyIcon) {
-                // Himmel-Icons in der oberen Hälfte
                 icon.style.top = `${Math.random() * 50}%`;
             } else {
-                // Andere Icons in der unteren Hälfte (z.B. Blumen, Kürbisse)
                 icon.style.top = `${50 + Math.random() * 45}%`;
             }
 
-            // Zufällige Größe
             icon.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
-
-            // Zufällige Opazität (zwischen 0.2 und 0.4)
             icon.style.opacity = (0.2 + Math.random() * 0.2).toString();
 
             this.mobileMonthDecoration.appendChild(icon);

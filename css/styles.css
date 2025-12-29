@@ -368,6 +368,181 @@ body {
     }
 }
 
+/* ========================================
+   Monatsspezifische Icon-Animationen
+   ======================================== */
+
+/* Dezember: Schneeflocken fallen diagonal von oben nach unten rechts */
+@keyframes snowfall-diagonal {
+    0% {
+        transform: translate(0, -20px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(100px, 100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.december-snow {
+    animation: snowfall-diagonal var(--duration, 12s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+/* Januar: Sterne und Mond blinken/funkeln */
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+.january-star {
+    animation: twinkle var(--duration, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: opacity, transform;
+}
+
+/* Februar: Herzen schweben sanft hin und her */
+@keyframes float-horizontal {
+    0%, 100% {
+        transform: translateX(-20px) translateY(0) rotate(-5deg);
+    }
+    50% {
+        transform: translateX(20px) translateY(-10px) rotate(5deg);
+    }
+}
+
+.february-heart {
+    animation: float-horizontal var(--duration, 4s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform;
+}
+
+/* März, Mai, Juni, Juli, August: Insekten und Vögel fliegen hin und her */
+@keyframes fly-horizontal {
+    0% {
+        transform: translateX(-30px) translateY(0) rotate(-10deg);
+    }
+    25% {
+        transform: translateX(10px) translateY(-15px) rotate(5deg);
+    }
+    50% {
+        transform: translateX(30px) translateY(-5px) rotate(10deg);
+    }
+    75% {
+        transform: translateX(10px) translateY(-20px) rotate(-5deg);
+    }
+    100% {
+        transform: translateX(-30px) translateY(0) rotate(-10deg);
+    }
+}
+
+.flying-insect, .flying-bird {
+    animation: fly-horizontal var(--duration, 5s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform;
+}
+
+/* April: Regentropfen fallen vom Himmel */
+@keyframes raindrop-fall {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.april-raindrop {
+    animation: raindrop-fall var(--duration, 2s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+/* April & November: Wolken/Nebel gleiten von links nach rechts */
+@keyframes cloud-drift {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.4;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateX(calc(100vw + 100px));
+        opacity: 0;
+    }
+}
+
+.drifting-cloud {
+    animation: cloud-drift var(--duration, 20s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+.november-fog {
+    animation: cloud-drift var(--duration, 25s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    opacity: 0.25 !important;
+    will-change: transform, opacity;
+}
+
+/* September, Oktober, November: Blätter fallen und wirbeln */
+@keyframes leaf-swirl {
+    0% {
+        transform: translate(0, -20px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    25% {
+        transform: translate(-30px, 20vh) rotate(90deg);
+    }
+    50% {
+        transform: translate(20px, 50vh) rotate(180deg);
+    }
+    75% {
+        transform: translate(-15px, 75vh) rotate(270deg);
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(10px, 100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.swirling-leaf {
+    animation: leaf-swirl var(--duration, 8s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
 /* Responsive Anpassungen für Banner */
 @media (max-width: 480px) {
     .seasonal-banner {
@@ -608,26 +783,30 @@ body.dark-mode .theme-toggle .moon-icon {
 
 /* Mobile Monat-Dekoration Container */
 .mobile-month-decoration {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
 }
 
+.mobile-month-icon {
+    position: absolute;
+    opacity: 0.3;
+    user-select: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Verstecke Dekoration nur auf Portrait-Mobile */
 @media (max-width: 768px) and (orientation: portrait) {
     .mobile-month-decoration {
         display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        overflow: hidden;
-    }
-
-    .mobile-month-icon {
-        position: absolute;
-        opacity: 0.3;
-        user-select: none;
     }
 }
 
