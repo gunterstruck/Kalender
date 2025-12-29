@@ -443,17 +443,16 @@ class CalendarApp {
                 ],
                 staticIcons: ['🌹', '🎈']
             },
-            2: { // März - Insekten tauchen auf und verschwinden (Mitte unten)
+            2: { // März - Schmetterlinge und Bienen schweben (Mitte unten)
                 animatedIcons: [
-                    { emoji: '🦋', class: 'march-insect', count: 10, duration: [4, 7], delay: [0, 6], position: 'bottom' },
-                    { emoji: '🐝', class: 'march-insect', count: 8, duration: [4, 7], delay: [0, 6], position: 'bottom' }
+                    { emoji: '🦋', class: 'flying-insect', count: 10, duration: [4, 7], delay: [0, 6], position: 'bottom' },
+                    { emoji: '🐝', class: 'flying-insect', count: 8, duration: [4, 7], delay: [0, 6], position: 'bottom' }
                 ],
                 staticIcons: ['🌸', '🌷', '🌼', '🌺']
             },
             3: { // April - Regentropfen fallen leicht seitlich, Regenbogen ganz oben
                 animatedIcons: [
-                    { emoji: '🌧️', class: 'april-raindrop-diagonal', count: 18, duration: [3.5, 5.5], delay: [0, 3], position: 'top' },
-                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 12, duration: [3.5, 5.5], delay: [0, 3], position: 'top' }
+                    { emoji: '💧', class: 'april-raindrop-diagonal', count: 18, duration: [3.5, 5.5], delay: [0, 3], position: 'top' }
                 ],
                 staticIcons: [
                     { emoji: '🌈', position: 'very-top' },
