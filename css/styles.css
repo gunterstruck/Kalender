@@ -956,7 +956,7 @@ body.dark-mode .theme-toggle .moon-icon {
     aspect-ratio: 1;
     min-width: 60px;
     max-width: 100px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border: 4px solid var(--gold);
     border-radius: var(--radius-md);
     display: flex;
@@ -969,8 +969,8 @@ body.dark-mode .theme-toggle .moon-icon {
     transition: all var(--transition-base);
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 184, 77, 0.2);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 184, 77, 0.25);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .door:hover:not(.locked) {
@@ -985,11 +985,12 @@ body.dark-mode .theme-toggle .moon-icon {
 
 /* Locked Door */
 .door.locked {
-    background: rgba(100, 100, 100, 0.3);
-    color: rgba(255, 255, 255, 0.3);
+    background: rgba(100, 100, 100, 0.15);
+    color: rgba(255, 255, 255, 0.5);
     cursor: not-allowed;
-    border-color: rgba(200, 200, 200, 0.4);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-color: rgba(200, 200, 200, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
 }
 
 .door.locked::after {
@@ -1003,11 +1004,12 @@ body.dark-mode .theme-toggle .moon-icon {
 
 /* Missed Door (verpasst) */
 .door.missed {
-    background: rgba(150, 80, 80, 0.3);
-    color: rgba(255, 150, 150, 0.5);
+    background: rgba(150, 80, 80, 0.15);
+    color: rgba(255, 150, 150, 0.7);
     cursor: not-allowed;
-    border-color: rgba(200, 100, 100, 0.4);
-    box-shadow: 0 2px 8px rgba(150, 0, 0, 0.3);
+    border-color: rgba(200, 100, 100, 0.6);
+    box-shadow: 0 2px 8px rgba(150, 0, 0, 0.4);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
 }
 
 .door.missed::after {
@@ -1042,12 +1044,13 @@ body.dark-mode .theme-toggle .moon-icon {
 
 /* Opened Door */
 .door.opened {
-    background: rgba(255, 184, 77, 0.3);
+    background: rgba(255, 184, 77, 0.15);
     color: var(--gold-light);
     border-color: var(--gold-light);
-    box-shadow: 0 6px 20px rgba(255, 184, 77, 0.8), inset 0 0 30px rgba(255, 184, 77, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 184, 77, 0.8), inset 0 0 30px rgba(255, 184, 77, 0.3);
     animation: pulse 2s ease-in-out infinite;
     will-change: box-shadow;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .door.opened::before {
