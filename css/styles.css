@@ -702,7 +702,7 @@ body.dark-mode .seasonal-banner.autumn {
 }
 
 body.dark-mode .season-message {
-    color: var(--text-primary);
+    color: var(--gold-light);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -1548,7 +1548,7 @@ body.dark-mode .toast {
     }
 
     body:not(.light-mode) .season-message {
-        color: var(--text-primary);
+        color: var(--gold-light);
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
