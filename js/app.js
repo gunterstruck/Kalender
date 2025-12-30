@@ -980,8 +980,17 @@ class CalendarApp {
             return true;
         }
 
-        // Datum liegt in der Vergangenheit → nur freigeschaltet wenn bereits geöffnet wurde
-        return this.isDoorOpened(day);
+        // Datum liegt in der Vergangenheit
+        // Prüfe ob wir im aktuellen Monat und Jahr sind
+        const isCurrentMonth = this.selectedMonth === this.currentMonth && this.selectedYear === this.currentYear;
+
+        if (isCurrentMonth) {
+            // Im aktuellen Monat: Alle vergangenen Türchen sind freigeschaltet
+            return true;
+        } else {
+            // In alten Monaten: Nur freigeschaltet wenn bereits geöffnet wurde
+            return this.isDoorOpened(day);
+        }
     }
 
     // Prüfe ob Türchen verpasst wurde (vergangenes Datum, aber nie geöffnet)
@@ -992,7 +1001,15 @@ class CalendarApp {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // Türchen wurde verpasst wenn:
+        // Prüfe ob wir im aktuellen Monat und Jahr sind
+        const isCurrentMonth = this.selectedMonth === this.currentMonth && this.selectedYear === this.currentYear;
+
+        // Im aktuellen Monat können Türchen nicht verpasst werden
+        if (isCurrentMonth) {
+            return false;
+        }
+
+        // Türchen wurde in alten Monaten verpasst wenn:
         // 1. Datum liegt in der Vergangenheit (nicht heute)
         // 2. Wurde nie geöffnet
         return selectedMonthDate < today && !this.isDoorOpened(day);
