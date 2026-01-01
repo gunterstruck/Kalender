@@ -684,39 +684,46 @@ class CalendarApp {
         const burstCount = 20 + Math.floor(Math.random() * 11); // 20-30 Blätter
 
         for (let i = 0; i < burstCount; i++) {
+            const container = document.createElement('div');
+            container.className = 'burst-leaf-container';
+
             const leaf = document.createElement('div');
             leaf.className = 'burst-leaf';
             leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
 
             // Startposition: links außen
-            leaf.style.left = '-50px';
-            
-            // KORREKTUR 1: Startposition tiefer setzen (-10% bis 40%), damit sie sichtbar sind
-            const startTop = -10 + Math.random() * 50;
-            leaf.style.top = `${startTop}%`;
+            container.style.left = '-50px';
 
-            // KORREKTUR 2: Einheit auf 'vh' ändern, damit die Bewegung sichtbar ist
-            // Das Blatt soll während des Fluges leicht sinken oder steigen
-            const targetY = -10 + Math.random() * 40; // -10vh bis +30vh relative Bewegung
-            leaf.style.setProperty('--target-y', `${targetY}vh`);
+            // Startposition zwischen 10% und 40% (mittig-oben)
+            const startTop = 10 + Math.random() * 30;
+            container.style.top = `${startTop}%`;
 
-            // Animationsdauer
-            const duration = 8 + Math.random() * 4;
-            leaf.style.animationDuration = `${duration}s`;
+            // Endhöhe für leichte Höhenänderung während der Reise
+            const targetY = -10 + Math.random() * 50; // -10vh bis 40vh
+            container.style.setProperty('--target-y', `${targetY}vh`);
+
+            // Animationsdauer für den Wind-Container
+            const travelDuration = 8 + Math.random() * 4;
+            container.style.animationDuration = `${travelDuration}s`;
+
+            // Animationsdauer für den Wirbel
+            const swirlDuration = 1 + Math.random();
+            leaf.style.animationDuration = `${swirlDuration}s`;
 
             // Größe
             const fontSize = 1.5 + Math.random() * 1.5;
             leaf.style.fontSize = `${fontSize}rem`;
 
             // Füge zum Container hinzu
-            calendarWrapper.appendChild(leaf);
+            container.appendChild(leaf);
+            calendarWrapper.appendChild(container);
 
             // Cleanup
             setTimeout(() => {
-                if (leaf.parentNode) {
-                    leaf.remove();
+                if (container.parentNode) {
+                    container.remove();
                 }
-            }, (duration + 0.5) * 1000);
+            }, (travelDuration + 0.5) * 1000);
         }
 
         this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter`);
