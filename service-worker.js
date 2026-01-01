@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.5.1 - PWA Install Prompt hinzugefügt
+// Version 1.5.2 - Neue PWA Icons hinzugefügt
 
-const CACHE_NAME = 'kalender-cache-v1.5.47';
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.47';
+const CACHE_NAME = 'kalender-cache-v1.5.48';
+const RUNTIME_CACHE = 'kalender-runtime-v1.5.48';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
@@ -15,6 +15,8 @@ const CACHE_URLS = [
     './assets/icons/icon.svg',
     './assets/icons/icon-192.png',
     './assets/icons/icon-512.png',
+    './assets/icons/app_icon_192.png',
+    './assets/icons/app_icon_512.png',
     './assets/months/january.svg',
     './assets/months/february.svg',
     './assets/months/march.svg',
