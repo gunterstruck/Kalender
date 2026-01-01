@@ -775,6 +775,48 @@ body {
     will-change: transform, opacity;
 }
 
+/* ========================================
+   SVG-Vogel Styles
+   ======================================== */
+
+.bird-svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+    color: currentColor;
+    animation: flap 0.3s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+/* Flügelschlag-Animation */
+@keyframes flap {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0.6);
+    }
+}
+
+/* Responsive Größenanpassung */
+@media (max-width: 768px) and (orientation: portrait) {
+    .bird-svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Dark Mode: Hellere Farbe für bessere Sichtbarkeit */
+body.dark-mode .bird-svg {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .bird-svg {
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
 /* Responsive Anpassungen für Banner */
 @media (max-width: 480px) {
     .seasonal-banner {
