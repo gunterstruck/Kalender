@@ -28,7 +28,9 @@ class CalendarApp {
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
             TOAST_DURATION: 3000,              // Toast-Anzeigedauer in ms
             SHAKE_DURATION: 300,               // Shake-Animation in ms
-            LOCALE: 'de-DE'                    // Sprach-Locale für Datumsformatierung
+            LOCALE: 'de-DE',                   // Sprach-Locale für Datumsformatierung
+            RESIZE_DEBOUNCE_DELAY: 250,        // Debounce-Verzögerung für Resize-Events in ms
+            ORIENTATION_DEBOUNCE_DELAY: 100    // Debounce-Verzögerung für Orientierungswechsel in ms
         };
 
         // Monatsnamen
@@ -95,6 +97,18 @@ class CalendarApp {
         if (this.DEBUG) {
             console.warn('[CalendarApp]', ...args);
         }
+    }
+
+    // ========================================
+    // Utility: Debounce (Performance-Optimierung)
+    // ========================================
+
+    debounce(func, wait) {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
     }
 
     // ========================================
@@ -211,21 +225,21 @@ class CalendarApp {
         this.hideMobileAddressBar();
 
         // Event Listener für Fenstergrößenänderungen und Orientierungswechsel
-        this.resizeHandler = () => {
+        // Debounced für bessere Performance
+        this.resizeHandler = this.debounce(() => {
             this.updateCalendarHeight();
             this.updateDoorConfig();
             this.clearPositionCache();
             this.scheduleRenderCalendar();
-        };
-        this.orientationHandler = () => {
-            // Kleine Verzögerung nach Orientierungswechsel
-            setTimeout(() => {
-                this.updateCalendarHeight();
-                this.updateDoorConfig();
-                this.clearPositionCache();
-                this.scheduleRenderCalendar();
-            }, 100);
-        };
+        }, this.CONFIG.RESIZE_DEBOUNCE_DELAY);
+
+        this.orientationHandler = this.debounce(() => {
+            this.updateCalendarHeight();
+            this.updateDoorConfig();
+            this.clearPositionCache();
+            this.scheduleRenderCalendar();
+        }, this.CONFIG.ORIENTATION_DEBOUNCE_DELAY);
+
         window.addEventListener('resize', this.resizeHandler);
         window.addEventListener('orientationchange', this.orientationHandler);
     }
@@ -563,8 +577,8 @@ class CalendarApp {
     // ========================================
 
     createSnowflakes() {
-        this.seasonAnimation.innerHTML = '';
         const snowflakes = ['❄', '❅', '❆'];
+        const fragment = document.createDocumentFragment();
 
         for (let i = 0; i < 15; i++) {
             const flake = document.createElement('div');
@@ -574,13 +588,15 @@ class CalendarApp {
             flake.style.top = `${Math.random() * 100}%`;
             flake.style.setProperty('--fall-duration', `${16 + Math.random() * 10}s`);
             flake.style.setProperty('--fall-delay', `${-Math.random() * 10}s`);
-            this.seasonAnimation.appendChild(flake);
+            fragment.appendChild(flake);
         }
+
+        this.seasonAnimation.replaceChildren(fragment);
     }
 
     createFlowers() {
-        this.seasonAnimation.innerHTML = '';
         const flowers = ['🌸', '🌷', '🌺', '🌼', '🌻'];
+        const fragment = document.createDocumentFragment();
 
         for (let i = 0; i < 8; i++) {
             const flower = document.createElement('div');
@@ -591,24 +607,24 @@ class CalendarApp {
             flower.style.top = `${-10 + Math.random() * 30}%`;
             flower.style.setProperty('--fall-duration', `${6 + Math.random() * 4}s`);
             flower.style.setProperty('--fall-delay', `${-Math.random() * 8}s`);
-            this.seasonAnimation.appendChild(flower);
+            fragment.appendChild(flower);
         }
+
+        this.seasonAnimation.replaceChildren(fragment);
     }
 
     createSunshine() {
-        this.seasonAnimation.innerHTML = '';
-
         const sun = document.createElement('div');
         sun.className = 'sun';
         sun.textContent = '☀️';
         sun.style.right = '5%';
         sun.style.top = '10%';
-        this.seasonAnimation.appendChild(sun);
+        this.seasonAnimation.replaceChildren(sun);
     }
 
     createLeaves() {
-        this.seasonAnimation.innerHTML = '';
         const leaves = ['🍂', '🍁'];
+        const fragment = document.createDocumentFragment();
 
         for (let i = 0; i < 12; i++) {
             const leaf = document.createElement('div');
@@ -624,8 +640,10 @@ class CalendarApp {
             }
             leaf.style.setProperty('--fall-duration', `${20 + Math.random() * 12}s`);
             leaf.style.setProperty('--fall-delay', `${-Math.random() * 10}s`);
-            this.seasonAnimation.appendChild(leaf);
+            fragment.appendChild(leaf);
         }
+
+        this.seasonAnimation.replaceChildren(fragment);
     }
 
     // ========================================
@@ -1501,12 +1519,10 @@ class CalendarApp {
         try {
             const key = this.getPositionsStorageKey();
             const data = localStorage.getItem(key);
-            console.log(`[DEBUG] Loading positions from localStorage key: ${key}`);
 
             if (data) {
                 const parsed = JSON.parse(data);
                 const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-                console.log(`[DEBUG] Found ${parsed.length} stored positions, need ${daysInMonth}`);
 
                 // Validierung: Prüfe ob Positionen ein Array ist
                 if (!Array.isArray(parsed)) {
@@ -1518,7 +1534,6 @@ class CalendarApp {
 
                 // Validierung: Prüfe ob die Anzahl stimmt
                 if (parsed.length !== daysInMonth) {
-                    console.log(`[DEBUG] Position count mismatch! Regenerating...`);
                     this.warn(`Door positions hat falsche Größe (${parsed.length} statt ${daysInMonth}), regeneriere...`);
                     const positions = this.generateDoorPositions(daysInMonth);
                     this.saveDoorPositions(positions);
@@ -1574,7 +1589,6 @@ class CalendarApp {
     // ========================================
 
     generateDoorPositions(daysInMonth) {
-        console.log(`[DEBUG] generateDoorPositions called for ${daysInMonth} days`);
         const positions = [];
         const gridRect = this.calendarGrid.getBoundingClientRect();
         const gridWidth = gridRect.width;
@@ -1641,7 +1655,6 @@ class CalendarApp {
 
         const normalizedPositions = positions.map(({ day, x, y }) => ({ day, x, y }));
 
-        console.log(`[DEBUG] Generated ${normalizedPositions.length} positions`);
         return normalizedPositions;
     }
 
@@ -1913,30 +1926,15 @@ class CalendarApp {
 
         // Anzahl Tage im ausgewählten Monat
         const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
-        console.log(`[DEBUG] Rendering calendar for ${this.monthNames[this.selectedMonth]} ${this.selectedYear}`);
-        console.log(`[DEBUG] Days in month: ${daysInMonth}`);
 
         // Grid leeren (replaceChildren ist performanter als innerHTML = '')
         this.calendarGrid.replaceChildren();
         this.doorElements.clear();
 
         // Türchen erstellen
-        const doorPositions = [];
         for (let day = 1; day <= daysInMonth; day++) {
             const door = this.createDoorElement(day);
             this.calendarGrid.appendChild(door);
-            const pos = this.getDoorPosition(day);
-            doorPositions.push({day, x: pos.x, y: pos.y});
-        }
-
-        console.log(`[DEBUG] Created ${daysInMonth} doors`);
-        console.log(`[DEBUG] Grid children count: ${this.calendarGrid.children.length}`);
-        console.log(`[DEBUG] Door positions:`, doorPositions);
-
-        // Check for doors outside visible area (y > 100%)
-        const outsideDoors = doorPositions.filter(p => p.y > 85);
-        if (outsideDoors.length > 0) {
-            console.warn(`[DEBUG] ${outsideDoors.length} doors are positioned outside visible area (y > 85%):`, outsideDoors);
         }
 
         // Info-Banner aktualisieren
