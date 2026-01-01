@@ -420,34 +420,32 @@ class CalendarApp {
             seasonText = this.getAutumnMessage();
         }
 
-        // Prüfe ob bereits die richtige Saison angezeigt wird
-        if (this.seasonalBanner.classList.contains(season)) {
-            // Keine Animation nötig, bereits die richtige Saison
-            return;
-        }
+        // Prüfe ob sich die Saison geändert hat (für vollständige Animation)
+        const seasonChanged = !this.seasonalBanner.classList.contains(season);
 
         // Sanfte Crossfade-Animation
         this.seasonalBanner.classList.add('transitioning');
 
         setTimeout(() => {
-            // Entferne alte Saison-Klassen
-            this.seasonalBanner.classList.remove('winter', 'spring', 'summer', 'autumn');
-            // Füge neue Saison-Klasse hinzu
-            this.seasonalBanner.classList.add(season);
+            // Nur bei Saisonwechsel: Entferne alte Saison-Klassen und füge neue hinzu
+            if (seasonChanged) {
+                this.seasonalBanner.classList.remove('winter', 'spring', 'summer', 'autumn');
+                this.seasonalBanner.classList.add(season);
 
-            // Setze Nachricht
-            this.seasonMessage.textContent = seasonText;
-
-            // Erstelle neue animierte Elemente
-            if (month === 11 || month === 0 || month === 1) {
-                this.createSnowflakes();
-            } else if (month >= 2 && month <= 4) {
-                this.createFlowers();
-            } else if (month >= 5 && month <= 7) {
-                this.createSunshine();
-            } else {
-                this.createLeaves();
+                // Erstelle neue animierte Elemente (nur bei Saisonwechsel)
+                if (month === 11 || month === 0 || month === 1) {
+                    this.createSnowflakes();
+                } else if (month >= 2 && month <= 4) {
+                    this.createFlowers();
+                } else if (month >= 5 && month <= 7) {
+                    this.createSunshine();
+                } else {
+                    this.createLeaves();
+                }
             }
+
+            // Aktualisiere IMMER die Nachricht (auch innerhalb derselben Saison)
+            this.seasonMessage.textContent = seasonText;
 
             // Entferne transitioning-Klasse nach kurzer Verzögerung
             setTimeout(() => {
