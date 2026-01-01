@@ -418,6 +418,39 @@ body {
     will-change: transform, opacity;
 }
 
+/* ========================================
+   Herbst Easter Egg: Burst Leaves (Sturm)
+   ======================================== */
+
+.burst-leaf {
+    position: absolute;
+    color: #d97706;
+    opacity: 0.9;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+    animation: leaf-storm 3s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+/* Sturm-Animation: Blätter wehen schnell von links nach rechts */
+@keyframes leaf-storm {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(calc(100vw + 100px), 30vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
 /* Januar: Sterne und Mond blinken/funkeln */
 @keyframes twinkle {
     0%, 100% {

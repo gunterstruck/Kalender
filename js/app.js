@@ -355,11 +355,13 @@ class CalendarApp {
     initSeasonalBanner() {
         this.updateSeasonalBanner();
 
-        // Easter Egg: Click-Event für "Lass es schneien!" Banner
+        // Easter Egg: Click-Event für "Lass es schneien!" und "Lass es stürmen!" Banner
         this.seasonalBanner.addEventListener('click', () => {
             const bannerText = this.seasonMessage.textContent;
             if (bannerText && bannerText.includes('Lass es schneien')) {
                 this.triggerSnowBurst();
+            } else if (bannerText && bannerText.includes('Lass es stürmen')) {
+                this.triggerLeafStorm();
             }
         });
     }
@@ -463,7 +465,8 @@ class CalendarApp {
         const messages = [
             '🍂 Herbstzeit - Zeit der Ernte',
             '🍁 Goldener Herbst',
-            '🎃 Herbstzauber'
+            '🎃 Herbstzauber',
+            '🍂 Lass es stürmen!'
         ];
         return messages[Math.floor(Math.random() * messages.length)];
     }
@@ -580,6 +583,50 @@ class CalendarApp {
         }
 
         this.log(`Snow Burst ausgelöst: ${burstCount} Schneeflocken`);
+    }
+
+    // ========================================
+    // Herbst Easter Egg: Blätter-Sturm
+    // ========================================
+
+    triggerLeafStorm() {
+        const calendarWrapper = document.querySelector('.calendar-wrapper');
+        if (!calendarWrapper) return;
+
+        const leaves = ['🍂', '🍁'];
+        const burstCount = 20 + Math.floor(Math.random() * 11); // 20-30 Blätter
+
+        for (let i = 0; i < burstCount; i++) {
+            const leaf = document.createElement('div');
+            leaf.className = 'burst-leaf';
+            leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+
+            // Startposition: zufällig am linken Bildschirmrand
+            leaf.style.left = '-50px';
+
+            // Zufällige vertikale Position (0-100%)
+            leaf.style.top = `${Math.random() * 100}%`;
+
+            // Variiere die Animationsdauer (2s bis 4s)
+            const duration = 2 + Math.random() * 2;
+            leaf.style.animationDuration = `${duration}s`;
+
+            // Variiere die Größe
+            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
+            leaf.style.fontSize = `${fontSize}rem`;
+
+            // Füge zum Container hinzu
+            calendarWrapper.appendChild(leaf);
+
+            // Entferne Blatt nach Animation (mit etwas Puffer)
+            setTimeout(() => {
+                if (leaf.parentNode) {
+                    leaf.remove();
+                }
+            }, (duration + 0.5) * 1000);
+        }
+
+        this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter`);
     }
 
     // ========================================
