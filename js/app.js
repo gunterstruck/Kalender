@@ -355,12 +355,16 @@ class CalendarApp {
     initSeasonalBanner() {
         this.updateSeasonalBanner();
 
-        // Easter Egg: Click-Event für "Lass es schneien!" und "Lass es stürmen!" Banner
+        // Easter Egg: Click-Event für Winter (Schneeflocken) und Herbst (Blättersturm) Banner
         this.seasonalBanner.addEventListener('click', () => {
-            const bannerText = this.seasonMessage.textContent;
-            if (bannerText && bannerText.includes('Lass es schneien')) {
+            const month = this.selectedMonth;
+
+            // Winter: Dezember, Januar, Februar
+            if (month === 11 || month === 0 || month === 1) {
                 this.triggerSnowBurst();
-            } else if (bannerText && bannerText.includes('Lass es stürmen')) {
+            }
+            // Herbst: September, Oktober, November
+            else if (month >= 8 && month <= 10) {
                 this.triggerLeafStorm();
             }
         });
