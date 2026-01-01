@@ -23,7 +23,7 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 
 Die App ist auf GitHub Pages verfügbar:
 ```
-https://DEIN-USERNAME.github.io/DEIN-REPO-NAME/
+https://gunterstruck.github.io/Kalender/
 ```
 
 ## 📋 Voraussetzungen
