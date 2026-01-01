@@ -451,6 +451,82 @@ body {
     }
 }
 
+/* ========================================
+   Frühling Easter Egg: Blütenregen
+   ======================================== */
+
+.burst-blossom {
+    position: absolute;
+    color: #ec4899;
+    opacity: 0.8;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+    animation: blossom-fall 5s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+/* Blütenregen-Animation: Fallen mit Rotation und leichter seitlicher Bewegung */
+@keyframes blossom-fall {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(110vh) translateX(50px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   Sommer Easter Egg: Aufsteigende Blasen
+   ======================================== */
+
+.burst-bubble {
+    position: absolute;
+    color: #60a5fa;
+    opacity: 0.7;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+    animation: bubble-rise 5s ease-in-out forwards;
+    will-change: transform, opacity;
+}
+
+/* Blasen-Animation: Aufsteigen von unten nach oben mit seitlichem Wackeln */
+@keyframes bubble-rise {
+    0% {
+        transform: translateY(110vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    25% {
+        transform: translateY(80vh) translateX(-20px);
+    }
+    50% {
+        transform: translateY(50vh) translateX(20px);
+    }
+    75% {
+        transform: translateY(25vh) translateX(-15px);
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-20vh) translateX(10px);
+        opacity: 0;
+    }
+}
+
 /* Januar: Sterne und Mond blinken/funkeln */
 @keyframes twinkle {
     0%, 100% {

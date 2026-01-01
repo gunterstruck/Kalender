@@ -359,16 +359,24 @@ class CalendarApp {
     initSeasonalBanner() {
         this.updateSeasonalBanner();
 
-        // Easter Egg: Click-Event für Winter (Schneeflocken) und Herbst (Blättersturm) Banner
+        // Easter Egg: Click-Event für alle Jahreszeiten
         this.seasonalBanner.addEventListener('click', () => {
-            const month = this.selectedMonth;
+            const message = this.seasonMessage.textContent;
 
-            // Winter: Dezember, Januar, Februar
-            if (month === 11 || month === 0 || month === 1) {
+            // Winter: "Lass es schneien!"
+            if (message.includes('Lass es schneien')) {
                 this.triggerSnowBurst();
             }
-            // Herbst: September, Oktober, November
-            else if (month >= 8 && month <= 10) {
+            // Frühling: "Lass es blühen!"
+            else if (message.includes('Lass es blühen')) {
+                this.triggerBlossomRain();
+            }
+            // Sommer: "Lass es schweben!"
+            else if (message.includes('Lass es schweben')) {
+                this.triggerBubbles();
+            }
+            // Herbst: "Lass es stürmen!"
+            else if (message.includes('Lass es stürmen')) {
                 this.triggerLeafStorm();
             }
         });
@@ -471,7 +479,8 @@ class CalendarApp {
         const messages = [
             '🌸 Frühling erwacht - Neue Kraft',
             '🌷 Blütezeit beginnt',
-            '🌺 Frühlingsgefühle erwachen'
+            '🌺 Frühlingsgefühle erwachen',
+            '🌸 Lass es blühen!'
         ];
         return messages[Math.floor(Math.random() * messages.length)];
     }
@@ -480,7 +489,8 @@ class CalendarApp {
         const messages = [
             '☀️ Sommerzeit - Genieße den Tag',
             '🌻 Sonnige Aussichten',
-            '🏖️ Sommerliche Leichtigkeit'
+            '🏖️ Sommerliche Leichtigkeit',
+            '🫧 Lass es schweben!'
         ];
         return messages[Math.floor(Math.random() * messages.length)];
     }
@@ -651,6 +661,95 @@ class CalendarApp {
         }
 
         this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter`);
+    }
+
+    // ========================================
+    // Frühling Easter Egg: Blütenregen
+    // ========================================
+
+    triggerBlossomRain() {
+        const calendarWrapper = document.querySelector('.calendar-wrapper');
+        if (!calendarWrapper) return;
+
+        const blossoms = ['🌸', '💮'];
+        const burstCount = 30; // Ca. 30 Elemente
+
+        for (let i = 0; i < burstCount; i++) {
+            const blossom = document.createElement('div');
+            blossom.className = 'burst-blossom';
+            blossom.textContent = blossoms[Math.floor(Math.random() * blossoms.length)];
+
+            // Zufällige horizontale Startposition
+            blossom.style.left = `${Math.random() * 100}%`;
+
+            // Startposition knapp oberhalb des sichtbaren Bereichs
+            blossom.style.top = '-20px';
+
+            // Variiere die Animationsdauer (4s bis 7s - langsamer als Schnee)
+            const duration = 4 + Math.random() * 3;
+            blossom.style.animationDuration = `${duration}s`;
+
+            // Variiere die Größe
+            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
+            blossom.style.fontSize = `${fontSize}rem`;
+
+            // Füge zum Container hinzu
+            calendarWrapper.appendChild(blossom);
+
+            // Entferne Blüte nach Animation (mit etwas Puffer)
+            setTimeout(() => {
+                if (blossom.parentNode) {
+                    blossom.remove();
+                }
+            }, (duration + 0.5) * 1000);
+        }
+
+        this.log(`Blossom Rain ausgelöst: ${burstCount} Blüten`);
+    }
+
+    // ========================================
+    // Sommer Easter Egg: Aufsteigende Blasen
+    // ========================================
+
+    triggerBubbles() {
+        const calendarWrapper = document.querySelector('.calendar-wrapper');
+        if (!calendarWrapper) return;
+
+        const bubbles = ['🫧', '⚪'];
+        const burstCount = 20; // Ca. 20 Elemente
+
+        for (let i = 0; i < burstCount; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'burst-bubble';
+            bubble.textContent = bubbles[Math.floor(Math.random() * bubbles.length)];
+
+            // Zufällige horizontale Startposition
+            bubble.style.left = `${Math.random() * 100}%`;
+
+            // WICHTIG: Startposition UNTEN (bottom: -20px)
+            bubble.style.bottom = '-20px';
+            bubble.style.top = 'auto';
+
+            // Variiere die Animationsdauer
+            const duration = 4 + Math.random() * 3;
+            bubble.style.animationDuration = `${duration}s`;
+
+            // Variiere die Größe
+            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
+            bubble.style.fontSize = `${fontSize}rem`;
+
+            // Füge zum Container hinzu
+            calendarWrapper.appendChild(bubble);
+
+            // Entferne Blase nach Animation (mit etwas Puffer)
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.remove();
+                }
+            }, (duration + 0.5) * 1000);
+        }
+
+        this.log(`Bubbles ausgelöst: ${burstCount} Blasen`);
     }
 
     // ========================================
