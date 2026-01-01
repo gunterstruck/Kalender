@@ -95,7 +95,13 @@ function setupInstallPrompt() {
     // Wenn App installiert wird
     window.addEventListener('appinstalled', () => {
         console.log('[PWA] App wurde installiert');
-        localStorage.setItem('pwa_installed', 'true');
+        try {
+            if (canUseStorage()) {
+                localStorage.setItem('pwa_installed', 'true');
+            }
+        } catch (error) {
+            console.warn('[PWA] localStorage nicht verfügbar:', error);
+        }
         hideInstallPrompt();
     });
 
@@ -110,6 +116,18 @@ function setupInstallPrompt() {
     });
 }
 
+function canUseStorage() {
+    try {
+        const storageTestKey = '__pwa_storage_test__';
+        localStorage.setItem(storageTestKey, '1');
+        localStorage.removeItem(storageTestKey);
+        return true;
+    } catch (error) {
+        console.warn('[PWA] localStorage nicht verfügbar:', error);
+        return false;
+    }
+}
+
 // Prüfe ob die App bereits installiert ist
 function isAppInstalled() {
     // Prüfe ob die App im standalone mode läuft
@@ -117,6 +135,9 @@ function isAppInstalled() {
         return true;
     }
     // Prüfe localStorage Flag
+    if (!canUseStorage()) {
+        return false;
+    }
     return localStorage.getItem('pwa_installed') === 'true';
 }
 
