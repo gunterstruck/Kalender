@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Datenschutzerklärung - Monatskalender mit Türchen">
+    <meta name="theme-color" content="#FFB84D">
+
+    <title>Datenschutzerklärung - Monatskalender mit Türchen</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        .legal-page {
+            min-height: 100vh;
+            background: var(--background);
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .legal-container h1 {
+            font-size: var(--font-size-3xl);
+            color: var(--primary);
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .legal-container h2 {
+            font-size: var(--font-size-xl);
+            color: var(--primary-dark);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .legal-container p {
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .legal-container ul {
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-xl);
+        }
+
+        .legal-container li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .legal-container .highlight {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+            border-radius: var(--radius-md);
+        }
+
+        .legal-container .highlight strong {
+            color: var(--success);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .legal-container {
+                padding: var(--spacing-lg);
+            }
+
+            .legal-container h1 {
+                font-size: var(--font-size-2xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-page">
+        <div class="legal-container">
+            <h1>Datenschutzerklärung</h1>
+
+            <div class="highlight">
+                <p><strong>Wichtig: Diese App speichert keine personenbezogenen Daten auf externen Servern.</strong></p>
+                <p>Alle Daten bleiben lokal auf Ihrem Gerät und werden ausschließlich auf Ihrem Gerät gespeichert und verarbeitet.</p>
+            </div>
+
+            <h2>1. Datenschutz auf einen Blick</h2>
+            <p><strong>Allgemeine Hinweise</strong></p>
+            <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese App nutzen.</p>
+
+            <h2>2. Datenerfassung in dieser App</h2>
+            <p><strong>Welche Daten werden erfasst?</strong></p>
+            <p>Diese Progressive Web App (PWA) arbeitet vollständig offline-fähig und speichert alle Daten ausschließlich lokal auf Ihrem Gerät:</p>
+            <ul>
+                <li><strong>Geöffnete Türchen:</strong> Welche Kalendertürchen Sie geöffnet haben, wird im Local Storage Ihres Browsers gespeichert</li>
+                <li><strong>Theme-Einstellungen:</strong> Ihre bevorzugte Farbschema-Einstellung (Hell-/Dunkelmodus)</li>
+                <li><strong>App-Daten:</strong> Cache-Daten für die Offline-Funktionalität</li>
+            </ul>
+
+            <h2>3. Wo werden Ihre Daten gespeichert?</h2>
+            <p>Alle Daten werden ausschließlich im Local Storage und Cache Ihres Browsers gespeichert. Es findet <strong>keine Übertragung von Daten</strong> an externe Server statt.</p>
+            <p>Die Daten bleiben auf Ihrem Gerät und können von Ihnen jederzeit gelöscht werden durch:</p>
+            <ul>
+                <li>Löschen der Browser-Daten (Local Storage)</li>
+                <li>Deinstallation der App</li>
+                <li>Zurücksetzen der App-Daten in den Browser-Einstellungen</li>
+            </ul>
+
+            <h2>4. Service Worker und Caching</h2>
+            <p>Diese App verwendet einen Service Worker, um offline-fähig zu sein. Der Service Worker speichert App-Dateien (HTML, CSS, JavaScript, Bilder) im Cache Ihres Browsers, damit die App auch ohne Internetverbindung funktioniert.</p>
+
+            <h2>5. Keine Cookies oder Tracking</h2>
+            <p>Diese App verwendet keine Cookies und kein Tracking. Es werden keine Analyse-Tools oder Werbe-Tracker eingesetzt.</p>
+
+            <h2>6. Rechte des Nutzers</h2>
+            <p>Da keine personenbezogenen Daten an Dritte übermittelt oder auf externen Servern gespeichert werden, haben Sie die volle Kontrolle über Ihre Daten:</p>
+            <ul>
+                <li><strong>Auskunftsrecht:</strong> Sie können jederzeit im Local Storage Ihres Browsers nachsehen, welche Daten gespeichert sind</li>
+                <li><strong>Löschung:</strong> Sie können alle Daten jederzeit durch Löschen der Browser-Daten entfernen</li>
+                <li><strong>Widerruf:</strong> Sie können die Nutzung der App jederzeit beenden und alle Daten löschen</li>
+            </ul>
+
+            <h2>7. Sicherheit</h2>
+            <p>Ihre Daten sind durch die Sicherheitsmechanismen Ihres Browsers geschützt. Andere Websites oder Apps können nicht auf die Daten dieser App zugreifen (Same-Origin-Policy).</p>
+
+            <h2>8. Änderungen der Datenschutzerklärung</h2>
+            <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen in der Datenschutzerklärung umzusetzen.</p>
+
+            <h2>9. Kontakt</h2>
+            <p>Bei Fragen zum Datenschutz können Sie sich an die im Impressum angegebene Kontaktadresse wenden.</p>
+
+            <a href="index.html" class="back-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Zurück zum Kalender
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Theme Support für Dark Mode
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
