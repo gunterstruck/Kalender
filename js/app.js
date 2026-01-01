@@ -371,9 +371,9 @@ class CalendarApp {
             else if (message.includes('Lass es blühen')) {
                 this.triggerBlossomRain();
             }
-            // Sommer: "Lass es schweben!"
-            else if (message.includes('Lass es schweben')) {
-                this.triggerBubbles();
+            // Sommer: "Lass sie steigen!"
+            else if (message.includes('Lass sie steigen')) {
+                this.triggerBalloonRise();
             }
             // Herbst: "Lass es stürmen!"
             else if (message.includes('Lass es stürmen')) {
@@ -490,7 +490,7 @@ class CalendarApp {
             '☀️ Sommerzeit - Genieße den Tag',
             '🌻 Sonnige Aussichten',
             '🏖️ Sommerliche Leichtigkeit',
-            '🫧 Lass es schweben!'
+            '🎈 Lass sie steigen!'
         ];
         return messages[Math.floor(Math.random() * messages.length)];
     }
@@ -711,48 +711,50 @@ class CalendarApp {
     }
 
     // ========================================
-    // Sommer Easter Egg: Aufsteigende Blasen
+    // Sommer Easter Egg: Bunte Luftballons steigen auf
     // ========================================
 
-    triggerBubbles() {
+    triggerBalloonRise() {
         const calendarWrapper = document.querySelector('.calendar-wrapper');
         if (!calendarWrapper) return;
 
-        const bubbles = ['🫧', '⚪'];
-        const burstCount = 20; // Ca. 20 Elemente
+        const burstCount = 20 + Math.floor(Math.random() * 11); // 20-30 Elemente
 
         for (let i = 0; i < burstCount; i++) {
-            const bubble = document.createElement('div');
-            bubble.className = 'burst-bubble';
-            bubble.textContent = bubbles[Math.floor(Math.random() * bubbles.length)];
+            const balloon = document.createElement('div');
+            balloon.className = 'burst-balloon';
+            balloon.textContent = '🎈';
 
             // Zufällige horizontale Startposition
-            bubble.style.left = `${Math.random() * 100}%`;
+            balloon.style.left = `${Math.random() * 100}%`;
 
-            // WICHTIG: Startposition UNTEN (bottom: -20px)
-            bubble.style.bottom = '-20px';
-            bubble.style.top = 'auto';
+            // Startposition: Unten am Bildschirmrand
+            balloon.style.top = '100%';
 
-            // Variiere die Animationsdauer
-            const duration = 4 + Math.random() * 3;
-            bubble.style.animationDuration = `${duration}s`;
+            // Farbe: Zufällige Hue-Rotation für bunte Ballons
+            const hue = Math.random() * 360;
+            balloon.style.setProperty('--hue', `${hue}deg`);
+
+            // Variiere die Animationsdauer (6s bis 10s)
+            const duration = 6 + Math.random() * 4;
+            balloon.style.animationDuration = `${duration}s`;
 
             // Variiere die Größe
-            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
-            bubble.style.fontSize = `${fontSize}rem`;
+            const fontSize = 2 + Math.random() * 1.5; // 2rem bis 3.5rem
+            balloon.style.fontSize = `${fontSize}rem`;
 
             // Füge zum Container hinzu
-            calendarWrapper.appendChild(bubble);
+            calendarWrapper.appendChild(balloon);
 
-            // Entferne Blase nach Animation (mit etwas Puffer)
+            // Entferne Ballon nach Animation (mit etwas Puffer)
             setTimeout(() => {
-                if (bubble.parentNode) {
-                    bubble.remove();
+                if (balloon.parentNode) {
+                    balloon.remove();
                 }
             }, (duration + 0.5) * 1000);
         }
 
-        this.log(`Bubbles ausgelöst: ${burstCount} Blasen`);
+        this.log(`Balloon Rise ausgelöst: ${burstCount} Luftballons`);
     }
 
     // ========================================
