@@ -753,6 +753,17 @@ class CalendarApp {
     }
 
     // ========================================
+    // Helper: SVG-Vogel generieren
+    // ========================================
+
+    getBirdSVG() {
+        // Elegante Möwen-Silhouette als SVG
+        return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" class="bird-svg" aria-hidden="true">
+            <path d="M16 12 Q10 8 6 11 L10 15 Q13 11 16 12 Q19 11 22 15 L26 11 Q22 8 16 12Z" fill="currentColor"/>
+        </svg>`;
+    }
+
+    // ========================================
     // Mobile Monat-Dekoration (für Hochformat)
     // ========================================
 
@@ -873,7 +884,13 @@ class CalendarApp {
             for (let i = 0; i < iconConfig.count; i++) {
                 const icon = document.createElement('div');
                 icon.className = `mobile-month-icon ${iconConfig.class}`;
-                icon.textContent = iconConfig.emoji;
+
+                // Verwende SVG für Vögel, Emoji für andere Icons
+                if (iconConfig.emoji === '🐦') {
+                    icon.innerHTML = this.getBirdSVG();
+                } else {
+                    icon.textContent = iconConfig.emoji;
+                }
 
                 // Zufällige horizontale Position
                 icon.style.left = `${Math.random() * 95}%`;
