@@ -688,27 +688,30 @@ class CalendarApp {
             leaf.className = 'burst-leaf';
             leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
 
-            // Startposition: links oben (fixiert links außen, oberes Drittel)
+            // Startposition: links außen
             leaf.style.left = '-50px';
-            const startTop = -50 + Math.random() * 30; // -50px bis 30% (oberes Drittel)
+            
+            // KORREKTUR 1: Startposition tiefer setzen (-10% bis 40%), damit sie sichtbar sind
+            const startTop = -10 + Math.random() * 50;
             leaf.style.top = `${startTop}%`;
 
-            // Vertikale Endposition: zufällig zwischen 20% und 80%
-            const targetY = 20 + Math.random() * 60; // 20% bis 80%
-            leaf.style.setProperty('--target-y', `${targetY}%`);
+            // KORREKTUR 2: Einheit auf 'vh' ändern, damit die Bewegung sichtbar ist
+            // Das Blatt soll während des Fluges leicht sinken oder steigen
+            const targetY = -10 + Math.random() * 40; // -10vh bis +30vh relative Bewegung
+            leaf.style.setProperty('--target-y', `${targetY}vh`);
 
-            // Variiere die Animationsdauer (8s bis 12s - langsamer)
+            // Animationsdauer
             const duration = 8 + Math.random() * 4;
             leaf.style.animationDuration = `${duration}s`;
 
-            // Variiere die Größe
-            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
+            // Größe
+            const fontSize = 1.5 + Math.random() * 1.5;
             leaf.style.fontSize = `${fontSize}rem`;
 
             // Füge zum Container hinzu
             calendarWrapper.appendChild(leaf);
 
-            // Entferne Blatt nach Animation (mit etwas Puffer)
+            // Cleanup
             setTimeout(() => {
                 if (leaf.parentNode) {
                     leaf.remove();
@@ -716,7 +719,7 @@ class CalendarApp {
             }, (duration + 0.5) * 1000);
         }
 
-        this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter im Segelflug`);
+        this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter`);
     }
 
     // ========================================
