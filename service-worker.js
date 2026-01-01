@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.5.3 - Banner-Rotation innerhalb der Saison korrigiert
+// Version 1.5.60 - Critical Fixes: CSP compliance, Portrait images caching
 
-const CACHE_NAME = 'kalender-cache-v1.5.59';
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.59';
+const CACHE_NAME = 'kalender-cache-v1.5.60';
+const RUNTIME_CACHE = 'kalender-runtime-v1.5.60';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
@@ -11,12 +11,14 @@ const CACHE_URLS = [
     './css/styles.css',
     './js/app.js',
     './js/quotes.js',
+    './js/pwa-install.js',
     './manifest.json',
     './assets/icons/icon.svg',
     './assets/icons/icon-192.png',
     './assets/icons/icon-512.png',
     './assets/icons/app_icon_192.png',
     './assets/icons/app_icon_512.png',
+    // Landscape month illustrations
     './assets/months/january.svg',
     './assets/months/february.svg',
     './assets/months/march.svg',
@@ -28,7 +30,20 @@ const CACHE_URLS = [
     './assets/months/september.svg',
     './assets/months/october.svg',
     './assets/months/november.svg',
-    './assets/months/december.svg'
+    './assets/months/december.svg',
+    // Portrait month illustrations (for mobile)
+    './assets/months-portrait/january.svg',
+    './assets/months-portrait/february.svg',
+    './assets/months-portrait/march.svg',
+    './assets/months-portrait/april.svg',
+    './assets/months-portrait/may.svg',
+    './assets/months-portrait/june.svg',
+    './assets/months-portrait/july.svg',
+    './assets/months-portrait/august.svg',
+    './assets/months-portrait/september.svg',
+    './assets/months-portrait/october.svg',
+    './assets/months-portrait/november.svg',
+    './assets/months-portrait/december.svg'
 ];
 
 // ========================================
