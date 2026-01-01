@@ -354,6 +354,14 @@ class CalendarApp {
 
     initSeasonalBanner() {
         this.updateSeasonalBanner();
+
+        // Easter Egg: Click-Event für "Lass es schneien!" Banner
+        this.seasonalBanner.addEventListener('click', () => {
+            const bannerText = this.seasonMessage.textContent;
+            if (bannerText && bannerText.includes('Lass es schneien')) {
+                this.triggerSnowBurst();
+            }
+        });
     }
 
     updateSeasonalBanner() {
@@ -528,6 +536,50 @@ class CalendarApp {
             leaf.style.setProperty('--fall-delay', `${-Math.random() * 10}s`);
             this.seasonAnimation.appendChild(leaf);
         }
+    }
+
+    // ========================================
+    // Winter Easter Egg: Schneeflocken-Burst
+    // ========================================
+
+    triggerSnowBurst() {
+        const calendarWrapper = document.querySelector('.calendar-wrapper');
+        if (!calendarWrapper) return;
+
+        const snowflakes = ['❄', '❅', '❆'];
+        const burstCount = 30 + Math.floor(Math.random() * 21); // 30-50 Flocken
+
+        for (let i = 0; i < burstCount; i++) {
+            const flake = document.createElement('div');
+            flake.className = 'burst-snowflake';
+            flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+
+            // Zufällige horizontale Startposition
+            flake.style.left = `${Math.random() * 100}%`;
+
+            // Startposition knapp oberhalb des sichtbaren Bereichs
+            flake.style.top = '-20px';
+
+            // Variiere die Animationsdauer (3s bis 6s)
+            const duration = 3 + Math.random() * 3;
+            flake.style.animationDuration = `${duration}s`;
+
+            // Variiere die Größe
+            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
+            flake.style.fontSize = `${fontSize}rem`;
+
+            // Füge zum Container hinzu
+            calendarWrapper.appendChild(flake);
+
+            // Entferne Flocke nach Animation (mit etwas Puffer)
+            setTimeout(() => {
+                if (flake.parentNode) {
+                    flake.remove();
+                }
+            }, (duration + 0.5) * 1000);
+        }
+
+        this.log(`Snow Burst ausgelöst: ${burstCount} Schneeflocken`);
     }
 
     // ========================================
