@@ -534,9 +534,9 @@ class CalendarApp {
             flower.className = 'flower';
             flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
             flower.style.left = `${10 + (i * 12)}%`;
-            // Blumen am Boden (untere 30%)
-            flower.style.top = `${70 + Math.random() * 30}%`;
-            flower.style.setProperty('--fall-duration', `${18 + Math.random() * 12}s`);
+            // Blumen starten oben und segeln durch das Bild
+            flower.style.top = `${-10 + Math.random() * 30}%`;
+            flower.style.setProperty('--fall-duration', `${6 + Math.random() * 4}s`);
             flower.style.setProperty('--fall-delay', `${-Math.random() * 8}s`);
             this.seasonAnimation.appendChild(flower);
         }
