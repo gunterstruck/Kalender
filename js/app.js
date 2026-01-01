@@ -635,14 +635,17 @@ class CalendarApp {
             leaf.className = 'burst-leaf';
             leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
 
-            // Startposition: zufällig am linken Bildschirmrand
-            leaf.style.left = '-50px';
+            // Startposition: oben links (linke Hälfte des Bildschirms)
+            const startLeft = -10 + Math.random() * 50; // -10% bis 40%
+            leaf.style.left = `${startLeft}%`;
+            leaf.style.top = '-20px';
 
-            // Zufällige vertikale Position (0-100%)
-            leaf.style.top = `${Math.random() * 100}%`;
+            // Zielkoordinate: zufällige horizontale Position
+            const targetX = 20 + Math.random() * 100; // 20vw bis 120vw
+            leaf.style.setProperty('--target-x', `${targetX}vw`);
 
-            // Variiere die Animationsdauer (2s bis 4s)
-            const duration = 2 + Math.random() * 2;
+            // Variiere die Animationsdauer (3s bis 5s)
+            const duration = 3 + Math.random() * 2;
             leaf.style.animationDuration = `${duration}s`;
 
             // Variiere die Größe

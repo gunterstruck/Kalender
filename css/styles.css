@@ -446,7 +446,7 @@ body {
 }
 
 /* ========================================
-   Herbst Easter Egg: Burst Leaves (Sturm)
+   Herbst Easter Egg: Burst Leaves (Diagonal fallend)
    ======================================== */
 
 .burst-leaf {
@@ -456,12 +456,12 @@ body {
     user-select: none;
     pointer-events: none;
     z-index: 10;
-    animation: leaf-storm 3s ease-out forwards;
+    animation: leaf-fall-diagonal 4s ease-out forwards;
     will-change: transform, opacity;
 }
 
-/* Sturm-Animation: Blätter wehen schnell von links nach rechts */
-@keyframes leaf-storm {
+/* Diagonal Fall Animation: Blätter fallen diagonal von oben links und wirbeln wild */
+@keyframes leaf-fall-diagonal {
     0% {
         transform: translate(0, 0) rotate(0deg);
         opacity: 0;
@@ -473,7 +473,7 @@ body {
         opacity: 0.7;
     }
     100% {
-        transform: translate(calc(100vw + 100px), 30vh) rotate(720deg);
+        transform: translate(var(--target-x), 110vh) rotate(720deg);
         opacity: 0;
     }
 }
