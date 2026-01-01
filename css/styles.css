@@ -830,6 +830,79 @@ body.dark-mode .theme-toggle .moon-icon {
 }
 
 /* ========================================
+   App Footer
+   ======================================== */
+
+.app-footer {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
+    opacity: 0.8;
+}
+
+.footer-link:hover {
+    color: var(--primary);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-separator {
+    color: var(--text-disabled);
+    font-size: var(--font-size-sm);
+    opacity: 0.5;
+    user-select: none;
+}
+
+/* Dark Mode Support für Footer */
+body.dark-mode .footer-link {
+    color: var(--text-secondary);
+}
+
+body.dark-mode .footer-link:hover {
+    color: var(--primary-light);
+}
+
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .footer-link {
+        color: var(--text-secondary);
+    }
+
+    body:not(.light-mode) .footer-link:hover {
+        color: var(--primary-light);
+    }
+}
+
+@media (max-width: 480px) {
+    .app-footer {
+        margin-top: var(--spacing-md);
+        padding: var(--spacing-md) 0;
+    }
+
+    .footer-link {
+        font-size: var(--font-size-xs);
+    }
+
+    .footer-separator {
+        font-size: var(--font-size-xs);
+    }
+}
+
+/* ========================================
    Month Selector
    ======================================== */
 

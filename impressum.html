@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Impressum - Monatskalender mit Türchen">
+    <meta name="theme-color" content="#FFB84D">
+
+    <title>Impressum - Monatskalender mit Türchen</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        .legal-page {
+            min-height: 100vh;
+            background: var(--background);
+            padding: var(--spacing-lg) var(--spacing-md);
+        }
+
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .legal-container h1 {
+            font-size: var(--font-size-3xl);
+            color: var(--primary);
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .legal-container h2 {
+            font-size: var(--font-size-xl);
+            color: var(--primary-dark);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .legal-container p {
+            color: var(--text-primary);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .legal-container .placeholder {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .legal-container {
+                padding: var(--spacing-lg);
+            }
+
+            .legal-container h1 {
+                font-size: var(--font-size-2xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-page">
+        <div class="legal-container">
+            <h1>Impressum</h1>
+
+            <h2>Angaben gemäß § 5 TMG</h2>
+            <div class="placeholder">
+                <p><strong>[PLATZHALTER - Bitte ausfüllen]</strong></p>
+                <p>Name: [Ihr vollständiger Name oder Firmenname]</p>
+                <p>Anschrift: [Straße und Hausnummer]<br>
+                [PLZ und Ort]<br>
+                [Land]</p>
+            </div>
+
+            <h2>Kontakt</h2>
+            <div class="placeholder">
+                <p>Telefon: [Ihre Telefonnummer]</p>
+                <p>E-Mail: [Ihre E-Mail-Adresse]</p>
+            </div>
+
+            <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+            <div class="placeholder">
+                <p>[Name]<br>
+                [Anschrift]</p>
+            </div>
+
+            <h2>Haftungsausschluss</h2>
+            <p><strong>Haftung für Inhalte</strong></p>
+            <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+
+            <p><strong>Haftung für Links</strong></p>
+            <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.</p>
+
+            <p><strong>Urheberrecht</strong></p>
+            <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+
+            <a href="index.html" class="back-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Zurück zum Kalender
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Theme Support für Dark Mode
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
