@@ -503,34 +503,32 @@ body {
 
 .flower-pop {
     position: absolute;
-    color: #ec4899;
-    opacity: 0;
+    font-size: 2rem;
     user-select: none;
     pointer-events: none;
     z-index: 10;
-    animation: flower-pop 3s ease-out forwards;
-    will-change: transform, opacity;
+    animation: flower-pop ease-out forwards;
 }
 
-/* Blumen-Pop Animation: Aufploppen, stehenbleiben, verschwinden */
 @keyframes flower-pop {
     0% {
         transform: scale(0);
         opacity: 0;
     }
     20% {
-        transform: scale(1.1);
+        transform: scale(1.2);
         opacity: 1;
     }
-    30% {
+    40% {
         transform: scale(1);
+        opacity: 1;
     }
     80% {
         transform: scale(1);
         opacity: 1;
     }
     100% {
-        transform: scale(0.5);
+        transform: scale(0);
         opacity: 0;
     }
 }

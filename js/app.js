@@ -733,7 +733,7 @@ class CalendarApp {
         const calendarWrapper = document.querySelector('.calendar-wrapper');
         if (!calendarWrapper) return;
 
-        const flowers = ['🌸', '💮', '🌼', '🌺', '🌷'];
+        const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🌹', '🪷', '🏵️'];
         const burstCount = 40; // 40 Blumen für eine volle Wiese
 
         for (let i = 0; i < burstCount; i++) {
@@ -741,9 +741,9 @@ class CalendarApp {
             flower.className = 'flower-pop';
             flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
 
-            // Position im unteren Drittel (Wiese) - 70% bis 90%
+            // Position im unteren Drittel (Wiese) - 65% bis 95%
             const left = 5 + Math.random() * 90; // 5% bis 95%
-            const top = 70 + Math.random() * 20; // 70% bis 90%
+            const top = 65 + Math.random() * 30; // 65% bis 95%
             flower.style.left = `${left}%`;
             flower.style.top = `${top}%`;
 
