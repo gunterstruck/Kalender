@@ -839,6 +839,30 @@ body.dark-mode .theme-toggle .moon-icon {
     text-align: center;
 }
 
+.app-footer nav {
+    margin-bottom: var(--spacing-sm);
+}
+
+.app-footer nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
+    opacity: 0.8;
+}
+
+.app-footer nav a:hover {
+    color: var(--primary);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.app-footer p {
+    margin: 0;
+    color: var(--text-disabled);
+    opacity: 0.7;
+}
+
 .footer-nav {
     display: flex;
     align-items: center;
