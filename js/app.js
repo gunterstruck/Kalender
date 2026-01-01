@@ -19,18 +19,30 @@ class CalendarApp {
 
         // Konfigurationskonstanten
         this.CONFIG = {
+            // Timing
             DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
+            HEADER_HIDE_DELAY: 5000,           // Header ausblenden nach 5 Sekunden
+            BANNER_ROTATION_INTERVAL: 10000,   // Banner alle 10 Sekunden rotieren
+            BANNER_TRANSITION_DELAY: 600,      // Banner-Transition Verzögerung in ms
+
+            // Door Configuration
             DOOR_SIZE_PERCENT: 7,              // Türchengröße in % (wird über updateDoorConfig angepasst)
             MIN_SPACING_PERCENT: 4,            // Mindestabstand in % (wird über updateDoorConfig angepasst)
             PADDING_PERCENT: 6,                // Rand-Padding in % (wird über updateDoorConfig angepasst)
             MAX_POSITION_ATTEMPTS: 500,        // Maximale Positionierungsversuche (erhöht wegen größeren Türchen)
+
+            // Animations
             ANIMATION_DURATION: 150,           // Fade-Animation in ms
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
             TOAST_DURATION: 3000,              // Toast-Anzeigedauer in ms
             SHAKE_DURATION: 300,               // Shake-Animation in ms
-            LOCALE: 'de-DE',                   // Sprach-Locale für Datumsformatierung
+
+            // Performance
             RESIZE_DEBOUNCE_DELAY: 250,        // Debounce-Verzögerung für Resize-Events in ms
-            ORIENTATION_DEBOUNCE_DELAY: 100    // Debounce-Verzögerung für Orientierungswechsel in ms
+            ORIENTATION_DEBOUNCE_DELAY: 100,   // Debounce-Verzögerung für Orientierungswechsel in ms
+
+            // Localization
+            LOCALE: 'de-DE'                    // Sprach-Locale für Datumsformatierung
         };
 
         // Monatsnamen
@@ -355,7 +367,7 @@ class CalendarApp {
     // ========================================
 
     hideHeaderAfterDelay() {
-        // Warte 5 Sekunden, dann blende Header aus und zeige Banner
+        // Warte, dann blende Header aus und zeige Banner
         setTimeout(() => {
             if (this.appHeader) {
                 this.appHeader.classList.add('hidden');
@@ -370,7 +382,7 @@ class CalendarApp {
             setTimeout(() => {
                 this.updateCalendarHeight();
             }, 100);
-        }, 5000);
+        }, this.CONFIG.HEADER_HIDE_DELAY);
     }
 
     // ========================================
@@ -413,12 +425,12 @@ class CalendarApp {
             return;
         }
 
-        // Rotiere Banner alle 10 Sekunden
+        // Rotiere Banner
         this.bannerRotationInterval = setInterval(() => {
             this.updateSeasonalBanner();
-        }, 10000); // 10 Sekunden in ms
+        }, this.CONFIG.BANNER_ROTATION_INTERVAL);
 
-        this.log('Banner-Rotation gestartet (alle 10 Sekunden)');
+        this.log(`Banner-Rotation gestartet (alle ${this.CONFIG.BANNER_ROTATION_INTERVAL / 1000} Sekunden)`);
     }
 
     updateSeasonalBanner() {
@@ -479,7 +491,7 @@ class CalendarApp {
 
             // Entferne transitioning-Klasse sofort nach Text-Update für Fade-in
             this.seasonalBanner.classList.remove('transitioning');
-        }, 600); // Erhöht von 300ms auf 600ms (volle CSS-Transition-Dauer)
+        }, this.CONFIG.BANNER_TRANSITION_DELAY);
     }
 
     // ========================================
@@ -647,47 +659,92 @@ class CalendarApp {
     }
 
     // ========================================
-    // Winter Easter Egg: Schneeflocken-Burst
+    // Generische Partikel-Effekt-Funktion (DRY)
     // ========================================
 
-    triggerSnowBurst() {
+    triggerParticleEffect(config) {
+        const {
+            emojis,
+            countMin,
+            countMax,
+            className,
+            startLeft,
+            startTop,
+            durationMin,
+            durationMax,
+            fontSizeMin,
+            fontSizeMax,
+            customStyle,
+            logMessage
+        } = config;
+
         const calendarWrapper = document.querySelector('.calendar-wrapper');
         if (!calendarWrapper) return;
 
-        const snowflakes = ['❄', '❅', '❆'];
-        const burstCount = 30 + Math.floor(Math.random() * 21); // 30-50 Flocken
+        const burstCount = countMin + Math.floor(Math.random() * (countMax - countMin + 1));
 
         for (let i = 0; i < burstCount; i++) {
-            const flake = document.createElement('div');
-            flake.className = 'burst-snowflake';
-            flake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            const particle = document.createElement('div');
+            particle.className = className;
+            particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-            // Zufällige horizontale Startposition
-            flake.style.left = `${Math.random() * 100}%`;
+            // Startposition
+            if (typeof startLeft === 'function') {
+                particle.style.left = startLeft(i);
+            } else {
+                particle.style.left = startLeft;
+            }
 
-            // Startposition knapp oberhalb des sichtbaren Bereichs
-            flake.style.top = '-20px';
+            if (typeof startTop === 'function') {
+                particle.style.top = startTop(i);
+            } else {
+                particle.style.top = startTop;
+            }
 
-            // Variiere die Animationsdauer (3s bis 6s)
-            const duration = 3 + Math.random() * 3;
-            flake.style.animationDuration = `${duration}s`;
+            // Animation Duration
+            const duration = durationMin + Math.random() * (durationMax - durationMin);
+            particle.style.animationDuration = `${duration}s`;
 
-            // Variiere die Größe
-            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
-            flake.style.fontSize = `${fontSize}rem`;
+            // Font Size
+            const fontSize = fontSizeMin + Math.random() * (fontSizeMax - fontSizeMin);
+            particle.style.fontSize = `${fontSize}rem`;
 
-            // Füge zum Container hinzu
-            calendarWrapper.appendChild(flake);
+            // Custom Styles (optional)
+            if (customStyle) {
+                customStyle(particle, i);
+            }
 
-            // Entferne Flocke nach Animation (mit etwas Puffer)
+            calendarWrapper.appendChild(particle);
+
+            // Entferne nach Animation
             setTimeout(() => {
-                if (flake.parentNode) {
-                    flake.remove();
+                if (particle.parentNode) {
+                    particle.remove();
                 }
             }, (duration + 0.5) * 1000);
         }
 
-        this.log(`Snow Burst ausgelöst: ${burstCount} Schneeflocken`);
+        this.log(logMessage.replace('{count}', burstCount));
+    }
+
+    // ========================================
+    // Winter Easter Egg: Schneeflocken-Burst
+    // ========================================
+
+    triggerSnowBurst() {
+        this.triggerParticleEffect({
+            emojis: ['❄', '❅', '❆'],
+            countMin: 30,
+            countMax: 50,
+            className: 'burst-snowflake',
+            startLeft: () => `${Math.random() * 100}%`,
+            startTop: '-20px',
+            durationMin: 3,
+            durationMax: 6,
+            fontSizeMin: 1.5,
+            fontSizeMax: 3,
+            logMessage: 'Snow Burst ausgelöst: {count} Schneeflocken'
+        });
     }
 
     // ========================================
@@ -695,49 +752,23 @@ class CalendarApp {
     // ========================================
 
     triggerLeafStorm() {
-        const calendarWrapper = document.querySelector('.calendar-wrapper');
-        if (!calendarWrapper) return;
-
-        const leaves = ['🍂', '🍁'];
-        const burstCount = 20 + Math.floor(Math.random() * 11); // 20-30 Blätter
-
-        for (let i = 0; i < burstCount; i++) {
-            const leaf = document.createElement('div');
-            leaf.className = 'burst-leaf';
-            leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
-
-            // Startposition: links außen
-            leaf.style.left = '-50px';
-            
-            // KORREKTUR 1: Startposition tiefer setzen (-10% bis 40%), damit sie sichtbar sind
-            const startTop = -10 + Math.random() * 50;
-            leaf.style.top = `${startTop}%`;
-
-            // KORREKTUR 2: Einheit auf 'vh' ändern, damit die Bewegung sichtbar ist
-            // Das Blatt soll während des Fluges leicht sinken oder steigen
-            const targetY = -10 + Math.random() * 40; // -10vh bis +30vh relative Bewegung
-            leaf.style.setProperty('--target-y', `${targetY}vh`);
-
-            // Animationsdauer
-            const duration = 8 + Math.random() * 4;
-            leaf.style.animationDuration = `${duration}s`;
-
-            // Größe
-            const fontSize = 1.5 + Math.random() * 1.5;
-            leaf.style.fontSize = `${fontSize}rem`;
-
-            // Füge zum Container hinzu
-            calendarWrapper.appendChild(leaf);
-
-            // Cleanup
-            setTimeout(() => {
-                if (leaf.parentNode) {
-                    leaf.remove();
-                }
-            }, (duration + 0.5) * 1000);
-        }
-
-        this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter`);
+        this.triggerParticleEffect({
+            emojis: ['🍂', '🍁'],
+            countMin: 20,
+            countMax: 30,
+            className: 'burst-leaf',
+            startLeft: '-50px',
+            startTop: () => `${-10 + Math.random() * 50}%`,
+            durationMin: 8,
+            durationMax: 12,
+            fontSizeMin: 1.5,
+            fontSizeMax: 3,
+            customStyle: (particle) => {
+                const targetY = -10 + Math.random() * 40;
+                particle.style.setProperty('--target-y', `${targetY}vh`);
+            },
+            logMessage: 'Leaf Storm ausgelöst: {count} Herbstblätter'
+        });
     }
 
     // ========================================
@@ -745,43 +776,19 @@ class CalendarApp {
     // ========================================
 
     triggerFlowerMeadow() {
-        const calendarWrapper = document.querySelector('.calendar-wrapper');
-        if (!calendarWrapper) return;
-
-        const flowers = ['🌸', '💮', '🌼', '🌺', '🌷'];
-        const burstCount = 40; // 40 Blumen für eine volle Wiese
-
-        for (let i = 0; i < burstCount; i++) {
-            const flower = document.createElement('div');
-            flower.className = 'flower-pop';
-            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-
-            // Position im unteren Drittel (Wiese) - 70% bis 90%
-            const left = 5 + Math.random() * 90; // 5% bis 95%
-            const top = 70 + Math.random() * 20; // 70% bis 90%
-            flower.style.left = `${left}%`;
-            flower.style.top = `${top}%`;
-
-            // Variiere die Animationsdauer (2s bis 4s - kurzes Aufploppen)
-            const duration = 2 + Math.random() * 2;
-            flower.style.animationDuration = `${duration}s`;
-
-            // Variiere die Größe
-            const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
-            flower.style.fontSize = `${fontSize}rem`;
-
-            // Füge zum Container hinzu
-            calendarWrapper.appendChild(flower);
-
-            // Entferne Blume nach Animation (mit etwas Puffer)
-            setTimeout(() => {
-                if (flower.parentNode) {
-                    flower.remove();
-                }
-            }, (duration + 0.5) * 1000);
-        }
-
-        this.log(`Flower Meadow ausgelöst: ${burstCount} Blumen auf der Wiese`);
+        this.triggerParticleEffect({
+            emojis: ['🌸', '💮', '🌼', '🌺', '🌷'],
+            countMin: 40,
+            countMax: 40,
+            className: 'flower-pop',
+            startLeft: () => `${5 + Math.random() * 90}%`,
+            startTop: () => `${70 + Math.random() * 20}%`,
+            durationMin: 2,
+            durationMax: 4,
+            fontSizeMin: 1.5,
+            fontSizeMax: 3,
+            logMessage: 'Flower Meadow ausgelöst: {count} Blumen auf der Wiese'
+        });
     }
 
     // ========================================
@@ -789,46 +796,23 @@ class CalendarApp {
     // ========================================
 
     triggerBalloonRise() {
-        const calendarWrapper = document.querySelector('.calendar-wrapper');
-        if (!calendarWrapper) return;
-
-        const burstCount = 20 + Math.floor(Math.random() * 11); // 20-30 Elemente
-
-        for (let i = 0; i < burstCount; i++) {
-            const balloon = document.createElement('div');
-            balloon.className = 'burst-balloon';
-            balloon.textContent = '🎈';
-
-            // Zufällige horizontale Startposition
-            balloon.style.left = `${Math.random() * 100}%`;
-
-            // Startposition: Unten am Bildschirmrand
-            balloon.style.top = '100%';
-
-            // Farbe: Zufällige Hue-Rotation für bunte Ballons
-            const hue = Math.random() * 360;
-            balloon.style.setProperty('--hue', `${hue}deg`);
-
-            // Variiere die Animationsdauer (6s bis 10s)
-            const duration = 6 + Math.random() * 4;
-            balloon.style.animationDuration = `${duration}s`;
-
-            // Variiere die Größe
-            const fontSize = 2 + Math.random() * 1.5; // 2rem bis 3.5rem
-            balloon.style.fontSize = `${fontSize}rem`;
-
-            // Füge zum Container hinzu
-            calendarWrapper.appendChild(balloon);
-
-            // Entferne Ballon nach Animation (mit etwas Puffer)
-            setTimeout(() => {
-                if (balloon.parentNode) {
-                    balloon.remove();
-                }
-            }, (duration + 0.5) * 1000);
-        }
-
-        this.log(`Balloon Rise ausgelöst: ${burstCount} Luftballons`);
+        this.triggerParticleEffect({
+            emojis: ['🎈'],
+            countMin: 20,
+            countMax: 30,
+            className: 'burst-balloon',
+            startLeft: () => `${Math.random() * 100}%`,
+            startTop: '100%',
+            durationMin: 6,
+            durationMax: 10,
+            fontSizeMin: 2,
+            fontSizeMax: 3.5,
+            customStyle: (particle) => {
+                const hue = Math.random() * 360;
+                particle.style.setProperty('--hue', `${hue}deg`);
+            },
+            logMessage: 'Balloon Rise ausgelöst: {count} Luftballons'
+        });
     }
 
     // ========================================
@@ -1902,10 +1886,8 @@ class CalendarApp {
         }
 
         this.renderCalendarFrame = requestAnimationFrame(() => {
-            this.renderCalendarFrame = requestAnimationFrame(() => {
-                this.renderCalendarFrame = null;
-                this.renderCalendar();
-            });
+            this.renderCalendarFrame = null;
+            this.renderCalendar();
         });
     }
 
