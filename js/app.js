@@ -175,6 +175,9 @@ class CalendarApp {
         this.lastFocusedElement = null;
         document.addEventListener('keydown', this.modalFocusTrap);
 
+        // LocalStorage verfügbar? (Prüfe NACH Toast-Initialisierung)
+        this.storageAvailable = this.checkStorageAvailability();
+
         // Intervall-IDs für Cleanup speichern
         this.dateCheckInterval = null;
         this.bannerRotationInterval = null;
@@ -187,9 +190,6 @@ class CalendarApp {
         } else {
             this.monthSelect.value = this.currentMonth;
         }
-
-        // LocalStorage verfügbar? (Prüfe NACH Toast-Initialisierung)
-        this.storageAvailable = this.checkStorageAvailability();
 
         // Lade gespeichertes Theme
         this.initTheme();
