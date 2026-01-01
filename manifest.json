@@ -54,7 +54,20 @@
     }
   ],
   "categories": ["lifestyle", "entertainment", "utilities"],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/screen-1.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screenshots/screen-2.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
+  ],
   "lang": "de",
   "dir": "ltr"
 }
