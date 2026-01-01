@@ -446,35 +446,62 @@ body {
 }
 
 /* ========================================
-   Herbst Easter Egg: Burst Leaves (Diagonal fallend)
+   Herbst Easter Egg: Burst Leaves (Loopings + Wind)
    ======================================== */
 
-.burst-leaf {
+.burst-leaf-container {
     position: absolute;
-    color: #d97706;
     opacity: 0.9;
     user-select: none;
     pointer-events: none;
     z-index: 10;
-    animation: leaf-fall-diagonal 4s ease-out forwards;
+    animation: storm-travel 10s linear forwards;
     will-change: transform, opacity;
 }
 
-/* Segelflug Animation: Blätter segeln langsam und wirbelnd von links nach rechts */
-@keyframes leaf-fall-diagonal {
+.burst-leaf {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #d97706;
+    animation: storm-swirl 1.5s linear infinite;
+    will-change: transform;
+}
+
+/* Wind-Animation: Blätter reisen nach rechts mit leichter Höhenänderung */
+@keyframes storm-travel {
     0% {
-        transform: translate(0, 0) rotate(0deg);
+        transform: translateX(0) translateY(0);
         opacity: 0;
     }
     10% {
-        opacity: 0.9;
+        opacity: 1;
     }
     90% {
-        opacity: 0.8;
+        opacity: 1;
     }
     100% {
-        transform: translate(120vw, var(--target-y, 50%)) rotate(720deg);
+        transform: translateX(120vw) translateY(var(--target-y, 0));
         opacity: 0;
+    }
+}
+
+/* Wirbel-Animation: Loopings/Kreise innerhalb des Containers */
+@keyframes storm-swirl {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(30px, -30px) rotate(90deg);
+    }
+    50% {
+        transform: translate(0, -60px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-30px, -30px) rotate(270deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
     }
 }
 
