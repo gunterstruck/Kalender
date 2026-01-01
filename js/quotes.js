@@ -389,8 +389,8 @@ const QUOTES = [
         text: "Der Zweck des Lebens ist ein Leben mit Zweck.",
         author: "Robert Byrne",
         dates: "1930-2016",
-        link: "https://de.wikipedia.org/wiki/Robert_Byrne_(Schriftsteller)",
-        linkTitle: "Mehr über Byrne (Wikipedia)"
+        link: null,
+        linkTitle: null
     },
     {
         text: "Das Geheimnis des Glücks liegt nicht im Besitz, sondern im Geben. Wer andere glücklich macht, wird glücklich.",
@@ -469,8 +469,8 @@ const QUOTES = [
         text: "Das Unmögliche ist oft nur das Unversuchte.",
         author: "Jim Goodwin",
         dates: "1907-1988",
-        link: "https://en.wikipedia.org/wiki/Jim_Goodwin_(author)",
-        linkTitle: "Mehr über Goodwin (Wikipedia)"
+        link: null,
+        linkTitle: null
     },
     {
         text: "Ein guter Freund ist wie ein vierblättriges Kleeblatt: schwer zu finden und ein Glück zu haben.",
@@ -921,8 +921,8 @@ const QUOTES = [
         text: "Mut ist nicht die Abwesenheit von Furcht, sondern die Erkenntnis, dass etwas anderes wichtiger ist als Furcht.",
         author: "Ambrose Redmoon",
         dates: "1933-1996",
-        link: "https://en.wikipedia.org/wiki/Ambrose_Redmoon",
-        linkTitle: "Mehr über Redmoon (Wikipedia)"
+        link: null,
+        linkTitle: null
     },
     {
         text: "Träume nicht dein Leben, sondern lebe deinen Traum.",
@@ -1182,8 +1182,8 @@ const QUOTES = [
         text: "Die Hoffnung stirbt zuletzt.",
         author: "Deutsches Sprichwort",
         dates: "Volksweisheit",
-        link: "https://de.wikipedia.org/wiki/Die_Hoffnung_stirbt_zuletzt",
-        linkTitle: "Mehr über das Sprichwort (Wikipedia)"
+        link: "https://de.wikipedia.org/wiki/Hoffnung",
+        linkTitle: "Mehr über Hoffnung (Wikipedia)"
     },
     {
         text: "Ein Mensch ohne Fantasie ist wie ein Vogel ohne Flügel.",
@@ -1331,7 +1331,7 @@ const QUOTES = [
         text: "Das wahre Leben beginnt dort, wo das Kleine groß wird.",
         author: "Robert Walser",
         dates: "1878-1956",
-        link: "https://de.wikipedia.org/wiki/Robert_Walser_(Schriftsteller)",
+        link: "https://de.wikipedia.org/wiki/Robert_Walser",
         linkTitle: "Mehr über Walser (Wikipedia)"
     },
     {
@@ -1655,8 +1655,8 @@ const QUOTES = [
         text: "Alles was du je gewollt hast, ist auf der anderen Seite der Angst.",
         author: "George Addair",
         dates: "1937-2006",
-        link: "https://en.wikipedia.org/wiki/George_Addair",
-        linkTitle: "Mehr über Addair (Wikipedia)"
+        link: null,
+        linkTitle: null
     },
     {
         text: "Handle immer so, dass ein neues Leben auf deine Entscheidung warten kann.",
@@ -1776,8 +1776,8 @@ const QUOTES = [
         text: "Respekt ist eines der größten Ausdrucksformen der Liebe.",
         author: "Miguel Ángel Ruiz",
         dates: "1952-",
-        link: "https://de.wikipedia.org/wiki/Miguel_Ruiz",
-        linkTitle: "Mehr über Ruiz (Wikipedia)"
+        link: "https://de.wikipedia.org/wiki/Don_Miguel_Ruiz",
+        linkTitle: "Mehr über Don Miguel Ruiz (Wikipedia)"
     },
     {
         text: "Das Vergnügen, Recht zu behalten, wäre unvollständig ohne das Vergnügen, andere ins Unrecht zu setzen.",
@@ -1874,8 +1874,8 @@ const QUOTES = [
         text: "Mut brüllt nicht immer nur. Mut kann auch die leise Stimme am Ende des Tages sein, die sagt: Morgen versuche ich es nochmal.",
         author: "Mary Anne Radmacher",
         dates: "1957-",
-        link: "https://en.wikipedia.org/wiki/Mary_Anne_Radmacher",
-        linkTitle: "Mehr über Radmacher (Wikipedia)"
+        link: null,
+        linkTitle: null
     },
     {
         text: "Es ist ein Jammer, dass die Dummköpfe so selbstsicher sind und die Klugen so voller Zweifel.",
