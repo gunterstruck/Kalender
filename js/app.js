@@ -182,14 +182,9 @@ class CalendarApp {
         this.dateCheckInterval = null;
         this.bannerRotationInterval = null;
 
-        // Lade gespeicherten Monat oder setze auf aktuellen Monat
-        const savedMonth = this.loadSelectedMonth();
-        if (savedMonth !== null) {
-            this.selectedMonth = savedMonth;
-            this.monthSelect.value = savedMonth;
-        } else {
-            this.monthSelect.value = this.currentMonth;
-        }
+        // Immer mit dem aktuellen Monat starten
+        this.selectedMonth = this.currentMonth;
+        this.monthSelect.value = this.currentMonth;
 
         // Lade gespeichertes Theme
         this.initTheme();
