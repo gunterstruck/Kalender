@@ -451,11 +451,10 @@ body {
 
 .burst-leaf-container {
     position: absolute;
-    opacity: 0.9;
     user-select: none;
     pointer-events: none;
     z-index: 10;
-    animation: storm-travel 10s linear forwards;
+    animation: storm-travel linear forwards;
     will-change: transform, opacity;
 }
 
@@ -464,25 +463,18 @@ body {
     left: 0;
     top: 0;
     color: #d97706;
-    animation: storm-swirl 1.5s linear infinite;
+    font-size: 2rem;
+    animation: storm-swirl linear infinite;
     will-change: transform;
 }
 
 /* Wind-Animation: Blätter reisen nach rechts mit leichter Höhenänderung */
 @keyframes storm-travel {
     0% {
-        transform: translateX(0) translateY(0);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
+        transform: translate(0, 0);
     }
     100% {
-        transform: translateX(120vw) translateY(var(--target-y, 0));
-        opacity: 0;
+        transform: translate(120vw, var(--target-y));
     }
 }
 
@@ -492,13 +484,13 @@ body {
         transform: translate(0, 0) rotate(0deg);
     }
     25% {
-        transform: translate(30px, -30px) rotate(90deg);
+        transform: translate(20px, -20px) rotate(90deg);
     }
     50% {
-        transform: translate(0, -60px) rotate(180deg);
+        transform: translate(0, -40px) rotate(180deg);
     }
     75% {
-        transform: translate(-30px, -30px) rotate(270deg);
+        transform: translate(-20px, -20px) rotate(270deg);
     }
     100% {
         transform: translate(0, 0) rotate(360deg);

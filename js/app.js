@@ -681,7 +681,7 @@ class CalendarApp {
         if (!calendarWrapper) return;
 
         const leaves = ['🍂', '🍁'];
-        const burstCount = 20 + Math.floor(Math.random() * 11); // 20-30 Blätter
+        const burstCount = 25;
 
         for (let i = 0; i < burstCount; i++) {
             const container = document.createElement('div');
@@ -694,25 +694,21 @@ class CalendarApp {
             // Startposition: links außen
             container.style.left = '-50px';
 
-            // Startposition zwischen 10% und 40% (mittig-oben)
-            const startTop = 10 + Math.random() * 30;
+            // Startposition zwischen 10% und 60%
+            const startTop = 10 + Math.random() * 50;
             container.style.top = `${startTop}%`;
 
             // Endhöhe für leichte Höhenänderung während der Reise
-            const targetY = -10 + Math.random() * 50; // -10vh bis 40vh
+            const targetY = -20 + Math.random() * 40; // -20vh bis 20vh
             container.style.setProperty('--target-y', `${targetY}vh`);
 
             // Animationsdauer für den Wind-Container
-            const travelDuration = 8 + Math.random() * 4;
+            const travelDuration = 6 + Math.random() * 8;
             container.style.animationDuration = `${travelDuration}s`;
 
             // Animationsdauer für den Wirbel
-            const swirlDuration = 1 + Math.random();
+            const swirlDuration = 1 + Math.random() * 2;
             leaf.style.animationDuration = `${swirlDuration}s`;
-
-            // Größe
-            const fontSize = 1.5 + Math.random() * 1.5;
-            leaf.style.fontSize = `${fontSize}rem`;
 
             // Füge zum Container hinzu
             container.appendChild(leaf);
