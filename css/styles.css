@@ -403,6 +403,21 @@ body {
     will-change: transform, opacity;
 }
 
+/* ========================================
+   Winter Easter Egg: Burst Snowflakes
+   ======================================== */
+
+.burst-snowflake {
+    position: absolute;
+    color: #60a5fa;
+    opacity: 0.8;
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+    animation: snowfall-diagonal 5s linear forwards;
+    will-change: transform, opacity;
+}
+
 /* Januar: Sterne und Mond blinken/funkeln */
 @keyframes twinkle {
     0%, 100% {
