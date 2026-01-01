@@ -342,9 +342,9 @@ body {
     font-size: 1.8rem;
     opacity: 0.8;
     user-select: none;
-    animation: seasonal-fall var(--fall-duration, 20s) ease-in-out infinite;
+    animation: blossom-float var(--fall-duration, 8s) ease-in-out infinite;
     animation-delay: var(--fall-delay, 0s);
-    will-change: transform;
+    will-change: transform, opacity;
 }
 
 /* Animierte Elemente - Sonne */
@@ -372,6 +372,33 @@ body {
     }
     100% {
         transform: translateY(140px) rotate(20deg);
+    }
+}
+
+/* Blossom Float Animation - Schwebende, segelende Kirschblüten */
+@keyframes blossom-float {
+    0% {
+        transform: translateY(-20px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    25% {
+        transform: translateY(25%) translateX(15px) rotate(45deg);
+    }
+    50% {
+        transform: translateY(50%) translateX(-10px) rotate(90deg);
+    }
+    75% {
+        transform: translateY(75%) translateX(10px) rotate(135deg);
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(calc(100% + 20px)) translateX(0) rotate(180deg);
+        opacity: 0;
     }
 }
 
@@ -466,7 +493,7 @@ body {
     will-change: transform, opacity;
 }
 
-/* Blütenregen-Animation: Fallen mit Rotation und leichter seitlicher Bewegung */
+/* Blütenregen-Animation: Schweben und segeln mit natürlicher Wirbelbewegung */
 @keyframes blossom-fall {
     0% {
         transform: translateY(0) translateX(0) rotate(0deg);
@@ -475,11 +502,18 @@ body {
     10% {
         opacity: 0.8;
     }
-    90% {
+    25% {
+        transform: translateY(25vh) translateX(20px) rotate(60deg);
+    }
+    50% {
+        transform: translateY(50vh) translateX(-15px) rotate(140deg);
+    }
+    75% {
+        transform: translateY(75vh) translateX(25px) rotate(220deg);
         opacity: 0.6;
     }
     100% {
-        transform: translateY(110vh) translateX(50px) rotate(360deg);
+        transform: translateY(110vh) translateX(-10px) rotate(300deg);
         opacity: 0;
     }
 }
