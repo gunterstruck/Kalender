@@ -10,6 +10,9 @@ class CalendarApp {
         // Debug-Modus (setze auf true für detaillierte Logs)
         this.DEBUG = false;
 
+        // Letzte Bannernachricht speichern (um Duplikate zu vermeiden)
+        this.lastBannerMessage = null;
+
         // Konfigurationskonstanten
         this.CONFIG = {
             DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
@@ -434,6 +437,7 @@ class CalendarApp {
         // Sanfte Crossfade-Animation
         this.seasonalBanner.classList.add('transitioning');
 
+        // Warte die volle Transition-Dauer (600ms) bevor Text geändert wird
         setTimeout(() => {
             // Nur bei Saisonwechsel: Entferne alte Saison-Klassen und füge neue hinzu
             if (seasonChanged) {
@@ -455,16 +459,33 @@ class CalendarApp {
             // Aktualisiere IMMER die Nachricht (auch innerhalb derselben Saison)
             this.seasonMessage.textContent = seasonText;
 
-            // Entferne transitioning-Klasse nach kurzer Verzögerung
-            setTimeout(() => {
-                this.seasonalBanner.classList.remove('transitioning');
-            }, 50);
-        }, 300);
+            // Entferne transitioning-Klasse sofort nach Text-Update für Fade-in
+            this.seasonalBanner.classList.remove('transitioning');
+        }, 600); // Erhöht von 300ms auf 600ms (volle CSS-Transition-Dauer)
     }
 
     // ========================================
     // Saisonale Nachrichten
     // ========================================
+
+    getRandomMessage(messages) {
+        // Verhindere, dass dieselbe Nachricht zweimal hintereinander angezeigt wird
+        if (messages.length === 1) {
+            return messages[0];
+        }
+
+        let newMessage;
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        do {
+            newMessage = messages[Math.floor(Math.random() * messages.length)];
+            attempts++;
+        } while (newMessage === this.lastBannerMessage && attempts < maxAttempts);
+
+        this.lastBannerMessage = newMessage;
+        return newMessage;
+    }
 
     getWinterMessage() {
         const messages = [
@@ -472,7 +493,7 @@ class CalendarApp {
             '⛄ Gemütliche Wintertage',
             '🌨️ Lass es schneien!'
         ];
-        return messages[Math.floor(Math.random() * messages.length)];
+        return this.getRandomMessage(messages);
     }
 
     getSpringMessage() {
@@ -482,7 +503,7 @@ class CalendarApp {
             '🌺 Frühlingsgefühle erwachen',
             '🌸 Lass es blühen!'
         ];
-        return messages[Math.floor(Math.random() * messages.length)];
+        return this.getRandomMessage(messages);
     }
 
     getSummerMessage() {
@@ -492,7 +513,7 @@ class CalendarApp {
             '🏖️ Sommerliche Leichtigkeit',
             '🎈 Lass sie steigen!'
         ];
-        return messages[Math.floor(Math.random() * messages.length)];
+        return this.getRandomMessage(messages);
     }
 
     getAutumnMessage() {
@@ -502,7 +523,7 @@ class CalendarApp {
             '🎃 Herbstzauber',
             '🍂 Lass es stürmen!'
         ];
-        return messages[Math.floor(Math.random() * messages.length)];
+        return this.getRandomMessage(messages);
     }
 
     // ========================================
