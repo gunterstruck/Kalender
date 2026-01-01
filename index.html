@@ -135,7 +135,7 @@
             <nav>
                 <a href="impressum.html">Impressum</a> • <a href="datenschutz.html">Datenschutz</a>
             </nav>
-            <p><small>Version 1.5.0</small></p>
+            <p><small>Version 1.5.60</small></p>
         </footer>
     </main>
 
@@ -190,135 +190,6 @@
     <!-- Scripts -->
     <script src="js/quotes.js"></script>
     <script src="js/app.js"></script>
-
-    <!-- PWA Registration + Error Handling -->
-    <script>
-        // Global Error Handler
-        window.addEventListener('error', (event) => {
-            console.error('Unerwarteter Fehler:', event.error);
-            const toast = document.getElementById('toast');
-            if (toast) {
-                toast.textContent = '⚠️ Ein Fehler ist aufgetreten. Bitte lade die Seite neu.';
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 5000);
-            }
-        });
-
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('Unbehandeltes Promise:', event.reason);
-        });
-
-        // Ladeanimation wird von der App entfernt, sobald sie vollständig initialisiert ist
-
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registriert:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('Service Worker Registrierung fehlgeschlagen:', error);
-                    });
-            });
-        }
-
-        // PWA Install Prompt Logic
-        let deferredPrompt = null;
-        const installPrompt = document.getElementById('install-prompt');
-        const installButton = document.getElementById('install-button');
-        const installDismiss = document.getElementById('install-dismiss');
-
-        // Prüfe ob die App bereits installiert ist
-        function isAppInstalled() {
-            // Prüfe ob die App im standalone mode läuft
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                return true;
-            }
-            // Prüfe localStorage Flag
-            return localStorage.getItem('pwa_installed') === 'true';
-        }
-
-        // Zeige Install Prompt
-        function showInstallPrompt() {
-            if (installPrompt && !isAppInstalled()) {
-                installPrompt.classList.remove('is-hidden');
-                // Sanfte Einblendung
-                setTimeout(() => {
-                    installPrompt.classList.add('show');
-                }, 100);
-            }
-        }
-
-        // Verstecke Install Prompt
-        function hideInstallPrompt() {
-            if (installPrompt) {
-                installPrompt.classList.remove('show');
-                setTimeout(() => {
-                    installPrompt.classList.add('is-hidden');
-                }, 300);
-            }
-        }
-
-        // Erfasse beforeinstallprompt Event
-        window.addEventListener('beforeinstallprompt', (e) => {
-            console.log('[PWA] beforeinstallprompt Event erfasst');
-            // Verhindere automatisches Anzeigen des Browser-Prompts
-            e.preventDefault();
-            // Speichere Event für späteren Aufruf
-            deferredPrompt = e;
-            // Zeige eigenen Install Prompt
-            showInstallPrompt();
-        });
-
-        // Install Button Click Handler
-        if (installButton) {
-            installButton.addEventListener('click', async () => {
-                if (!deferredPrompt) {
-                    console.log('[PWA] Kein deferred prompt verfügbar');
-                    return;
-                }
-
-                // Zeige Browser Install Prompt
-                deferredPrompt.prompt();
-
-                // Warte auf User-Entscheidung
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log('[PWA] User choice:', outcome);
-
-                if (outcome === 'accepted') {
-                    console.log('[PWA] Installation akzeptiert');
-                }
-
-                // Deferred Prompt kann nur einmal verwendet werden
-                deferredPrompt = null;
-                hideInstallPrompt();
-            });
-        }
-
-        // Dismiss Button Click Handler
-        if (installDismiss) {
-            installDismiss.addEventListener('click', () => {
-                hideInstallPrompt();
-            });
-        }
-
-        // Wenn App installiert wird
-        window.addEventListener('appinstalled', () => {
-            console.log('[PWA] App wurde installiert');
-            localStorage.setItem('pwa_installed', 'true');
-            hideInstallPrompt();
-        });
-
-        // Zeige Install Prompt bei jedem Laden (wenn nicht installiert)
-        window.addEventListener('load', () => {
-            // Kurze Verzögerung damit der User die Seite erst sieht
-            setTimeout(() => {
-                if (deferredPrompt && !isAppInstalled()) {
-                    showInstallPrompt();
-                }
-            }, 2000);
-        });
-    </script>
+    <script src="js/pwa-install.js"></script>
 </body>
 </html>
