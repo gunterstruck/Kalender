@@ -115,7 +115,7 @@ self.addEventListener('fetch', (event) => {
                         return networkResponse;
                     }).catch((error) => {
                         console.error('[Service Worker] Network fetch failed:', error);
-                        return cachedResponse; // Fallback zu Cache bei Netzwerkfehler
+                        return cachedResponse || new Response('Offline', { status: 503 }); // Fallback zu Cache bei Netzwerkfehler
                     });
 
                     // Serviere Cache sofort (wenn vorhanden), sonst warte auf Netzwerk
@@ -156,6 +156,7 @@ self.addEventListener('fetch', (event) => {
                     })
                     .catch((error) => {
                         console.error('[Service Worker] Fetch failed:', error);
+                        return new Response('Offline', { status: 503 });
                     });
             })
     );

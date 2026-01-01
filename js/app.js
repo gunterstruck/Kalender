@@ -223,16 +223,16 @@ class CalendarApp {
         // Debounced für bessere Performance
         this.resizeHandler = this.debounce(() => {
             this.updateCalendarHeight();
-            this.updateDoorConfig();
+            const forceRegenerate = this.updateDoorConfig();
             this.clearPositionCache();
-            this.scheduleRenderCalendar();
+            this.scheduleRenderCalendar({ forceRegenerate });
         }, this.CONFIG.RESIZE_DEBOUNCE_DELAY);
 
         this.orientationHandler = this.debounce(() => {
             this.updateCalendarHeight();
-            this.updateDoorConfig();
+            const forceRegenerate = this.updateDoorConfig();
             this.clearPositionCache();
-            this.scheduleRenderCalendar();
+            this.scheduleRenderCalendar({ forceRegenerate });
         }, this.CONFIG.ORIENTATION_DEBOUNCE_DELAY);
 
         window.addEventListener('resize', this.resizeHandler);
@@ -1264,12 +1264,10 @@ class CalendarApp {
     // ========================================
 
     getDayOfYear(day, month, year) {
-        // Erstelle ein Datum für den spezifischen Tag
-        const date = new Date(year, month, day);
-        // Erstelle ein Datum für den 1. Januar des gleichen Jahres
-        const startOfYear = new Date(year, 0, 1);
-        // Berechne die Differenz in Millisekunden
-        const diff = date - startOfYear;
+        // Berechne vollständig in UTC, um Sommerzeitfehler zu vermeiden
+        const dateUtc = Date.UTC(year, month, day);
+        const startOfYearUtc = Date.UTC(year, 0, 1);
+        const diff = dateUtc - startOfYearUtc;
         // Konvertiere in Tage (1-basiert)
         const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
         return dayOfYear;
@@ -1500,8 +1498,8 @@ class CalendarApp {
     // Türchen-Positionen laden/speichern
     // ========================================
 
-    loadDoorPositions() {
-        if (this.forcePositionRegeneration) {
+    loadDoorPositions(forceRegenerate = false) {
+        if (forceRegenerate || this.forcePositionRegeneration) {
             const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
             const positions = this.generateDoorPositions(daysInMonth);
             this.saveDoorPositions(positions);
@@ -1659,7 +1657,7 @@ class CalendarApp {
     getDoorPosition(day) {
         // Cache positions to avoid loading from localStorage 31 times
         if (!this._cachedPositions) {
-            this._cachedPositions = this.loadDoorPositions();
+            this._cachedPositions = this.loadDoorPositions(this.forcePositionRegeneration);
         }
         const position = this._cachedPositions.find(pos => pos.day === day);
         return position || { day, x: 50, y: 50 };
