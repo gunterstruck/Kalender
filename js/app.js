@@ -156,6 +156,7 @@ class CalendarApp {
 
         // Intervall-IDs für Cleanup speichern
         this.dateCheckInterval = null;
+        this.bannerRotationInterval = null;
 
         // Lade gespeicherten Monat oder setze auf aktuellen Monat
         const savedMonth = this.loadSelectedMonth();
@@ -195,6 +196,9 @@ class CalendarApp {
 
         // Initialisiere Saisonbanner
         this.initSeasonalBanner();
+
+        // Starte Banner-Rotation (alle 10 Sekunden)
+        this.startBannerRotation();
 
         // Auto-Scroll zum Ausblenden der mobilen Browser-Adressleiste
         this.hideMobileAddressBar();
@@ -368,6 +372,24 @@ class CalendarApp {
                 this.triggerLeafStorm();
             }
         });
+    }
+
+    // ========================================
+    // Banner-Rotation starten (alle 10 Sekunden)
+    // ========================================
+
+    startBannerRotation() {
+        // Verhindere mehrfache Intervals
+        if (this.bannerRotationInterval) {
+            return;
+        }
+
+        // Rotiere Banner alle 10 Sekunden
+        this.bannerRotationInterval = setInterval(() => {
+            this.updateSeasonalBanner();
+        }, 10000); // 10 Sekunden in ms
+
+        this.log('Banner-Rotation gestartet (alle 10 Sekunden)');
     }
 
     updateSeasonalBanner() {
@@ -860,14 +882,19 @@ class CalendarApp {
     setupPageVisibility() {
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                // Tab ist inaktiv - stoppe Interval
+                // Tab ist inaktiv - stoppe Intervals
                 if (this.dateCheckInterval) {
                     clearInterval(this.dateCheckInterval);
                     this.dateCheckInterval = null;
                 }
+                if (this.bannerRotationInterval) {
+                    clearInterval(this.bannerRotationInterval);
+                    this.bannerRotationInterval = null;
+                }
             } else {
-                // Tab ist wieder aktiv - starte Interval neu
+                // Tab ist wieder aktiv - starte Intervals neu
                 this.startDateChangeDetection();
+                this.startBannerRotation();
                 // Prüfe sofort ob sich das Datum geändert hat
                 this.checkDateChange();
             }
@@ -932,6 +959,12 @@ class CalendarApp {
         if (this.dateCheckInterval) {
             clearInterval(this.dateCheckInterval);
             this.dateCheckInterval = null;
+        }
+
+        // Stoppe Banner-Rotation Interval
+        if (this.bannerRotationInterval) {
+            clearInterval(this.bannerRotationInterval);
+            this.bannerRotationInterval = null;
         }
 
         // Entferne Event Listeners
