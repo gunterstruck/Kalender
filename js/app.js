@@ -13,6 +13,10 @@ class CalendarApp {
         // Letzte Bannernachricht speichern (um Duplikate zu vermeiden)
         this.lastBannerMessage = null;
 
+        // Smart Shuffle für Banner-Rotation
+        this.messageQueue = [];
+        this.currentMessageSeason = null;
+
         // Konfigurationskonstanten
         this.CONFIG = {
             DATE_CHECK_INTERVAL: 60000,        // 1 Minute in ms
@@ -487,13 +491,41 @@ class CalendarApp {
         return newMessage;
     }
 
+    // ========================================
+    // Smart Shuffle für faire Rotation
+    // ========================================
+
+    getNextMessage(seasonMessages) {
+        const currentSeason = this.selectedMonth; // Verwende Monat als Saison-Identifikator
+
+        // Prüfe ob die Saison gewechselt hat oder die Queue leer ist
+        if (this.currentMessageSeason !== currentSeason || this.messageQueue.length === 0) {
+            // Neue Saison oder leere Queue: Erstelle neues Shuffle
+            this.currentMessageSeason = currentSeason;
+
+            // Shuffe die Nachrichten (Fisher-Yates Algorithmus)
+            const shuffled = [...seasonMessages];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+
+            // Fülle die Queue mit den gemischten Nachrichten
+            this.messageQueue = shuffled;
+            this.log(`Banner-Queue neu gemischt für Saison ${currentSeason}: ${this.messageQueue.length} Nachrichten`);
+        }
+
+        // Gib die erste Nachricht aus der Queue zurück (und entferne sie)
+        return this.messageQueue.shift();
+    }
+
     getWinterMessage() {
         const messages = [
             '❄️ Winterzeit - Zeit für Besinnlichkeit',
             '⛄ Gemütliche Wintertage',
             '🌨️ Lass es schneien!'
         ];
-        return this.getRandomMessage(messages);
+        return this.getNextMessage(messages);
     }
 
     getSpringMessage() {
@@ -503,7 +535,7 @@ class CalendarApp {
             '🌺 Frühlingsgefühle erwachen',
             '🌸 Lass es blühen!'
         ];
-        return this.getRandomMessage(messages);
+        return this.getNextMessage(messages);
     }
 
     getSummerMessage() {
@@ -513,7 +545,7 @@ class CalendarApp {
             '🏖️ Sommerliche Leichtigkeit',
             '🎈 Lass sie steigen!'
         ];
-        return this.getRandomMessage(messages);
+        return this.getNextMessage(messages);
     }
 
     getAutumnMessage() {
@@ -523,7 +555,7 @@ class CalendarApp {
             '🎃 Herbstzauber',
             '🍂 Lass es stürmen!'
         ];
-        return this.getRandomMessage(messages);
+        return this.getNextMessage(messages);
     }
 
     // ========================================
@@ -703,9 +735,9 @@ class CalendarApp {
             flower.className = 'flower-pop';
             flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
 
-            // Position im unteren Drittel (Wiese)
+            // Position im unteren Drittel (Wiese) - 70% bis 90%
             const left = 5 + Math.random() * 90; // 5% bis 95%
-            const top = 65 + Math.random() * 30; // 65% bis 95%
+            const top = 70 + Math.random() * 20; // 70% bis 90%
             flower.style.left = `${left}%`;
             flower.style.top = `${top}%`;
 
