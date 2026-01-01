@@ -372,7 +372,7 @@ class CalendarApp {
             }
             // Frühling: "Lass es blühen!"
             else if (message.includes('Lass es blühen')) {
-                this.triggerBlossomRain();
+                this.triggerFlowerMeadow();
             }
             // Sommer: "Lass sie steigen!"
             else if (message.includes('Lass sie steigen')) {
@@ -656,17 +656,17 @@ class CalendarApp {
             leaf.className = 'burst-leaf';
             leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
 
-            // Startposition: oben links (linke Hälfte des Bildschirms)
-            const startLeft = -10 + Math.random() * 50; // -10% bis 40%
-            leaf.style.left = `${startLeft}%`;
-            leaf.style.top = '-20px';
+            // Startposition: links oben (fixiert links außen, oberes Drittel)
+            leaf.style.left = '-50px';
+            const startTop = -50 + Math.random() * 30; // -50px bis 30% (oberes Drittel)
+            leaf.style.top = `${startTop}%`;
 
-            // Zielkoordinate: zufällige horizontale Position
-            const targetX = 20 + Math.random() * 100; // 20vw bis 120vw
-            leaf.style.setProperty('--target-x', `${targetX}vw`);
+            // Vertikale Endposition: zufällig zwischen 20% und 80%
+            const targetY = 20 + Math.random() * 60; // 20% bis 80%
+            leaf.style.setProperty('--target-y', `${targetY}%`);
 
-            // Variiere die Animationsdauer (3s bis 5s)
-            const duration = 3 + Math.random() * 2;
+            // Variiere die Animationsdauer (8s bis 12s - langsamer)
+            const duration = 8 + Math.random() * 4;
             leaf.style.animationDuration = `${duration}s`;
 
             // Variiere die Größe
@@ -684,51 +684,51 @@ class CalendarApp {
             }, (duration + 0.5) * 1000);
         }
 
-        this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter`);
+        this.log(`Leaf Storm ausgelöst: ${burstCount} Herbstblätter im Segelflug`);
     }
 
     // ========================================
-    // Frühling Easter Egg: Blütenregen
+    // Frühling Easter Egg: Aufblühende Wiese
     // ========================================
 
-    triggerBlossomRain() {
+    triggerFlowerMeadow() {
         const calendarWrapper = document.querySelector('.calendar-wrapper');
         if (!calendarWrapper) return;
 
-        const blossoms = ['🌸', '💮'];
-        const burstCount = 30; // Ca. 30 Elemente
+        const flowers = ['🌸', '💮', '🌼', '🌺', '🌷'];
+        const burstCount = 40; // 40 Blumen für eine volle Wiese
 
         for (let i = 0; i < burstCount; i++) {
-            const blossom = document.createElement('div');
-            blossom.className = 'burst-blossom';
-            blossom.textContent = blossoms[Math.floor(Math.random() * blossoms.length)];
+            const flower = document.createElement('div');
+            flower.className = 'flower-pop';
+            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
 
-            // Zufällige horizontale Startposition
-            blossom.style.left = `${Math.random() * 100}%`;
+            // Position im unteren Drittel (Wiese)
+            const left = 5 + Math.random() * 90; // 5% bis 95%
+            const top = 65 + Math.random() * 30; // 65% bis 95%
+            flower.style.left = `${left}%`;
+            flower.style.top = `${top}%`;
 
-            // Startposition knapp oberhalb des sichtbaren Bereichs
-            blossom.style.top = '-20px';
-
-            // Variiere die Animationsdauer (4s bis 7s - langsamer als Schnee)
-            const duration = 4 + Math.random() * 3;
-            blossom.style.animationDuration = `${duration}s`;
+            // Variiere die Animationsdauer (2s bis 4s - kurzes Aufploppen)
+            const duration = 2 + Math.random() * 2;
+            flower.style.animationDuration = `${duration}s`;
 
             // Variiere die Größe
             const fontSize = 1.5 + Math.random() * 1.5; // 1.5rem bis 3rem
-            blossom.style.fontSize = `${fontSize}rem`;
+            flower.style.fontSize = `${fontSize}rem`;
 
             // Füge zum Container hinzu
-            calendarWrapper.appendChild(blossom);
+            calendarWrapper.appendChild(flower);
 
-            // Entferne Blüte nach Animation (mit etwas Puffer)
+            // Entferne Blume nach Animation (mit etwas Puffer)
             setTimeout(() => {
-                if (blossom.parentNode) {
-                    blossom.remove();
+                if (flower.parentNode) {
+                    flower.remove();
                 }
             }, (duration + 0.5) * 1000);
         }
 
-        this.log(`Blossom Rain ausgelöst: ${burstCount} Blüten`);
+        this.log(`Flower Meadow ausgelöst: ${burstCount} Blumen auf der Wiese`);
     }
 
     // ========================================
