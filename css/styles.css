@@ -473,7 +473,7 @@ body {
         opacity: 0.8;
     }
     100% {
-        transform: translate(120vw, var(--target-y, 50%)) rotate(1080deg);
+        transform: translate(120vw, var(--target-y, 50%)) rotate(720deg);
         opacity: 0;
     }
 }
