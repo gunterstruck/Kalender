@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
 // Version 1.5.3 - Banner-Rotation innerhalb der Saison korrigiert
 
-const CACHE_NAME = 'kalender-cache-v1.5.53';
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.53';
+const CACHE_NAME = 'kalender-cache-v1.5.54';
+const RUNTIME_CACHE = 'kalender-runtime-v1.5.54';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
