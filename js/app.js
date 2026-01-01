@@ -382,22 +382,22 @@ class CalendarApp {
 
         // Easter Egg: Click-Event für alle Jahreszeiten
         this.seasonalBanner.addEventListener('click', () => {
-            const message = this.seasonMessage.textContent;
+            const month = this.selectedMonth;
 
-            // Winter: "Lass es schneien!"
-            if (message.includes('Lass es schneien')) {
+            // Winter: Dezember, Januar, Februar
+            if (month === 11 || month === 0 || month === 1) {
                 this.triggerSnowBurst();
             }
-            // Frühling: "Lass es blühen!"
-            else if (message.includes('Lass es blühen')) {
+            // Frühling: März, April, Mai
+            else if (month >= 2 && month <= 4) {
                 this.triggerFlowerMeadow();
             }
-            // Sommer: "Lass sie steigen!"
-            else if (message.includes('Lass sie steigen')) {
+            // Sommer: Juni, Juli, August
+            else if (month >= 5 && month <= 7) {
                 this.triggerBalloonRise();
             }
-            // Herbst: "Lass es stürmen!"
-            else if (message.includes('Lass es stürmen')) {
+            // Herbst: September, Oktober, November
+            else if (month >= 8 && month <= 10) {
                 this.triggerLeafStorm();
             }
         });
@@ -751,7 +751,7 @@ class CalendarApp {
         const calendarWrapper = document.querySelector('.calendar-wrapper');
         if (!calendarWrapper) return;
 
-        const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🌹', '🪷', '🏵️'];
+        const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🌹', '🪷', '🏵️', '💐'];
         const burstCount = 40; // 40 Blumen für eine volle Wiese
 
         for (let i = 0; i < burstCount; i++) {
@@ -759,9 +759,9 @@ class CalendarApp {
             flower.className = 'flower-pop';
             flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
 
-            // Position im unteren Drittel (Wiese) - 65% bis 95%
+            // Position im unteren Bereich (Wiese) - 75% bis 95%
             const left = 5 + Math.random() * 90; // 5% bis 95%
-            const top = 65 + Math.random() * 30; // 65% bis 95%
+            const top = 75 + Math.random() * 20; // 75% bis 95%
             flower.style.left = `${left}%`;
             flower.style.top = `${top}%`;
 
