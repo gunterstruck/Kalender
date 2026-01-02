@@ -1859,12 +1859,8 @@ class CalendarApp {
             const testDate = new Date(currentYear, month, 1);
             const wouldBeYear = testDate > today ? currentYear - 1 : currentYear;
 
-            // Zeige Jahr nur, wenn es NICHT das aktuelle Jahr ist
-            if (wouldBeYear !== currentYear) {
-                option.textContent = `${monthName} ${wouldBeYear}`;
-            } else {
-                option.textContent = monthName;
-            }
+            // Zeige Jahr immer an für bessere Klarheit
+            option.textContent = `${monthName} ${wouldBeYear}`;
         }
     }
 
