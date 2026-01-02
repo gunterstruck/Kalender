@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.6.1 - Autumn Leaves Animation Fix
+// Version 1.6.2 - Year-Month Persistence & rAF Loop Fix
 
-const CACHE_NAME = 'kalender-cache-v1.6.1';
-const RUNTIME_CACHE = 'kalender-runtime-v1.6.1';
+const CACHE_NAME = 'kalender-cache-v1.6.2';
+const RUNTIME_CACHE = 'kalender-runtime-v1.6.2';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
