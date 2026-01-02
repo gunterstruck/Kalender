@@ -713,8 +713,8 @@ class CalendarApp {
             // Startposition: links außen
             container.style.left = '-50px';
 
-            // Startposition zwischen 10% und 60%
-            const startTop = 10 + Math.random() * 50;
+            // Startposition zwischen 40% und 80% (bodennah, oberer Himmel bleibt frei)
+            const startTop = 40 + Math.random() * 40;
             container.style.top = `${startTop}%`;
 
             // Endhöhe für leichte Höhenänderung während der Reise
