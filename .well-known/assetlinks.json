@@ -1,12 +1,8 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.example.tuerchenkalender",
-      "sha256_cert_fingerprints": [
-        "REPLACE_WITH_YOUR_SHA256_FINGERPRINT"
-      ]
-    }
-  }
-]
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.gunterstruck.kalender",
+        "sha256_cert_fingerprints": ["D7:12:7A:68:4D:82:69:02:AF:31:49:63:8F:AC:AB:67:91:66:8D:5C:48:72:43:91:B1:8F:EB:A8:BF:52:36:84"]
+      }
+    }]
