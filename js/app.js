@@ -211,6 +211,9 @@ class CalendarApp {
         // Dynamische Höhenberechnung für Portrait-Modus
         this.updateCalendarHeight();
 
+        // Aktualisiere Monat-Dropdown mit Jahr-Informationen
+        this.updateMonthDropdownLabels();
+
         // Initiales Rendering
         this.scheduleRenderCalendar();
 
@@ -1120,6 +1123,9 @@ class CalendarApp {
             this.monthSelect.value = this.currentMonth;
             this.saveSelectedMonthAndYear(this.selectedMonth, this.selectedYear);
 
+            // Aktualisiere Dropdown-Labels für neues Jahr
+            this.updateMonthDropdownLabels();
+
             // Rendere Kalender neu
             this.renderCalendar();
 
@@ -1834,6 +1840,35 @@ class CalendarApp {
     }
 
     // ========================================
+    // Monat-Dropdown mit Jahr-Informationen aktualisieren
+    // ========================================
+
+    updateMonthDropdownLabels() {
+        const currentYear = this.currentYear;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Aktualisiere alle Monatsnamen im Dropdown
+        for (let month = 0; month < 12; month++) {
+            const option = this.monthSelect.options[month];
+            if (!option) continue;
+
+            const monthName = this.monthNames[month];
+
+            // Berechne welches Jahr dieser Monat hätte
+            const testDate = new Date(currentYear, month, 1);
+            const wouldBeYear = testDate > today ? currentYear - 1 : currentYear;
+
+            // Zeige Jahr nur, wenn es NICHT das aktuelle Jahr ist
+            if (wouldBeYear !== currentYear) {
+                option.textContent = `${monthName} ${wouldBeYear}`;
+            } else {
+                option.textContent = monthName;
+            }
+        }
+    }
+
+    // ========================================
     // Monatswechsel-Handler
     // ========================================
 
@@ -1866,6 +1901,7 @@ class CalendarApp {
         }
 
         this.saveSelectedMonthAndYear(this.selectedMonth, this.selectedYear);
+        this.updateMonthDropdownLabels(); // Aktualisiere Dropdown mit Jahr-Informationen
         this.clearPositionCache(); // Clear cache when month changes
         this.renderCalendar();
 
