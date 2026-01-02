@@ -194,12 +194,10 @@ class CalendarApp {
         if (savedData) {
             this.selectedMonth = savedData.month;
             this.selectedYear = savedData.year;
-            this.monthSelect.value = this.selectedMonth;
         } else {
             // Immer mit dem aktuellen Monat und Jahr starten
             this.selectedMonth = this.currentMonth;
             this.selectedYear = this.currentYear;
-            this.monthSelect.value = this.currentMonth;
         }
 
         // Lade gespeichertes Theme
@@ -211,8 +209,9 @@ class CalendarApp {
         // Dynamische Höhenberechnung für Portrait-Modus
         this.updateCalendarHeight();
 
-        // Aktualisiere Monat-Dropdown mit Jahr-Informationen
-        this.updateMonthDropdownLabels();
+        // Fülle Monat-Dropdown mit Monaten aus zwei Jahren
+        this.populateMonthDropdown();
+        this.selectMonthInDropdown(this.selectedMonth, this.selectedYear);
 
         // Initiales Rendering
         this.scheduleRenderCalendar();
@@ -1120,11 +1119,11 @@ class CalendarApp {
             // Aktualisiere auf den aktuellen Monat und Jahr
             this.selectedMonth = this.currentMonth;
             this.selectedYear = newYear;
-            this.monthSelect.value = this.currentMonth;
             this.saveSelectedMonthAndYear(this.selectedMonth, this.selectedYear);
 
-            // Aktualisiere Dropdown-Labels für neues Jahr
-            this.updateMonthDropdownLabels();
+            // Aktualisiere Dropdown mit neuen Monaten (neues Jahr + letztes Jahr)
+            this.populateMonthDropdown();
+            this.selectMonthInDropdown(this.selectedMonth, this.selectedYear);
 
             // Rendere Kalender neu
             this.renderCalendar();
@@ -1840,27 +1839,41 @@ class CalendarApp {
     }
 
     // ========================================
-    // Monat-Dropdown mit Jahr-Informationen aktualisieren
+    // Monat-Dropdown mit Monaten aus zwei Jahren füllen
     // ========================================
 
-    updateMonthDropdownLabels() {
+    populateMonthDropdown() {
         const currentYear = this.currentYear;
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        const lastYear = currentYear - 1;
 
-        // Aktualisiere alle Monatsnamen im Dropdown
-        for (let month = 0; month < 12; month++) {
-            const option = this.monthSelect.options[month];
-            if (!option) continue;
+        // Leere das Dropdown
+        this.monthSelect.innerHTML = '';
 
-            const monthName = this.monthNames[month];
+        // Füge Monate für beide Jahre hinzu (letztes Jahr zuerst, dann aktuelles Jahr)
+        for (const year of [lastYear, currentYear]) {
+            for (let month = 0; month < 12; month++) {
+                const option = document.createElement('option');
+                const monthName = this.monthNames[month];
 
-            // Berechne welches Jahr dieser Monat hätte
-            const testDate = new Date(currentYear, month, 1);
-            const wouldBeYear = testDate > today ? currentYear - 1 : currentYear;
+                // Value-Format: "YYYY-MM"
+                option.value = `${year}-${month}`;
+                option.textContent = `${monthName} ${year}`;
 
-            // Zeige Jahr immer an für bessere Klarheit
-            option.textContent = `${monthName} ${wouldBeYear}`;
+                this.monthSelect.appendChild(option);
+            }
+        }
+    }
+
+    // Setze den ausgewählten Monat im Dropdown
+    selectMonthInDropdown(month, year) {
+        const value = `${year}-${month}`;
+        this.monthSelect.value = value;
+
+        // Falls der Wert nicht gefunden wurde, aktualisiere das Dropdown
+        if (this.monthSelect.value !== value) {
+            this.log(`Monat ${month}/${year} nicht im Dropdown gefunden, aktualisiere...`);
+            this.populateMonthDropdown();
+            this.monthSelect.value = value;
         }
     }
 
@@ -1869,35 +1882,30 @@ class CalendarApp {
     // ========================================
 
     handleMonthChange(e) {
-        const month = parseInt(e.target.value, 10);
+        const value = e.target.value;
+
+        // Parse das Value-Format "YYYY-MM"
+        const parts = value.split('-');
+        if (parts.length !== 2) {
+            console.error('Ungültiges Dropdown-Value-Format:', value);
+            this.showToast('⚠️ Ungültiger Monat ausgewählt');
+            return;
+        }
+
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10);
 
         // Input-Validierung
-        if (isNaN(month) || month < 0 || month > 11) {
-            console.error('Ungültiger Monat:', e.target.value);
+        if (isNaN(year) || isNaN(month) || month < 0 || month > 11) {
+            console.error('Ungültiger Monat oder Jahr:', value);
             this.showToast('⚠️ Ungültiger Monat ausgewählt');
             return;
         }
 
         this.selectedMonth = month;
-
-        // Jahr intelligent berechnen basierend auf dem gewählten Monat
-        // Wenn der gewählte Monat in der Zukunft liegt, ist es das Vorjahr
-        const currentYear = this.currentYear;
-        const currentMonth = this.currentMonth;
-        const testDate = new Date(currentYear, month, 1);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        // Wenn der 1. des gewählten Monats (im aktuellen Jahr) in der Zukunft liegt,
-        // dann muss es der gleiche Monat im Vorjahr sein
-        if (testDate > today) {
-            this.selectedYear = currentYear - 1;
-        } else {
-            this.selectedYear = currentYear;
-        }
+        this.selectedYear = year;
 
         this.saveSelectedMonthAndYear(this.selectedMonth, this.selectedYear);
-        this.updateMonthDropdownLabels(); // Aktualisiere Dropdown mit Jahr-Informationen
         this.clearPositionCache(); // Clear cache when month changes
         this.renderCalendar();
 
