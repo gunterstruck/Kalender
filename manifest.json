@@ -76,19 +76,19 @@
     },
     {
       "src": "assets/screen-wide-1.jpg",
-      "sizes": "1912x1197",
+      "sizes": "1920x1080",
       "type": "image/jpeg",
       "form_factor": "wide"
     },
     {
       "src": "assets/screen-wide-2.jpg",
-      "sizes": "1915x1194",
+      "sizes": "1920x1080",
       "type": "image/jpeg",
       "form_factor": "wide"
     },
     {
       "src": "assets/screen-wide-3.jpg",
-      "sizes": "1915x1189",
+      "sizes": "1920x1080",
       "type": "image/jpeg",
       "form_factor": "wide"
     }
