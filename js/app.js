@@ -10,6 +10,10 @@ class CalendarApp {
         // Debug-Modus (setze auf true für detaillierte Logs)
         this.DEBUG = false;
 
+        // Render-Retry-Counter (für rAF-Endlosloop-Prevention)
+        this.renderRetryCount = 0;
+        this.MAX_RENDER_RETRIES = 10;
+
         // Letzte Bannernachricht speichern (um Duplikate zu vermeiden)
         this.lastBannerMessage = null;
 
@@ -185,9 +189,18 @@ class CalendarApp {
         this.dateCheckInterval = null;
         this.bannerRotationInterval = null;
 
-        // Immer mit dem aktuellen Monat starten
-        this.selectedMonth = this.currentMonth;
-        this.monthSelect.value = this.currentMonth;
+        // Lade gespeicherten Monat und Jahr oder verwende aktuelle Werte
+        const savedData = this.loadSelectedMonthAndYear();
+        if (savedData) {
+            this.selectedMonth = savedData.month;
+            this.selectedYear = savedData.year;
+            this.monthSelect.value = this.selectedMonth;
+        } else {
+            // Immer mit dem aktuellen Monat und Jahr starten
+            this.selectedMonth = this.currentMonth;
+            this.selectedYear = this.currentYear;
+            this.monthSelect.value = this.currentMonth;
+        }
 
         // Lade gespeichertes Theme
         this.initTheme();
@@ -1105,7 +1118,7 @@ class CalendarApp {
             this.selectedMonth = this.currentMonth;
             this.selectedYear = newYear;
             this.monthSelect.value = this.currentMonth;
-            this.saveSelectedMonth(this.selectedMonth);
+            this.saveSelectedMonthAndYear(this.selectedMonth, this.selectedYear);
 
             // Rendere Kalender neu
             this.renderCalendar();
@@ -1750,43 +1763,72 @@ class CalendarApp {
     }
 
     // ========================================
-    // Ausgewählten Monat laden/speichern
+    // Ausgewählten Monat und Jahr laden/speichern
     // ========================================
 
-    loadSelectedMonth() {
+    loadSelectedMonthAndYear() {
         if (!this.storageAvailable) return null;
 
         try {
-            const data = localStorage.getItem('calendar_selected_month');
-            if (!data) return null;
-
-            const month = parseInt(data, 10);
-
-            // Validiere das Ergebnis
-            if (isNaN(month) || month < 0 || month > 11) {
-                this.warn('Ungültiger gespeicherter Monat:', data);
-                localStorage.removeItem('calendar_selected_month');
+            const data = localStorage.getItem('calendar_selected_month_year_v2');
+            if (!data) {
+                // Fallback: Versuche altes Format zu laden
+                const oldMonth = localStorage.getItem('calendar_selected_month');
+                if (oldMonth) {
+                    const month = parseInt(oldMonth, 10);
+                    if (!isNaN(month) && month >= 0 && month <= 11) {
+                        // Migriere zu neuem Format
+                        const currentYear = this.currentYear;
+                        this.saveSelectedMonthAndYear(month, currentYear);
+                        return { month, year: currentYear };
+                    }
+                }
                 return null;
             }
 
-            return month;
+            const parsed = JSON.parse(data);
+
+            // Validiere das Ergebnis
+            if (!parsed || typeof parsed !== 'object' ||
+                typeof parsed.month !== 'number' || typeof parsed.year !== 'number') {
+                this.warn('Ungültige gespeicherte Monat/Jahr-Daten:', data);
+                localStorage.removeItem('calendar_selected_month_year_v2');
+                return null;
+            }
+
+            const { month, year } = parsed;
+
+            if (isNaN(month) || month < 0 || month > 11) {
+                this.warn('Ungültiger gespeicherter Monat:', month);
+                localStorage.removeItem('calendar_selected_month_year_v2');
+                return null;
+            }
+
+            if (isNaN(year) || year < 2000 || year > 2100) {
+                this.warn('Ungültiges gespeichertes Jahr:', year);
+                localStorage.removeItem('calendar_selected_month_year_v2');
+                return null;
+            }
+
+            return { month, year };
         } catch (error) {
-            console.error('Fehler beim Laden des Monats:', error);
+            console.error('Fehler beim Laden von Monat/Jahr:', error);
             return null;
         }
     }
 
-    saveSelectedMonth(month) {
+    saveSelectedMonthAndYear(month, year) {
         if (!this.storageAvailable) return;
 
         try {
-            localStorage.setItem('calendar_selected_month', month.toString());
+            const data = JSON.stringify({ month, year });
+            localStorage.setItem('calendar_selected_month_year_v2', data);
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
-                console.error('localStorage voll beim Speichern des Monats:', error);
-                // Monat ist nicht kritisch, kein Toast
+                console.error('localStorage voll beim Speichern von Monat/Jahr:', error);
+                // Monat/Jahr ist nicht kritisch, kein Toast
             } else {
-                console.error('Fehler beim Speichern des Monats:', error);
+                console.error('Fehler beim Speichern von Monat/Jahr:', error);
             }
         }
     }
@@ -1806,7 +1848,24 @@ class CalendarApp {
         }
 
         this.selectedMonth = month;
-        this.saveSelectedMonth(this.selectedMonth);
+
+        // Jahr intelligent berechnen basierend auf dem gewählten Monat
+        // Wenn der gewählte Monat in der Zukunft liegt, ist es das Vorjahr
+        const currentYear = this.currentYear;
+        const currentMonth = this.currentMonth;
+        const testDate = new Date(currentYear, month, 1);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Wenn der 1. des gewählten Monats (im aktuellen Jahr) in der Zukunft liegt,
+        // dann muss es der gleiche Monat im Vorjahr sein
+        if (testDate > today) {
+            this.selectedYear = currentYear - 1;
+        } else {
+            this.selectedYear = currentYear;
+        }
+
+        this.saveSelectedMonthAndYear(this.selectedMonth, this.selectedYear);
         this.clearPositionCache(); // Clear cache when month changes
         this.renderCalendar();
 
@@ -1975,7 +2034,7 @@ class CalendarApp {
     // Kalender rendern
     // ========================================
 
-    scheduleRenderCalendar({ forceRegenerate = false } = {}) {
+    scheduleRenderCalendar({ forceRegenerate = false, delayMs = 0 } = {}) {
         if (forceRegenerate) {
             this.forcePositionRegeneration = true;
         }
@@ -1984,20 +2043,45 @@ class CalendarApp {
             cancelAnimationFrame(this.renderCalendarFrame);
         }
 
-        // Single rAF is sufficient - double rAF was causing unnecessary 16ms delay
-        this.renderCalendarFrame = requestAnimationFrame(() => {
-            this.renderCalendarFrame = null;
-            this.renderCalendar();
-        });
+        // Wenn eine Verzögerung angegeben ist, verwende setTimeout
+        if (delayMs > 0) {
+            setTimeout(() => {
+                this.renderCalendarFrame = requestAnimationFrame(() => {
+                    this.renderCalendarFrame = null;
+                    this.renderCalendar();
+                });
+            }, delayMs);
+        } else {
+            // Single rAF is sufficient - double rAF was causing unnecessary 16ms delay
+            this.renderCalendarFrame = requestAnimationFrame(() => {
+                this.renderCalendarFrame = null;
+                this.renderCalendar();
+            });
+        }
     }
 
     renderCalendar() {
         const gridRect = this.calendarGrid.getBoundingClientRect();
         if (gridRect.width === 0 || gridRect.height === 0) {
-            this.warn('Kalender-Layout noch nicht bereit, Rendering verschoben.');
-            this.scheduleRenderCalendar();
+            // Verhindere Endlosloop bei dauerhaft unsichtbarem Grid
+            if (this.renderRetryCount >= this.MAX_RENDER_RETRIES) {
+                console.error(`Kalender-Rendering fehlgeschlagen nach ${this.MAX_RENDER_RETRIES} Versuchen. Grid hat keine Größe.`);
+                this.showToast('⚠️ Kalender konnte nicht geladen werden');
+                this.renderRetryCount = 0; // Reset für zukünftige Versuche
+                return;
+            }
+
+            this.renderRetryCount++;
+            this.warn(`Kalender-Layout noch nicht bereit (Versuch ${this.renderRetryCount}/${this.MAX_RENDER_RETRIES}), Rendering verschoben.`);
+
+            // Exponentieller Backoff: 0ms, 100ms, 200ms, 400ms, 800ms, ...
+            const delayMs = this.renderRetryCount <= 2 ? 0 : 100 * Math.pow(2, this.renderRetryCount - 3);
+            this.scheduleRenderCalendar({ delayMs });
             return;
         }
+
+        // Erfolgreiches Rendering - Reset Retry Counter
+        this.renderRetryCount = 0;
 
         // Hintergrund-Illustration aktualisieren (wähle basierend auf Geräteorientierung)
         const isPortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
