@@ -1,7 +1,7 @@
 # Dependency Audit Report
 **Date:** 2025-12-29
 **Project:** Monatskalender mit Türchen (PWA)
-**Version:** 1.5.0
+**Version:** 1.6.4
 
 ---
 
@@ -153,7 +153,7 @@ Total Project Size: 1.2 MB
 // package.json (create new)
 {
   "name": "kalender-pwa",
-  "version": "1.5.0",
+  "version": "1.6.4",
   "scripts": {
     "build": "npm run minify:js && npm run minify:css",
     "minify:js": "terser js/app.js -c -m -o js/app.min.js && terser js/quotes.js -c -m -o js/quotes.min.js",
