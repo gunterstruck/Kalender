@@ -57,6 +57,9 @@ class CalendarApp {
         this.doorElements = new Map();
         this.forcePositionRegeneration = false;
 
+        // Event Listener Referenzen für Cleanup
+        this.seasonalBannerClickHandler = null;
+
         // DOM-Elemente
         this.monthSelect = document.getElementById('month-select');
         this.calendarGrid = document.getElementById('calendar-grid');
@@ -376,7 +379,8 @@ class CalendarApp {
         this.updateSeasonalBanner();
 
         // Easter Egg: Click-Event für alle Jahreszeiten
-        this.seasonalBanner.addEventListener('click', () => {
+        // Speichere Handler-Referenz für Cleanup
+        this.seasonalBannerClickHandler = () => {
             const month = this.selectedMonth;
 
             // Winter: Dezember, Januar, Februar
@@ -395,7 +399,9 @@ class CalendarApp {
             else if (month >= 8 && month <= 10) {
                 this.triggerLeafStorm();
             }
-        });
+        };
+
+        this.seasonalBanner.addEventListener('click', this.seasonalBannerClickHandler);
     }
 
     // ========================================
@@ -1148,6 +1154,12 @@ class CalendarApp {
             this.bannerRotationInterval = null;
         }
 
+        // Stoppe laufende requestAnimationFrame
+        if (this.renderCalendarFrame) {
+            cancelAnimationFrame(this.renderCalendarFrame);
+            this.renderCalendarFrame = null;
+        }
+
         // Entferne Event Listeners
         document.removeEventListener('keydown', this.modalFocusTrap);
         if (this.resizeHandler) {
@@ -1155,6 +1167,10 @@ class CalendarApp {
         }
         if (this.orientationHandler) {
             window.removeEventListener('orientationchange', this.orientationHandler);
+        }
+        if (this.seasonalBannerClickHandler && this.seasonalBanner) {
+            this.seasonalBanner.removeEventListener('click', this.seasonalBannerClickHandler);
+            this.seasonalBannerClickHandler = null;
         }
 
         // Leere Door Elements Cache
@@ -1223,7 +1239,12 @@ class CalendarApp {
         try {
             localStorage.setItem('calendar_theme', theme);
         } catch (error) {
-            console.error('Fehler beim Speichern des Themes:', error);
+            if (error.name === 'QuotaExceededError') {
+                console.error('localStorage voll beim Speichern des Themes:', error);
+                // Theme ist nicht kritisch, kein Toast
+            } else {
+                console.error('Fehler beim Speichern des Themes:', error);
+            }
         }
     }
 
@@ -1371,8 +1392,13 @@ class CalendarApp {
                 localStorage.setItem(key, JSON.stringify(opened));
             }
         } catch (error) {
-            console.error('Fehler beim Speichern des Türchens:', error);
-            this.showToast('⚠️ Speichern fehlgeschlagen');
+            if (error.name === 'QuotaExceededError') {
+                console.error('localStorage voll:', error);
+                this.showToast('⚠️ Speicher voll - bitte Browser-Cache leeren');
+            } else {
+                console.error('Fehler beim Speichern des Türchens:', error);
+                this.showToast('⚠️ Speichern fehlgeschlagen');
+            }
         }
     }
 
@@ -1455,7 +1481,12 @@ class CalendarApp {
             const key = `calendar_quotes_${this.selectedYear}`;
             localStorage.setItem(key, JSON.stringify(mapping));
         } catch (error) {
-            console.error('Fehler beim Speichern der Zitate:', error);
+            if (error.name === 'QuotaExceededError') {
+                console.error('localStorage voll beim Speichern der Zitate:', error);
+                this.showToast('⚠️ Speicher voll - Zitate werden temporär verwendet');
+            } else {
+                console.error('Fehler beim Speichern der Zitate:', error);
+            }
         }
     }
 
@@ -1502,7 +1533,10 @@ class CalendarApp {
         if (forceRegenerate || this.forcePositionRegeneration) {
             const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
             const positions = this.generateDoorPositions(daysInMonth);
-            this.saveDoorPositions(positions);
+            // Nur speichern wenn Positionen gültig sind
+            if (positions.length > 0) {
+                this.saveDoorPositions(positions);
+            }
             this.forcePositionRegeneration = false;
             return positions;
         }
@@ -1524,7 +1558,7 @@ class CalendarApp {
                 if (!Array.isArray(parsed)) {
                     this.warn('Door positions ist kein Array, regeneriere...', parsed);
                     const positions = this.generateDoorPositions(daysInMonth);
-                    this.saveDoorPositions(positions);
+                    if (positions.length > 0) this.saveDoorPositions(positions);
                     return positions;
                 }
 
@@ -1532,7 +1566,7 @@ class CalendarApp {
                 if (parsed.length !== daysInMonth) {
                     this.warn(`Door positions hat falsche Größe (${parsed.length} statt ${daysInMonth}), regeneriere...`);
                     const positions = this.generateDoorPositions(daysInMonth);
-                    this.saveDoorPositions(positions);
+                    if (positions.length > 0) this.saveDoorPositions(positions);
                     return positions;
                 }
 
@@ -1548,7 +1582,7 @@ class CalendarApp {
                 if (!isValid) {
                     this.warn('Door positions enthält ungültige Einträge, regeneriere...');
                     const positions = this.generateDoorPositions(daysInMonth);
-                    this.saveDoorPositions(positions);
+                    if (positions.length > 0) this.saveDoorPositions(positions);
                     return positions;
                 }
 
@@ -1558,7 +1592,7 @@ class CalendarApp {
             // Erstelle neue Positionen, falls keine existieren
             const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
             const positions = this.generateDoorPositions(daysInMonth);
-            this.saveDoorPositions(positions);
+            if (positions.length > 0) this.saveDoorPositions(positions);
             return positions;
         } catch (error) {
             console.error('Fehler beim Laden der Positionen:', error);
@@ -1576,8 +1610,35 @@ class CalendarApp {
             // Clear cache when saving new positions
             this.clearPositionCache();
         } catch (error) {
-            console.error('Fehler beim Speichern der Positionen:', error);
+            if (error.name === 'QuotaExceededError') {
+                console.error('localStorage voll beim Speichern der Positionen:', error);
+                this.showToast('⚠️ Speicher voll - Positionen können nicht gespeichert werden');
+            } else {
+                console.error('Fehler beim Speichern der Positionen:', error);
+            }
         }
+    }
+
+    // ========================================
+    // Grid-basierte Fallback-Positionen (wenn DOM nicht bereit)
+    // ========================================
+
+    generateGridFallbackPositions(daysInMonth) {
+        const positions = [];
+        const gridSize = Math.ceil(Math.sqrt(daysInMonth)); // z.B. 6x6 für 31 Tage
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const row = Math.floor((day - 1) / gridSize);
+            const col = (day - 1) % gridSize;
+            positions.push({
+                day,
+                x: 10 + (col * (80 / gridSize)),
+                y: 10 + (row * (80 / gridSize))
+            });
+        }
+
+        this.log(`Grid-Fallback generiert: ${positions.length} Positionen`);
+        return positions;
     }
 
     // ========================================
@@ -1591,8 +1652,9 @@ class CalendarApp {
         const gridHeight = gridRect.height;
 
         if (!gridWidth || !gridHeight) {
-            this.warn('Kalender-Grid hat keine gültigen Abmessungen. Positionen werden später neu berechnet.');
-            return positions;
+            this.warn('Kalender-Grid hat keine gültigen Abmessungen. Verwende Grid-basierte Fallback-Positionen.');
+            // CRITICAL FIX: Statt leeres Array, generiere Grid-basierte Fallback-Positionen
+            return this.generateGridFallbackPositions(daysInMonth);
         }
 
         const isSmallScreen = window.matchMedia('(max-width: 480px)').matches;
@@ -1656,15 +1718,35 @@ class CalendarApp {
 
     getDoorPosition(day) {
         // Cache positions to avoid loading from localStorage 31 times
+        // Clear cache if regeneration is forced
+        if (this.forcePositionRegeneration && this._cachedPositions) {
+            this._cachedPositions = null;
+        }
+
         if (!this._cachedPositions) {
             this._cachedPositions = this.loadDoorPositions(this.forcePositionRegeneration);
         }
         const position = this._cachedPositions.find(pos => pos.day === day);
-        return position || { day, x: 50, y: 50 };
+
+        // Fallback with collision avoidance: if no position found, use grid-based fallback
+        if (!position) {
+            this.warn(`Position für Tag ${day} fehlt, verwende Grid-Fallback`);
+            const gridSize = Math.ceil(Math.sqrt(31)); // 6x6 grid for up to 31 days
+            const row = Math.floor((day - 1) / gridSize);
+            const col = (day - 1) % gridSize;
+            return {
+                day,
+                x: 10 + (col * (80 / gridSize)),
+                y: 10 + (row * (80 / gridSize))
+            };
+        }
+
+        return position;
     }
 
     clearPositionCache() {
         this._cachedPositions = null;
+        this.forcePositionRegeneration = false;
     }
 
     // ========================================
@@ -1700,7 +1782,12 @@ class CalendarApp {
         try {
             localStorage.setItem('calendar_selected_month', month.toString());
         } catch (error) {
-            console.error('Fehler beim Speichern des Monats:', error);
+            if (error.name === 'QuotaExceededError') {
+                console.error('localStorage voll beim Speichern des Monats:', error);
+                // Monat ist nicht kritisch, kein Toast
+            } else {
+                console.error('Fehler beim Speichern des Monats:', error);
+            }
         }
     }
 
@@ -1897,11 +1984,10 @@ class CalendarApp {
             cancelAnimationFrame(this.renderCalendarFrame);
         }
 
+        // Single rAF is sufficient - double rAF was causing unnecessary 16ms delay
         this.renderCalendarFrame = requestAnimationFrame(() => {
-            this.renderCalendarFrame = requestAnimationFrame(() => {
-                this.renderCalendarFrame = null;
-                this.renderCalendar();
-            });
+            this.renderCalendarFrame = null;
+            this.renderCalendar();
         });
     }
 

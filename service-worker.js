@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.5.60 - Critical Fixes: CSP compliance, Portrait images caching
+// Version 1.5.63 - Critical Bug Fixes: Cache race conditions, memory leaks, offline support
 
-const CACHE_NAME = 'kalender-cache-v1.5.62.3';
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.62.3';
+const CACHE_NAME = 'kalender-cache-v1.5.63';
+const RUNTIME_CACHE = 'kalender-runtime-v1.5.63';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
@@ -114,8 +114,16 @@ self.addEventListener('fetch', (event) => {
                         }
                         return networkResponse;
                     }).catch((error) => {
-                        console.error('[Service Worker] Network fetch failed:', error);
-                        return cachedResponse || new Response('Offline', { status: 503 }); // Fallback zu Cache bei Netzwerkfehler
+                        console.error('[Service Worker] Network fetch failed for JS/CSS:', error);
+                        // CRITICAL: Wenn Cache existiert, verwende ihn. Sonst wirf Fehler statt falsche Response
+                        if (cachedResponse) {
+                            return cachedResponse;
+                        }
+                        // Kein Cache verfügbar - erstelle minimale Error Response
+                        return new Response(
+                            '/* Service Worker: Resource not available offline */',
+                            { status: 503, statusText: 'Service Unavailable', headers: { 'Content-Type': url.pathname.endsWith('.js') ? 'application/javascript' : 'text/css' } }
+                        );
                     });
 
                     // Serviere Cache sofort (wenn vorhanden), sonst warte auf Netzwerk
@@ -155,8 +163,16 @@ self.addEventListener('fetch', (event) => {
                         return networkResponse;
                     })
                     .catch((error) => {
-                        console.error('[Service Worker] Fetch failed:', error);
-                        return new Response('Offline', { status: 503 });
+                        console.error('[Service Worker] Fetch failed for asset:', error);
+                        // Für HTML: Zeige simple Offline-Nachricht
+                        if (url.pathname.endsWith('.html') || request.mode === 'navigate') {
+                            return new Response(
+                                '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Offline</title></head><body style="font-family:sans-serif;text-align:center;padding:50px;"><h1>📡 Offline</h1><p>Diese Seite ist offline nicht verfügbar.</p></body></html>',
+                                { status: 503, headers: { 'Content-Type': 'text/html' } }
+                            );
+                        }
+                        // Für andere Assets: Gib 503 zurück ohne Body
+                        return new Response(null, { status: 503, statusText: 'Service Unavailable' });
                     });
             })
     );
