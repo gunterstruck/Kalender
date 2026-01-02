@@ -20,7 +20,7 @@ window.addEventListener('unhandledrejection', (event) => {
 // Register Service Worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/kalender/service-worker.js', { scope: '/kalender/' })
+        navigator.serviceWorker.register('/Kalender/service-worker.js', { scope: '/Kalender/' })
             .then(registration => {
                 console.log('Service Worker registriert:', registration.scope);
             })
