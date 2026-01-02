@@ -1,9 +1,10 @@
 {
+  "id": "/",
   "name": "Monatskalender mit Türchen",
   "short_name": "Türchenkalender",
   "version": "1.5.60",
-  "description": "Eine interaktive PWA mit monatlichen Türchen und historischen Zitaten berühmter Persönlichkeiten - Adventskalender-Stil",
-  "start_url": "./",
+  "description": "Entdecken Sie jeden Tag eine neue historische Lebensweisheit mit dem Monatskalender mit Türchen. Diese Progressive Web App bietet Ihnen monatliche Türchen im Adventskalender-Stil mit inspirierenden Zitaten berühmter Persönlichkeiten aus allen Epochen. Perfekt für tägliche Motivation und Inspiration.",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#1e5a8e",
@@ -68,6 +69,6 @@
       "form_factor": "narrow"
     }
   ],
-  "lang": "de",
+  "lang": "de-DE",
   "dir": "ltr"
 }
