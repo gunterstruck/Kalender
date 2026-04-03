@@ -650,11 +650,11 @@ const QUOTES = [
 
     // April (30 Tage)
     {
-        text: "April, April, der weiß nicht was er will.",
-        author: "Deutsches Sprichwort",
-        dates: "Volksweisheit",
-        link: "https://de.wikipedia.org/wiki/April",
-        linkTitle: "Mehr über April (Wikipedia)"
+        text: "Auch aus Steinen, die einem in den Weg gelegt werden, kann man Schönes bauen.",
+        author: "Johann Wolfgang von Goethe",
+        dates: "1749-1832",
+        link: "https://de.wikipedia.org/wiki/Johann_Wolfgang_von_Goethe",
+        linkTitle: "Mehr über Goethe (Wikipedia)"
     },
     {
         text: "Wo Worte selten sind, haben sie Gewicht.",
@@ -862,11 +862,11 @@ const QUOTES = [
 
     // Mai (31 Tage)
     {
-        text: "Im Mai, da ist alles neu.",
-        author: "Deutsches Sprichwort",
-        dates: "Volksweisheit",
-        link: "https://de.wikipedia.org/wiki/Mai",
-        linkTitle: "Mehr über Mai (Wikipedia)"
+        text: "Wer kämpft, kann verlieren; wer nicht kämpft, hat schon verloren.",
+        author: "Bertolt Brecht",
+        dates: "1898-1956",
+        link: "https://de.wikipedia.org/wiki/Bertolt_Brecht",
+        linkTitle: "Mehr über Brecht (Wikipedia)"
     },
     {
         text: "Wer die Blumen zu sehr liebt, kommt ins Träumen.",
@@ -1081,11 +1081,11 @@ const QUOTES = [
 
     // Juni (30 Tage)
     {
-        text: "Im Juni kann es nicht früh genug tagen.",
-        author: "Bauernregel",
-        dates: "Volksweisheit",
-        link: "https://de.wikipedia.org/wiki/Bauernregel",
-        linkTitle: "Mehr über Bauernregeln (Wikipedia)"
+        text: "Es kommt nicht darauf an, dem Leben mehr Jahre zu geben, sondern den Jahren mehr Leben.",
+        author: "Alexis Carrel",
+        dates: "1873-1944",
+        link: "https://de.wikipedia.org/wiki/Alexis_Carrel",
+        linkTitle: "Mehr über Carrel (Wikipedia)"
     },
     {
         text: "Sei freundlich zu allen, aber vertraut mit wenigen.",
@@ -1293,11 +1293,11 @@ const QUOTES = [
 
     // Juli (31 Tage)
     {
-        text: "Im Juli ist jeder Tag wie Urlaub.",
-        author: "Volksweisheit",
-        dates: "Sprichwort",
-        link: "https://de.wikipedia.org/wiki/Juli",
-        linkTitle: "Mehr über Juli (Wikipedia)"
+        text: "Was mich nicht umbringt, macht mich stärker.",
+        author: "Friedrich Nietzsche",
+        dates: "1844-1900",
+        link: "https://de.wikipedia.org/wiki/Friedrich_Nietzsche",
+        linkTitle: "Mehr über Nietzsche (Wikipedia)"
     },
     {
         text: "Leben ist das, was passiert, während du eifrig dabei bist, andere Pläne zu machen.",
@@ -1512,11 +1512,11 @@ const QUOTES = [
 
     // August (31 Tage)
     {
-        text: "Im August blüht die Heide, das ist für Herz und Auge Weide.",
-        author: "Bauernregel",
-        dates: "Volksweisheit",
-        link: "https://de.wikipedia.org/wiki/August",
-        linkTitle: "Mehr über August (Wikipedia)"
+        text: "Es ist nicht genug zu wissen, man muss auch anwenden; es ist nicht genug zu wollen, man muss auch tun.",
+        author: "Johann Wolfgang von Goethe",
+        dates: "1749-1832",
+        link: "https://de.wikipedia.org/wiki/Johann_Wolfgang_von_Goethe",
+        linkTitle: "Mehr über Goethe (Wikipedia)"
     },
     {
         text: "Die größte Weisheit ist, sich selbst zu kennen.",
@@ -1731,11 +1731,11 @@ const QUOTES = [
 
     // September (30 Tage)
     {
-        text: "Der September ist des Jahres schönster Monat.",
-        author: "Theodor Fontane",
-        dates: "1819-1898",
-        link: "https://de.wikipedia.org/wiki/Theodor_Fontane",
-        linkTitle: "Mehr über Fontane (Wikipedia)"
+        text: "Handle so, dass die Maxime deines Willens jederzeit zugleich als Prinzip einer allgemeinen Gesetzgebung gelten könnte.",
+        author: "Immanuel Kant",
+        dates: "1724-1804",
+        link: "https://de.wikipedia.org/wiki/Immanuel_Kant",
+        linkTitle: "Mehr über Kant (Wikipedia)"
     },
     {
         text: "Die reinste Form des Wahnsinns ist es, alles beim Alten zu lassen und gleichzeitig zu hoffen, dass sich etwas ändert.",
@@ -1943,11 +1943,11 @@ const QUOTES = [
 
     // Oktober (31 Tage)
     {
-        text: "Oktober, der Monat des Mosts und der Melancholie.",
-        author: "Volksweisheit",
-        dates: "Sprichwort",
-        link: "https://de.wikipedia.org/wiki/Oktober",
-        linkTitle: "Mehr über Oktober (Wikipedia)"
+        text: "Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt.",
+        author: "Ludwig Wittgenstein",
+        dates: "1889-1951",
+        link: "https://de.wikipedia.org/wiki/Ludwig_Wittgenstein",
+        linkTitle: "Mehr über Wittgenstein (Wikipedia)"
     },
     {
         text: "Das Schönste, was ein Mensch hinterlassen kann, ist ein Lächeln im Gesicht derjenigen, die an ihn denken.",
@@ -2162,11 +2162,11 @@ const QUOTES = [
 
     // November (30 Tage)
     {
-        text: "November, der Monat der Stille und Besinnung.",
-        author: "Volksweisheit",
-        dates: "Sprichwort",
-        link: "https://de.wikipedia.org/wiki/November",
-        linkTitle: "Mehr über November (Wikipedia)"
+        text: "Der Mensch ist frei geboren, und überall liegt er in Ketten.",
+        author: "Jean-Jacques Rousseau",
+        dates: "1712-1778",
+        link: "https://de.wikipedia.org/wiki/Jean-Jacques_Rousseau",
+        linkTitle: "Mehr über Rousseau (Wikipedia)"
     },
     {
         text: "Man kann einen Menschen mit einer Wohnung ebenso töten wie mit einer Axt.",
@@ -2374,11 +2374,11 @@ const QUOTES = [
 
     // Dezember (31 Tage)
     {
-        text: "Dezember, der Monat der Lichter und der Hoffnung.",
-        author: "Volksweisheit",
-        dates: "Sprichwort",
-        link: "https://de.wikipedia.org/wiki/Dezember",
-        linkTitle: "Mehr über Dezember (Wikipedia)"
+        text: "Habe Mut, dich deines eigenen Verstandes zu bedienen.",
+        author: "Immanuel Kant",
+        dates: "1724-1804",
+        link: "https://de.wikipedia.org/wiki/Immanuel_Kant",
+        linkTitle: "Mehr über Kant (Wikipedia)"
     },
     {
         text: "Das Schönste am Schenken ist das Leuchten in den Augen des Beschenkten.",
@@ -2430,11 +2430,11 @@ const QUOTES = [
         linkTitle: "Mehr über Rousseau (Wikipedia)"
     },
     {
-        text: "Weihnachten ist keine Jahreszeit. Es ist ein Gefühl.",
-        author: "Edna Ferber",
-        dates: "1885-1968",
-        link: "https://de.wikipedia.org/wiki/Edna_Ferber",
-        linkTitle: "Mehr über Ferber (Wikipedia)"
+        text: "Phantasie ist wichtiger als Wissen, denn Wissen ist begrenzt.",
+        author: "Albert Einstein",
+        dates: "1879-1955",
+        link: "https://de.wikipedia.org/wiki/Albert_Einstein",
+        linkTitle: "Mehr über Einstein (Wikipedia)"
     },
     {
         text: "Jeder ist ein Genie! Aber wenn du einen Fisch danach beurteilst, ob er auf einen Baum klettern kann, wird er sein ganzes Leben glauben, dass er dumm ist.",
@@ -2458,11 +2458,11 @@ const QUOTES = [
         linkTitle: "Mehr über chinesische Weisheiten (Wikipedia)"
     },
     {
-        text: "In der Weihnachtszeit steckt ein klein wenig mehr Liebe in den Menschen.",
-        author: "Charles Dickens",
-        dates: "1812-1870",
-        link: "https://de.wikipedia.org/wiki/Charles_Dickens",
-        linkTitle: "Mehr über Dickens (Wikipedia)"
+        text: "Der Zweck des Lebens ist das Leben selbst.",
+        author: "Johann Wolfgang von Goethe",
+        dates: "1749-1832",
+        link: "https://de.wikipedia.org/wiki/Johann_Wolfgang_von_Goethe",
+        linkTitle: "Mehr über Goethe (Wikipedia)"
     },
     {
         text: "Die meisten Menschen sind bereit zu lernen, aber nur die wenigsten, sich belehren zu lassen.",
