@@ -1,5 +1,5 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.6.7 - Two-Year Month Dropdown//
+// Version 1.7.0 - English Language Support
 
 const CACHE_NAME = 'kalender-cache-v1.7.0';
 const RUNTIME_CACHE = 'kalender-runtime-v1.7.0';
@@ -13,6 +13,7 @@ const CACHE_URLS = [
     './js/quotes.js',
     './js/quotes-en.js',
     './js/i18n.js',
+    './js/i18n-dom.js',
     './js/pwa-install.js',
     './manifest.json',
     './assets/icons/icon.svg',
