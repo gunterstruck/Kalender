@@ -32,16 +32,13 @@ class CalendarApp {
             SHUFFLE_ANIMATION_DURATION: 300,   // Shuffle-Animation in ms
             TOAST_DURATION: 3000,              // Toast-Anzeigedauer in ms
             SHAKE_DURATION: 300,               // Shake-Animation in ms
-            LOCALE: 'de-DE',                   // Sprach-Locale für Datumsformatierung
+            LOCALE: I18N.getLocale(),              // Sprach-Locale für Datumsformatierung
             RESIZE_DEBOUNCE_DELAY: 250,        // Debounce-Verzögerung für Resize-Events in ms
             ORIENTATION_DEBOUNCE_DELAY: 100    // Debounce-Verzögerung für Orientierungswechsel in ms
         };
 
-        // Monatsnamen
-        this.monthNames = [
-            'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-            'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
-        ];
+        // Monatsnamen (sprachabhängig)
+        this.monthNames = I18N.t('monthNames');
 
         // Monats-Illustrationen (Querformat/Landscape)
         this.monthIllustrations = [
@@ -543,42 +540,19 @@ class CalendarApp {
     }
 
     getWinterMessage() {
-        const messages = [
-            '❄️ Winterzeit - Zeit für Besinnlichkeit',
-            '⛄ Gemütliche Wintertage',
-            '🌨️ Lass es schneien!'
-        ];
-        return this.getNextMessage(messages);
+        return this.getNextMessage(I18N.t('winterMessages'));
     }
 
     getSpringMessage() {
-        const messages = [
-            '🌸 Frühling erwacht - Neue Kraft',
-            '🌷 Blütezeit beginnt',
-            '🌺 Frühlingsgefühle erwachen',
-            '🌸 Lass es blühen!'
-        ];
-        return this.getNextMessage(messages);
+        return this.getNextMessage(I18N.t('springMessages'));
     }
 
     getSummerMessage() {
-        const messages = [
-            '☀️ Sommerzeit - Genieße den Tag',
-            '🌻 Sonnige Aussichten',
-            '🏖️ Sommerliche Leichtigkeit',
-            '🎈 Lass sie steigen!'
-        ];
-        return this.getNextMessage(messages);
+        return this.getNextMessage(I18N.t('summerMessages'));
     }
 
     getAutumnMessage() {
-        const messages = [
-            '🍂 Herbstzeit - Zeit der Ernte',
-            '🍁 Goldener Herbst',
-            '🎃 Herbstzauber',
-            '🍂 Lass es stürmen!'
-        ];
-        return this.getNextMessage(messages);
+        return this.getNextMessage(I18N.t('autumnMessages'));
     }
 
     // ========================================
@@ -1122,7 +1096,7 @@ class CalendarApp {
             this.renderCalendar();
 
             // Zeige Benachrichtigung
-            this.showToast(`🎉 Frohes neues Jahr ${newYear}! Der Kalender wurde aktualisiert.`);
+            this.showToast(I18N.t('happyNewYear', newYear));
         }
         // Wenn sich nur der Tag geändert hat (neuer Tag)
         else if (newDay !== this.lastKnownDay) {
@@ -1204,7 +1178,7 @@ class CalendarApp {
             this.warn('LocalStorage nicht verfügbar:', error);
             // Toast nur zeigen wenn Element existiert
             if (this.toast) {
-                this.showToast('⚠️ Speichern nicht möglich. Daten gehen beim Neuladen verloren.');
+                this.showToast(I18N.t('storageUnavailable'));
             }
             return false;
         }
@@ -1405,10 +1379,10 @@ class CalendarApp {
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
                 console.error('localStorage voll:', error);
-                this.showToast('⚠️ Speicher voll - bitte Browser-Cache leeren');
+                this.showToast(I18N.t('storageFull'));
             } else {
                 console.error('Fehler beim Speichern des Türchens:', error);
-                this.showToast('⚠️ Speichern fehlgeschlagen');
+                this.showToast(I18N.t('saveFailed'));
             }
         }
     }
@@ -1423,15 +1397,33 @@ class CalendarApp {
     // Stellt sicher, dass jeder Spruch nur einmal pro Jahr verwendet wird
     // ========================================
 
+    generateQuoteMappingForLang(year) {
+        const quotes = I18N.getQuotes();
+        const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        const daysInYear = isLeapYear ? 366 : 365;
+        const availableQuotes = [...quotes];
+        const mapping = [];
+        for (let i = 0; i < daysInYear; i++) {
+            if (availableQuotes.length === 0) {
+                availableQuotes.push(...quotes);
+            }
+            const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+            mapping.push(availableQuotes[randomIndex]);
+            availableQuotes.splice(randomIndex, 1);
+        }
+        return mapping;
+    }
+
     loadYearlyQuoteMapping() {
         if (!this.storageAvailable) {
             // Fallback: Generiere temporäres Jahres-Mapping
-            return generateYearlyQuoteMapping(this.selectedYear);
+            return this.generateQuoteMappingForLang(this.selectedYear);
         }
 
         try {
-            // Verwende nur Jahr, nicht Monat, für jahresweite Eindeutigkeit
-            const key = `calendar_quotes_${this.selectedYear}`;
+            // Verwende Jahr + Sprache für sprachspezifische Zuordnung
+            const lang = I18N.getLang();
+            const key = `calendar_quotes_${this.selectedYear}_${lang}`;
             const data = localStorage.getItem(key);
 
             if (data) {
@@ -1441,14 +1433,14 @@ class CalendarApp {
                 const expectedSize = this.isLeapYear(this.selectedYear) ? 366 : 365;
                 if (!Array.isArray(parsed)) {
                     this.warn('Quote mapping ist kein Array, regeneriere...', parsed);
-                    const mapping = generateYearlyQuoteMapping(this.selectedYear);
+                    const mapping = this.generateQuoteMappingForLang(this.selectedYear);
                     this.saveYearlyQuoteMapping(mapping);
                     return mapping;
                 }
 
                 if (parsed.length !== expectedSize) {
                     this.warn(`Quote mapping hat falsche Größe (${parsed.length} statt ${expectedSize}), regeneriere...`);
-                    const mapping = generateYearlyQuoteMapping(this.selectedYear);
+                    const mapping = this.generateQuoteMappingForLang(this.selectedYear);
                     this.saveYearlyQuoteMapping(mapping);
                     return mapping;
                 }
@@ -1462,7 +1454,7 @@ class CalendarApp {
 
                 if (!isValid) {
                     this.warn('Quote mapping enthält ungültige Einträge, regeneriere...');
-                    const mapping = generateYearlyQuoteMapping(this.selectedYear);
+                    const mapping = this.generateQuoteMappingForLang(this.selectedYear);
                     this.saveYearlyQuoteMapping(mapping);
                     return mapping;
                 }
@@ -1471,12 +1463,12 @@ class CalendarApp {
             }
 
             // Erstelle neue jahresweite Zuordnung, falls keine existiert
-            const mapping = generateYearlyQuoteMapping(this.selectedYear);
+            const mapping = this.generateQuoteMappingForLang(this.selectedYear);
             this.saveYearlyQuoteMapping(mapping);
             return mapping;
         } catch (error) {
             console.error('Fehler beim Laden der Zitate:', error);
-            return generateYearlyQuoteMapping(this.selectedYear);
+            return this.generateQuoteMappingForLang(this.selectedYear);
         }
     }
 
@@ -1488,13 +1480,14 @@ class CalendarApp {
         if (!this.storageAvailable) return;
 
         try {
-            // Verwende nur Jahr, nicht Monat
-            const key = `calendar_quotes_${this.selectedYear}`;
+            // Verwende Jahr + Sprache
+            const lang = I18N.getLang();
+            const key = `calendar_quotes_${this.selectedYear}_${lang}`;
             localStorage.setItem(key, JSON.stringify(mapping));
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
                 console.error('localStorage voll beim Speichern der Zitate:', error);
-                this.showToast('⚠️ Speicher voll - Zitate werden temporär verwendet');
+                this.showToast(I18N.t('storageFullQuotes'));
             } else {
                 console.error('Fehler beim Speichern der Zitate:', error);
             }
@@ -1514,8 +1507,8 @@ class CalendarApp {
         // Fallback für alte String-Daten oder fehlende Einträge
         if (!quote) {
             return {
-                text: "Heute ist dein Tag!",
-                author: "Unbekannt",
+                text: I18N.t('fallbackQuote'),
+                author: I18N.t('unknownAuthor'),
                 dates: "",
                 link: "",
                 linkTitle: ""
@@ -1526,7 +1519,7 @@ class CalendarApp {
         if (typeof quote === 'string') {
             return {
                 text: quote,
-                author: "Unbekannt",
+                author: I18N.t('unknownAuthor'),
                 dates: "",
                 link: "",
                 linkTitle: ""
@@ -1623,7 +1616,7 @@ class CalendarApp {
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
                 console.error('localStorage voll beim Speichern der Positionen:', error);
-                this.showToast('⚠️ Speicher voll - Positionen können nicht gespeichert werden');
+                this.showToast(I18N.t('storageFullPositions'));
             } else {
                 console.error('Fehler beim Speichern der Positionen:', error);
             }
@@ -1881,7 +1874,7 @@ class CalendarApp {
         const parts = value.split('-');
         if (parts.length !== 2) {
             console.error('Ungültiges Dropdown-Value-Format:', value);
-            this.showToast('⚠️ Ungültiger Monat ausgewählt');
+            this.showToast(I18N.t('invalidMonth'));
             return;
         }
 
@@ -1891,7 +1884,7 @@ class CalendarApp {
         // Input-Validierung
         if (isNaN(year) || isNaN(month) || month < 0 || month > 11) {
             console.error('Ungültiger Monat oder Jahr:', value);
-            this.showToast('⚠️ Ungültiger Monat ausgewählt');
+            this.showToast(I18N.t('invalidMonth'));
             return;
         }
 
@@ -1940,7 +1933,7 @@ class CalendarApp {
                     year: 'numeric'
                 });
 
-                this.showToast(`⏰ Verpasst! Nächste Chance: ${formattedDate}`);
+                this.showToast(I18N.t('doorMissedToast', formattedDate));
             } else {
                 // Zukünftiges Türchen → zeige normales "Öffnet sich am" Nachricht
                 const unlockDate = new Date(this.selectedYear, this.selectedMonth, day);
@@ -1950,7 +1943,7 @@ class CalendarApp {
                     year: 'numeric'
                 });
 
-                this.showToast(`Dieses Türchen öffnet sich am ${formattedDate}`);
+                this.showToast(I18N.t('doorLockedToast', formattedDate));
             }
 
             // Shake-Animation (aus Cache holen)
@@ -2016,16 +2009,16 @@ class CalendarApp {
         this.quoteText.textContent = quote.text;
 
         // Setze Autor und Lebensdaten
-        this.quoteAuthor.textContent = quote.author || "Unbekannt";
+        this.quoteAuthor.textContent = quote.author || I18N.t('unknownAuthor');
         this.quoteDates.textContent = quote.dates || "";
 
         // Setze Datum
-        this.modalDay.textContent = `${day}. ${monthName} ${this.selectedYear}`;
+        this.modalDay.textContent = I18N.t('formatModalDate', day, monthName, this.selectedYear);
 
         // Zeige/Verstecke Link-Button
         if (quote.link) {
             this.quoteLink.href = quote.link;
-            this.quoteLinkTitle.textContent = quote.linkTitle || "Mehr erfahren";
+            this.quoteLinkTitle.textContent = quote.linkTitle || I18N.t('learnMore');
             this.quoteLink.classList.remove('is-hidden');
         } else {
             this.quoteLink.classList.add('is-hidden');
@@ -2099,7 +2092,7 @@ class CalendarApp {
             // Verhindere Endlosloop bei dauerhaft unsichtbarem Grid
             if (this.renderRetryCount >= this.MAX_RENDER_RETRIES) {
                 console.error(`Kalender-Rendering fehlgeschlagen nach ${this.MAX_RENDER_RETRIES} Versuchen. Grid hat keine Größe.`);
-                this.showToast('⚠️ Kalender konnte nicht geladen werden');
+                this.showToast(I18N.t('calendarLoadFailed'));
                 this.renderRetryCount = 0; // Reset für zukünftige Versuche
                 return;
             }
@@ -2174,34 +2167,34 @@ class CalendarApp {
                 // Verpasstes Türchen → spezielle Klasse und Label
                 door.classList.add('missed');
                 const nextYear = this.selectedYear + 1;
-                door.setAttribute('aria-label', `Tag ${day} - Verpasst - Nächste Chance: ${nextYear}`);
+                door.setAttribute('aria-label', I18N.t('doorMissed', day, nextYear));
                 door.setAttribute('aria-disabled', 'true');
 
                 // Verpasst-Icon
                 const missedIcon = document.createElement('div');
                 missedIcon.className = 'missed-icon';
-                missedIcon.setAttribute('aria-label', 'Verpasst');
+                missedIcon.setAttribute('aria-label', I18N.t('missedLabel'));
                 missedIcon.setAttribute('role', 'img');
                 missedIcon.innerHTML = '⏰';
                 door.appendChild(missedIcon);
             } else {
                 // Zukünftiges Türchen
-                door.setAttribute('aria-label', `Tag ${day} - Gesperrt`);
+                door.setAttribute('aria-label', I18N.t('doorLocked', day));
                 door.setAttribute('aria-disabled', 'true');
             }
         } else if (isOpened) {
             door.classList.add('opened');
-            door.setAttribute('aria-label', `Tag ${day} - Geöffnet - Klicken für Spruch`);
+            door.setAttribute('aria-label', I18N.t('doorOpened', day));
 
             // Info-Icon für geöffnete Türchen
             const infoIcon = document.createElement('div');
             infoIcon.className = 'info-icon';
-            infoIcon.setAttribute('aria-label', 'Bereits geöffnet');
+            infoIcon.setAttribute('aria-label', I18N.t('alreadyOpened'));
             infoIcon.setAttribute('role', 'img');
             infoIcon.innerHTML = 'ℹ️';
             door.appendChild(infoIcon);
         } else {
-            door.setAttribute('aria-label', `Tag ${day} - Klicken zum Öffnen`);
+            door.setAttribute('aria-label', I18N.t('doorClickToOpen', day));
         }
 
         // Tagesnummer

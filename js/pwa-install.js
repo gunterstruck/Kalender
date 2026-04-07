@@ -7,7 +7,7 @@ window.addEventListener('error', (event) => {
     console.error('Unerwarteter Fehler:', event.error);
     const toast = document.getElementById('toast');
     if (toast) {
-        toast.textContent = '⚠️ Ein Fehler ist aufgetreten. Bitte lade die Seite neu.';
+        toast.textContent = typeof I18N !== 'undefined' ? I18N.t('errorOccurred') : '⚠️ Ein Fehler ist aufgetreten. Bitte lade die Seite neu.';
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 5000);
     }
