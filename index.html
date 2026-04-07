@@ -125,7 +125,7 @@
             <nav>
                 <a href="impressum.html">Impressum</a> • <a href="datenschutz.html">Datenschutz</a>
             </nav>
-            <p><small>Version 1.6.7</small></p>
+            <p><small>Version 1.7.0</small></p>
         </footer>
     </main>
 
@@ -179,6 +179,39 @@
 
     <!-- Scripts -->
     <script src="js/quotes.js"></script>
+    <script src="js/quotes-en.js"></script>
+    <script src="js/i18n.js"></script>
+    <script>
+        // Setze HTML-Sprache dynamisch basierend auf Browser-Sprache
+        document.documentElement.lang = I18N.getLang() === 'de' ? 'de' : 'en';
+
+        // Übersetze statische HTML-Elemente
+        document.addEventListener('DOMContentLoaded', () => {
+            document.title = I18N.t('appTitle');
+            document.querySelector('.app-header h1').textContent = I18N.t('appTitle');
+            document.querySelector('.subtitle').textContent = I18N.t('appSubtitle');
+            document.querySelector('#loading-spinner p').textContent = I18N.t('loading');
+            document.querySelector('.noscript-warning h2').textContent = '⚠️ ' + I18N.t('jsRequired');
+            document.querySelector('.noscript-warning p').textContent = I18N.t('jsMessage');
+            document.querySelector('#theme-toggle').setAttribute('aria-label', I18N.t('themeToggle'));
+            document.querySelector('#calendar-grid').setAttribute('aria-label', I18N.t('calendarGrid'));
+            document.querySelector('label[for="month-select"]').textContent = I18N.t('selectMonth');
+            document.querySelector('#month-select').setAttribute('aria-label', I18N.t('selectMonth'));
+            document.querySelector('#modal-title').textContent = I18N.t('modalTitle');
+            document.querySelector('#quote-link-title').textContent = I18N.t('learnMore');
+            document.querySelector('#modal-close').setAttribute('aria-label', I18N.t('close'));
+            document.querySelector('.install-prompt-text h3').textContent = I18N.t('installTitle');
+            document.querySelector('.install-prompt-text p').textContent = I18N.t('installMessage');
+            document.querySelector('#install-button').textContent = I18N.t('installButton');
+            document.querySelector('#install-dismiss').setAttribute('aria-label', I18N.t('close'));
+
+            // Meta description
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc && I18N.getLang() === 'en') {
+                metaDesc.setAttribute('content', 'Discover a new historical piece of wisdom every day with the Monthly Door Calendar. This Progressive Web App offers monthly doors in advent calendar style with inspiring quotes from famous personalities.');
+            }
+        });
+    </script>
     <script src="js/app.js"></script>
     <script src="js/pwa-install.js"></script>
 
