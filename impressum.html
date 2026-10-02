@@ -119,13 +119,16 @@
             <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
 
             <p><strong>Haftung für Links</strong></p>
-            <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.</p>
+            <p>Unser Angebot enthält Links zu externen Webseiten Dritter (insbesondere Wikipedia), auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend entfernt.</p>
+
+            <p><strong>Zitate</strong></p>
+            <p>Die in der App angezeigten Zitate werden historischen Persönlichkeiten zugeschrieben. Trotz sorgfältiger Auswahl kann für die Echtheit der Zuschreibung und die Richtigkeit der Übersetzungen keine Gewähr übernommen werden.</p>
 
             <p><strong>Urheberrecht</strong></p>
             <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
 
             <h2>Hinweis zur App</h2>
-            <p>„Monatskalender mit Türchen“ wird von Günter Struck privat betrieben.</p>
+            <p>„Monatskalender mit Türchen“ wird von Günter Struck privat und nicht kommerziell betrieben. Die App ist kostenlos und werbefrei. Informationen zur Verarbeitung von Daten finden Sie in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
 
             <h2>Streitschlichtung</h2>
             <p>Der Betreiber ist nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
@@ -140,11 +143,18 @@
     </div>
 
     <script>
-        // Theme Support für Dark Mode
-        if (localStorage.getItem('theme') === 'dark' ||
-            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark-mode');
-        }
+        // Theme Support (gleicher Schlüssel wie die App: calendar_theme)
+        (function () {
+            var theme = null;
+            try { theme = localStorage.getItem('calendar_theme'); } catch (e) { /* Speicher nicht verfügbar */ }
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else if (theme === 'light') {
+                document.body.classList.add('light-mode');
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+            }
+        })();
     </script>
 </body>
 </html>
