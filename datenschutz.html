@@ -96,6 +96,22 @@
             height: 20px;
         }
 
+        .legal-container .lang-switch {
+            text-align: right;
+            margin-bottom: var(--spacing-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        .legal-container .translation-note {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .legal-container a {
+            color: var(--primary);
+        }
+
         @media (max-width: 768px) {
             .legal-container {
                 padding: var(--spacing-lg);
@@ -110,6 +126,7 @@
 <body>
     <div class="legal-page">
         <div class="legal-container">
+            <p class="lang-switch"><a href="privacy.html" hreflang="en" lang="en">English version</a></p>
             <h1>Datenschutzerklärung</h1>
 
             <p><strong>App:</strong> Monatskalender mit Türchen (Türchenkalender)<br>
@@ -118,26 +135,27 @@
             <strong>Stand:</strong> Oktober 2026</p>
 
             <div class="highlight">
-                <p><strong>Kurzfassung:</strong> Die App „Monatskalender mit Türchen" benötigt kein Konto, setzt kein Tracking ein und sendet keine Nutzungsdaten an den Entwickler oder an Dritte. Ihre Einstellungen bleiben ausschließlich auf Ihrem Gerät. Beim Laden der App über das Internet verarbeitet der Hosting-Anbieter (GitHub Pages) technisch bedingt Ihre IP-Adresse (siehe Abschnitt 6).</p>
+                <p><strong>Kurzfassung:</strong> Die App „Monatskalender mit Türchen“ benötigt kein Konto, setzt kein Tracking ein und sendet keine Nutzungsdaten an den Entwickler oder an Dritte. Ihre Einstellungen bleiben ausschließlich auf Ihrem Gerät. Beim Laden der App über das Internet verarbeitet der Hosting-Anbieter (GitHub Pages) technisch bedingt Ihre IP-Adresse (siehe Abschnitt 9).</p>
             </div>
 
             <h2>1. Verantwortlicher</h2>
-            <p>Verantwortlich für die Datenverarbeitung im Sinne der DSGVO ist der Entwickler der App „Monatskalender mit Türchen":<br>
+            <p>Verantwortlich für die Datenverarbeitung im Sinne der DSGVO ist der Entwickler der App „Monatskalender mit Türchen“:<br>
             Günter Struck, Lönsberg 6, 45136 Essen, Deutschland<br>
             E-Mail: caresms@online.de</p>
 
             <h2>2. Welche Daten verarbeitet die App?</h2>
-            <p>Die App benötigt weder ein Benutzerkonto noch eine Registrierung. Sie fragt keine Berechtigungen wie Standort, Kamera, Mikrofon, Kontakte oder Benachrichtigungen ab. Auf Ihrem Gerät werden ausschließlich folgende App-Einstellungen gespeichert (lokaler Speicher, „Local Storage"):</p>
+            <p>Die App benötigt weder ein Benutzerkonto noch eine Registrierung. Sie fragt keine Berechtigungen wie Standort, Kamera, Mikrofon oder Kontakte ab. Die Berechtigung für Benachrichtigungen wird nur angefragt, wenn Sie die App-Erinnerung selbst einschalten (Abschnitt 5). Auf Ihrem Gerät werden ausschließlich folgende Angaben gespeichert (lokaler Speicher „Local Storage“ bzw. „IndexedDB“):</p>
             <ul>
                 <li>welche Kalendertürchen Sie geöffnet haben,</li>
                 <li>der gewählte Monat und das gewählte Jahr,</li>
                 <li>Ihre Farbschema-Einstellung (hell/dunkel),</li>
                 <li>die Zuordnung der Zitate und Türchen-Positionen im Kalender,</li>
-                <li>ein Hinweis, ob die App installiert wurde.</li>
+                <li>ein Hinweis, ob die App installiert wurde,</li>
+                <li>falls Sie die Erinnerung nutzen: die gewählte Uhrzeit, ob die App-Benachrichtigung eingeschaltet ist, die Sprache der Benachrichtigung sowie das Datum, an dem Sie zuletzt das heutige Türchen geöffnet haben bzw. zuletzt erinnert wurden.</li>
             </ul>
             <p>Diese Angaben sind nicht mit Ihrer Person verknüpft und werden nicht an den Entwickler übertragen. Der Entwickler hat keinen Zugriff darauf.</p>
-            <p>Die Sprache der App (Deutsch oder Englisch) wird bei jedem Start aus der Spracheinstellung Ihres Browsers bzw. Geräts abgeleitet und nicht gespeichert.</p>
-            <p><strong>Rechtsgrundlage:</strong> Die Speicherung dieser Einstellungen ist technisch erforderlich, damit die App ihren Dienst erbringen kann (§ 25 Abs. 2 Nr. 2 TDDDG). Soweit dabei personenbezogene Daten verarbeitet werden, beruht dies auf Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem funktionsfähigen, bedienbaren Kalender). Eine Einwilligungsabfrage ist daher nicht erforderlich.</p>
+            <p>Die Sprache der App (Deutsch oder Englisch) wird bei jedem Start aus der Spracheinstellung Ihres Browsers bzw. Geräts abgeleitet.</p>
+            <p><strong>Rechtsgrundlage:</strong> Die Speicherung dieser Einstellungen ist technisch erforderlich, damit die App den von Ihnen gewünschten Dienst erbringen kann (§ 25 Abs. 2 Nr. 2 TDDDG). Soweit dabei personenbezogene Daten verarbeitet werden, beruht dies auf Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem funktionsfähigen, bedienbaren Kalender). Eine Einwilligungsabfrage ist daher nicht erforderlich.</p>
 
             <h2>3. Keine Weitergabe an Dritte, kein Tracking</h2>
             <p>Die App sendet keine Daten an den Entwickler oder an Dritte. Sie enthält keine Analyse-, Werbe- oder Tracking-Dienste, keine Cookies, keine eingebundenen Schriftarten, Skripte oder Inhalte von Drittanbietern und keine Social-Media-Plugins. Es werden keine Daten verkauft oder zu Werbezwecken genutzt.</p>
@@ -145,28 +163,39 @@
             <h2>4. Offline-Funktion (Service Worker)</h2>
             <p>Die App registriert einen Service Worker und speichert ihre eigenen Dateien (HTML, CSS, JavaScript, Zitate, Bilder) im Cache Ihres Geräts, damit sie auch ohne Internetverbindung funktioniert. Dabei werden keine personenbezogenen Daten gespeichert. Der Cache wird bei App-Updates automatisch erneuert.</p>
 
-            <h2>4a. Livedemo</h2>
-            <p>Die Livedemo führt die App mit Beispielzuständen vor. Sie speichert nichts und verändert Ihren Kalender-Fortschritt nicht. Die Hintergrundmusik wird erst nach dem Klick auf „Livedemo" vom selben Server wie die App (GitHub Pages) geladen; eine Verbindung zum Musikanbieter entsteht nicht.</p>
+            <h2>5. Tägliche Erinnerung (optional)</h2>
+            <p>Die Erinnerung ist ausgeschaltet, bis Sie sie selbst über „Erinnerung“ einrichten. Es gibt zwei Wege, beide ohne Server des Entwicklers:</p>
+            <ul>
+                <li><strong>Kalendereintrag:</strong> Die App erzeugt auf Ihrem Gerät eine Kalenderdatei (.ics) mit einem täglichen Termin zur gewählten Uhrzeit und einem Link zur App. Was danach mit dem Termin geschieht (z. B. Synchronisation über Google, Apple oder Microsoft), bestimmt Ihre Kalender-App bzw. deren Anbieter nach dessen Datenschutzbestimmungen.</li>
+                <li><strong>App-Benachrichtigung:</strong> In der installierten App (Chrome/Edge) kann der Browser die App gelegentlich im Hintergrund wecken („Periodic Background Sync“). Die App prüft dann lokal, ob die gewählte Uhrzeit erreicht und das heutige Türchen noch geschlossen ist, und zeigt höchstens eine Benachrichtigung pro Tag. Es wird kein Push-Dienst verwendet; es werden keine Daten übertragen.</li>
+            </ul>
+            <p>Rechtsgrundlage ist Ihr ausdrücklicher Wunsch (§ 25 Abs. 2 Nr. 2 TDDDG) bzw. Ihre Einwilligung durch das Einschalten (Art. 6 Abs. 1 lit. a DSGVO). Sie können die Benachrichtigung jederzeit im Dialog „Erinnerung“ ausschalten oder die Berechtigung in den Einstellungen Ihres Geräts bzw. Browsers entziehen. Einen Kalendereintrag löschen Sie in Ihrer Kalender-App.</p>
 
-            <h2>5. Externe Links</h2>
+            <h2>6. Zitat teilen</h2>
+            <p>Erst wenn Sie im Zitat-Fenster auf „Teilen“ tippen, übergibt die App den Zitattext, den Autor und einen Link zur App an das Teilen-Menü Ihres Geräts oder kopiert sie in die Zwischenablage. Welche App die Daten erhält, entscheiden Sie selbst; für die weitere Verarbeitung gelten deren Bestimmungen. Der Entwickler erhält dabei nichts.</p>
+
+            <h2>7. Livedemo</h2>
+            <p>Die Livedemo und die Mini-Demos führen die App mit Beispielzuständen vor. Sie speichern nichts und verändern Ihren Kalender-Fortschritt nicht. Die Hintergrundmusik wird erst beim Start einer Vorführung vom selben Server wie die App (GitHub Pages) geladen; eine Verbindung zum Musikanbieter entsteht nicht.</p>
+
+            <h2>8. Externe Links</h2>
             <p>Zu den Zitaten führen Links auf Wikipedia (je nach Sprache de.wikipedia.org oder en.wikipedia.org). Diese öffnen sich in einem neuen Tab bzw. Browser nur, wenn Sie sie selbst antippen. Erst dabei werden Daten (z. B. Ihre IP-Adresse) an die Wikimedia Foundation übertragen; es gilt deren <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy" rel="noopener">Datenschutzerklärung</a>. Auf deren Datenverarbeitung hat der Entwickler keinen Einfluss.</p>
 
-            <h2>6. Hosting</h2>
+            <h2>9. Hosting</h2>
             <p>Die App-Dateien werden über GitHub Pages (GitHub Inc., USA) bereitgestellt. Beim Laden und Aktualisieren der App kann GitHub technisch bedingt Verbindungsdaten (z. B. IP-Adresse, Zeitpunkt, angefragte Datei, Browser-/Geräteinformationen) in Server-Logfiles verarbeiten. Dies erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (sichere und effiziente Bereitstellung der App). Eine Übermittlung in die USA ist möglich; GitHub stützt sich dafür nach eigenen Angaben auf das EU-US Data Privacy Framework bzw. Standardvertragsklauseln. Der Entwickler erhält diese Daten nicht und hat darauf keinen Einfluss. Sobald die App einmal geladen ist, funktioniert sie auch offline. Weitere Informationen: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub-Datenschutzerklärung</a>.</p>
 
-            <h2>7. Speicherdauer und Löschung</h2>
-            <p>Die lokal gespeicherten Daten bleiben, bis Sie sie löschen. Sie können sie jederzeit entfernen, indem Sie die App-Daten bzw. den Speicher der App in den Geräte- bzw. Browser-Einstellungen löschen oder die App deinstallieren. Die Funktion „Website-Daten löschen“ Ihres Browsers entfernt zugleich den Offline-Cache.</p>
+            <h2>10. Speicherdauer und Löschung</h2>
+            <p>Die lokal gespeicherten Daten bleiben, bis Sie sie löschen. Sie können sie jederzeit entfernen, indem Sie die App-Daten bzw. den Speicher der App in den Geräte- bzw. Browser-Einstellungen löschen oder die App deinstallieren. Die Funktion „Website-Daten löschen“ Ihres Browsers entfernt zugleich den Offline-Cache und die Daten der Erinnerung.</p>
 
-            <h2>8. Ihre Rechte</h2>
-            <p>Da der Entwickler keine personenbezogenen Daten von Ihnen speichert, kann er keine Daten zuordnen oder herausgeben. Unabhängig davon haben Sie nach der DSGVO das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, in Nordrhein-Westfalen beim <a href="https://www.ldi.nrw.de" rel="noopener">LDI NRW</a>.</p>
+            <h2>11. Ihre Rechte</h2>
+            <p>Da der Entwickler keine personenbezogenen Daten von Ihnen speichert, kann er keine Daten zuordnen oder herausgeben. Unabhängig davon haben Sie nach der DSGVO das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und Widerruf erteilter Einwilligungen. Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, in Nordrhein-Westfalen beim <a href="https://www.ldi.nrw.de" rel="noopener">LDI NRW</a>.</p>
 
-            <h2>9. Kinder</h2>
+            <h2>12. Kinder</h2>
             <p>Die App richtet sich an ein allgemeines Publikum und erhebt von niemandem, auch nicht von Kindern, personenbezogene Daten.</p>
 
-            <h2>10. Änderungen</h2>
+            <h2>13. Änderungen</h2>
             <p>Diese Erklärung kann angepasst werden, etwa bei neuen App-Funktionen. Die jeweils aktuelle Fassung finden Sie unter dieser Adresse.</p>
 
-            <h2>11. Kontakt</h2>
+            <h2>14. Kontakt</h2>
             <p>Fragen zum Datenschutz richten Sie bitte an: Günter Struck, caresms@online.de</p>
             <a href="index.html" class="back-button">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

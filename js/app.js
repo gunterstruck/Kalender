@@ -73,6 +73,7 @@ class CalendarApp {
         this.quoteDates = document.getElementById('quote-dates');
         this.quoteLink = document.getElementById('quote-link');
         this.quoteLinkTitle = document.getElementById('quote-link-title');
+        this.quoteShare = document.getElementById('quote-share');
         this.modalDay = document.getElementById('modal-day');
         this.toast = document.getElementById('toast');
         this.infoBanner = document.getElementById('info-banner');
@@ -141,6 +142,7 @@ class CalendarApp {
         this.modalClose.addEventListener('click', () => this.closeModal());
         this.modalBackdrop.addEventListener('click', () => this.closeModal());
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        this.quoteShare.addEventListener('click', () => this.shareCurrentQuote());
 
         // Event Delegation für Türchen-Clicks (verhindert Memory Leaks)
         this.calendarGrid.addEventListener('click', (e) => {
@@ -1357,6 +1359,17 @@ class CalendarApp {
         }
     }
 
+    isDoorOpenedToday() {
+        if (!this.storageAvailable) return false;
+        try {
+            const key = `calendar_opened_v2_${this.currentYear}_${this.currentMonth}`;
+            const opened = JSON.parse(localStorage.getItem(key) || '[]');
+            return Array.isArray(opened) && opened.includes(this.currentDay);
+        } catch (error) {
+            return false;
+        }
+    }
+
     isToday(day) {
         return this.selectedMonth === this.currentMonth &&
             this.selectedYear === this.currentYear &&
@@ -1432,6 +1445,10 @@ class CalendarApp {
                 opened.push(day);
                 const key = this.getStorageKey('opened');
                 localStorage.setItem(key, JSON.stringify(opened));
+            }
+            // Erinnerung: heute ist erledigt
+            if (this.isToday(day) && typeof KalenderReminder !== 'undefined') {
+                KalenderReminder.markOpenedToday();
             }
         } catch (error) {
             if (error.name === 'QuotaExceededError') {
@@ -1728,11 +1745,18 @@ class CalendarApp {
         const isSmallScreen = window.matchMedia('(max-width: 480px)').matches;
         const minDoorSizePx = isSmallScreen ? 40 : 60;
         const doorSizePx = Math.max((this.CONFIG.DOOR_SIZE_PERCENT / 100) * gridWidth, minDoorSizePx);
+        // Tatsächliche Türchengröße messen (auf kleinen Bildschirmen ist sie
+        // durch die Ziffer höher als breit); Fallback: quadratisch
+        const measured = this.measureDoorSize();
+        const doorW = measured ? measured.width : doorSizePx;
+        const doorH = measured ? measured.height : doorSizePx;
         const baseSpacingPx = (this.CONFIG.MIN_SPACING_PERCENT / 100) * gridWidth;
         // Rand horizontal relativ zur Breite, vertikal relativ zur Höhe
         const paddingPx = (this.CONFIG.PADDING_PERCENT / 100) * gridWidth;
         const paddingYPx = (this.CONFIG.PADDING_PERCENT / 100) * gridHeight;
         const maxAttempts = this.CONFIG.MAX_POSITION_ATTEMPTS;
+
+        let placementFailed = false;
 
         for (let day = 1; day <= daysInMonth; day++) {
             let validPosition = false;
@@ -1740,8 +1764,8 @@ class CalendarApp {
             let yPx = paddingYPx;
             let spacingPx = baseSpacingPx;
 
-            const maxX = Math.max(paddingPx, gridWidth - doorSizePx - paddingPx);
-            const maxY = Math.max(paddingYPx, gridHeight - doorSizePx - paddingYPx);
+            const maxX = Math.max(paddingPx, gridWidth - doorW - paddingPx);
+            const maxY = Math.max(paddingYPx, gridHeight - doorH - paddingYPx);
 
             while (!validPosition && spacingPx >= 0) {
                 let attempts = 0;
@@ -1753,10 +1777,10 @@ class CalendarApp {
                     validPosition = positions.every((pos) => {
                         const otherX = pos.xPx;
                         const otherY = pos.yPx;
-                        const overlapX = xPx < otherX + doorSizePx + spacingPx &&
-                            xPx + doorSizePx + spacingPx > otherX;
-                        const overlapY = yPx < otherY + doorSizePx + spacingPx &&
-                            yPx + doorSizePx + spacingPx > otherY;
+                        const overlapX = xPx < otherX + doorW + spacingPx &&
+                            xPx + doorW + spacingPx > otherX;
+                        const overlapY = yPx < otherY + doorH + spacingPx &&
+                            yPx + doorH + spacingPx > otherY;
                         return !(overlapX && overlapY);
                     });
 
@@ -1771,7 +1795,8 @@ class CalendarApp {
             }
 
             if (!validPosition) {
-                this.warn(`Keine valide Position für Tag ${day} nach ${maxAttempts} Versuchen. Verwende minimalen Abstand.`);
+                this.warn(`Keine valide Position für Tag ${day} nach ${maxAttempts} Versuchen.`);
+                placementFailed = true;
             }
 
             positions.push({
@@ -1783,9 +1808,82 @@ class CalendarApp {
             });
         }
 
+        // Zu wenig Platz für eine freie Zufallsverteilung (kleine Handys):
+        // verwackeltes Raster ohne Überlappung verwenden
+        if (placementFailed) {
+            const jittered = this.generateJitteredGridPositions(daysInMonth, {
+                gridWidth, gridHeight, doorW, doorH, paddingPx, paddingYPx
+            });
+            if (jittered) return jittered;
+        }
+
         const normalizedPositions = positions.map(({ day, x, y }) => ({ day, x, y }));
 
         return normalizedPositions;
+    }
+
+    // Jedes Türchen bekommt eine eigene Rasterzelle mit zufälligem Versatz;
+    // die Tage werden zufällig auf die Zellen verteilt.
+    generateJitteredGridPositions(daysInMonth, { gridWidth, gridHeight, doorW, doorH, paddingPx, paddingYPx }) {
+        let best = null;
+        for (const pad of [1, 0.5, 0]) {
+            const padX = paddingPx * pad;
+            const padY = paddingYPx * pad;
+            const innerW = gridWidth - 2 * padX;
+            const innerH = gridHeight - 2 * padY;
+            for (let cols = 3; cols <= 12; cols++) {
+                const rows = Math.ceil(daysInMonth / cols);
+                const cellW = innerW / cols;
+                const cellH = innerH / rows;
+                const slack = Math.min(cellW - doorW, cellH - doorH);
+                if (slack >= 0 && (!best || slack > best.slack)) {
+                    best = { cols, rows, cellW, cellH, padX, padY, slack };
+                }
+            }
+            if (best) break;
+        }
+        if (!best) return null;
+
+        const cells = [];
+        for (let r = 0; r < best.rows; r++) {
+            for (let c = 0; c < best.cols; c++) cells.push({ r, c });
+        }
+        for (let i = cells.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cells[i], cells[j]] = [cells[j], cells[i]];
+        }
+
+        const positions = [];
+        for (let day = 1; day <= daysInMonth; day++) {
+            const { r, c } = cells[day - 1];
+            const xPx = best.padX + c * best.cellW + Math.random() * (best.cellW - doorW);
+            const yPx = best.padY + r * best.cellH + Math.random() * (best.cellH - doorH);
+            positions.push({ day, x: (xPx / gridWidth) * 100, y: (yPx / gridHeight) * 100 });
+        }
+        return positions;
+    }
+
+    measureDoorSize() {
+        try {
+            const probe = document.createElement('div');
+            probe.className = 'door';
+            probe.style.visibility = 'hidden';
+            probe.style.left = '0';
+            probe.style.top = '0';
+            const number = document.createElement('span');
+            number.className = 'door-number';
+            number.textContent = '28';
+            probe.appendChild(number);
+            this.calendarGrid.appendChild(probe);
+            const rect = probe.getBoundingClientRect();
+            probe.remove();
+            if (rect.width > 0 && rect.height > 0) {
+                return { width: rect.width, height: rect.height };
+            }
+        } catch (error) {
+            this.warn('Türchengröße konnte nicht gemessen werden:', error);
+        }
+        return null;
     }
 
     getDoorPosition(day) {
@@ -2073,6 +2171,9 @@ class CalendarApp {
         const quote = this.getQuoteForDay(day);
         const monthName = this.monthNames[this.selectedMonth];
 
+        // Für "Teilen" merken
+        this.currentQuote = quote;
+
         // Setze Zitat-Text
         this.quoteText.textContent = quote.text;
 
@@ -2099,6 +2200,35 @@ class CalendarApp {
 
         // Accessibility: Focus auf Modal setzen
         this.modalClose.focus();
+    }
+
+    // ========================================
+    // Zitat teilen (Teilen-Menü des Geräts, sonst Zwischenablage)
+    // ========================================
+
+    getShareText(quote) {
+        const author = quote.author || I18N.t('unknownAuthor');
+        const dates = quote.dates ? ` (${quote.dates})` : '';
+        const appUrl = new URL('./', window.location.href).href;
+        const [open, close] = I18N.getLang() === 'de' ? ['„', '“'] : ['“', '”'];
+        return `${open}${quote.text}${close}\n– ${author}${dates}\n\n${I18N.t('appTitle')}: ${appUrl}`;
+    }
+
+    async shareCurrentQuote() {
+        if (!this.currentQuote || this.demo) return;
+        const text = this.getShareText(this.currentQuote);
+        try {
+            if (navigator.share) {
+                await navigator.share({ title: I18N.t('shareTitle'), text });
+                return;
+            }
+            await navigator.clipboard.writeText(text);
+            this.showToast(I18N.t('quoteCopied'));
+        } catch (error) {
+            if (error && error.name === 'AbortError') return; // Nutzer hat abgebrochen
+            console.error('Teilen fehlgeschlagen:', error);
+            this.showToast(I18N.t('shareFailed'));
+        }
     }
 
     // ========================================

@@ -39,6 +39,10 @@ const I18N = (() => {
             // Modal
             modalTitle: 'Historische Lebensweisheit',
             learnMore: 'Mehr erfahren',
+            share: 'Teilen',
+            shareTitle: 'Lebensweisheit aus dem Monatskalender mit Türchen',
+            quoteCopied: '📋 Zitat kopiert',
+            shareFailed: '⚠️ Teilen nicht möglich',
             close: 'Schließen',
             unknownAuthor: 'Unbekannt',
 
@@ -126,6 +130,10 @@ const I18N = (() => {
 
             modalTitle: 'Historical Wisdom',
             learnMore: 'Learn more',
+            share: 'Share',
+            shareTitle: 'Wisdom from the Monthly Door Calendar',
+            quoteCopied: '📋 Quote copied',
+            shareFailed: '⚠️ Sharing not possible',
             close: 'Close',
             unknownAuthor: 'Unknown',
 

@@ -17,7 +17,7 @@
     font-weight: 700;
     cursor: pointer;
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 990; /* unter dem Zitat-Fenster (1000) */
     transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
@@ -135,6 +135,91 @@
 }
 
 body.ld-active .install-prompt { display: none; }
+body.ld-active .toast { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
+
+/* Auswahl der Vorführungen */
+.ld-menu {
+    width: min(420px, calc(100% - 2 * var(--spacing-md)));
+    margin: auto;
+    padding: var(--spacing-xl);
+    border: 0;
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-xl);
+}
+
+.ld-menu::backdrop {
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(3px);
+}
+
+.ld-menu-title {
+    color: var(--primary);
+    font-size: var(--font-size-xl);
+    margin: 0 48px var(--spacing-xs) 0;
+}
+
+.ld-menu-intro {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.ld-menu-list {
+    display: grid;
+    gap: var(--spacing-sm);
+}
+
+.ld-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    color: var(--text-primary);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--transition-base), transform var(--transition-base);
+}
+
+.ld-menu-item:first-child {
+    border-color: #ec4899;
+}
+
+.ld-menu-item:hover,
+.ld-menu-item:focus-visible {
+    border-color: var(--primary);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.ld-menu-label {
+    font-weight: 700;
+}
+
+.ld-menu-meta {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.ld-menu-close {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+}
 
 .ld-label-short { display: none; }
 

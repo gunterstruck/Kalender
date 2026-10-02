@@ -41,7 +41,25 @@
             theme: 'Mit dem Knopf oben rechts wechselst du zwischen hellem und dunklem Farbschema.',
             themeBack: 'Dunkel ist ideal für den Abend. Und wieder zurück.',
             outro1: 'Zurück im aktuellen Monat. Alles bleibt auf deinem Gerät - ohne Konto, ohne Werbung, auch offline.',
-            outro2: 'Installiere die App auf deinem Startbildschirm und öffne jeden Tag ein Türchen. Viel Freude!'
+            outro2: 'Installiere die App auf deinem Startbildschirm und öffne jeden Tag ein Türchen. Viel Freude!',
+            menuTitle: 'Livedemos',
+            menuIntro: 'Die App zeigt sich selbst - wähle eine Vorführung:',
+            storyTour: '🎬 Große Tour', storyTourMeta: 'ca. 2 Min · alles im Überblick',
+            storyRules: '🚪 Türchen-Regeln', storyRulesMeta: 'ca. 30 s · heute, gesperrt, verpasst',
+            storyShare: '💬 Zitat teilen', storyShareMeta: 'ca. 20 s',
+            storyReminder: '🔔 Erinnerung einrichten', storyReminderMeta: 'ca. 30 s',
+            rulesIntro: 'Die Türchen-Regeln in 30 Sekunden.',
+            rulesToday: 'Das leuchtende Türchen mit „Heute“ ist heute dran.',
+            rulesCatchUp: 'Im laufenden Monat kannst du vergangene Tage nachholen - bis zum Monatsende.',
+            shareIntro: 'Ein schönes Zitat weitergeben? So geht es.',
+            shareButton: '„Teilen“ öffnet das Teilen-Menü deines Geräts - oder kopiert Zitat und Link in die Zwischenablage.',
+            shareDone: 'Fertig! Teilen funktioniert bei jedem geöffneten Türchen.',
+            reminderIntro: 'Damit du kein Türchen verpasst: die tägliche Erinnerung.',
+            reminderOpen: 'Der Knopf „Erinnerung“ sitzt neben der Monatsauswahl.',
+            reminderTime: 'Zuerst die Uhrzeit wählen, zum Beispiel 8:00 Uhr.',
+            reminderIcs: 'Der Kalendereintrag funktioniert überall: iPhone, Android und Computer.',
+            reminderNotify: 'In der installierten App (Chrome/Edge) gibt es zusätzlich eine Benachrichtigung - nur wenn das Türchen noch zu ist.',
+            reminderDone: 'Alles bleibt auf deinem Gerät. Viel Freude mit deinen Türchen!'
         },
         en: {
             start: 'Live demo', startShort: 'Demo',
@@ -67,7 +85,25 @@
             theme: 'The button at the top right switches between light and dark color scheme.',
             themeBack: 'Dark is perfect for the evening. And back again.',
             outro1: 'Back in the current month. Everything stays on your device - no account, no ads, works offline.',
-            outro2: 'Install the app on your home screen and open a door every day. Enjoy!'
+            outro2: 'Install the app on your home screen and open a door every day. Enjoy!',
+            menuTitle: 'Live demos',
+            menuIntro: 'The app shows itself - choose a demo:',
+            storyTour: '🎬 Full tour', storyTourMeta: 'about 2 min · the big picture',
+            storyRules: '🚪 Door rules', storyRulesMeta: 'about 30 s · today, locked, missed',
+            storyShare: '💬 Share a quote', storyShareMeta: 'about 20 s',
+            storyReminder: '🔔 Set up a reminder', storyReminderMeta: 'about 30 s',
+            rulesIntro: 'The door rules in 30 seconds.',
+            rulesToday: 'The glowing door marked "Today" is today\'s door.',
+            rulesCatchUp: 'During the current month you can catch up on past days - until the month ends.',
+            shareIntro: 'Want to pass on a nice quote? Here is how.',
+            shareButton: '"Share" opens your device\'s share menu - or copies quote and link to the clipboard.',
+            shareDone: 'Done! Sharing works for every opened door.',
+            reminderIntro: 'So you never miss a door: the daily reminder.',
+            reminderOpen: 'The "Reminder" button sits next to the month selector.',
+            reminderTime: 'First choose a time, for example 8:00.',
+            reminderIcs: 'The calendar event works everywhere: iPhone, Android and computers.',
+            reminderNotify: 'In the installed app (Chrome/Edge) there is also a notification - only if the door is still closed.',
+            reminderDone: 'Everything stays on your device. Enjoy your doors!'
         }
     };
 
@@ -177,7 +213,8 @@
             const short = el('span', 'ld-label-short');
             short.textContent = `▶ ${T.startShort}`;
             this.startButton.append(long, short);
-            this.startButton.addEventListener('click', () => this.start());
+            this.startButton.setAttribute('aria-haspopup', 'dialog');
+            this.startButton.addEventListener('click', () => this.openMenu());
             document.body.appendChild(this.startButton);
 
             this.shield = el('div', 'ld-shield is-hidden', { 'aria-hidden': 'true' });
@@ -215,6 +252,38 @@
             document.body.append(this.shield, this.ghost, this.caption, this.bar, this.progress);
             this.progress.classList.add('is-hidden');
             this.syncBar();
+        }
+
+        // Auswahl der Vorführungen (große Tour + Mini-Demos)
+        openMenu() {
+            if (this.running) return;
+            if (!this.menu) {
+                this.menu = el('dialog', 'ld-menu', { 'aria-labelledby': 'ld-menu-title' });
+                const title = el('h2', 'ld-menu-title', { id: 'ld-menu-title' });
+                title.textContent = T.menuTitle;
+                const intro = el('p', 'ld-menu-intro');
+                intro.textContent = T.menuIntro;
+                const list = el('div', 'ld-menu-list');
+                [['tour', T.storyTour, T.storyTourMeta], ['rules', T.storyRules, T.storyRulesMeta],
+                    ['share', T.storyShare, T.storyShareMeta], ['reminder', T.storyReminder, T.storyReminderMeta]]
+                    .forEach(([id, label, meta]) => {
+                        const b = el('button', 'ld-menu-item', { type: 'button', 'data-story': id });
+                        const l = el('span', 'ld-menu-label');
+                        l.textContent = label;
+                        const m = el('span', 'ld-menu-meta');
+                        m.textContent = meta;
+                        b.append(l, m);
+                        b.addEventListener('click', () => { this.menu.close(); this.start(id); });
+                        list.appendChild(b);
+                    });
+                const close = el('button', 'ld-menu-close', { type: 'button', 'aria-label': T.close });
+                close.textContent = '✕';
+                close.addEventListener('click', () => this.menu.close());
+                this.menu.addEventListener('click', (e) => { if (e.target === this.menu) this.menu.close(); });
+                this.menu.append(close, title, intro, list);
+                document.body.appendChild(this.menu);
+            }
+            this.menu.showModal();
         }
 
         barButton(text, handler, label) {
@@ -356,8 +425,10 @@
         }
 
         // ---------- Ablauf ----------
-        async start() {
+        async start(storyId = 'tour') {
             if (this.running || !this.app) return;
+            this.storyId = storyId;
+            if (typeof KalenderReminder !== 'undefined') KalenderReminder.close();
             this.running = true;
             this.aborted = false;
             this.paused = false;
@@ -384,7 +455,9 @@
             this.music.play();
             this.app.beginDemo(this.seed());
             try {
-                await this.script();
+                const stories = { tour: () => this.script(), rules: () => this.storyRules(),
+                    share: () => this.storyShare(), reminder: () => this.storyReminder() };
+                await (stories[storyId] || stories.tour)();
             } catch (error) {
                 if (!(error instanceof AbortDemo)) console.error('[Livedemo]', error);
             }
@@ -401,6 +474,7 @@
 
         async finish() {
             this.music.stop(2000);
+            if (typeof KalenderReminder !== 'undefined') KalenderReminder.close();
             this.pending = null;
             this.hideCaption();
             this.app.closeModal();
@@ -417,6 +491,100 @@
 
         progressTo(step, total) {
             this.progressFill.style.width = `${Math.round((step / total) * 100)}%`;
+        }
+
+        // ---------- Mini-Demos ----------
+        async storyRules() {
+            const app = this.app;
+            const now = new Date();
+            const today = now.getDate();
+            const daysInMonth = app.getDaysInMonth(now.getMonth(), now.getFullYear());
+            const prevY = now.getFullYear() - 1;
+            const TOTAL = 5;
+            let n = 0;
+            const mark = () => this.progressTo(++n, TOTAL);
+
+            await this.say(T.rulesIntro);
+            mark();
+            await this.moveTo(this.door(today));
+            await this.say(T.rulesToday, { target: this.door(today) });
+            await this.tap(() => app.handleDoorClick(today));
+            await this.wait(1600);
+            app.closeModal();
+            mark();
+            if (today < daysInMonth) {
+                const next = this.door(today + 1);
+                await this.moveTo(next);
+                await this.tap(() => app.handleDoorClick(today + 1));
+                await this.say(T.future, { target: next });
+                app.toast.classList.remove('show');
+            }
+            mark();
+            await this.chooseMonth(0, prevY);
+            await this.moveTo(this.door(6));
+            await this.tap(() => app.handleDoorClick(6));
+            await this.say(T.missed, { target: this.door(6) });
+            app.toast.classList.remove('show');
+            mark();
+            await this.chooseMonth(now.getMonth(), now.getFullYear());
+            window.scrollTo({ top: 0, behavior: this.reduced ? 'auto' : 'smooth' });
+            await this.say(T.rulesCatchUp);
+            mark();
+        }
+
+        async storyShare() {
+            const app = this.app;
+            const today = new Date().getDate();
+            const TOTAL = 3;
+            let n = 0;
+            const mark = () => this.progressTo(++n, TOTAL);
+
+            await this.say(T.shareIntro);
+            mark();
+            await this.moveTo(this.door(today));
+            await this.tap(() => app.handleDoorClick(today));
+            await this.wait(900);
+            const share = document.getElementById('quote-share');
+            await this.moveTo(share);
+            await this.tap();
+            app.showToast(I18N.t('quoteCopied'));
+            await this.say(T.shareButton, { target: share });
+            mark();
+            app.closeModal();
+            await this.say(T.shareDone);
+            mark();
+        }
+
+        async storyReminder() {
+            const TOTAL = 5;
+            let n = 0;
+            const mark = () => this.progressTo(++n, TOTAL);
+            const button = document.getElementById('reminder-button');
+
+            await this.say(T.reminderIntro);
+            mark();
+            if (!button || typeof KalenderReminder === 'undefined') return;
+            await this.moveTo(button);
+            await this.say(T.reminderOpen, { target: button });
+            await this.tap(() => KalenderReminder.open({ demo: true }));
+            await this.wait(500);
+            mark();
+            const time = document.getElementById('reminder-time');
+            await this.moveTo(time);
+            await this.say(T.reminderTime, { target: time });
+            mark();
+            const ics = document.getElementById('reminder-ics');
+            await this.moveTo(ics);
+            await this.tap();
+            await this.say(T.reminderIcs, { target: ics });
+            mark();
+            const notify = document.getElementById('reminder-notify');
+            if (notify && !notify.hidden) await this.moveTo(notify);
+            await this.say(T.reminderNotify, { target: notify && !notify.hidden ? notify : null });
+            KalenderReminder.close();
+            await this.wait(400);
+            await this.say(T.reminderDone);
+            mark();
         }
 
         async script() {
