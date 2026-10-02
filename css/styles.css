@@ -1273,6 +1273,22 @@ body.dark-mode .reminder-secondary {
     }
 }
 
+.reminder-button-icon {
+    margin-right: 0.35em;
+}
+
+/* Schmale Handys: nur die Glocke, damit der Monatsname nicht abgeschnitten wird */
+@media (max-width: 400px) {
+    .reminder-button-label {
+        display: none;
+    }
+
+    .reminder-button-icon {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+}
+
 .month-dropdown {
     width: 100%;
     padding: var(--spacing-md) var(--spacing-lg);

@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Kurzanleitung
 
-Stand: 02.10.2026 · App-Version 1.9.1
+Stand: 02.10.2026 · App-Version 1.9.2
 
 ## 1. Starten
 
@@ -13,8 +13,10 @@ animierter Jahreszeiten-Banner erscheint.
 Knopf **„▶ Livedemo“** oben links öffnet die Auswahl:
 - **🎬 Große Tour** (ca. 2 Min): Türchen, Zitate, die vier Jahreszeiten und das Farbschema, mit Musik.
 - **Mini-Demos** (20–30 s): Türchen-Regeln, Zitat teilen, Erinnerung einrichten.
-Steuerleiste oben: ⏸/▶ Pause, ⏭ weiter, Tempo (1,2× bis 0,6×), 🔊 Musik, ✕ Ende
-(auch Esc). Die Demo verändert deinen Kalender nicht.
+Steuerleiste unten: ⏸/▶ Pause, ⏭ weiter, Tempo (1,2× bis 0,6×), 🔊 Musik, ✕ Ende.
+Ein Tipp auf den Bildschirm fragt: „Weiter ansehen“ oder „Beenden“ – beim
+Beenden geht es zurück zum heutigen Monat, die Musik klingt langsam aus.
+Die Demo verändert deinen Kalender nicht.
 
 ## 2. Ein Türchen öffnen
 

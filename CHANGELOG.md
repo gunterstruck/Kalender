@@ -2,6 +2,17 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.2] - 2026-10-02
+
+### 🎬 Livedemo
+- **Ruhiges Bild:** Während einer Demo passen Banner, Kalender und Monatsauswahl auf einen Bildschirm; die Seite scrollt nicht mehr (vorher bis ~200 px hin und her, auch in den Videos sichtbar)
+- **Nachfrage beim Antippen:** Ein Tipp auf den Bildschirm (oder Esc) hält an und fragt „Weiter ansehen“ oder „Beenden“; Beenden führt zum aktuellen Monat zurück und blendet die Musik über 2,5 s aus
+- Jede Vorführung beginnt im aktuellen Monat (vorher im zuletzt gewählten)
+- Videos neu aufgenommen
+
+### ✨ Verbesserungen
+- Schmale Handys (≤ 400 px): Erinnerungs-Knopf nur mit Glocke, damit der Monatsname nicht abgeschnitten wird
+
 ## [1.9.1] - 2026-10-02
 
 ### 🚀 Deployment über Vercel

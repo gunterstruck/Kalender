@@ -2,7 +2,7 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.9.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.2-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
@@ -267,8 +267,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.9.1';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.1';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.9.2';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.2';  // Auch Runtime Cache!
 ```
 
 **Dann:**

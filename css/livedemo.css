@@ -135,6 +135,86 @@
 }
 
 body.ld-active .install-prompt { display: none; }
+
+/* Ein ruhiges Bild: während der Demo kein Scrollen, alles auf einem Bildschirm */
+html.ld-lock,
+html.ld-lock body {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body.ld-active .app-footer {
+    display: none;
+}
+
+body.ld-active .calendar-wrapper {
+    height: var(--ld-cal-height, 60vh) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+}
+
+/* Nachfrage beim Tippen auf den Bildschirm */
+.ld-ask {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(360px, calc(100% - 2 * var(--spacing-md)));
+    padding: var(--spacing-lg);
+    background: rgba(15, 23, 42, 0.97);
+    color: #fff;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    z-index: 9400;
+}
+
+.ld-ask-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.ld-ask-text {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+    margin-bottom: var(--spacing-md);
+}
+
+.ld-ask-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ld-ask-buttons button {
+    flex: 1 1 0;
+    min-height: 44px;
+    padding: 0 var(--spacing-sm);
+    white-space: nowrap;
+    font-size: var(--font-size-sm);
+    border: 0;
+    border-radius: 22px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ld-ask-continue {
+    background: #ec4899;
+    color: #fff;
+}
+
+.ld-ask-stop {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+.ld-ask-buttons button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
 body.ld-active .toast { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
 
 /* Auswahl der Vorführungen */

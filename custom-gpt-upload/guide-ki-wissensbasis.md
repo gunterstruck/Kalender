@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.4 · Stand: 02.10.2026 · App-Version: 1.9.1 (Service-Worker-Cache v1.9.1)**
+**Version 1.5 · Stand: 02.10.2026 · App-Version: 1.9.2 (Service-Worker-Cache v1.9.2)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -76,7 +76,7 @@ Von oben nach unten:
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
 | **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender, daneben der Knopf **„🔔 Erinnerung“** (Abschnitt 7b). |
-| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.0". |
+| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.2". |
 | **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal), mit „Mehr erfahren“ (Wikipedia) und **„Teilen“**. |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
 | **Installations-Hinweis** | „App installieren" mit Knöpfen „Installieren" und „✕" (nur wenn der Browser es anbietet). |
@@ -264,12 +264,25 @@ und nicht im Offline-Cache.
 | ⏭ | aktuelle Erklärung überspringen, zur nächsten |
 | 1,2× · 1,0× · 0,8× · 0,6× | Tempo durchschalten (Musik bleibt gleich) |
 | 🔊 / 🔇 | Musik aus/ein |
-| ✕ | Demo beenden (auch **Esc**) |
+| ✕ | Demo sofort beenden (Esc oder Tippen auf den Bildschirm fragen vorher nach) |
+
+**Ruhiges Bild:** Jede Vorführung beginnt im **aktuellen Monat**. Während der
+Demo passt die App die Kalenderfläche so an, dass Saisonbanner, Kalender und
+Monatsauswahl über der Steuerleiste auf **einen Bildschirm** passen. Die Seite
+scrollt nicht, die Fußzeile ist ausgeblendet. Danach ist alles wieder normal.
+
+**Antippen während der Demo:** Ein Tipp irgendwo auf den Bildschirm (oder
+**Esc**) hält die Demo an und fragt „Livedemo beenden?“ mit „▶ Weiter
+ansehen“ und „■ Beenden“. Die Musik läuft dabei leise weiter. „Weiter
+ansehen“ setzt genau dort fort. „Beenden“ (ebenso ✕ in der Steuerleiste)
+beendet die Demo, kehrt **zum aktuellen Monat** zurück und blendet die Musik
+über 2,5 Sekunden langsam aus.
 
 **Sicherheit/Daten:** Die Demo läuft in einem Sandbox-Zustand. Sie speichert
 **nichts** (keine Türchen, kein Monat, kein Farbschema) und stellt danach den
 vorherigen Zustand wieder her. Echte Klicks und Tasten sind während der Demo
-gesperrt (Schutzschicht); nur die Steuerleiste reagiert. Wechselt der Tab in
+gesperrt (Schutzschicht); nur die Steuerleiste reagiert – ein Tipp daneben
+öffnet die Nachfrage. Wechselt der Tab in
 den Hintergrund, pausiert die Demo.
 
 **Geräte:** Desktop und Tablet quer zeigen die Desktop-Ansicht, Smartphone und
@@ -283,10 +296,11 @@ vom selben Server wie die App, **nicht offline gecacht**. Offline oder bei
 Browser-Sperre läuft die Demo ohne Musik (Symbol 🔇). „Bewegung reduzieren“
 wird respektiert (kurze Zeigerwege, Lesezeiten bleiben).
 
-**Häufige Fragen:** „Hat die Demo meinen Kalender verändert?“ Nein. „Keine
+**Häufige Fragen:** „Wie höre ich auf?“ Irgendwo tippen → „■ Beenden“, oder ✕.
+„Hat die Demo meinen Kalender verändert?“ Nein. „Keine
 Musik?“ Ton am Gerät, 🔇-Knopf, offline oder Browser blockiert Audio. „Zu
 schnell?“ Tempo-Knopf oder ⏸. „Ich kann nichts anklicken“ – die Demo läuft;
-✕ oder Esc beendet sie.
+ein Tipp fragt, ob sie beendet werden soll.
 
 ---
 
@@ -375,8 +389,8 @@ bestehen, bis die Website-Daten gelöscht werden.
 
 ## 9. Offline-Funktion und Updates (Service Worker)
 
-- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.0`,
-  Runtime-Cache `kalender-runtime-v1.9.0`) legt beim Installieren die App-Shell
+- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.2`,
+  Runtime-Cache `kalender-runtime-v1.9.2`) legt beim Installieren die App-Shell
   an: `index.html`, `impressum.html`, `datenschutz.html`, CSS, alle JS-Dateien
   inklusive beider Zitat-Dateien und der Livedemo, Manifest, Icons und alle 24 Monatsbilder.
 - **Strategien:** JS und CSS = *Stale-While-Revalidate* (sofort aus dem Cache,
