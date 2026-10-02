@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.9.2 - Livedemo: ruhiges Bild, Nachfrage beim Antippen
+// Version 1.9.3 - Grüne Akzentfarbe, längeres Icon-Wackeln
 
-const CACHE_NAME = 'kalender-cache-v1.9.2';
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.2';
+const CACHE_NAME = 'kalender-cache-v1.9.3';
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.3';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [

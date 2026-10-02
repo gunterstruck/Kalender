@@ -2,7 +2,7 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.9.2-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.3-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
@@ -16,6 +16,7 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 - **🌍 Deutsch und Englisch**: automatisch nach Browsersprache
 - **🎨 12 Monatsillustrationen**: je eine Fassung für Quer- und Hochformat, Jahreszeiten-Banner mit Easter Eggs
 - **🎬 Livedemo**: große Tour (ca. 2 Min) und Mini-Demos (20–30 s) als geführte Vorführung der echten App, mit Musik; die Tour auch als MP4 in `film/`
+- **📣 Werbefilme**: 28-s-Clips für WhatsApp-Status (9:16, Handyrahmen) und Desktop (16:9, Monitor) in `film/`
 - **🔔 Tägliche Erinnerung**: Kalendereintrag (.ics) überall, Benachrichtigung in der installierten App (Chrome/Edge)
 - **💬 Zitat teilen**: Teilen-Menü des Geräts oder Zwischenablage
 - **📴 Offline-Fähig**: Funktioniert komplett ohne Internetverbindung
@@ -269,8 +270,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.9.2';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.2';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.9.3';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.3';  // Auch Runtime Cache!
 ```
 
 **Dann:**

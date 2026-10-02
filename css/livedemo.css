@@ -10,7 +10,7 @@
     padding: 0 var(--spacing-lg);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 24px;
-    background: rgba(236, 72, 153, 0.92);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%); /* Smaragdgrün */
     color: #fff;
     font: inherit;
     font-size: var(--font-size-sm);
@@ -51,7 +51,7 @@
     left: -6px;
     width: 22px;
     height: 22px;
-    border: 3px solid #ec4899;
+    border: 3px solid #10b981;
     border-radius: 50%;
     opacity: 0;
 }
@@ -100,13 +100,22 @@
 
 /* Neuer Text: Icon nickt kurz, damit der Blick zum Text geht */
 .ld-caption.ld-new::before {
-    animation: ld-icon-pop 0.45s ease-out;
+    animation: ld-icon-wiggle 1.5s ease-in-out;
 }
 
-@keyframes ld-icon-pop {
-    0% { transform: translateY(-50%) scale(0.7) rotate(-8deg); }
-    60% { transform: translateY(-50%) scale(1.12) rotate(4deg); }
-    100% { transform: translateY(-50%) scale(1) rotate(0); }
+/* Deutlich sichtbares Wackeln (ca. 1,5 s, mehrere Ausschläge, kurzes Leuchten) */
+@keyframes ld-icon-wiggle {
+    0%   { transform: translateY(-50%) scale(0.6) rotate(-14deg); }
+    12%  { transform: translateY(-50%) scale(1.2) rotate(12deg);
+           box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.75), 0 0 18px 6px rgba(16, 185, 129, 0.55); }
+    26%  { transform: translateY(-50%) scale(1.08) rotate(-11deg); }
+    40%  { transform: translateY(-50%) scale(1.15) rotate(9deg);
+           box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.6), 0 0 16px 5px rgba(16, 185, 129, 0.45); }
+    54%  { transform: translateY(-50%) scale(1.05) rotate(-7deg); }
+    68%  { transform: translateY(-50%) scale(1.1) rotate(5deg); }
+    82%  { transform: translateY(-50%) scale(1.03) rotate(-3deg); }
+    100% { transform: translateY(-50%) scale(1) rotate(0deg);
+           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.15); }
 }
 
 .ld-caption.ld-top {
@@ -158,11 +167,18 @@
     display: block;
     height: 100%;
     width: 0;
-    background: #ec4899;
+    background: #10b981;
     transition: width 0.6s ease;
 }
 
 body.ld-active .install-prompt { display: none; }
+
+/* Werbefilm-Modus: nur App und Zeiger */
+body.ld-clean .ld-bar,
+body.ld-clean .ld-progress,
+body.ld-clean .ld-caption {
+    display: none !important;
+}
 
 /* Ein ruhiges Bild: während der Demo kein Scrollen, alles auf einem Bildschirm */
 html.ld-lock,
@@ -241,7 +257,7 @@ body.ld-active .calendar-wrapper {
 }
 
 .ld-ask-continue {
-    background: #ec4899;
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
     color: #fff;
 }
 
@@ -308,7 +324,7 @@ body.ld-active .toast { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
 }
 
 .ld-menu-item:first-child {
-    border-color: #ec4899;
+    border-color: #10b981;
 }
 
 .ld-menu-item:hover,

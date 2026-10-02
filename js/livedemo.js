@@ -532,9 +532,11 @@
         }
 
         // ---------- Ablauf ----------
-        async start(storyId = 'tour') {
+        // options.clean: ohne Steuerleiste, Fortschritt und Untertitel (für Werbefilme)
+        async start(storyId = 'tour', { clean = false } = {}) {
             if (this.running || !this.app) return;
             this.storyId = storyId;
+            document.body.classList.toggle('ld-clean', clean);
             if (typeof KalenderReminder !== 'undefined') KalenderReminder.close();
             this.running = true;
             this.aborted = false;
@@ -569,7 +571,8 @@
             await this.lockLayout();
             try {
                 const stories = { tour: () => this.script(), rules: () => this.storyRules(),
-                    share: () => this.storyShare(), reminder: () => this.storyReminder() };
+                    share: () => this.storyShare(), reminder: () => this.storyReminder(),
+                    promo: () => this.storyPromo() };
                 await (stories[storyId] || stories.tour)();
             } catch (error) {
                 if (!(error instanceof AbortDemo)) console.error('[Livedemo]', error);
@@ -599,7 +602,7 @@
             window.removeEventListener('keydown', this.keyHandler, true);
             document.removeEventListener('visibilitychange', this.visHandler);
             [this.shield, this.ghost, this.bar, this.progress].forEach((n) => n.classList.add('is-hidden'));
-            document.body.classList.remove('ld-active');
+            document.body.classList.remove('ld-active', 'ld-clean');
             this.startButton.classList.remove('is-hidden');
             this.running = false;
             this.startButton.focus({ preventScroll: true });
@@ -607,6 +610,66 @@
 
         progressTo(step, total) {
             this.progressFill.style.width = `${Math.round((step / total) * 100)}%`;
+        }
+
+        // ---------- Werbefilm (nicht im Menü) ----------
+        // Kurzer Zusammenschnitt für WhatsApp-Status & Co. Szenenmarken in
+        // window.ldMarks erlauben dem Aufnahme-Skript, Texte passend einzublenden.
+        mark(name) {
+            window.ldMarks = window.ldMarks || [];
+            window.ldMarks.push({ name, t: Date.now() / 1000 });
+        }
+
+        async storyPromo() {
+            const app = this.app;
+            const now = new Date();
+            const today = now.getDate();
+            const prevY = now.getFullYear() - 1;
+            window.ldMarks = [];
+
+            // 1 Heutiges Türchen, Zitat, Teilen
+            this.mark('today');
+            await this.wait(400);
+            await this.moveTo(this.door(today));
+            await this.tap(() => app.handleDoorClick(today));
+            await this.wait(2300);
+            const share = document.getElementById('quote-share');
+            if (share) {
+                await this.moveTo(share);
+                await this.tap();
+                await this.wait(900);
+            }
+            app.closeModal();
+            await this.wait(400);
+
+            // 2 Vier Jahreszeiten im Schnelldurchlauf
+            this.mark('seasons');
+            const months = [0, 3, 6, 9];
+            for (let i = 0; i < months.length; i++) {
+                app.demoGoto(months[i], prevY);
+                await this.wait(500);
+                if (i === 0) await this.moveTo(app.seasonalBanner);
+                await this.tap(() => app.seasonalBanner.click());
+                await this.wait(1500);
+            }
+
+            // 3 Erinnerung
+            this.mark('reminder');
+            app.demoGoto(now.getMonth(), now.getFullYear());
+            await this.wait(500);
+            const button = document.getElementById('reminder-button');
+            if (button && typeof KalenderReminder !== 'undefined') {
+                await this.moveTo(button);
+                await this.tap(() => KalenderReminder.open({ demo: true }));
+                await this.wait(2100);
+                KalenderReminder.close();
+            }
+
+            // 4 Zurück zum heutigen Türchen
+            this.mark('end');
+            await this.moveTo(this.door(today));
+            await this.wait(1200);
+            this.mark('done');
         }
 
         // ---------- Mini-Demos ----------

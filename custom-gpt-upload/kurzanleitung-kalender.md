@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Kurzanleitung
 
-Stand: 02.10.2026 · App-Version 1.9.2
+Stand: 02.10.2026 · App-Version 1.9.3
 
 ## 1. Starten
 

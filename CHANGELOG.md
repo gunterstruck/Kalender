@@ -2,6 +2,18 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.3] - 2026-10-02
+
+### 🎨 Gestaltung
+- Akzentfarbe Smaragdgrün statt Rosa: Livedemo-Knopf, „Weiter ansehen“, Fortschrittsbalken, Tipp-Ring, Rahmen „Große Tour“ und Etikett „Heute“
+- Icon in den Demo-Texten wackelt deutlich länger (1,5 s statt 0,45 s, mehrere Ausschläge, kurzes grünes Leuchten)
+
+### 📣 Werbefilme
+- `film/werbung-whatsapp-status-9x16.mp4` (1080×1920, 28 s, 4 MB) – App im Handyrahmen, Werbetexte darunter, Abschlusskarte mit Adresse und „Link unten im Status“; optimiert für den WhatsApp-Status (H.264/AAC, unter 30 s)
+- `film/werbung-desktop-16x9.mp4` (1920×1080, 28 s) – Texte links, App im Monitor rechts
+- Eigene, versteckte Kurz-Vorführung `liveDemo.start('promo', { clean: true })` ohne Steuerleiste und Untertitel; Skripte in `film/promo/`
+- Tour-Videos neu aufgenommen (grüne Akzente, deutsche Browser-Oberfläche)
+
 ## [1.9.2] - 2026-10-02
 
 ### 🎬 Livedemo

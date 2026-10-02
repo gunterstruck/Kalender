@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.5 · Stand: 02.10.2026 · App-Version: 1.9.2 (Service-Worker-Cache v1.9.2)**
+**Version 1.6 · Stand: 02.10.2026 · App-Version: 1.9.3 (Service-Worker-Cache v1.9.3)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -71,12 +71,12 @@ Von oben nach unten:
 | Element | Beschreibung |
 |---|---|
 | **Kopfzeile** | Titel „Monatskalender mit Türchen" und Untertitel „Entdecke jeden Tag eine neue Lebensweisheit". Sie blendet sich **nach 5 Sekunden automatisch aus**. |
-| **„▶ Livedemo“** | Knopf oben links, immer sichtbar (englisch „▶ Live demo“; auf Handys bis 480 px „▶ Demo“). Öffnet die Auswahl: große Tour oder Mini-Demos (Abschnitt 7a). |
+| **„▶ Livedemo“** | Grüner Knopf oben links, immer sichtbar (englisch „▶ Live demo“; auf Handys bis 480 px „▶ Demo“). Öffnet die Auswahl: große Tour oder Mini-Demos (Abschnitt 7a). |
 | **Farbschema-Schalter** | Runder Knopf oben rechts (Sonne/Mond), immer sichtbar. |
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
 | **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender, daneben der Knopf **„🔔 Erinnerung“** (Abschnitt 7b). Auf Handys bis 480 px zeigt der Knopf nur die Glocke; der Monatsname ist immer vollständig lesbar. Bei sehr großer Systemschrift rutscht der Knopf in eine zweite Zeile. |
-| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.2". |
+| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.3". |
 | **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal), mit „Mehr erfahren“ (Wikipedia) und **„Teilen“**. |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
 | **Installations-Hinweis** | „App installieren" mit Knöpfen „Installieren" und „✕" (nur wenn der Browser es anbietet). |
@@ -97,7 +97,7 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
 | Zustand | Aussehen | Wann |
 |---|---|---|
 | **Gesperrt** | ausgegraut | Datum liegt in der **Zukunft** |
-| **Heute** | leuchtet, Etikett „Heute“ (englisch „Today“) | heutiges Türchen, solange es noch nicht geöffnet ist |
+| **Heute** | leuchtet, grünes Etikett „Heute“ (englisch „Today“) | heutiges Türchen, solange es noch nicht geöffnet ist |
 | **Freigeschaltet** | normal, klickbar | Datum ist **heute** oder im **aktuellen Monat** schon vergangen |
 | **Geöffnet** | markiert, Symbol ℹ️ | Zitat wurde bereits angesehen |
 | **Verpasst** | gesperrt, Symbol ⏰ | Datum lag in einem **früheren Monat** und das Türchen wurde nie geöffnet |
@@ -251,6 +251,11 @@ Die Jahreszeiten werden immer mit Monaten des **Vorjahres** gezeigt; dort sind
 beispielhaft einige Türchen „geöffnet“ (Tage 1, 2, 3, 5, 8, 9, 13, 14, 21), der
 Rest ist „verpasst“.
 
+**Werbefilme:** `film/werbung-whatsapp-status-9x16.mp4` (28 s, Handyrahmen,
+für WhatsApp-Status und Stories) und `film/werbung-desktop-16x9.mp4` (28 s,
+Monitor). Sie zeigen eine versteckte Kurz-Vorführung (`liveDemo.start('promo',
+{ clean: true })`, nicht im Menü) mit Werbetexten und der Adresse.
+
 **Videos:** Die große Tour gibt es auch als MP4 mit Musik für Präsentationen
 ohne App: `film/livedemo-desktop.mp4` (Monitor-Format 1920×1080) und
 `film/livedemo-smartphone.mp4` (Hochformat 1080×1920). Nicht Teil der App
@@ -267,7 +272,9 @@ und nicht im Offline-Cache.
 | ✕ | Demo sofort beenden (Esc oder Tippen auf den Bildschirm fragen vorher nach) |
 
 **Untertitel:** dunkle Sprechblase mit dem **App-Icon links** (Kalender mit
-leuchtendem Türchen); bei jedem neuen Text „nickt“ das Icon kurz. Liegt das
+leuchtendem Türchen); bei jedem neuen Text wackelt das Icon ca. 1,5 s und
+leuchtet kurz grün auf. Akzentfarbe der Livedemo (Knopf, Fortschrittsbalken,
+„Weiter ansehen“) ist Smaragdgrün; das Etikett „Heute“ ebenfalls. Liegt das
 gezeigte Element in der unteren Bildhälfte, steht der Untertitel oben.
 
 **Ruhiges Bild:** Jede Vorführung beginnt im **aktuellen Monat**. Während der
@@ -393,8 +400,8 @@ bestehen, bis die Website-Daten gelöscht werden.
 
 ## 9. Offline-Funktion und Updates (Service Worker)
 
-- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.2`,
-  Runtime-Cache `kalender-runtime-v1.9.2`) legt beim Installieren die App-Shell
+- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.3`,
+  Runtime-Cache `kalender-runtime-v1.9.3`) legt beim Installieren die App-Shell
   an: `index.html`, `impressum.html`, `datenschutz.html`, CSS, alle JS-Dateien
   inklusive beider Zitat-Dateien und der Livedemo, Manifest, Icons und alle 24 Monatsbilder.
 - **Strategien:** JS und CSS = *Stale-While-Revalidate* (sofort aus dem Cache,
