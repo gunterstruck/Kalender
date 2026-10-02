@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.6 · Stand: 02.10.2026 · App-Version: 1.9.3 (Service-Worker-Cache v1.9.3)**
+**Version 1.7 · Stand: 02.10.2026 · App-Version: 1.9.4 (Service-Worker-Cache v1.9.4)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -72,12 +72,12 @@ Von oben nach unten:
 | Element | Beschreibung |
 |---|---|
 | **Kopfzeile** | Titel „Monatskalender mit Türchen" und Untertitel „Entdecke jeden Tag eine neue Lebensweisheit". Sie blendet sich **nach 5 Sekunden automatisch aus**. |
-| **„▶ Livedemo“** | Grüner Knopf oben links, immer sichtbar (englisch „▶ Live demo“; auf Handys bis 480 px „▶ Demo“). Öffnet die Auswahl: große Tour oder Mini-Demos (Abschnitt 7a). |
+| **Livedemo-Knopf (Filmklappe)** | Runder grüner Knopf oben links mit Filmklappen-Symbol (ohne Text), immer sichtbar, gleich groß wie der Farbschema-Knopf rechts. Beschriftung für Bildschirmleser/Hinweis: „Livedemo starten (ca. 2 Minuten)“ (englisch „Start live demo“). Öffnet die Auswahl: große Tour oder Mini-Demos (Abschnitt 7a). |
 | **Farbschema-Schalter** | Runder Knopf oben rechts (Sonne/Mond), immer sichtbar. |
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
 | **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender, daneben der Knopf **„🔔 Erinnerung“** (Abschnitt 7b). Auf Handys bis 480 px zeigt der Knopf nur die Glocke; der Monatsname ist immer vollständig lesbar. Bei sehr großer Systemschrift rutscht der Knopf in eine zweite Zeile. |
-| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.3". |
+| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.4". |
 | **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal), mit „Mehr erfahren“ (Wikipedia) und **„Teilen“**. |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
 | **Installations-Hinweis** | „App installieren" mit Knöpfen „Installieren" und „✕" (nur wenn der Browser es anbietet). |
@@ -221,7 +221,7 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
 
 ## 7a. Livedemo
 
-**Start:** Knopf „▶ Livedemo“ oben links → Auswahlfenster „Livedemos“:
+**Start:** runder grüner Knopf mit **Filmklappe** oben links → Auswahlfenster „Livedemos“:
 
 | Eintrag | Dauer | Inhalt |
 |---|---|---|
@@ -401,8 +401,8 @@ bestehen, bis die Website-Daten gelöscht werden.
 
 ## 9. Offline-Funktion und Updates (Service Worker)
 
-- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.3`,
-  Runtime-Cache `kalender-runtime-v1.9.3`) legt beim Installieren die App-Shell
+- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.4`,
+  Runtime-Cache `kalender-runtime-v1.9.4`) legt beim Installieren die App-Shell
   an: `index.html`, `impressum.html`, `datenschutz.html`, CSS, alle JS-Dateien
   inklusive beider Zitat-Dateien und der Livedemo, Manifest, Icons und alle 24 Monatsbilder.
 - **Strategien:** JS und CSS = *Stale-While-Revalidate* (sofort aus dem Cache,
@@ -663,7 +663,7 @@ Impressum).
 
 ## 15. Mini-Schulungen (auf Wunsch anbieten)
 
-**0. Schnellster Einstieg:** „▶ Livedemo“ oben links → „🎬 Große Tour“
+**0. Schnellster Einstieg:** grüner Filmklappen-Knopf oben links → „🎬 Große Tour“
 (ca. 2 Minuten) oder eine Mini-Demo (20–30 s) zum passenden Thema.
 
 **A. Erste Schritte (2 Minuten)**
@@ -808,7 +808,7 @@ Erweiterung von `getQuotes()` und der Spracherkennung, Texte in `i18n-dom.js`.
 | Service Worker | Hintergrundskript für Offline-Cache |
 | Local Storage | Browser-Speicher, in dem der Fortschritt liegt |
 | TWA | Trusted Web Activity: Android-Hülle für die Web-App |
-| Livedemo | Geführte Vorführung der echten App mit Zeiger, Untertiteln und Musik |
+| Livedemo | Geführte Vorführung der echten App mit Zeiger, Untertiteln und Musik; Start über den grünen Filmklappen-Knopf oben links |
 | Mini-Demo | Kurze Livedemo (20–30 s) zu einem Thema: Türchen-Regeln, Teilen, Erinnerung |
 | Erinnerung | Täglicher Hinweis aufs Türchen: Kalendereintrag (.ics) oder App-Benachrichtigung |
 | .ics | Kalenderdatei, die jede Kalender-App importieren kann |

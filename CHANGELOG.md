@@ -2,6 +2,13 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.4] - 2026-10-02
+
+### 🎨 Gestaltung
+- Livedemo-Knopf oben links als runder grüner Knopf mit **Filmklappen-Symbol** (mit kleinem Play-Dreieck) statt Text „▶ Livedemo/Demo“ – gleich groß wie der Farbschema-Knopf rechts; Beschriftung bleibt für Bildschirmleser und als Hinweis beim Überfahren
+- Kopfzeile braucht dadurch weniger seitlichen Abstand
+- Tour-Videos neu aufgenommen
+
 ## [1.9.3] - 2026-10-02
 
 ### 🎨 Gestaltung

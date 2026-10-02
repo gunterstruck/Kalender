@@ -18,7 +18,6 @@
 
     const TEXT = {
         de: {
-            start: 'Livedemo', startShort: 'Demo',
             startLabel: 'Livedemo starten (ca. 2 Minuten)',
             pause: 'Pause', play: 'Weiter abspielen', next: 'Nächste Erklärung',
             tempo: 'Tempo', musicOn: 'Musik ausschalten', musicOff: 'Musik einschalten',
@@ -68,7 +67,6 @@
             reminderDone: 'Alles bleibt auf deinem Gerät. Viel Freude mit deinen Türchen!'
         },
         en: {
-            start: 'Live demo', startShort: 'Demo',
             startLabel: 'Start live demo (about 2 minutes)',
             pause: 'Pause', play: 'Resume', next: 'Next explanation',
             tempo: 'Speed', musicOn: 'Turn music off', musicOff: 'Turn music on',
@@ -219,12 +217,10 @@
 
         // ---------- UI ----------
         buildUi() {
-            this.startButton = el('button', 'ld-start', { type: 'button', 'aria-label': T.startLabel });
-            const long = el('span', 'ld-label-long');
-            long.textContent = `▶ ${T.start}`;
-            const short = el('span', 'ld-label-short');
-            short.textContent = `▶ ${T.startShort}`;
-            this.startButton.append(long, short);
+            // Runder Knopf mit Filmklappen-Symbol (Vorführung) und kleinem Play-Dreieck;
+            // Beschriftung für Bildschirmleser und als Hinweis beim Überfahren.
+            this.startButton = el('button', 'ld-start', { type: 'button', 'aria-label': T.startLabel, title: T.startLabel });
+            this.startButton.appendChild(this.clapperIcon());
             this.startButton.setAttribute('aria-haspopup', 'dialog');
             this.startButton.addEventListener('click', () => this.openMenu());
             document.body.appendChild(this.startButton);
@@ -318,6 +314,37 @@
                 // Sehr alte Browser ohne <dialog>: direkt die große Tour starten
                 this.start('tour');
             }
+        }
+
+        // Filmklappe (Linien nach „clapperboard“ aus Lucide, ISC-Lizenz) + Play-Dreieck
+        clapperIcon() {
+            const ns = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(ns, 'svg');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('width', '24');
+            svg.setAttribute('height', '24');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '2');
+            svg.setAttribute('stroke-linecap', 'round');
+            svg.setAttribute('stroke-linejoin', 'round');
+            svg.setAttribute('aria-hidden', 'true');
+            [
+                'M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z',
+                'm6.2 5.3 3.1 3.9',
+                'm12.4 3.4 3.1 4',
+                'M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z'
+            ].forEach((d) => {
+                const path = document.createElementNS(ns, 'path');
+                path.setAttribute('d', d);
+                svg.appendChild(path);
+            });
+            const play = document.createElementNS(ns, 'path');
+            play.setAttribute('d', 'M10.5 13.6v4.8l3.8-2.4z');
+            play.setAttribute('fill', 'currentColor');
+            play.setAttribute('stroke-width', '1');
+            svg.appendChild(play);
+            return svg;
         }
 
         barButton(text, handler, label) {
