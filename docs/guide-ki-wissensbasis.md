@@ -32,8 +32,8 @@ Adventskalender, nur für **jeden Monat des Jahres**.
 - 366 Zitate je Sprache; jedes Zitat kommt pro Jahr genau einmal vor.
 - Technik: Vanilla JavaScript, CSS, keine Frameworks, keine externen Bibliotheken.
 - Betreiber: Günter Struck (privat, nicht kommerziell). Lizenz: MIT.
-- Hosting: **Vercel** (Projekt im Team „Günter Struck's projects“), Adresse
-  `https://<projektname>.vercel.app/` bzw. eigene Domain. Früher: GitHub Pages
+- Hosting: **Vercel** (Projekt `kalender` im Team „Günter Struck's projects“),
+  Adresse **https://kalender-mu-coral.vercel.app/**. Früher: GitHub Pages
   (`https://gunterstruck.github.io/Kalender/`) – Fortschritt dort bleibt an
   die alte Adresse gebunden.
 

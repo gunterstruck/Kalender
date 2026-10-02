@@ -4,7 +4,7 @@ Stand: 02.10.2026 · App-Version 1.9.2
 
 ## 1. Starten
 
-Adresse der App öffnen (Vercel, z. B. `https://<projektname>.vercel.app/`) oder die installierte App starten.
+Adresse öffnen: **https://kalender-mu-coral.vercel.app/** (oder die installierte App starten).
 Kein Konto nötig. Nach 5 Sekunden blendet sich die Kopfzeile aus und ein
 animierter Jahreszeiten-Banner erscheint.
 
