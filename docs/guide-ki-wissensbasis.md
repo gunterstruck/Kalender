@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.3 · Stand: 02.10.2026 · App-Version: 1.9.0 (Service-Worker-Cache v1.9.0)**
+**Version 1.4 · Stand: 02.10.2026 · App-Version: 1.9.1 (Service-Worker-Cache v1.9.1)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -32,7 +32,10 @@ Adventskalender, nur für **jeden Monat des Jahres**.
 - 366 Zitate je Sprache; jedes Zitat kommt pro Jahr genau einmal vor.
 - Technik: Vanilla JavaScript, CSS, keine Frameworks, keine externen Bibliotheken.
 - Betreiber: Günter Struck (privat, nicht kommerziell). Lizenz: MIT.
-- Adresse: `https://gunterstruck.github.io/Kalender/` (GitHub Pages).
+- Hosting: **Vercel** (Projekt im Team „Günter Struck's projects“), Adresse
+  `https://<projektname>.vercel.app/` bzw. eigene Domain. Früher: GitHub Pages
+  (`https://gunterstruck.github.io/Kalender/`) – Fortschritt dort bleibt an
+  die alte Adresse gebunden.
 
 ---
 
@@ -54,7 +57,7 @@ Adventskalender, nur für **jeden Monat des Jahres**.
    unklarem Zustand nach Gerät, Browser, Monat/Datum und genauer Meldung fragen.
 6. Fordere nie persönliche Daten an. Es gibt keine, die der Support braucht.
 7. Datenschutz-Aussagen exakt halten (Abschnitt 11): Die App sendet selbst
-   nichts; GitHub Pages sieht beim Laden technisch bedingt die IP-Adresse;
+   nichts; der Hosting-Anbieter Vercel sieht beim Laden technisch bedingt die IP-Adresse;
    Wikipedia-Links werden nur auf Klick geöffnet.
 8. Rechtliche Fragen: auf Impressum und Datenschutzerklärung in der App
    verweisen (Footer) und keine Rechtsberatung geben.
@@ -343,7 +346,7 @@ daneben. Standard-Uhrzeit 08:00; die gewählte Uhrzeit wird gespeichert.
 
 ## 8. Installation als App (PWA)
 
-Voraussetzung: HTTPS (GitHub Pages erfüllt das) und ein moderner Browser.
+Voraussetzung: HTTPS (Vercel erfüllt das) und ein moderner Browser.
 
 | Gerät/Browser | Vorgehen |
 |---|---|
@@ -456,9 +459,12 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 - Lokal gespeichert werden nur die Einstellungen aus Abschnitt 10.
   Rechtsgrundlage: technisch erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG),
   Art. 6 Abs. 1 lit. f DSGVO. Keine Einwilligungsabfrage nötig.
-- **Hosting:** GitHub Pages (GitHub Inc., USA). Beim Laden/Aktualisieren kann
-  GitHub technisch bedingt IP-Adresse u. ä. in Logfiles verarbeiten. Der
-  Entwickler erhält diese Daten nicht.
+- **Hosting:** Vercel (Vercel Inc., USA) als Auftragsverarbeiter (Art. 28
+  DSGVO). Beim Laden/Aktualisieren verarbeitet Vercel technisch bedingt
+  IP-Adresse u. ä. in kurzzeitig gespeicherten Logfiles; der Entwickler wertet
+  sie nicht aus (allenfalls Fehlersuche). Keine Vercel Web Analytics, keine
+  Speed Insights. Der Quellcode liegt auf GitHub; beim Benutzen der App gibt es
+  keine Verbindung zu GitHub.
 - **Erinnerung:** .ics-Datei wird lokal erzeugt; App-Benachrichtigung rein
   lokal (Periodic Background Sync, kein Push-Server). Rechtsgrundlage:
   ausdrücklicher Wunsch (§ 25 Abs. 2 Nr. 2 TDDDG) bzw. Einwilligung durch
@@ -466,7 +472,7 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 - **Teilen:** nur auf Tipp; Zitat, Autor und App-Link gehen an die vom Nutzer
   gewählte App bzw. die Zwischenablage. Der Entwickler erhält nichts.
 - **Englische Fassungen:** `privacy.html`, `imprint.html`; maßgeblich ist Deutsch.
-- **Livedemo:** speichert nichts; Musik wird erst beim Start vom selben Server (GitHub Pages) geladen, keine Verbindung zum Musikanbieter.
+- **Livedemo:** speichert nichts; Musik wird erst beim Start vom selben Server (Vercel) geladen, keine Verbindung zum Musikanbieter.
 - **Wikipedia:** Verbindung zu Wikimedia erst, wenn der Nutzer den Link
   „Mehr erfahren" antippt.
 - Rechte (Auskunft, Löschung …) laufen faktisch ins Leere, weil der Entwickler
@@ -607,7 +613,7 @@ verstorbener Persönlichkeiten. Echtheit der Zuschreibung wird nicht garantiert.
 und aktuelles Jahr). Zukunftsmonate sind gesperrt.
 
 **Werden meine Daten gesammelt?** Die App sendet keine Nutzungsdaten. Nur
-Einstellungen im Browser; Hosting bei GitHub Pages kann technisch die IP-Adresse
+Einstellungen im Browser; das Hosting bei Vercel verarbeitet technisch die IP-Adresse
 verarbeiten (Details Abschnitt 11).
 
 **Wie setze ich den Kalender zurück?** Browser-/App-Daten der Website löschen
@@ -716,9 +722,15 @@ Fade 150 ms; max. 500 Positionierungsversuche je Türchen.
 **Lokal testen:** `python -m http.server 8000` oder `npx http-server -p 8000`,
 dann `http://localhost:8000`. Service Worker benötigt `localhost` oder HTTPS.
 
-**Deployment:** GitHub Pages, Branch `main`, Verzeichnis `/` (Datei `.nojekyll`
-liegt bei). Projektseite unter `/Kalender/` (Groß-/Kleinschreibung beachten, siehe
-`TWA_NOTES.md`, `TWA_PATH_NOTES.md`).
+**Deployment:** Vercel, statisch ohne Build (Framework „Other“, Build-/Install-
+Command und Output Directory leer, Root `./`). Push auf `main` → Produktion,
+Pull Request → Vorschau-URL. `vercel.json` setzt Sicherheits-Header (CSP für
+`/` und `/index.html`, `X-Frame-Options: DENY`, `nosniff`, HSTS,
+`Permissions-Policy`), `service-worker.js` und `manifest.json` ohne
+Zwischenspeicherung, `assets/` einen Tag. `.vercelignore` schließt `docs/`,
+`custom-gpt-upload/`, `film/`, `tools/` und Markdown-Dateien aus. Alle Pfade in
+der App sind relativ – sie läuft unter jeder Adresse. Umzug von GitHub Pages:
+dort abschalten; Android-TWA für die neue Adresse neu bauen (`TWA_NOTES.md`).
 
 **Release-Checkliste**
 1. Version in `index.html` (Fußzeile), `manifest.json`, `service-worker.js`

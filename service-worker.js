@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.9.0 - Erinnerung, Teilen, Mini-Demos
+// Version 1.9.1 - Hosting auf Vercel
 
-const CACHE_NAME = 'kalender-cache-v1.9.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.0';
+const CACHE_NAME = 'kalender-cache-v1.9.1';
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.1';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [

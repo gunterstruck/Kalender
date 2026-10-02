@@ -2,7 +2,7 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.9.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.1-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
@@ -26,10 +26,8 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 
 ## 🚀 Live Demo
 
-Die App ist auf GitHub Pages verfügbar:
-```
-https://gunterstruck.github.io/Kalender/
-```
+Die App wird über **Vercel** ausgeliefert (Projekt im Team „Günter Struck's projects“).
+Die Adresse lautet `https://<projektname>.vercel.app/` bzw. die eigene Domain, sobald das Projekt angelegt ist.
 
 ## 📋 Voraussetzungen
 
@@ -42,8 +40,8 @@ https://gunterstruck.github.io/Kalender/
 ### Schritt 1: Repository klonen
 
 ```bash
-git clone https://github.com/DEIN-USERNAME/DEIN-REPO-NAME.git
-cd DEIN-REPO-NAME
+git clone https://github.com/gunterstruck/Kalender.git
+cd Kalender
 ```
 
 ### Schritt 2: Lokal testen
@@ -68,34 +66,55 @@ Mit VS Code Live Server:
 
 Öffne dann im Browser: `http://localhost:8000`
 
-### Schritt 3: Auf GitHub Pages deployen
+### Schritt 3: Auf Vercel deployen
 
-#### Variante A: Über GitHub UI
+Die App ist eine rein statische Seite – **kein Build, keine Abhängigkeiten**. Die
+Konfiguration liegt in `vercel.json` (Sicherheits- und Cache-Header) und
+`.vercelignore` (Doku, Videos und Werkzeuge werden nicht ausgeliefert).
 
-1. Gehe zu deinem GitHub Repository
-2. Klicke auf **Settings** → **Pages**
-3. Unter "Source" wähle **Branch: main** (oder den gewünschten Branch)
-4. Wähle **/ (root)** als Verzeichnis
-5. Klicke auf **Save**
-6. Warte ca. 1-2 Minuten
-7. Deine App ist verfügbar unter: `https://DEIN-USERNAME.github.io/REPO-NAME/`
+#### Variante A: Über das Vercel-Dashboard (empfohlen)
 
-#### Variante B: Über Git
+1. <https://vercel.com/new> öffnen und das GitHub-Repository `gunterstruck/Kalender` importieren
+2. **Framework Preset:** „Other“ – Build Command, Output Directory und Install Command **leer lassen**
+3. **Root Directory:** `./`
+4. **Deploy** klicken
+5. Ab dann deployt Vercel automatisch: jeder Push auf `main` → Produktion, jeder Pull Request → eigene Vorschau-URL
+
+#### Variante B: Über die Vercel-CLI
 
 ```bash
-# Committe alle Änderungen
-git add .
-git commit -m "Initial deployment"
-
-# Pushe zum Main Branch
-git push origin main
-
-# Aktiviere GitHub Pages in den Repository-Settings (siehe Variante A)
+npm i -g vercel
+vercel          # Vorschau-Deployment (fragt beim ersten Mal nach Team/Projekt)
+vercel --prod   # Produktion
 ```
 
-#### Wichtig: `.nojekyll` Datei
+#### Was `vercel.json` regelt
 
-Die `.nojekyll` Datei ist bereits im Repository enthalten. Sie verhindert, dass GitHub Pages Jekyll verwendet und stellt sicher, dass alle Dateien korrekt bereitgestellt werden.
+| Pfad | Header |
+|---|---|
+| alle | `X-Content-Type-Options`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security` |
+| `/`, `/index.html` | `Content-Security-Policy` (wie das Meta-Tag, zusätzlich `frame-ancestors 'none'`) |
+| `/service-worker.js` | nie zwischenspeichern (`max-age=0, must-revalidate`), damit Updates sofort ankommen |
+| `/manifest.json` | korrekter Typ `application/manifest+json`, nicht zwischenspeichern |
+| `/.well-known/assetlinks.json` | `application/json` (Android/TWA) |
+| `/assets/*` | 1 Tag zwischenspeichern, danach im Hintergrund erneuern |
+
+JS, CSS und HTML behalten den Vercel-Standard (`max-age=0, must-revalidate`),
+weil die Dateinamen keine Versions-Hashes tragen.
+
+#### Nach jedem Release
+
+Cache-Version in `service-worker.js` erhöhen (siehe unten) – sonst sehen
+installierte Apps geänderte Dateien erst verzögert.
+
+#### Hinweis zum Umzug von GitHub Pages
+
+Bisher lief die App unter `https://gunterstruck.github.io/Kalender/`. Nach dem
+Umzug GitHub Pages abschalten (Repository → Settings → Pages → „None“) oder dort
+auf die neue Adresse verweisen, damit nicht zwei Fassungen parallel laufen.
+Fortschritt im Browser ist an die Adresse gebunden: Nutzer der alten Adresse
+starten auf der neuen Adresse mit leerem Kalender. Eine bestehende Android-App
+(TWA) muss für die neue Adresse neu gebaut werden (siehe `TWA_NOTES.md`).
 
 ## 📱 PWA Installation
 
@@ -203,7 +222,8 @@ Passe die Farben in `/css/styles.css` an (CSS Custom Properties):
 ├── index.html              # Haupt-HTML-Datei
 ├── manifest.json           # PWA-Manifest
 ├── service-worker.js       # Service Worker für Offline-Caching
-├── .nojekyll              # GitHub Pages Konfiguration
+├── vercel.json            # Vercel: Header, kein Build
+├── .vercelignore          # nicht ausgelieferte Ordner
 ├── impressum.html, datenschutz.html, imprint.html, privacy.html
 ├── css/
 │   ├── styles.css         # Alle Styles (Mobile First)
@@ -247,8 +267,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.9.0';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.0';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.9.1';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.1';  // Auch Runtime Cache!
 ```
 
 **Dann:**
@@ -319,12 +339,11 @@ location.reload();
 - Stelle sicher, dass Icons existieren und korrekte Größen haben
 - Cache leeren und Seite neu laden
 
-### GitHub Pages zeigt 404
+### Vercel zeigt 404 oder eine leere Seite
 
-- Warte 1-2 Minuten nach dem ersten Push
-- Prüfe GitHub Pages Settings im Repository
-- Stelle sicher, dass Branch und Verzeichnis korrekt eingestellt sind
-- Prüfe, ob `.nojekyll` Datei vorhanden ist
+- Im Projekt unter Settings → Build & Development: Framework „Other“, Build Command und Output Directory leer
+- Root Directory muss `./` sein (dort liegt `index.html`)
+- Deployment-Log im Vercel-Dashboard prüfen
 
 ## 🤝 Beitragen
 

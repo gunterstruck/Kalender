@@ -2,6 +2,14 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.1] - 2026-10-02
+
+### 🚀 Deployment über Vercel
+- `vercel.json`: statische Auslieferung ohne Build; Sicherheits-Header (CSP inkl. `frame-ancestors`, `X-Frame-Options`, `nosniff`, HSTS, `Permissions-Policy`); Service Worker und Manifest ohne Zwischenspeicherung; `assets/` 1 Tag
+- `.vercelignore`: Doku, Videos, Werkzeuge und Markdown werden nicht ausgeliefert
+- Datenschutz (DE/EN): Hosting-Anbieter jetzt Vercel (Auftragsverarbeitung, kurzzeitige Logfiles, keine Vercel-Analyse-Dienste)
+- README, Wissensbasis, TWA-Hinweise: Deployment und Umzug von GitHub Pages beschrieben
+
 ## [1.9.0] - 2026-10-02
 
 ### ✨ Neu
