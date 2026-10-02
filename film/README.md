@@ -5,8 +5,8 @@ oder Social Media, wenn die App nicht live gezeigt werden kann.
 
 | Datei | Format | Inhalt |
 |---|---|---|
-| `livedemo-desktop.mp4` | 1920×1080 (Desktop-Ansicht 1280×800) | große Tour, mit Musik |
-| `livedemo-smartphone.mp4` | 1080×1920 (Smartphone-Ansicht 390×844) | große Tour, mit Musik |
+| `livedemo-desktop.mp4` | 1920×1080 (Desktop-Ansicht 1280×800) | große Tour (ca. 2:15), mit Musik |
+| `livedemo-smartphone.mp4` | 1080×1920 (Smartphone-Ansicht 390×844) | große Tour (ca. 2:15), mit Musik |
 
 Die Videos sind echte Aufnahmen der laufenden App (Chrome-Screencast), keine
 Animation. Sie sind **nicht** Teil der App und nicht im Offline-Cache.

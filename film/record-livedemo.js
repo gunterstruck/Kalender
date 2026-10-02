@@ -21,7 +21,10 @@ const [,, outDir, name, w, h, dsf, mobile] = process.argv;
   });
   await cdp.send('Page.startScreencast', { format: 'jpeg', quality: 92, maxWidth: +w * +dsf, maxHeight: +h * +dsf, everyNthFrame: 1 });
   await p.waitForTimeout(1500);
-  await p.evaluate(() => window.liveDemo.start('tour'));
+  // Wie ein Nutzer starten: Livedemo-Knopf, dann „Große Tour“
+  await p.click('.ld-start');
+  await p.waitForTimeout(700);
+  await p.click('.ld-menu-item[data-story="tour"]');
   while (await p.evaluate(() => window.liveDemo.running)) await p.waitForTimeout(500);
   await p.waitForTimeout(2500);
   await cdp.send('Page.stopScreencast');

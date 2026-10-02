@@ -41,7 +41,9 @@
             theme: 'Mit dem Knopf oben rechts wechselst du zwischen hellem und dunklem Farbschema.',
             themeBack: 'Dunkel ist ideal für den Abend. Und wieder zurück.',
             outro1: 'Zurück im aktuellen Monat. Alles bleibt auf deinem Gerät - ohne Konto, ohne Werbung, auch offline.',
-            outro2: 'Installiere die App auf deinem Startbildschirm und öffne jeden Tag ein Türchen. Viel Freude!',
+            outro2: 'Installiere die App auf deinem Startbildschirm und öffne jeden Tag ein Türchen. Mehr zeigen die Mini-Demos. Viel Freude!',
+            tourShare: 'Gefällt dir ein Zitat? Mit „Teilen“ gibst du es weiter.',
+            tourReminder: 'Damit du kein Türchen verpasst: „Erinnerung“ - als Kalendereintrag oder als Benachrichtigung der App.',
             menuTitle: 'Livedemos',
             menuIntro: 'Die App zeigt sich selbst - wähle eine Vorführung:',
             storyTour: '🎬 Große Tour', storyTourMeta: 'ca. 2 Min · alles im Überblick',
@@ -85,7 +87,9 @@
             theme: 'The button at the top right switches between light and dark color scheme.',
             themeBack: 'Dark is perfect for the evening. And back again.',
             outro1: 'Back in the current month. Everything stays on your device - no account, no ads, works offline.',
-            outro2: 'Install the app on your home screen and open a door every day. Enjoy!',
+            outro2: 'Install the app on your home screen and open a door every day. The mini demos show more. Enjoy!',
+            tourShare: 'Like a quote? Pass it on with "Share".',
+            tourReminder: 'So you never miss a door: "Reminder" - as a calendar event or an app notification.',
             menuTitle: 'Live demos',
             menuIntro: 'The app shows itself - choose a demo:',
             storyTour: '🎬 Full tour', storyTourMeta: 'about 2 min · the big picture',
@@ -273,7 +277,7 @@
                         const m = el('span', 'ld-menu-meta');
                         m.textContent = meta;
                         b.append(l, m);
-                        b.addEventListener('click', () => { this.menu.close(); this.start(id); });
+                        b.addEventListener('click', () => { if (this.menu.open) this.menu.close(); this.start(id); });
                         list.appendChild(b);
                     });
                 const close = el('button', 'ld-menu-close', { type: 'button', 'aria-label': T.close });
@@ -283,7 +287,12 @@
                 this.menu.append(close, title, intro, list);
                 document.body.appendChild(this.menu);
             }
-            this.menu.showModal();
+            if (typeof this.menu.showModal === 'function') {
+                this.menu.showModal();
+            } else {
+                // Sehr alte Browser ohne <dialog>: direkt die große Tour starten
+                this.start('tour');
+            }
         }
 
         barButton(text, handler, label) {
@@ -595,7 +604,7 @@
             const today = now.getDate();
             const prevY = curY - 1;
             const daysInMonth = app.getDaysInMonth(curM, curY);
-            const TOTAL = 12;
+            const TOTAL = 13;
             let n = 0;
             const mark = () => this.progressTo(++n, TOTAL);
 
@@ -609,6 +618,11 @@
             await this.tap(() => app.handleDoorClick(today));
             await this.wait(600);
             await this.say(T.quote);
+            const share = document.getElementById('quote-share');
+            if (share) {
+                await this.moveTo(share);
+                await this.say(T.tourShare, { target: share });
+            }
             app.closeModal();
             await this.wait(500);
             await this.say(T.opened, { target: this.door(today) });
@@ -687,7 +701,15 @@
             await this.say(T.outro1);
             mark();
 
-            // 12 Schluss
+            // 12 Erinnerung
+            const reminderButton = document.getElementById('reminder-button');
+            if (reminderButton) {
+                await this.moveTo(reminderButton);
+                await this.say(T.tourReminder, { target: reminderButton });
+            }
+            mark();
+
+            // 13 Schluss
             await this.say(T.outro2);
             mark();
         }

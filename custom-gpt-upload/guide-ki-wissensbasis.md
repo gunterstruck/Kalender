@@ -231,16 +231,18 @@ Zusätzlich gibt es im Dialog „Erinnerung“ unten den Link „▶ So funktion
 (kein Video); Texte erscheinen als Untertitel. Musik läuft leise im
 Hintergrund. In den Mini-Demos wird nichts heruntergeladen und nichts geteilt.
 
-**Ablauf der großen Tour (12 Schritte, Fortschrittsbalken ganz oben):**
+**Ablauf der großen Tour (13 Schritte, Fortschrittsbalken ganz oben):**
 1. Begrüßung.
-2. Heutiges Türchen öffnen, Zitat-Fenster erklären, Symbol ℹ️ für geöffnet.
+2. Heutiges Türchen öffnen, Zitat-Fenster erklären, Hinweis auf „Teilen“, Symbol ℹ️ für geöffnet.
 3. Morgiges Türchen antippen: gesperrt, wackelt (entfällt am letzten Tag des Monats).
 4. „Monat auswählen“ → **Januar des Vorjahres (Winter)**, Tipp auf den Saisonbanner → Schneegestöber.
 5. Bereits geöffnetes Türchen (ℹ️) lesen; verpasstes Türchen (⏰) antippen → „Verpasst! Nächste Chance …“.
 6. Ansicht erklären: Smartphone-Ansicht → animierte Monats-Dekoration; Desktop-Ansicht → großformatige Illustration.
 7. April (Frühling) → Blumenwiese. 8. Juli (Sommer) → Ballons. 9. Oktober (Herbst) → Blättersturm.
 10. Farbschema hell/dunkel umschalten und zurück.
-11. Zurück in den aktuellen Monat. 12. Schluss: lokal, ohne Konto, offline, installieren.
+11. Zurück in den aktuellen Monat; lokal, ohne Konto, offline.
+12. Hinweis auf „🔔 Erinnerung“ (Kalendereintrag oder Benachrichtigung).
+13. Schluss: installieren, Verweis auf die Mini-Demos.
 
 Die Jahreszeiten werden immer mit Monaten des **Vorjahres** gezeigt; dort sind
 beispielhaft einige Türchen „geöffnet“ (Tage 1, 2, 3, 5, 8, 9, 13, 14, 21), der

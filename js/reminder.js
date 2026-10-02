@@ -136,6 +136,27 @@ const KalenderReminder = (() => {
         return String(text).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
     }
 
+    // RFC 5545: Zeilen über 75 Bytes umbrechen (Folgezeilen beginnen mit Leerzeichen)
+    function foldLine(line) {
+        const encoder = new TextEncoder();
+        const parts = [];
+        let current = '';
+        let bytes = 0;
+        for (const ch of line) {
+            const size = encoder.encode(ch).length;
+            const limit = parts.length === 0 ? 75 : 74;
+            if (bytes + size > limit) {
+                parts.push(current);
+                current = '';
+                bytes = 0;
+            }
+            current += ch;
+            bytes += size;
+        }
+        parts.push(current);
+        return parts.join('\r\n ');
+    }
+
     function buildIcs(time) {
         const [h, m] = time.split(':');
         const now = new Date();
@@ -173,7 +194,7 @@ const KalenderReminder = (() => {
             'END:VEVENT',
             'END:VCALENDAR'
         ];
-        return lines.join('\r\n') + '\r\n';
+        return lines.map(foldLine).join('\r\n') + '\r\n';
     }
 
     function downloadIcs(time) {
@@ -246,7 +267,7 @@ const KalenderReminder = (() => {
         const close = el('button', 'reminder-close', '✕');
         close.type = 'button';
         close.setAttribute('aria-label', T.close);
-        close.addEventListener('click', () => dialog.close());
+        close.addEventListener('click', () => KalenderReminder.close());
 
         const title = el('h2', 'reminder-title', T.title);
         title.id = 'reminder-title';
@@ -277,7 +298,7 @@ const KalenderReminder = (() => {
         const howTo = el('button', 'reminder-howto', T.howTo);
         howTo.type = 'button';
         howTo.addEventListener('click', () => {
-            dialog.close();
+            KalenderReminder.close();
             if (window.liveDemo) window.liveDemo.start('reminder');
         });
 
@@ -286,7 +307,7 @@ const KalenderReminder = (() => {
         els = { time, icsBtn, notifyBtn, status, notifyBox };
 
         // Klick auf den Hintergrund schließt
-        dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+        dialog.addEventListener('click', (e) => { if (e.target === dialog) KalenderReminder.close(); });
 
         time.addEventListener('change', async () => {
             const settings = loadSettings();
@@ -350,12 +371,23 @@ const KalenderReminder = (() => {
         render();
         if (dialog.open) return;
         dialog.classList.toggle('reminder-demo', demo);
+        if (typeof dialog.showModal !== 'function') {
+            // Sehr alte Browser ohne <dialog>: einfach einblenden
+            dialog.setAttribute('open', '');
+            dialog.classList.add('reminder-fallback');
+            return;
+        }
         if (demo) dialog.show(); else dialog.showModal();
     }
 
     function close() {
-        if (dialog && dialog.open) dialog.close();
-        if (dialog) dialog.classList.remove('reminder-demo');
+        if (!dialog) return;
+        if (typeof dialog.close === 'function') {
+            if (dialog.open) dialog.close();
+        } else {
+            dialog.removeAttribute('open');
+        }
+        dialog.classList.remove('reminder-demo', 'reminder-fallback');
     }
 
     function init() {

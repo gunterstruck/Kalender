@@ -14,6 +14,11 @@ Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert
 ### 🐛 Behoben
 - Kleine Handys: Türchen überlappten sich (Platzierung rechnete quadratisch, Türchen sind dort höher); jetzt echte Größe gemessen und verwackeltes Raster als Fallback
 - Demo-Knopf lag über dem Zitat-Fenster; Meldungen lagen hinter dem Zitat-Fenster
+- Kalenderdatei (.ics): Zeilen über 75 Bytes werden nach RFC 5545 umbrochen (strengere Kalenderprogramme)
+- Rückfall für Browser ohne `<dialog>` (Safari < 15.4): Erinnerungsdialog wird eingeblendet, Livedemo startet direkt die große Tour
+
+### 🎬 Livedemo
+- Große Tour zeigt jetzt auch „Teilen“ und „Erinnerung“ (13 Schritte, ca. 2:15); Videos neu aufgenommen
 
 ## [1.8.1] - 2026-10-02
 

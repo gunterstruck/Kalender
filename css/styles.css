@@ -1149,6 +1149,7 @@ body.dark-mode .footer-link:hover {
 }
 
 /* Nicht-modal in der Livedemo (unter Schutzschicht, Zeiger und Untertiteln) */
+.reminder-dialog.reminder-fallback[open],
 .reminder-dialog.reminder-demo[open] {
     position: fixed;
     inset: 0;
