@@ -1287,9 +1287,14 @@ class CalendarApp {
         this.renderCalendar();
     }
 
-    endDemo() {
+    endDemo({ today = false } = {}) {
         if (!this.demo) return;
-        const { month, year, dark, light } = this.demo.snapshot;
+        const { dark, light } = this.demo.snapshot;
+        let { month, year } = this.demo.snapshot;
+        if (today) {
+            month = this.currentMonth;
+            year = this.currentYear;
+        }
         document.body.classList.toggle('dark-mode', dark);
         document.body.classList.toggle('light-mode', light);
         this.demo = null;

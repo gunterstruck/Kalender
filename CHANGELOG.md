@@ -2,6 +2,18 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.2] - 2026-10-02
+
+### 🎬 Livedemo
+- **Ruhiges Bild:** Während einer Demo passen Banner, Kalender und Monatsauswahl auf einen Bildschirm; die Seite scrollt nicht mehr (vorher bis ~200 px hin und her, auch in den Videos sichtbar)
+- **Nachfrage beim Antippen:** Ein Tipp auf den Bildschirm (oder Esc) hält an und fragt „Weiter ansehen“ oder „Beenden“; Beenden führt zum aktuellen Monat zurück und blendet die Musik über 2,5 s aus
+- Jede Vorführung beginnt im aktuellen Monat (vorher im zuletzt gewählten)
+- **App-Icon in den Demo-Texten:** links in jedem Untertitel (wie der Fuchskopf bei TourFuchs), kurzes „Nicken“ bei neuem Text; auch in der Nachfrage
+- Videos neu aufgenommen
+
+### ✨ Verbesserungen
+- **Monatsname immer vollständig lesbar** (auch „September 2026“, auch mit 120 % Systemschrift): Handys bis 480 px zeigen am Erinnerungs-Knopf nur die Glocke, das Auswahlfeld hat weniger Innenabstand und eine mit der Schrift wachsende Mindestbreite; nur wenn es trotzdem nicht reicht, rutscht der Knopf in die nächste Zeile (vorher bei 320 px abgeschnitten, bei 412 px ohne Reserve)
+
 ## [1.9.1] - 2026-10-02
 
 ### 🚀 Deployment über Vercel

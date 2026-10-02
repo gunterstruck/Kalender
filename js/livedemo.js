@@ -24,6 +24,10 @@
             tempo: 'Tempo', musicOn: 'Musik ausschalten', musicOff: 'Musik einschalten',
             musicFailed: 'Musik nicht verfügbar - die Demo läuft ohne Musik weiter',
             close: 'Livedemo beenden',
+            askTitle: 'Livedemo beenden?',
+            askText: 'Die Vorführung ist angehalten.',
+            askContinue: '▶ Weiter ansehen',
+            askStop: '■ Beenden',
             intro: 'Willkommen im Monatskalender mit Türchen! Jeden Tag öffnet sich ein neues Türchen - mit einer Lebensweisheit dahinter.',
             today: 'Das Türchen von heute lässt sich öffnen.',
             quote: 'Hinter jedem Türchen steckt ein Zitat einer historischen Persönlichkeit - mit Lebensdaten und einem Wikipedia-Link zum Weiterlesen.',
@@ -70,6 +74,10 @@
             tempo: 'Speed', musicOn: 'Turn music off', musicOff: 'Turn music on',
             musicFailed: 'Music unavailable - the demo continues without music',
             close: 'End live demo',
+            askTitle: 'End the live demo?',
+            askText: 'The demo is paused.',
+            askContinue: '▶ Keep watching',
+            askStop: '■ End',
             intro: 'Welcome to the Monthly Door Calendar! A new door opens every day - with a piece of wisdom behind it.',
             today: "Today's door can be opened.",
             quote: 'Behind every door is a quote from a historical figure - with life dates and a Wikipedia link to read more.',
@@ -253,7 +261,24 @@
             this.closeBtn = this.barButton('✕', () => this.abort(), T.close);
             [this.pauseBtn, this.nextBtn, this.tempoBtn, this.musicBtn, this.closeBtn].forEach((b) => this.bar.appendChild(b));
 
-            document.body.append(this.shield, this.ghost, this.caption, this.bar, this.progress);
+            // Nachfrage beim Tippen auf den Bildschirm: weiter oder beenden?
+            this.ask = el('div', 'ld-ask is-hidden', { role: 'alertdialog', 'aria-modal': 'true', 'aria-labelledby': 'ld-ask-title' });
+            const askTitle = el('p', 'ld-ask-title', { id: 'ld-ask-title' });
+            askTitle.textContent = T.askTitle;
+            const askText = el('p', 'ld-ask-text');
+            askText.textContent = T.askText;
+            const askButtons = el('div', 'ld-ask-buttons');
+            this.askContinue = el('button', 'ld-ask-continue', { type: 'button' });
+            this.askContinue.textContent = T.askContinue;
+            this.askContinue.addEventListener('click', () => this.closeAsk(false));
+            this.askStop = el('button', 'ld-ask-stop', { type: 'button' });
+            this.askStop.textContent = T.askStop;
+            this.askStop.addEventListener('click', () => this.closeAsk(true));
+            askButtons.append(this.askContinue, this.askStop);
+            this.ask.append(askTitle, askText, askButtons);
+            this.shield.addEventListener('click', () => this.openAsk());
+
+            document.body.append(this.shield, this.ghost, this.caption, this.bar, this.progress, this.ask);
             this.progress.classList.add('is-hidden');
             this.syncBar();
         }
@@ -312,6 +337,76 @@
             this.musicBtn.textContent = muted ? '🔇' : '🔊';
             this.musicBtn.setAttribute('aria-label', this.music.failed ? T.musicFailed : (this.music.enabled ? T.musicOn : T.musicOff));
             this.musicBtn.title = this.musicBtn.getAttribute('aria-label');
+        }
+
+        // ---------- Nachfrage: weiter oder beenden? ----------
+        openAsk() {
+            if (!this.running || !this.ask.classList.contains('is-hidden')) return;
+            this.wasPaused = this.paused;
+            this.paused = true;
+            // Musik nur leiser stellen (wie bei TourFuchs) – beim Beenden klingt sie dann langsam aus
+            if (!this.wasPaused) this.music.fade(MUSIC_VOLUME * 0.4, 600);
+            this.syncBar();
+            this.ask.classList.remove('is-hidden');
+            this.askContinue.focus({ preventScroll: true });
+        }
+
+        closeAsk(stop) {
+            if (this.ask.classList.contains('is-hidden')) return;
+            this.ask.classList.add('is-hidden');
+            if (stop) {
+                this.abort();
+                return;
+            }
+            this.paused = Boolean(this.wasPaused);
+            if (!this.paused) this.music.fade(MUSIC_VOLUME, 600);
+            this.syncBar();
+            this.bar.querySelector('button').focus({ preventScroll: true });
+        }
+
+        // ---------- Ein ruhiges Bild: alles ohne Scrollen sichtbar ----------
+        // Während der Demo passt die Kalenderfläche so in den Bildschirm, dass
+        // Banner, Kalender und Monatsauswahl über der Steuerleiste Platz haben.
+        // Die Seite scrollt dann nicht mehr – auch nicht in den Videos.
+        fitLayout() {
+            const wrapper = document.querySelector('.calendar-wrapper');
+            const selector = document.querySelector('.month-selector');
+            const container = document.querySelector('.container');
+            if (!wrapper || !selector) return;
+            const wrapperH = wrapper.getBoundingClientRect().height;
+            const selectorBottom = selector.getBoundingClientRect().bottom + window.scrollY;
+            const padBottom = container ? parseFloat(getComputedStyle(container).paddingBottom) || 0 : 0;
+            const other = selectorBottom + padBottom - wrapperH;
+            const barSpace = this.bar.getBoundingClientRect().height + 16;
+            const height = Math.max(240, Math.floor(window.innerHeight - other - barSpace));
+            document.documentElement.style.setProperty('--ld-cal-height', `${height}px`);
+        }
+
+        async lockLayout() {
+            const app = this.app;
+            document.documentElement.classList.add('ld-lock');
+            window.scrollTo(0, 0);
+            if (app.appHeader) app.appHeader.classList.add('hidden');
+            if (app.seasonalBanner) app.seasonalBanner.classList.add('visible');
+            // Übergänge von Kopfzeile und Banner abwarten, dann messen
+            await new Promise((resolve) => setTimeout(resolve, this.reduced ? 50 : 900));
+            this.fitLayout();
+            this.fitLayout(); // zweiter Durchgang mit der neuen Höhe
+            window.scrollTo(0, 0);
+            // Jede Vorführung beginnt im aktuellen Monat (auch wenn vorher ein anderer gewählt war)
+            const now = new Date();
+            app.demoGoto(now.getMonth(), now.getFullYear());
+            this.resizeHandler = () => {
+                this.fitLayout();
+                window.scrollTo(0, 0);
+            };
+            window.addEventListener('resize', this.resizeHandler);
+        }
+
+        unlockLayout() {
+            window.removeEventListener('resize', this.resizeHandler);
+            document.documentElement.classList.remove('ld-lock');
+            document.documentElement.style.removeProperty('--ld-cal-height');
         }
 
         // ---------- Steuerung ----------
@@ -375,7 +470,9 @@
             }
             this.caption.classList.toggle('ld-top', top);
             this.caption.textContent = text;
-            this.caption.classList.remove('is-hidden');
+            this.caption.classList.remove('is-hidden', 'ld-new');
+            void this.caption.offsetWidth; // Animation neu starten
+            this.caption.classList.add('ld-new');
             await this.wait(1300 + text.length * 35 + extra, { reading: true });
         }
 
@@ -385,6 +482,7 @@
 
         // Ziel in den sichtbaren Bereich holen (Steuerleiste unten freihalten)
         async ensureVisible(target) {
+            if (document.documentElement.classList.contains('ld-lock')) return;
             const r = target.getBoundingClientRect();
             const bottomLimit = window.innerHeight - 90;
             if (r.top >= 8 && r.bottom <= bottomLimit) return;
@@ -442,8 +540,13 @@
             this.aborted = false;
             this.paused = false;
             this.keyHandler = (e) => {
-                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); this.abort(); return; }
-                if (e.target && e.target.closest && e.target.closest('.ld-bar')) return;
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (this.ask.classList.contains('is-hidden')) this.openAsk(); else this.closeAsk(false);
+                    return;
+                }
+                if (e.target && e.target.closest && e.target.closest('.ld-bar, .ld-ask')) return;
                 if (e.key !== 'Tab') { e.preventDefault(); e.stopPropagation(); }
             };
             this.visHandler = () => {
@@ -463,6 +566,7 @@
 
             this.music.play();
             this.app.beginDemo(this.seed());
+            await this.lockLayout();
             try {
                 const stories = { tour: () => this.script(), rules: () => this.storyRules(),
                     share: () => this.storyShare(), reminder: () => this.storyReminder() };
@@ -482,13 +586,16 @@
         }
 
         async finish() {
-            this.music.stop(2000);
+            this.music.stop(2500); // langsam ausblenden
+            this.ask.classList.add('is-hidden');
             if (typeof KalenderReminder !== 'undefined') KalenderReminder.close();
             this.pending = null;
             this.hideCaption();
             this.app.closeModal();
             this.app.toast.classList.remove('show');
-            this.app.endDemo();
+            this.unlockLayout();
+            this.app.endDemo({ today: true }); // zurück zum aktuellen Datum
+            window.scrollTo(0, 0);
             window.removeEventListener('keydown', this.keyHandler, true);
             document.removeEventListener('visibilitychange', this.visHandler);
             [this.shield, this.ghost, this.bar, this.progress].forEach((n) => n.classList.add('is-hidden'));
@@ -638,12 +745,6 @@
                 app.toast.classList.remove('show');
             }
             mark();
-
-            // Kopfzeile weg, Saisonbanner sichtbar (wie nach 5 Sekunden)
-            if (app.appHeader) app.appHeader.classList.add('hidden');
-            if (app.seasonalBanner) app.seasonalBanner.classList.add('visible');
-            await this.wait(900);
-            app.updateCalendarHeight();
 
             // 4 Monatsauswahl, Winter
             await this.say(T.pick, { target: app.monthSelect });

@@ -2,7 +2,7 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.9.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.2-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
@@ -27,7 +27,9 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 ## 🚀 Live Demo
 
 Die App wird über **Vercel** ausgeliefert (Projekt im Team „Günter Struck's projects“).
-Die Adresse lautet `https://<projektname>.vercel.app/` bzw. die eigene Domain, sobald das Projekt angelegt ist.
+**Live:** https://kalender-mu-coral.vercel.app/
+
+Vercel-Projekt: `kalender` (Team „gunter-strucks-projects“). Jeder Push auf `main` geht automatisch live, jeder Pull Request bekommt eine Vorschau-URL (nur mit Vercel-Login sichtbar).
 
 ## 📋 Voraussetzungen
 
@@ -267,8 +269,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.9.1';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.1';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.9.2';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.2';  // Auch Runtime Cache!
 ```
 
 **Dann:**

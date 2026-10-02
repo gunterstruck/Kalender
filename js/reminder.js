@@ -21,7 +21,7 @@ const KalenderReminder = (() => {
 
     const TEXT = {
         de: {
-            button: '🔔 Erinnerung',
+            button: 'Erinnerung',
             buttonLabel: 'Tägliche Erinnerung einrichten',
             title: 'Tägliche Erinnerung',
             intro: 'Lass dich jeden Tag an dein Türchen erinnern. Alles bleibt auf deinem Gerät.',
@@ -49,7 +49,7 @@ const KalenderReminder = (() => {
             fileName: 'tuerchenkalender-erinnerung.ics'
         },
         en: {
-            button: '🔔 Reminder',
+            button: 'Reminder',
             buttonLabel: 'Set up daily reminder',
             title: 'Daily reminder',
             intro: 'Get reminded of your door every day. Everything stays on your device.',
@@ -393,7 +393,10 @@ const KalenderReminder = (() => {
     function init() {
         const host = document.querySelector('.month-selector');
         if (!host) return;
-        const button = el('button', 'reminder-button', T.button);
+        const button = el('button', 'reminder-button');
+        const icon = el('span', 'reminder-button-icon', '🔔');
+        icon.setAttribute('aria-hidden', 'true');
+        button.append(icon, el('span', 'reminder-button-label', T.button));
         button.type = 'button';
         button.id = 'reminder-button';
         button.setAttribute('aria-label', T.buttonLabel);

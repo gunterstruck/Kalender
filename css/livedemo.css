@@ -69,16 +69,44 @@
     bottom: calc(env(safe-area-inset-bottom, 0px) + 68px);
     transform: translateX(-50%);
     width: min(640px, calc(100% - 2 * var(--spacing-md)));
-    padding: var(--spacing-md) var(--spacing-lg);
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) 72px;
     background: rgba(15, 23, 42, 0.94);
     color: #fff;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-xl);
     font-size: var(--font-size-base);
     line-height: 1.5;
-    text-align: center;
+    text-align: left;
     z-index: 9200;
     pointer-events: none;
+}
+
+/* App-Icon links in jedem Demo-Text (wie der Fuchskopf bei TourFuchs) */
+.ld-caption::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translateY(-50%);
+    border-radius: 12px;
+    background: url('../assets/icons/icon-192.png') center / cover no-repeat;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.15);
+}
+
+/* Neuer Text: Icon nickt kurz, damit der Blick zum Text geht */
+.ld-caption.ld-new::before {
+    animation: ld-icon-pop 0.45s ease-out;
+}
+
+@keyframes ld-icon-pop {
+    0% { transform: translateY(-50%) scale(0.7) rotate(-8deg); }
+    60% { transform: translateY(-50%) scale(1.12) rotate(4deg); }
+    100% { transform: translateY(-50%) scale(1) rotate(0); }
 }
 
 .ld-caption.ld-top {
@@ -135,6 +163,97 @@
 }
 
 body.ld-active .install-prompt { display: none; }
+
+/* Ein ruhiges Bild: während der Demo kein Scrollen, alles auf einem Bildschirm */
+html.ld-lock,
+html.ld-lock body {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body.ld-active .app-footer {
+    display: none;
+}
+
+body.ld-active .calendar-wrapper {
+    height: var(--ld-cal-height, 60vh) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+}
+
+/* Nachfrage beim Tippen auf den Bildschirm */
+.ld-ask {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(360px, calc(100% - 2 * var(--spacing-md)));
+    padding: var(--spacing-lg);
+    background: rgba(15, 23, 42, 0.97);
+    color: #fff;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    z-index: 9400;
+}
+
+.ld-ask::before {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--spacing-sm);
+    border-radius: 12px;
+    background: url('../assets/icons/icon-192.png') center / cover no-repeat;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.ld-ask-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.ld-ask-text {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+    margin-bottom: var(--spacing-md);
+}
+
+.ld-ask-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ld-ask-buttons button {
+    flex: 1 1 0;
+    min-height: 44px;
+    padding: 0 var(--spacing-sm);
+    white-space: nowrap;
+    font-size: var(--font-size-sm);
+    border: 0;
+    border-radius: 22px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ld-ask-continue {
+    background: #ec4899;
+    color: #fff;
+}
+
+.ld-ask-stop {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+.ld-ask-buttons button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
 body.ld-active .toast { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
 
 /* Auswahl der Vorführungen */
@@ -233,11 +352,13 @@ body.ld-active .toast { bottom: calc(env(safe-area-inset-bottom, 0px) + 72px); }
     .ld-label-long { display: none; }
     .ld-label-short { display: inline; }
     .app-header:not(.hidden) { padding-left: 104px; padding-right: 72px; }
-    .ld-caption { font-size: var(--font-size-sm); padding: var(--spacing-sm) var(--spacing-md); }
+    .ld-caption { font-size: var(--font-size-sm); padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 56px; min-height: 56px; }
+    .ld-caption::before { left: 10px; width: 36px; height: 36px; border-radius: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .ld-ghost.ld-tap .ld-ring { animation: none; opacity: 0; }
+    .ld-caption.ld-new::before { animation: none; }
 }
 
 @media print {

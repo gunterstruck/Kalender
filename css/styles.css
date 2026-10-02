@@ -1105,9 +1105,17 @@ body.dark-mode .footer-link:hover {
     gap: var(--spacing-md);
 }
 
+.month-selector {
+    flex-wrap: wrap;
+}
+
+/* Der Monatsname („September 2026“) muss immer ganz lesbar sein.
+   Mindestbreite in em wächst mit der Schriftgröße; reicht der Platz nicht,
+   rutscht der Erinnerungs-Knopf in die nächste Zeile. */
 .month-selector .month-dropdown {
     flex: 1 1 auto;
-    min-width: 0;
+    width: auto;
+    min-width: 13em;
 }
 
 /* ========================================
@@ -1270,6 +1278,46 @@ body.dark-mode .reminder-secondary {
     .reminder-button {
         padding: var(--spacing-md);
         font-size: var(--font-size-sm);
+    }
+}
+
+.reminder-button-icon {
+    margin-right: 0.35em;
+}
+
+/* Handys: Monatsname muss immer vollständig lesbar bleiben (auch „September 2026“).
+   Daher weniger Innenabstand im Auswahlfeld und am Knopf nur die Glocke. */
+@media (max-width: 480px) {
+    .reminder-button-label {
+        display: none;
+    }
+
+    .reminder-button {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .reminder-button-icon {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+
+    .month-selector .month-dropdown {
+        padding-left: var(--spacing-md);
+        padding-right: 2.25rem;
+        background-position: right 0.5rem center;
+        min-width: 11.5em;
+    }
+}
+
+@media (max-width: 340px) {
+    .month-selector {
+        gap: var(--spacing-sm);
+    }
+
+    .month-selector .month-dropdown {
+        font-size: var(--font-size-base);
+        padding-left: var(--spacing-sm);
+        min-width: 11.5em;
     }
 }
 
@@ -1988,6 +2036,7 @@ body.dark-mode .quote-share-btn {
 
     .month-selector .month-dropdown {
         flex: 0 1 auto;
+        min-width: 13em;
     }
 
     .month-dropdown {
