@@ -39,6 +39,10 @@ const I18N = (() => {
             // Modal
             modalTitle: 'Historische Lebensweisheit',
             learnMore: 'Mehr erfahren',
+            share: 'Teilen',
+            shareTitle: 'Lebensweisheit aus dem Monatskalender mit Türchen',
+            quoteCopied: '📋 Zitat kopiert',
+            shareFailed: '⚠️ Teilen nicht möglich',
             close: 'Schließen',
             unknownAuthor: 'Unbekannt',
 
@@ -47,6 +51,8 @@ const I18N = (() => {
             doorLocked: (day) => `Tag ${day} - Gesperrt`,
             doorOpened: (day) => `Tag ${day} - Geöffnet - Klicken für Spruch`,
             doorClickToOpen: (day) => `Tag ${day} - Klicken zum Öffnen`,
+            doorToday: (day) => `Tag ${day} - Heute - Klicken zum Öffnen`,
+            todayLabel: 'Heute',
             missedLabel: 'Verpasst',
             alreadyOpened: 'Bereits geöffnet',
 
@@ -124,6 +130,10 @@ const I18N = (() => {
 
             modalTitle: 'Historical Wisdom',
             learnMore: 'Learn more',
+            share: 'Share',
+            shareTitle: 'Wisdom from the Monthly Door Calendar',
+            quoteCopied: '📋 Quote copied',
+            shareFailed: '⚠️ Sharing not possible',
             close: 'Close',
             unknownAuthor: 'Unknown',
 
@@ -131,6 +141,8 @@ const I18N = (() => {
             doorLocked: (day) => `Day ${day} - Locked`,
             doorOpened: (day) => `Day ${day} - Opened - Click to read quote`,
             doorClickToOpen: (day) => `Day ${day} - Click to open`,
+            doorToday: (day) => `Day ${day} - Today - Click to open`,
+            todayLabel: 'Today',
             missedLabel: 'Missed',
             alreadyOpened: 'Already opened',
 

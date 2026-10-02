@@ -10,3 +10,6 @@
 - **GitHub Pages Project Page:** Die App wird unter `https://gunterstruck.github.io/Kalender/` ausgeliefert.
 - **Case-Sensitivity:** GitHub Pages behandelt Pfade strikt nach Groß-/Kleinschreibung. Eine kleingeschriebene Variante ist ein anderer Pfad und führt zu 404s.
 - **Trusted Web Activity (TWA):** Start-URL, Scope und Service-Worker-Registrierung müssen exakt übereinstimmen, damit keine Redirects oder Scope-Konflikte entstehen.
+
+> **Hinweis (Version 1.9.1):** Seit dem Umzug auf Vercel liegt die App im
+> Domain-Stamm. Der Pfad `/Kalender/` gilt nur noch für die alte GitHub-Pages-Adresse.

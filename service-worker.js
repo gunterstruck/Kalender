@@ -1,20 +1,27 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.7.0 - English Language Support
+// Version 1.9.1 - Hosting auf Vercel
 
-const CACHE_NAME = 'kalender-cache-v1.7.0';
-const RUNTIME_CACHE = 'kalender-runtime-v1.7.0';
+const CACHE_NAME = 'kalender-cache-v1.9.1';
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.1';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
     './',
     './index.html',
+    './impressum.html',
+    './datenschutz.html',
+    './imprint.html',
+    './privacy.html',
     './css/styles.css',
+    './css/livedemo.css',
     './js/app.js',
     './js/quotes.js',
     './js/quotes-en.js',
     './js/i18n.js',
     './js/i18n-dom.js',
     './js/pwa-install.js',
+    './js/livedemo.js',
+    './js/reminder.js',
     './manifest.json',
     './assets/icons/icon.svg',
     './assets/icons/icon-192.png',
@@ -104,6 +111,11 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Demo-Musik: direkt aus dem Netz (Range-Requests, kein Offline-Cache)
+    if (url.pathname.includes('/assets/audio/')) {
+        return;
+    }
+
     // Strategie 1: Stale-While-Revalidate für JS/CSS
     // -> Serviere Cache sofort, update im Hintergrund
     if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
@@ -178,6 +190,90 @@ self.addEventListener('fetch', (event) => {
                         return new Response(null, { status: 503, statusText: 'Service Unavailable' });
                     });
             })
+    );
+});
+
+// ========================================
+// Tägliche Erinnerung (Periodic Background Sync)
+// Der Browser weckt die installierte App gelegentlich im Hintergrund.
+// Wir zeigen höchstens eine Benachrichtigung pro Tag, nur nach der gewählten
+// Uhrzeit und nur, wenn das heutige Türchen noch nicht geöffnet wurde.
+// Daten liegen lokal in IndexedDB (von js/reminder.js geschrieben).
+// ========================================
+
+function reminderDb() {
+    return new Promise((resolve, reject) => {
+        const req = indexedDB.open('kalender-reminder', 1);
+        req.onupgradeneeded = () => req.result.createObjectStore('kv');
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+    });
+}
+
+async function reminderGet(keys) {
+    const db = await reminderDb();
+    const result = await new Promise((resolve, reject) => {
+        const tx = db.transaction('kv', 'readonly');
+        const out = {};
+        keys.forEach((k) => {
+            const r = tx.objectStore('kv').get(k);
+            r.onsuccess = () => { out[k] = r.result; };
+        });
+        tx.oncomplete = () => resolve(out);
+        tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+    return result;
+}
+
+async function reminderSet(key, value) {
+    const db = await reminderDb();
+    await new Promise((resolve, reject) => {
+        const tx = db.transaction('kv', 'readwrite');
+        tx.objectStore('kv').put(value, key);
+        tx.oncomplete = resolve;
+        tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+}
+
+function reminderToday(date) {
+    const p = (n) => String(n).padStart(2, '0');
+    return `${date.getFullYear()}-${p(date.getMonth() + 1)}-${p(date.getDate())}`;
+}
+
+async function maybeShowReminder() {
+    const data = await reminderGet(['reminderTime', 'lastOpened', 'lastNotified', 'head', 'body']);
+    if (!data.reminderTime) return;
+    const now = new Date();
+    const today = reminderToday(now);
+    if (data.lastOpened === today || data.lastNotified === today) return;
+    const [h, m] = String(data.reminderTime).split(':').map(Number);
+    if (now.getHours() * 60 + now.getMinutes() < h * 60 + m) return;
+    await self.registration.showNotification(data.head || '🚪 Dein Türchen wartet', {
+        body: data.body || '',
+        icon: './assets/icons/icon-192.png',
+        badge: './assets/icons/icon-192.png',
+        tag: 'daily-door',
+        data: { url: './' }
+    });
+    await reminderSet('lastNotified', today);
+}
+
+self.addEventListener('periodicsync', (event) => {
+    if (event.tag === 'daily-door') {
+        event.waitUntil(maybeShowReminder().catch((error) => console.error('[Service Worker] Erinnerung:', error)));
+    }
+});
+
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+    event.waitUntil(
+        self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+            const client = clients.find((c) => 'focus' in c);
+            if (client) return client.focus();
+            return self.clients.openWindow(new URL('./', self.registration.scope).href);
+        })
     );
 });
 

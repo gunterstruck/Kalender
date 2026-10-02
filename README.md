@@ -2,29 +2,32 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.6.6-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.1-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
+
+> 📚 **Dokumentation:** vollständige Wissensbasis für Nutzer, Support und KI-Guide unter [`docs/`](docs/README.md). Bei Abweichungen gilt dort der App-Code-Stand.
 
 ## ✨ Features
 
 - **📱 Installierbar als PWA**: Funktioniert wie eine native App auf Smartphone und Desktop
-- **🔒 Intelligentes Türchen-Locking**: Türchen öffnen sich nur am entsprechenden Tag
-- **💬 320+ Lebensweisheiten**: Hochwertige, motivierende deutsche Sprüche
-- **🎨 12 Monatsillustrationen**: Einzigartige Märchen-/Fantasy-Designs für jeden Monat
-- **🔄 Shuffle-Funktion**: Sprüche jederzeit neu mischen
+- **🔒 Intelligentes Türchen-Locking**: Türchen öffnen sich nur am entsprechenden Tag; das heutige Türchen leuchtet
+- **💬 366 Lebensweisheiten je Sprache**: historische Zitate mit Lebensdaten und Wikipedia-Link, jedes genau einmal pro Jahr
+- **🌍 Deutsch und Englisch**: automatisch nach Browsersprache
+- **🎨 12 Monatsillustrationen**: je eine Fassung für Quer- und Hochformat, Jahreszeiten-Banner mit Easter Eggs
+- **🎬 Livedemo**: große Tour (ca. 2 Min) und Mini-Demos (20–30 s) als geführte Vorführung der echten App, mit Musik; die Tour auch als MP4 in `film/`
+- **🔔 Tägliche Erinnerung**: Kalendereintrag (.ics) überall, Benachrichtigung in der installierten App (Chrome/Edge)
+- **💬 Zitat teilen**: Teilen-Menü des Geräts oder Zwischenablage
 - **📴 Offline-Fähig**: Funktioniert komplett ohne Internetverbindung
-- **💾 Persistente Speicherung**: Fortschritt wird lokal gespeichert
+- **💾 Persistente Speicherung**: Fortschritt wird lokal gespeichert, kein Konto, kein Tracking
 - **🌓 Dark Mode Support**: Automatische Anpassung an Systemeinstellungen
 - **♿ Barrierefrei**: Vollständige Tastatur- und Screen-Reader-Unterstützung
 - **📅 Schaltjahr-Logik**: Korrekte Berechnung für Februar in Schaltjahren
 
 ## 🚀 Live Demo
 
-Die App ist auf GitHub Pages verfügbar:
-```
-https://gunterstruck.github.io/Kalender/
-```
+Die App wird über **Vercel** ausgeliefert (Projekt im Team „Günter Struck's projects“).
+Die Adresse lautet `https://<projektname>.vercel.app/` bzw. die eigene Domain, sobald das Projekt angelegt ist.
 
 ## 📋 Voraussetzungen
 
@@ -37,8 +40,8 @@ https://gunterstruck.github.io/Kalender/
 ### Schritt 1: Repository klonen
 
 ```bash
-git clone https://github.com/DEIN-USERNAME/DEIN-REPO-NAME.git
-cd DEIN-REPO-NAME
+git clone https://github.com/gunterstruck/Kalender.git
+cd Kalender
 ```
 
 ### Schritt 2: Lokal testen
@@ -63,34 +66,55 @@ Mit VS Code Live Server:
 
 Öffne dann im Browser: `http://localhost:8000`
 
-### Schritt 3: Auf GitHub Pages deployen
+### Schritt 3: Auf Vercel deployen
 
-#### Variante A: Über GitHub UI
+Die App ist eine rein statische Seite – **kein Build, keine Abhängigkeiten**. Die
+Konfiguration liegt in `vercel.json` (Sicherheits- und Cache-Header) und
+`.vercelignore` (Doku, Videos und Werkzeuge werden nicht ausgeliefert).
 
-1. Gehe zu deinem GitHub Repository
-2. Klicke auf **Settings** → **Pages**
-3. Unter "Source" wähle **Branch: main** (oder den gewünschten Branch)
-4. Wähle **/ (root)** als Verzeichnis
-5. Klicke auf **Save**
-6. Warte ca. 1-2 Minuten
-7. Deine App ist verfügbar unter: `https://DEIN-USERNAME.github.io/REPO-NAME/`
+#### Variante A: Über das Vercel-Dashboard (empfohlen)
 
-#### Variante B: Über Git
+1. <https://vercel.com/new> öffnen und das GitHub-Repository `gunterstruck/Kalender` importieren
+2. **Framework Preset:** „Other“ – Build Command, Output Directory und Install Command **leer lassen**
+3. **Root Directory:** `./`
+4. **Deploy** klicken
+5. Ab dann deployt Vercel automatisch: jeder Push auf `main` → Produktion, jeder Pull Request → eigene Vorschau-URL
+
+#### Variante B: Über die Vercel-CLI
 
 ```bash
-# Committe alle Änderungen
-git add .
-git commit -m "Initial deployment"
-
-# Pushe zum Main Branch
-git push origin main
-
-# Aktiviere GitHub Pages in den Repository-Settings (siehe Variante A)
+npm i -g vercel
+vercel          # Vorschau-Deployment (fragt beim ersten Mal nach Team/Projekt)
+vercel --prod   # Produktion
 ```
 
-#### Wichtig: `.nojekyll` Datei
+#### Was `vercel.json` regelt
 
-Die `.nojekyll` Datei ist bereits im Repository enthalten. Sie verhindert, dass GitHub Pages Jekyll verwendet und stellt sicher, dass alle Dateien korrekt bereitgestellt werden.
+| Pfad | Header |
+|---|---|
+| alle | `X-Content-Type-Options`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security` |
+| `/`, `/index.html` | `Content-Security-Policy` (wie das Meta-Tag, zusätzlich `frame-ancestors 'none'`) |
+| `/service-worker.js` | nie zwischenspeichern (`max-age=0, must-revalidate`), damit Updates sofort ankommen |
+| `/manifest.json` | korrekter Typ `application/manifest+json`, nicht zwischenspeichern |
+| `/.well-known/assetlinks.json` | `application/json` (Android/TWA) |
+| `/assets/*` | 1 Tag zwischenspeichern, danach im Hintergrund erneuern |
+
+JS, CSS und HTML behalten den Vercel-Standard (`max-age=0, must-revalidate`),
+weil die Dateinamen keine Versions-Hashes tragen.
+
+#### Nach jedem Release
+
+Cache-Version in `service-worker.js` erhöhen (siehe unten) – sonst sehen
+installierte Apps geänderte Dateien erst verzögert.
+
+#### Hinweis zum Umzug von GitHub Pages
+
+Bisher lief die App unter `https://gunterstruck.github.io/Kalender/`. Nach dem
+Umzug GitHub Pages abschalten (Repository → Settings → Pages → „None“) oder dort
+auf die neue Adresse verweisen, damit nicht zwei Fassungen parallel laufen.
+Fortschritt im Browser ist an die Adresse gebunden: Nutzer der alten Adresse
+starten auf der neuen Adresse mit leerem Kalender. Eine bestehende Android-App
+(TWA) muss für die neue Adresse neu gebaut werden (siehe `TWA_NOTES.md`).
 
 ## 📱 PWA Installation
 
@@ -138,20 +162,24 @@ assets/months/
 
 ### Sprüche erweitern/ändern
 
-Die Lebensweisheiten befinden sich in `/js/quotes.js`:
+Die Lebensweisheiten befinden sich in `/js/quotes.js` (Deutsch) und `/js/quotes-en.js` (Englisch):
 
 ```javascript
 const QUOTES = [
-    "Dein neuer Spruch hier...",
-    "Noch ein inspirierender Spruch...",
-    // ... füge beliebig viele hinzu
+    {
+        text: "Der Anfang ist der wichtigste Teil der Arbeit.",
+        author: "Platon",
+        dates: "428-348 v. Chr.",
+        link: "https://de.wikipedia.org/wiki/Platon",
+        linkTitle: "Mehr über Platon (Wikipedia)"
+    },
+    // ...
 ];
 ```
 
 **Tipps:**
-- Mindestens 31 Sprüche für einen vollen Monat
-- Aktuell: 320+ Sprüche für Varianz
-- Keine urheberrechtlich geschützten Zitate verwenden
+- Genau 366 Zitate je Sprache halten (eins pro Tag, auch im Schaltjahr)
+- Nur gemeinfreie Zitate verstorbener Persönlichkeiten verwenden
 - Kurz und prägnant halten (2-3 Sätze max.)
 
 ### Icons anpassen
@@ -194,15 +222,25 @@ Passe die Farben in `/css/styles.css` an (CSS Custom Properties):
 ├── index.html              # Haupt-HTML-Datei
 ├── manifest.json           # PWA-Manifest
 ├── service-worker.js       # Service Worker für Offline-Caching
-├── .nojekyll              # GitHub Pages Konfiguration
+├── vercel.json            # Vercel: Header, kein Build
+├── .vercelignore          # nicht ausgelieferte Ordner
+├── impressum.html, datenschutz.html, imprint.html, privacy.html
 ├── css/
-│   └── styles.css         # Alle Styles (Mobile First)
+│   ├── styles.css         # Alle Styles (Mobile First)
+│   └── livedemo.css       # Livedemo
 ├── js/
-│   ├── app.js             # Haupt-App-Logik
-│   └── quotes.js          # Sprüche-Pool
-└── assets/
-    ├── icons/             # App-Icons
-    └── months/            # Monats-Illustrationen
+│   ├── app.js             # Haupt-App-Logik (CalendarApp)
+│   ├── i18n.js, i18n-dom.js  # Sprache (de/en)
+│   ├── quotes.js, quotes-en.js  # Zitate (je 366)
+│   ├── pwa-install.js     # Service Worker, Install-Hinweis
+│   ├── reminder.js        # Tägliche Erinnerung
+│   └── livedemo.js        # Livedemo
+├── assets/
+│   ├── icons/             # App-Icons
+│   ├── months/, months-portrait/  # Monats-Illustrationen
+│   └── audio/             # Demo-Musik (CC BY 4.0)
+├── docs/                  # Wissensbasis, Kurzanleitung, KI-Guide
+└── film/                  # Demo-Videos (MP4) + Aufnahme-Skript
 ```
 
 ### Verwendete Technologien
@@ -229,8 +267,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.5.0';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.0';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.9.1';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.1';  // Auch Runtime Cache!
 ```
 
 **Dann:**
@@ -243,18 +281,27 @@ const RUNTIME_CACHE = 'kalender-runtime-v1.5.0';  // Auch Runtime Cache!
 
 ### Türchen-Locking-Logik
 
-1. **Aktueller Monat**: Türchen 1 bis zum heutigen Tag sind freigeschaltet
-2. **Vergangene Monate**: Alle Türchen sind freigeschaltet
-3. **Zukünftige Monate**: Alle Türchen sind gesperrt
+1. **Aktueller Monat**: Türchen 1 bis zum heutigen Tag sind freigeschaltet (Nachholen möglich)
+2. **Vergangene Monate**: Nur bereits geöffnete Türchen bleiben lesbar; alle anderen sind „verpasst“ (⏰), nächste Chance im Folgejahr
+3. **Zukünftige Tage und Monate**: gesperrt
 4. **Schaltjahr**: Februar hat automatisch 29 Tage in Schaltjahren
+
+Ausführlich: [`docs/guide-ki-wissensbasis.md`](docs/guide-ki-wissensbasis.md).
 
 ### Datenpersistenz
 
 Folgende Daten werden im LocalStorage gespeichert:
 
-- `calendar_opened_{JAHR}_{MONAT}`: Array der geöffneten Türchen
-- `calendar_quotes_{JAHR}_{MONAT}`: Zuordnung von Sprüchen zu Tagen
-- `calendar_selected_month`: Aktuell ausgewählter Monat
+- `calendar_opened_v2_{JAHR}_{MONAT}`: Array der geöffneten Türchen (Monat 0-basiert)
+- `calendar_quotes_{JAHR}_{de|en}`: Jahreszuordnung der Zitate zu den Tagen
+- `calendar_positions_v4_{JAHR}_{MONAT}`: Türchen-Positionen in Prozent
+- `calendar_selected_month_year_v2`: zuletzt gewählter Monat/Jahr
+- `calendar_theme`: `light` oder `dark`
+- `pwa_installed`: Merker nach Installation
+
+Bei eingeschalteter Erinnerung zusätzlich `calendar_reminder` (Uhrzeit) und – für die App-Benachrichtigung – die IndexedDB `kalender-reminder`.
+
+Die Livedemo schreibt nichts in den Local Storage.
 
 **Daten löschen:**
 
@@ -292,12 +339,11 @@ location.reload();
 - Stelle sicher, dass Icons existieren und korrekte Größen haben
 - Cache leeren und Seite neu laden
 
-### GitHub Pages zeigt 404
+### Vercel zeigt 404 oder eine leere Seite
 
-- Warte 1-2 Minuten nach dem ersten Push
-- Prüfe GitHub Pages Settings im Repository
-- Stelle sicher, dass Branch und Verzeichnis korrekt eingestellt sind
-- Prüfe, ob `.nojekyll` Datei vorhanden ist
+- Im Projekt unter Settings → Build & Development: Framework „Other“, Build Command und Output Directory leer
+- Root Directory muss `./` sein (dort liegt `index.html`)
+- Deployment-Log im Vercel-Dashboard prüfen
 
 ## 🤝 Beitragen
 
@@ -324,7 +370,7 @@ Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe `LICENSE` Datei für D
 
 Bei Fragen oder Problemen:
 
-- Öffne ein [GitHub Issue](https://github.com/DEIN-USERNAME/DEIN-REPO-NAME/issues)
+- Öffne ein [GitHub Issue](https://github.com/gunterstruck/Kalender/issues)
 - Lies die [Troubleshooting-Sektion](#-troubleshooting)
 - Prüfe die Browser-Konsole auf Fehlermeldungen
 
@@ -333,8 +379,9 @@ Bei Fragen oder Problemen:
 Zukünftige Features (optional):
 
 - [ ] Export-Funktion für geöffnete Türchen
-- [ ] Teilen-Funktion für Sprüche
-- [ ] Mehrsprachigkeit (EN, FR, ES)
+- [x] Teilen-Funktion für Sprüche
+- [x] Englisch (weitere Sprachen: FR, ES)
+- [x] Tägliche Erinnerung
 - [ ] Benutzerdefinierte Spruch-Sammlungen
 - [ ] Animationen beim Türchen-Öffnen
 - [ ] Sound-Effekte (optional aktivierbar)

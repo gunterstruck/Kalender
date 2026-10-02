@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modal
     document.querySelector('#modal-title').textContent = I18N.t('modalTitle');
     document.querySelector('#quote-link-title').textContent = I18N.t('learnMore');
+    document.querySelector('#quote-share-label').textContent = I18N.t('share');
     document.querySelector('#modal-close').setAttribute('aria-label', I18N.t('close'));
 
     // PWA Install Prompt
@@ -41,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (footerLinks.length >= 2) {
         footerLinks[0].textContent = I18N.t('imprint');
         footerLinks[1].textContent = I18N.t('privacy');
+        if (I18N.getLang() === 'en') {
+            footerLinks[0].setAttribute('href', 'imprint.html');
+            footerLinks[1].setAttribute('href', 'privacy.html');
+        }
     }
 
     // Meta description
