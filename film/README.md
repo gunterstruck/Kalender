@@ -12,12 +12,12 @@
 echte App im Handy- bzw. Monitorrahmen mit wechselnden Werbetexten
 („Jeden Tag ein Türchen.“ · „Vier Jahreszeiten.“ · „Kein Türchen verpassen.“ ·
 „Dein täglicher Moment Inspiration.“) → Abschlusskarte „Jetzt kostenlos
-ausprobieren“ mit `kalender-mu-coral.vercel.app` (Handy: „👇 Link unten im
+ausprobieren“ mit `kalender356.vercel.app` (Handy: „👇 Link unten im
 Status“). Durchgehend: „Kostenlos · Ohne Werbung · Ohne Konto“.
 
 **WhatsApp-Status:** Video unter 30 s, damit es auch auf älteren Versionen
 nicht geteilt wird; H.264/AAC, 30 fps. Den Link (Play Store bzw.
-https://kalender-mu-coral.vercel.app/) als Text unter das Video schreiben.
+https://kalender356.vercel.app/) als Text unter das Video schreiben.
 
 **Neu erzeugen:** `sh film/promo/render-promo.sh` (Grafiken aus
 `film/promo/stage.html`, Aufnahme der versteckten Kurz-Vorführung `promo`,

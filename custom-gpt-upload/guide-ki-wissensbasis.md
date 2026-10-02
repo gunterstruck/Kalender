@@ -33,7 +33,8 @@ Adventskalender, nur für **jeden Monat des Jahres**.
 - Technik: Vanilla JavaScript, CSS, keine Frameworks, keine externen Bibliotheken.
 - Betreiber: Günter Struck (privat, nicht kommerziell). Lizenz: MIT.
 - Hosting: **Vercel** (Projekt `kalender` im Team „Günter Struck's projects“),
-  Adresse **https://kalender-mu-coral.vercel.app/**. Früher: GitHub Pages
+  Adresse **https://kalender356.vercel.app/** (vorher
+  `kalender-mu-coral.vercel.app`, leitet ggf. weiter). Früher: GitHub Pages
   (`https://gunterstruck.github.io/Kalender/`) – Fortschritt dort bleibt an
   die alte Adresse gebunden.
 

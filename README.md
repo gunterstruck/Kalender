@@ -28,7 +28,7 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 ## 🚀 Live Demo
 
 Die App wird über **Vercel** ausgeliefert (Projekt im Team „Günter Struck's projects“).
-**Live:** https://kalender-mu-coral.vercel.app/
+**Live:** https://kalender356.vercel.app/
 
 Vercel-Projekt: `kalender` (Team „gunter-strucks-projects“). Jeder Push auf `main` geht automatisch live, jeder Pull Request bekommt eine Vorschau-URL (nur mit Vercel-Login sichtbar).
 

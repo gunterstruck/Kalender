@@ -8,6 +8,9 @@ Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert
 - Akzentfarbe Smaragdgrün statt Rosa: Livedemo-Knopf, „Weiter ansehen“, Fortschrittsbalken, Tipp-Ring, Rahmen „Große Tour“ und Etikett „Heute“
 - Icon in den Demo-Texten wackelt deutlich länger (1,5 s statt 0,45 s, mehrere Ausschläge, kurzes grünes Leuchten)
 
+### 🌐 Adresse
+- Neue Produktionsadresse **https://kalender356.vercel.app/** (vorher kalender-mu-coral.vercel.app) in Doku, KI-Guide und Werbefilmen
+
 ### 📣 Werbefilme
 - `film/werbung-whatsapp-status-9x16.mp4` (1080×1920, 28 s, 4 MB) – App im Handyrahmen, Werbetexte darunter, Abschlusskarte mit Adresse und „Link unten im Status“; optimiert für den WhatsApp-Status (H.264/AAC, unter 30 s)
 - `film/werbung-desktop-16x9.mp4` (1920×1080, 28 s) – Texte links, App im Monitor rechts
