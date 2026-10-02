@@ -6,6 +6,8 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
+> 📚 **Dokumentation:** vollständige Wissensbasis für Nutzer, Support und KI-Guide unter [`docs/`](docs/README.md). Bei Abweichungen gilt dort der App-Code-Stand.
+
 ## ✨ Features
 
 - **📱 Installierbar als PWA**: Funktioniert wie eine native App auf Smartphone und Desktop
