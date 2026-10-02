@@ -1219,6 +1219,7 @@ class CalendarApp {
     }
 
     saveTheme(theme) {
+        if (this.demo) return;
         if (!this.storageAvailable) return;
 
         try {
@@ -1253,6 +1254,48 @@ class CalendarApp {
         setTimeout(() => {
             this.themeToggle.style.transform = 'rotate(0deg)';
         }, 300);
+    }
+
+    // ========================================
+    // Livedemo (js/livedemo.js): läuft in einem Sandbox-Zustand.
+    // Nichts davon wird gespeichert; endDemo() stellt den Nutzerzustand wieder her.
+    // ========================================
+
+    beginDemo(seed = {}) {
+        this.demo = {
+            opened: new Map(),
+            quotes: new Map(),
+            snapshot: {
+                month: this.selectedMonth,
+                year: this.selectedYear,
+                dark: document.body.classList.contains('dark-mode'),
+                light: document.body.classList.contains('light-mode')
+            }
+        };
+        Object.entries(seed).forEach(([key, days]) => this.demo.opened.set(key, days));
+        this.clearPositionCache();
+    }
+
+    demoGoto(month, year) {
+        if (!this.demo) return;
+        this.selectedMonth = month;
+        this.selectedYear = year;
+        this.selectMonthInDropdown(month, year);
+        this.clearPositionCache();
+        this.renderCalendar();
+    }
+
+    endDemo() {
+        if (!this.demo) return;
+        const { month, year, dark, light } = this.demo.snapshot;
+        document.body.classList.toggle('dark-mode', dark);
+        document.body.classList.toggle('light-mode', light);
+        this.demo = null;
+        this.selectedMonth = month;
+        this.selectedYear = year;
+        this.selectMonthInDropdown(month, year);
+        this.clearPositionCache();
+        this.renderCalendar();
     }
 
     // ========================================
@@ -1354,6 +1397,8 @@ class CalendarApp {
     // ========================================
 
     loadOpenedDoors() {
+        // Livedemo: Zustand nur im Speicher, nie im Local Storage
+        if (this.demo) return this.demo.opened.get(this.getStorageKey('opened')) || [];
         if (!this.storageAvailable) return [];
 
         try {
@@ -1367,6 +1412,12 @@ class CalendarApp {
     }
 
     saveOpenedDoor(day) {
+        if (this.demo) {
+            const key = this.getStorageKey('opened');
+            const list = this.demo.opened.get(key) || [];
+            if (!list.includes(day)) this.demo.opened.set(key, [...list, day]);
+            return;
+        }
         if (!this.storageAvailable) return;
 
         try {
@@ -1415,6 +1466,13 @@ class CalendarApp {
     }
 
     loadYearlyQuoteMapping() {
+        if (this.demo) {
+            const key = `${this.selectedYear}_${I18N.getLang()}`;
+            if (!this.demo.quotes.has(key)) {
+                this.demo.quotes.set(key, this.generateQuoteMappingForLang(this.selectedYear));
+            }
+            return this.demo.quotes.get(key);
+        }
         if (!this.storageAvailable) {
             // Fallback: Generiere temporäres Jahres-Mapping
             return this.generateQuoteMappingForLang(this.selectedYear);
@@ -1545,7 +1603,7 @@ class CalendarApp {
             return positions;
         }
 
-        if (!this.storageAvailable) {
+        if (this.demo || !this.storageAvailable) {
             const daysInMonth = this.getDaysInMonth(this.selectedMonth, this.selectedYear);
             return this.generateDoorPositions(daysInMonth);
         }
@@ -1606,7 +1664,7 @@ class CalendarApp {
     }
 
     saveDoorPositions(positions) {
-        if (!this.storageAvailable) return;
+        if (this.demo || !this.storageAvailable) return;
 
         try {
             const key = this.getPositionsStorageKey();
@@ -1809,7 +1867,7 @@ class CalendarApp {
     }
 
     saveSelectedMonthAndYear(month, year) {
-        if (!this.storageAvailable) return;
+        if (this.demo || !this.storageAvailable) return;
 
         try {
             const data = JSON.stringify({ month, year });

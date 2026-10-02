@@ -1,12 +1,19 @@
 # Monatskalender mit Türchen - Kurzanleitung
 
-Stand: 02.10.2026 · App-Version 1.7.0
+Stand: 02.10.2026 · App-Version 1.8.0
 
 ## 1. Starten
 
 Adresse öffnen: `https://gunterstruck.github.io/Kalender/` (oder die installierte App).
 Kein Konto nötig. Nach 5 Sekunden blendet sich die Kopfzeile aus und ein
 animierter Jahreszeiten-Banner erscheint.
+
+## 1a. Livedemo ansehen
+
+Knopf **„▶ Livedemo“** oben links: In ca. 2 Minuten zeigt die App sich selbst -
+Türchen, Zitate, die vier Jahreszeiten und das Farbschema, mit Musik.
+Steuerleiste oben: ⏸/▶ Pause, ⏭ weiter, Tempo (1,2× bis 0,6×), 🔊 Musik, ✕ Ende
+(auch Esc). Die Demo verändert deinen Kalender nicht.
 
 ## 2. Ein Türchen öffnen
 

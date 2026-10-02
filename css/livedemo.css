@@ -1,0 +1,160 @@
+/* ========================================
+   Livedemo (js/livedemo.js)
+   ======================================== */
+
+.ld-start {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + var(--spacing-sm));
+    left: max(var(--spacing-md), calc((100vw - 1200px) / 2 + var(--spacing-md)));
+    height: 48px;
+    padding: 0 var(--spacing-lg);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    background: rgba(236, 72, 153, 0.92);
+    color: #fff;
+    font: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.ld-start:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.ld-start:focus-visible, .ld-btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+.ld-shield {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: transparent;
+    cursor: progress;
+}
+
+.ld-ghost {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    z-index: 9100;
+    pointer-events: none;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+}
+
+.ld-ring {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 22px;
+    height: 22px;
+    border: 3px solid #ec4899;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.ld-ghost.ld-tap .ld-ring { animation: ld-tap 0.5s ease-out; }
+
+@keyframes ld-tap {
+    0% { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+.ld-caption {
+    position: fixed;
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 68px);
+    transform: translateX(-50%);
+    width: min(640px, calc(100% - 2 * var(--spacing-md)));
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: rgba(15, 23, 42, 0.94);
+    color: #fff;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    text-align: center;
+    z-index: 9200;
+    pointer-events: none;
+}
+
+.ld-caption.ld-top {
+    bottom: auto;
+    top: calc(env(safe-area-inset-top, 0px) + var(--spacing-md));
+}
+
+.ld-bar {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--spacing-sm));
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: rgba(15, 23, 42, 0.94);
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    z-index: 9300;
+}
+
+.ld-btn {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.ld-btn:hover { background: rgba(255, 255, 255, 0.24); }
+.ld-tempo { font-size: 0.85rem; font-weight: 700; min-width: 54px; }
+
+.ld-progress {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    z-index: 9300;
+}
+
+.ld-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #ec4899;
+    transition: width 0.6s ease;
+}
+
+body.ld-active .install-prompt { display: none; }
+
+.ld-label-short { display: none; }
+
+/* Kopfzeile nicht unter den Knöpfen links (Livedemo) und rechts (Farbschema) */
+@media (max-width: 1240px) {
+    .app-header:not(.hidden) { padding-left: 150px; padding-right: 72px; }
+}
+
+@media (max-width: 480px) {
+    .ld-start { padding: 0 var(--spacing-md); }
+    .ld-label-long { display: none; }
+    .ld-label-short { display: inline; }
+    .app-header:not(.hidden) { padding-left: 104px; padding-right: 72px; }
+    .ld-caption { font-size: var(--font-size-sm); padding: var(--spacing-sm) var(--spacing-md); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ld-ghost.ld-tap .ld-ring { animation: none; opacity: 0; }
+}
+
+@media print {
+    .ld-start, .ld-shield, .ld-ghost, .ld-caption, .ld-bar, .ld-progress { display: none !important; }
+}

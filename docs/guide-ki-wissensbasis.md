@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.0 · Stand: 02.10.2026 · App-Version: 1.7.0 (Service-Worker-Cache v1.7.1)**
+**Version 1.1 · Stand: 02.10.2026 · App-Version: 1.8.0 (Service-Worker-Cache v1.8.0)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -68,11 +68,12 @@ Von oben nach unten:
 | Element | Beschreibung |
 |---|---|
 | **Kopfzeile** | Titel „Monatskalender mit Türchen" und Untertitel „Entdecke jeden Tag eine neue Lebensweisheit". Sie blendet sich **nach 5 Sekunden automatisch aus**. |
+| **„▶ Livedemo“** | Knopf oben links, immer sichtbar (englisch „▶ Live demo“). Startet die geführte Vorführung (Abschnitt 7a). |
 | **Farbschema-Schalter** | Runder Knopf oben rechts (Sonne/Mond), immer sichtbar. |
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
 | **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender. |
-| **Fußzeile** | Links „Impressum" und „Datenschutz", darunter „Version 1.7.0". |
+| **Fußzeile** | Links „Impressum" und „Datenschutz", darunter „Version 1.8.0". |
 | **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal). |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
 | **Installations-Hinweis** | „App installieren" mit Knöpfen „Installieren" und „✕" (nur wenn der Browser es anbietet). |
@@ -199,6 +200,61 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
 
 ---
 
+## 7a. Livedemo
+
+**Start:** Knopf „▶ Livedemo“ oben links. Dauer ca. 2 Minuten bei Tempo 1,2×.
+Ein Zeiger fährt durch die **echte App** und bedient sie (kein Video); Texte
+erscheinen als Untertitel. Musik läuft leise im Hintergrund.
+
+**Ablauf (12 Schritte, Fortschrittsbalken ganz oben):**
+1. Begrüßung.
+2. Heutiges Türchen öffnen, Zitat-Fenster erklären, Symbol ℹ️ für geöffnet.
+3. Morgiges Türchen antippen: gesperrt, wackelt (entfällt am letzten Tag des Monats).
+4. „Monat auswählen“ → **Januar des Vorjahres (Winter)**, Tipp auf den Saisonbanner → Schneegestöber.
+5. Bereits geöffnetes Türchen (ℹ️) lesen; verpasstes Türchen (⏰) antippen → „Verpasst! Nächste Chance …“.
+6. Ansicht erklären: Smartphone-Ansicht → animierte Monats-Dekoration; Desktop-Ansicht → großformatige Illustration.
+7. April (Frühling) → Blumenwiese. 8. Juli (Sommer) → Ballons. 9. Oktober (Herbst) → Blättersturm.
+10. Farbschema hell/dunkel umschalten und zurück.
+11. Zurück in den aktuellen Monat. 12. Schluss: lokal, ohne Konto, offline, installieren.
+
+Die Jahreszeiten werden immer mit Monaten des **Vorjahres** gezeigt; dort sind
+beispielhaft einige Türchen „geöffnet“ (Tage 1, 2, 3, 5, 8, 9, 13, 14, 21), der
+Rest ist „verpasst“.
+
+**Steuerleiste oben in der Mitte:**
+
+| Knopf | Wirkung |
+|---|---|
+| ⏸ / ▶ | Pause / weiter (Musik pausiert mit) |
+| ⏭ | aktuelle Erklärung überspringen, zur nächsten |
+| 1,2× · 1,0× · 0,8× · 0,6× | Tempo durchschalten (Musik bleibt gleich) |
+| 🔊 / 🔇 | Musik aus/ein |
+| ✕ | Demo beenden (auch **Esc**) |
+
+**Sicherheit/Daten:** Die Demo läuft in einem Sandbox-Zustand. Sie speichert
+**nichts** (keine Türchen, kein Monat, kein Farbschema) und stellt danach den
+vorherigen Zustand wieder her. Echte Klicks und Tasten sind während der Demo
+gesperrt (Schutzschicht); nur die Steuerleiste reagiert. Wechselt der Tab in
+den Hintergrund, pausiert die Demo.
+
+**Geräte:** Desktop und Tablet quer zeigen die Desktop-Ansicht, Smartphone und
+Tablet hochkant (Breite bis 768 px) die Smartphone-Ansicht. Die Demo erklärt
+jeweils die Ansicht, die gerade sichtbar ist. Ein Tablet hochkant mit mehr als
+768 px Breite (z. B. iPad Air/Pro) zeigt die Desktop-Ansicht.
+
+**Musik:** „Tropical Island House 2024“ von Sascha Ende (ende.app), CC BY 4.0,
+Nachweis im Impressum („Musik in der Livedemo“). Wird erst beim Start geladen,
+vom selben Server wie die App, **nicht offline gecacht**. Offline oder bei
+Browser-Sperre läuft die Demo ohne Musik (Symbol 🔇). „Bewegung reduzieren“
+wird respektiert (kurze Zeigerwege, Lesezeiten bleiben).
+
+**Häufige Fragen:** „Hat die Demo meinen Kalender verändert?“ Nein. „Keine
+Musik?“ Ton am Gerät, 🔇-Knopf, offline oder Browser blockiert Audio. „Zu
+schnell?“ Tempo-Knopf oder ⏸. „Ich kann nichts anklicken“ – die Demo läuft;
+✕ oder Esc beendet sie.
+
+---
+
 ## 8. Installation als App (PWA)
 
 Voraussetzung: HTTPS (GitHub Pages erfüllt das) und ein moderner Browser.
@@ -230,10 +286,10 @@ bestehen, bis die Website-Daten gelöscht werden.
 
 ## 9. Offline-Funktion und Updates (Service Worker)
 
-- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.7.1`,
-  Runtime-Cache `kalender-runtime-v1.7.1`) legt beim Installieren die App-Shell
+- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.8.0`,
+  Runtime-Cache `kalender-runtime-v1.8.0`) legt beim Installieren die App-Shell
   an: `index.html`, `impressum.html`, `datenschutz.html`, CSS, alle JS-Dateien
-  inklusive beider Zitat-Dateien, Manifest, Icons und alle 24 Monatsbilder.
+  inklusive beider Zitat-Dateien und der Livedemo, Manifest, Icons und alle 24 Monatsbilder.
 - **Strategien:** JS und CSS = *Stale-While-Revalidate* (sofort aus dem Cache,
   im Hintergrund aktualisieren); alles andere = *Cache First*; Nur GET-Anfragen.
 - **Folge für Updates:** Nach einer neuen Version zeigt der erste Aufruf
@@ -246,6 +302,7 @@ bestehen, bis die Website-Daten gelöscht werden.
   Hilfe, keine Bedienfunktion).
 - **Offline-Fallbacks:** Nicht gecachte Seite → einfache Seite „📡 Offline";
   nicht verfügbare JS/CSS → 503-Platzhalter.
+- Die Demo-Musik (`assets/audio/`) wird bewusst nicht gecacht und vom Service Worker direkt ans Netz durchgereicht.
 - Erster Besuch **muss online** sein. Wikipedia-Links brauchen Internet.
 
 ---
@@ -297,13 +354,14 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 - Die App benötigt keine Berechtigungen (Standort, Kamera, Mikrofon, Kontakte,
   Benachrichtigungen) und setzt **keine Cookies**, kein Tracking, keine Werbung,
   keine Analyse, keine Drittanbieter-Schriften oder -Skripte
-  (Content-Security-Policy: `default-src 'self'`).
+  (Content-Security-Policy: `default-src 'self'`, `media-src 'self'`).
 - Lokal gespeichert werden nur die Einstellungen aus Abschnitt 10.
   Rechtsgrundlage: technisch erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG),
   Art. 6 Abs. 1 lit. f DSGVO. Keine Einwilligungsabfrage nötig.
 - **Hosting:** GitHub Pages (GitHub Inc., USA). Beim Laden/Aktualisieren kann
   GitHub technisch bedingt IP-Adresse u. ä. in Logfiles verarbeiten. Der
   Entwickler erhält diese Daten nicht.
+- **Livedemo:** speichert nichts; Musik wird erst beim Start vom selben Server (GitHub Pages) geladen, keine Verbindung zum Musikanbieter.
 - **Wikipedia:** Verbindung zu Wikimedia erst, wenn der Nutzer den Link
   „Mehr erfahren" antippt.
 - Rechte (Auskunft, Löschung …) laufen faktisch ins Leere, weil der Entwickler
@@ -440,6 +498,8 @@ Impressum).
 
 ## 15. Mini-Schulungen (auf Wunsch anbieten)
 
+**0. Schnellster Einstieg:** „▶ Livedemo“ oben links ansehen (ca. 2 Minuten).
+
 **A. Erste Schritte (2 Minuten)**
 1. App öffnen; Kopfzeile verschwindet nach 5 Sekunden.
 2. Das Türchen mit der heutigen Nummer antippen → Zitat lesen → ✕.
@@ -469,13 +529,21 @@ Zeit/Datum, Daten gelöscht, Sprache.
 /js/quotes.js, quotes-en.js     366 Zitate je Sprache (Konstanten QUOTES, QUOTES_EN)
 /js/app.js                      Klasse CalendarApp (komplette App-Logik)
 /js/pwa-install.js              Service-Worker-Registrierung, Install-Banner, globale Fehler-Handler
+/js/livedemo.js, css/livedemo.css  Livedemo (Zeiger, Untertitel, Steuerleiste, Musik)
+/assets/audio                   Demo-Musik (CC BY 4.0, Nachweis in docs/licenses/)
 /assets/icons, /months, /months-portrait, /screenshots
 /.well-known/assetlinks.json    Android-TWA-Verknüpfung
 /docs, /custom-gpt-upload       Diese Dokumentation und der KI-Guide-Export
 ```
 
 **Ladereihenfolge der Skripte** (wichtig!): `quotes.js` → `quotes-en.js` →
-`i18n.js` → `i18n-dom.js` → `app.js` → `pwa-install.js`.
+`i18n.js` → `i18n-dom.js` → `app.js` → `pwa-install.js` → `livedemo.js`.
+
+**Livedemo-Schnittstelle in `CalendarApp`:** `beginDemo(seed)` legt einen
+Sandbox-Zustand `this.demo` an (geöffnete Türchen und Zitate nur im Speicher;
+alle `save…`-Methoden schreiben dann nicht), `demoGoto(month, year)`,
+`endDemo()` stellt Monat/Jahr und Farbschema wieder her. Das Drehbuch steht in
+`LiveDemo.script()`, die Texte (de/en) im Objekt `TEXT` in `js/livedemo.js`.
 
 **Architektur `CalendarApp`**: Konstruktor sammelt DOM-Elemente → `init()`
 registriert Events (Event-Delegation für Türchen-Klicks), prüft Speicher,
@@ -484,7 +552,7 @@ Saisonbanner (10 s), Resize-/Orientierungs-Handler (250 ms / 100 ms entprellt).
 Render-Wiederholungen mit exponentiellem Backoff (max. 10), falls die
 Kalenderfläche noch keine Größe hat. `destroy()` räumt Intervalle auf.
 
-**Sicherheit:** Meta-CSP in `index.html`: `default-src 'self'; style-src 'self';
+**Sicherheit:** Meta-CSP in `index.html`: `default-src 'self'; media-src 'self'; style-src 'self';
 script-src 'self'; img-src 'self' data:; connect-src 'self'`. Keine Inline-Skripte
 in `index.html` (die Seiten Impressum/Datenschutz haben ein kleines Inline-Skript
 fürs Farbschema und keine CSP). Zitate werden per `textContent` eingesetzt
@@ -550,3 +618,4 @@ Erweiterung von `getQuotes()` und der Spracherkennung, Texte in `i18n-dom.js`.
 | Service Worker | Hintergrundskript für Offline-Cache |
 | Local Storage | Browser-Speicher, in dem der Fortschritt liegt |
 | TWA | Trusted Web Activity: Android-Hülle für die Web-App |
+| Livedemo | Geführte Vorführung der echten App mit Zeiger, Untertiteln und Musik |

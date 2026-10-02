@@ -1,0 +1,531 @@
+// ========================================
+// Livedemo - geführte Vorführung der echten App
+//
+// Ein Zeiger fährt sichtbar durch die laufende App und bedient echte
+// Elemente (kein Video). Die Vorführung läuft in einem Sandbox-Zustand
+// (CalendarApp.beginDemo/endDemo): Es wird nichts im Local Storage
+// gespeichert, der Fortschritt des Nutzers bleibt unberührt.
+// Ein Schutz-Overlay fängt echte Klicks ab; Esc oder ✕ bricht ab.
+// Musik: optional, nur Wiedergabe nach Klick auf "Livedemo", keine
+// Verbindung zu Dritten (siehe Impressum, Abschnitt Musik).
+// ========================================
+
+(() => {
+    'use strict';
+
+    const MUSIC_URL = 'assets/audio/tropical-island-house-2024.mp3';
+    const MUSIC_VOLUME = 0.18;
+
+    const TEXT = {
+        de: {
+            start: 'Livedemo', startShort: 'Demo',
+            startLabel: 'Livedemo starten (ca. 2 Minuten)',
+            pause: 'Pause', play: 'Weiter abspielen', next: 'Nächste Erklärung',
+            tempo: 'Tempo', musicOn: 'Musik ausschalten', musicOff: 'Musik einschalten',
+            musicFailed: 'Musik nicht verfügbar - die Demo läuft ohne Musik weiter',
+            close: 'Livedemo beenden',
+            intro: 'Willkommen im Monatskalender mit Türchen! Jeden Tag öffnet sich ein neues Türchen - mit einer Lebensweisheit dahinter.',
+            today: 'Das Türchen von heute lässt sich öffnen.',
+            quote: 'Hinter jedem Türchen steckt ein Zitat einer historischen Persönlichkeit - mit Lebensdaten und einem Wikipedia-Link zum Weiterlesen.',
+            opened: 'Geöffnete Türchen tragen ein ℹ️. Das Zitat lässt sich jederzeit noch einmal lesen.',
+            future: 'Türchen der Zukunft bleiben zu - sie öffnen sich erst an ihrem Datum.',
+            pick: 'Über „Monat auswählen“ blätterst du durch das Vorjahr und das aktuelle Jahr.',
+            winter: 'Winter: Schnee, Sterne und gemütliche Sprüche. Ein Tipp auf den Banner - und es schneit!',
+            openedOld: 'Hier hat jemand schon Türchen geöffnet. Sie bleiben auch in alten Monaten lesbar.',
+            missed: 'Verpasst! In vergangenen Monaten bleiben nur Türchen offen, die du schon geöffnet hast. Nächste Chance: dasselbe Datum im nächsten Jahr.',
+            viewPhone: 'Im Hochformat zeigt jeder Monat zusätzlich kleine Animationen - hier Sterne und Schneeflocken.',
+            viewDesktop: 'Im Querformat füllt die Monatsillustration den ganzen Hintergrund - jeder Monat hat sein eigenes Bild.',
+            spring: 'Frühling: Blüten und Schmetterlinge. Ein Tipp auf den Banner lässt eine Blumenwiese wachsen.',
+            summer: 'Sommer: Sonne und Leichtigkeit. Ein Tipp auf den Banner lässt Ballons aufsteigen.',
+            autumn: 'Herbst: goldene Blätter. Ein Tipp auf den Banner löst einen Blättersturm aus.',
+            theme: 'Mit dem Knopf oben rechts wechselst du zwischen hellem und dunklem Farbschema.',
+            themeBack: 'Dunkel ist ideal für den Abend. Und wieder zurück.',
+            outro1: 'Zurück im aktuellen Monat. Alles bleibt auf deinem Gerät - ohne Konto, ohne Werbung, auch offline.',
+            outro2: 'Installiere die App auf deinem Startbildschirm und öffne jeden Tag ein Türchen. Viel Freude!'
+        },
+        en: {
+            start: 'Live demo', startShort: 'Demo',
+            startLabel: 'Start live demo (about 2 minutes)',
+            pause: 'Pause', play: 'Resume', next: 'Next explanation',
+            tempo: 'Speed', musicOn: 'Turn music off', musicOff: 'Turn music on',
+            musicFailed: 'Music unavailable - the demo continues without music',
+            close: 'End live demo',
+            intro: 'Welcome to the Monthly Door Calendar! A new door opens every day - with a piece of wisdom behind it.',
+            today: "Today's door can be opened.",
+            quote: 'Behind every door is a quote from a historical figure - with life dates and a Wikipedia link to read more.',
+            opened: 'Opened doors show an ℹ️. You can read the quote again at any time.',
+            future: 'Doors in the future stay closed - they open on their date.',
+            pick: 'With "Select month" you browse last year and the current year.',
+            winter: 'Winter: snow, stars and cozy quotes. Tap the banner - and it snows!',
+            openedOld: 'Some doors were opened here already. They stay readable in past months.',
+            missed: 'Missed! In past months only doors you already opened stay open. Next chance: the same date next year.',
+            viewPhone: 'In portrait view every month also shows small animations - here stars and snowflakes.',
+            viewDesktop: 'In landscape view the month illustration fills the whole background - every month has its own picture.',
+            spring: 'Spring: blossoms and butterflies. Tap the banner and a flower meadow grows.',
+            summer: 'Summer: sunshine and lightness. Tap the banner and balloons rise.',
+            autumn: 'Autumn: golden leaves. Tap the banner for a storm of leaves.',
+            theme: 'The button at the top right switches between light and dark color scheme.',
+            themeBack: 'Dark is perfect for the evening. And back again.',
+            outro1: 'Back in the current month. Everything stays on your device - no account, no ads, works offline.',
+            outro2: 'Install the app on your home screen and open a door every day. Enjoy!'
+        }
+    };
+
+    // Tempo-Stufen (wie bei den TourFuchs-Live-Demos); die Musik bleibt unberührt.
+    const TEMPI = [1, 1 / 1.2, 1 / 1.5, 1 / 2];
+    const TEMPO_LABELS = ['1,2×', '1,0×', '0,8×', '0,6×'];
+
+    class AbortDemo extends Error {}
+
+    // ----------------------------------------
+    // Musik: eine Datei, Ein-/Ausblenden, Wiedergabe nur nach Nutzerklick
+    // ----------------------------------------
+    class Music {
+        constructor(onChange) {
+            this.onChange = onChange;
+            this.audio = null;
+            this.enabled = true;
+            this.failed = false;
+            this.timer = null;
+        }
+
+        fade(target, ms, done) {
+            clearInterval(this.timer);
+            if (!this.audio) { if (done) done(); return; }
+            const from = this.audio.volume;
+            const t0 = Date.now();
+            this.timer = setInterval(() => {
+                const f = Math.min(1, (Date.now() - t0) / ms);
+                const eased = f * f * (3 - 2 * f);
+                this.audio.volume = Math.max(0, Math.min(1, from + (target - from) * eased));
+                if (f === 1) { clearInterval(this.timer); if (done) done(); }
+            }, 25);
+        }
+
+        play() {
+            if (!this.enabled) return;
+            try {
+                if (!this.audio) {
+                    this.audio = new Audio(MUSIC_URL);
+                    this.audio.preload = 'none';
+                    this.audio.loop = true;
+                    this.audio.addEventListener('error', () => { this.failed = true; this.onChange(); });
+                }
+                this.audio.volume = 0;
+                const result = this.audio.play();
+                if (result && result.then) {
+                    result.then(() => { this.failed = false; this.fade(MUSIC_VOLUME, 800); this.onChange(); })
+                        .catch(() => { this.failed = true; this.onChange(); });
+                }
+            } catch (e) {
+                this.failed = true;
+                this.onChange();
+            }
+        }
+
+        silence() {
+            clearInterval(this.timer);
+            if (this.audio) { this.audio.volume = 0; this.audio.pause(); }
+        }
+
+        stop(ms) {
+            this.fade(0, ms, () => {
+                if (this.audio) { this.audio.pause(); this.audio.currentTime = 0; }
+            });
+        }
+
+        toggle() {
+            this.enabled = !this.enabled;
+            this.failed = false;
+            if (this.enabled) this.play(); else this.fade(0, 350, () => this.audio && this.audio.pause());
+            this.onChange();
+        }
+    }
+
+    // ----------------------------------------
+    // Hilfsfunktionen
+    // ----------------------------------------
+    const lang = (typeof I18N !== 'undefined' && I18N.getLang() === 'en') ? 'en' : 'de';
+    const T = TEXT[lang];
+    const tempoLabel = (i) => (lang === 'en' ? TEMPO_LABELS[i].replace(',', '.') : TEMPO_LABELS[i]);
+    const isPhoneView = () => window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+    const el = (tag, className, attrs) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        Object.entries(attrs || {}).forEach(([k, v]) => node.setAttribute(k, v));
+        return node;
+    };
+
+    class LiveDemo {
+        constructor(app) {
+            this.app = app;
+            this.running = false;
+            this.paused = false;
+            this.aborted = false;
+            this.pending = null;
+            this.tempo = 0;
+            this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            this.music = new Music(() => this.syncBar());
+            this.buildUi();
+        }
+
+        // ---------- UI ----------
+        buildUi() {
+            this.startButton = el('button', 'ld-start', { type: 'button', 'aria-label': T.startLabel });
+            const long = el('span', 'ld-label-long');
+            long.textContent = `▶ ${T.start}`;
+            const short = el('span', 'ld-label-short');
+            short.textContent = `▶ ${T.startShort}`;
+            this.startButton.append(long, short);
+            this.startButton.addEventListener('click', () => this.start());
+            document.body.appendChild(this.startButton);
+
+            this.shield = el('div', 'ld-shield is-hidden', { 'aria-hidden': 'true' });
+            this.ghost = el('div', 'ld-ghost is-hidden', { 'aria-hidden': 'true' });
+            const svgNs = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(svgNs, 'svg');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('width', '34');
+            svg.setAttribute('height', '34');
+            const path = document.createElementNS(svgNs, 'path');
+            path.setAttribute('d', 'M4 2l15 9-6.5 1.5L9.5 19z');
+            path.setAttribute('fill', '#fff');
+            path.setAttribute('stroke', '#1e293b');
+            path.setAttribute('stroke-width', '1.6');
+            path.setAttribute('stroke-linejoin', 'round');
+            svg.appendChild(path);
+            this.ghost.appendChild(svg);
+            this.ring = el('span', 'ld-ring');
+            this.ghost.appendChild(this.ring);
+
+            this.caption = el('div', 'ld-caption is-hidden', { role: 'status', 'aria-live': 'polite' });
+            this.bar = el('div', 'ld-bar is-hidden', { role: 'group', 'aria-label': 'Livedemo' });
+            this.progress = el('div', 'ld-progress');
+            this.progressFill = el('span', 'ld-progress-fill');
+            this.progress.appendChild(this.progressFill);
+
+            this.pauseBtn = this.barButton('⏸', () => this.togglePause());
+            this.nextBtn = this.barButton('⏭', () => this.skip(), T.next);
+            this.tempoBtn = this.barButton('', () => this.cycleTempo(), T.tempo);
+            this.tempoBtn.classList.add('ld-tempo');
+            this.musicBtn = this.barButton('🔊', () => this.music.toggle());
+            this.closeBtn = this.barButton('✕', () => this.abort(), T.close);
+            [this.pauseBtn, this.nextBtn, this.tempoBtn, this.musicBtn, this.closeBtn].forEach((b) => this.bar.appendChild(b));
+
+            document.body.append(this.shield, this.ghost, this.caption, this.bar, this.progress);
+            this.progress.classList.add('is-hidden');
+            this.syncBar();
+        }
+
+        barButton(text, handler, label) {
+            const b = el('button', 'ld-btn', { type: 'button' });
+            b.textContent = text;
+            if (label) b.setAttribute('aria-label', label);
+            b.addEventListener('click', handler);
+            return b;
+        }
+
+        syncBar() {
+            this.pauseBtn.textContent = this.paused ? '▶' : '⏸';
+            this.pauseBtn.setAttribute('aria-label', this.paused ? T.play : T.pause);
+            this.tempoBtn.textContent = tempoLabel(this.tempo);
+            this.tempoBtn.setAttribute('aria-label', `${T.tempo}: ${tempoLabel(this.tempo)}`);
+            const muted = !this.music.enabled || this.music.failed;
+            this.musicBtn.textContent = muted ? '🔇' : '🔊';
+            this.musicBtn.setAttribute('aria-label', this.music.failed ? T.musicFailed : (this.music.enabled ? T.musicOn : T.musicOff));
+            this.musicBtn.title = this.musicBtn.getAttribute('aria-label');
+        }
+
+        // ---------- Steuerung ----------
+        togglePause() {
+            this.paused = !this.paused;
+            if (this.paused) this.music.silence(); else this.music.play();
+            this.syncBar();
+        }
+
+        skip() {
+            if (this.pending && this.pending.reading) {
+                this.paused = false;
+                this.pending.finish();
+                this.syncBar();
+            }
+        }
+
+        cycleTempo() {
+            this.tempo = (this.tempo + 1) % TEMPI.length;
+            this.syncBar();
+        }
+
+        get rate() {
+            return TEMPI[this.tempo];
+        }
+
+        wait(ms, { reading = false } = {}) {
+            if (this.aborted) return Promise.reject(new AbortDemo());
+            const duration = (reading || !this.reduced) ? ms : Math.min(ms, 250);
+            return new Promise((resolve, reject) => {
+                let remaining = duration;
+                let last = Date.now();
+                const finish = (error) => {
+                    clearInterval(timer);
+                    this.pending = null;
+                    if (error) reject(error); else resolve();
+                };
+                const timer = setInterval(() => {
+                    const now = Date.now();
+                    if (!this.paused) remaining -= (now - last) * this.rate;
+                    last = now;
+                    if (!this.paused && remaining <= 0) finish();
+                }, 20);
+                this.pending = { reading, finish };
+            });
+        }
+
+        abort() {
+            if (!this.running) return;
+            this.aborted = true;
+            if (this.pending) this.pending.finish(new AbortDemo());
+        }
+
+        // ---------- Bausteine ----------
+        async say(text, { target = null, extra = 0 } = {}) {
+            let top = false;
+            if (target) {
+                await this.ensureVisible(target);
+                const r = target.getBoundingClientRect();
+                top = (r.top + r.height / 2) > window.innerHeight * 0.5;
+            }
+            this.caption.classList.toggle('ld-top', top);
+            this.caption.textContent = text;
+            this.caption.classList.remove('is-hidden');
+            await this.wait(1300 + text.length * 35 + extra, { reading: true });
+        }
+
+        hideCaption() {
+            this.caption.classList.add('is-hidden');
+        }
+
+        // Ziel in den sichtbaren Bereich holen (Steuerleiste unten freihalten)
+        async ensureVisible(target) {
+            const r = target.getBoundingClientRect();
+            const bottomLimit = window.innerHeight - 90;
+            if (r.top >= 8 && r.bottom <= bottomLimit) return;
+            const delta = r.top + r.height / 2 - window.innerHeight * 0.45;
+            window.scrollBy({ top: delta, behavior: this.reduced ? 'auto' : 'smooth' });
+            await this.wait(this.reduced ? 50 : 650);
+        }
+
+        async moveTo(target) {
+            if (!target) return;
+            await this.ensureVisible(target);
+            const r = target.getBoundingClientRect();
+            const x = r.left + r.width / 2 - 6;
+            const y = r.top + r.height / 2 - 4;
+            const ms = this.reduced ? 0 : 800;
+            this.ghost.style.transitionDuration = `${ms / this.rate}ms`;
+            this.ghost.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
+            await this.wait(ms + 150);
+        }
+
+        async tap(action) {
+            this.ghost.classList.remove('ld-tap');
+            void this.ghost.offsetWidth;
+            this.ghost.classList.add('ld-tap');
+            await this.wait(250);
+            if (action) action();
+        }
+
+        async chooseMonth(month, year) {
+            const select = this.app.monthSelect;
+            await this.moveTo(select);
+            await this.tap(() => {
+                select.value = `${year}-${month}`;
+                select.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+            await this.wait(1100);
+        }
+
+        async easterEgg() {
+            await this.moveTo(this.app.seasonalBanner);
+            await this.tap(() => this.app.seasonalBanner.click());
+            await this.wait(2400);
+        }
+
+        door(day) {
+            return this.app.doorElements.get(day);
+        }
+
+        // ---------- Ablauf ----------
+        async start() {
+            if (this.running || !this.app) return;
+            this.running = true;
+            this.aborted = false;
+            this.paused = false;
+            this.keyHandler = (e) => {
+                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); this.abort(); return; }
+                if (e.target && e.target.closest && e.target.closest('.ld-bar')) return;
+                if (e.key !== 'Tab') { e.preventDefault(); e.stopPropagation(); }
+            };
+            this.visHandler = () => {
+                if (document.hidden && !this.paused) this.togglePause();
+            };
+            window.addEventListener('keydown', this.keyHandler, true);
+            document.addEventListener('visibilitychange', this.visHandler);
+
+            document.body.classList.add('ld-active');
+            this.startButton.classList.add('is-hidden');
+            [this.shield, this.ghost, this.bar, this.progress].forEach((n) => n.classList.remove('is-hidden'));
+            this.ghost.style.transitionDuration = '0ms';
+            this.ghost.style.transform = `translate(${Math.round(window.innerWidth * 0.5)}px, ${Math.round(window.innerHeight * 0.6)}px)`;
+            this.syncBar();
+            this.progressFill.style.width = '0%';
+            this.bar.querySelector('button').focus({ preventScroll: true });
+
+            this.music.play();
+            this.app.beginDemo(this.seed());
+            try {
+                await this.script();
+            } catch (error) {
+                if (!(error instanceof AbortDemo)) console.error('[Livedemo]', error);
+            }
+            await this.finish();
+        }
+
+        seed() {
+            const prev = new Date().getFullYear() - 1;
+            const days = [1, 2, 3, 5, 8, 9, 13, 14, 21];
+            const seed = {};
+            [0, 3, 6, 9].forEach((m) => { seed[`calendar_opened_v2_${prev}_${m}`] = days; });
+            return seed;
+        }
+
+        async finish() {
+            this.music.stop(2000);
+            this.pending = null;
+            this.hideCaption();
+            this.app.closeModal();
+            this.app.toast.classList.remove('show');
+            this.app.endDemo();
+            window.removeEventListener('keydown', this.keyHandler, true);
+            document.removeEventListener('visibilitychange', this.visHandler);
+            [this.shield, this.ghost, this.bar, this.progress].forEach((n) => n.classList.add('is-hidden'));
+            document.body.classList.remove('ld-active');
+            this.startButton.classList.remove('is-hidden');
+            this.running = false;
+            this.startButton.focus({ preventScroll: true });
+        }
+
+        progressTo(step, total) {
+            this.progressFill.style.width = `${Math.round((step / total) * 100)}%`;
+        }
+
+        async script() {
+            const app = this.app;
+            const now = new Date();
+            const curM = now.getMonth();
+            const curY = now.getFullYear();
+            const today = now.getDate();
+            const prevY = curY - 1;
+            const daysInMonth = app.getDaysInMonth(curM, curY);
+            const TOTAL = 12;
+            let n = 0;
+            const mark = () => this.progressTo(++n, TOTAL);
+
+            // 1 Begrüßung
+            await this.say(T.intro);
+            mark();
+
+            // 2 Heutiges Türchen öffnen
+            await this.say(T.today, { target: this.door(today) });
+            await this.moveTo(this.door(today));
+            await this.tap(() => app.handleDoorClick(today));
+            await this.wait(600);
+            await this.say(T.quote);
+            app.closeModal();
+            await this.wait(500);
+            await this.say(T.opened, { target: this.door(today) });
+            window.scrollTo({ top: 0, behavior: this.reduced ? 'auto' : 'smooth' });
+            mark();
+
+            // 3 Zukünftiges Türchen
+            if (today < daysInMonth) {
+                const next = this.door(today + 1);
+                await this.moveTo(next);
+                await this.tap(() => app.handleDoorClick(today + 1));
+                await this.say(T.future, { target: next });
+                app.toast.classList.remove('show');
+            }
+            mark();
+
+            // Kopfzeile weg, Saisonbanner sichtbar (wie nach 5 Sekunden)
+            if (app.appHeader) app.appHeader.classList.add('hidden');
+            if (app.seasonalBanner) app.seasonalBanner.classList.add('visible');
+            await this.wait(900);
+            app.updateCalendarHeight();
+
+            // 4 Monatsauswahl, Winter
+            await this.say(T.pick, { target: app.monthSelect });
+            await this.chooseMonth(0, prevY);
+            await this.say(T.winter, { target: app.seasonalBanner });
+            await this.easterEgg();
+            mark();
+
+            // 5 Geöffnete und verpasste Türchen im Winter
+            await this.moveTo(this.door(5));
+            await this.tap(() => app.handleDoorClick(5));
+            await this.say(T.openedOld);
+            app.closeModal();
+            await this.wait(500);
+            await this.moveTo(this.door(6));
+            await this.tap(() => app.handleDoorClick(6));
+            await this.say(T.missed, { target: this.door(6) });
+            app.toast.classList.remove('show');
+            mark();
+
+            // 6 Hoch- bzw. Querformat
+            await this.say(isPhoneView() ? T.viewPhone : T.viewDesktop);
+            mark();
+
+            // 7 Frühling
+            await this.chooseMonth(3, prevY);
+            await this.say(T.spring, { target: app.seasonalBanner });
+            await this.easterEgg();
+            mark();
+
+            // 8 Sommer
+            await this.chooseMonth(6, prevY);
+            await this.say(T.summer, { target: app.seasonalBanner });
+            await this.easterEgg();
+            mark();
+
+            // 9 Herbst
+            await this.chooseMonth(9, prevY);
+            await this.say(T.autumn, { target: app.seasonalBanner });
+            await this.easterEgg();
+            mark();
+
+            // 10 Farbschema
+            await this.say(T.theme, { target: app.themeToggle });
+            await this.moveTo(app.themeToggle);
+            await this.tap(() => app.toggleTheme());
+            await this.say(T.themeBack);
+            await this.tap(() => app.toggleTheme());
+            await this.wait(600);
+            mark();
+
+            // 11 Zurück in den aktuellen Monat
+            await this.chooseMonth(curM, curY);
+            window.scrollTo({ top: 0, behavior: this.reduced ? 'auto' : 'smooth' });
+            await this.say(T.outro1);
+            mark();
+
+            // 12 Schluss
+            await this.say(T.outro2);
+            mark();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.calendarApp) window.liveDemo = new LiveDemo(window.calendarApp);
+    });
+})();

@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Export für KI-Guide / Custom GPT
 
-Generierter Uploadstand, App 1.7.0.
+Generierter Uploadstand, App 1.8.0.
 
 Diese Kopien nicht direkt bearbeiten. Quellen liegen unter `docs/`. Nach jeder Änderung `sh tools/build-gpt-upload.sh` ausführen.
 

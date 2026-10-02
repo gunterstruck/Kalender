@@ -2,6 +2,21 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.8.0] - 2026-10-02
+
+### 🎬 Livedemo
+- Knopf „▶ Livedemo“ oben links (Smartphone: „▶ Demo“): geführte Vorführung der echten App in ca. 2 Minuten
+- Zeiger, Untertitel (de/en), Fortschrittsbalken, Steuerleiste (Pause, Weiter, Tempo 1,2×–0,6×, Musik, Beenden/Esc)
+- Inhalte: heutiges Türchen, gesperrtes und verpasstes Türchen, vier Jahreszeiten mit Easter Eggs, Hell/Dunkel
+- Erklärt die jeweils sichtbare Ansicht (Smartphone/Tablet hochkant vs. Desktop/Tablet quer)
+- Sandbox: Die Demo speichert nichts und stellt den vorherigen Zustand wieder her
+- Musik „Tropical Island House 2024“ von Sascha Ende (CC BY 4.0), nicht im Offline-Cache
+
+### 📚 Dokumentation & Recht
+- Wissensbasis für KI-Guide, Kurzanleitung, Systemprompt (`docs/`, `custom-gpt-upload/`)
+- Datenschutz und Impressum aktualisiert (Rechtsgrundlagen, Hosting, Livedemo, Musiknachweis)
+- Rechtsseiten übernehmen das gewählte Farbschema und sind offline verfügbar
+
 ## [1.5.0] - 2025-12-23
 
 ### 🔧 Behobene Bugs

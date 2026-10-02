@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.7.0 - English Language Support
+// Version 1.8.0 - Livedemo
 
-const CACHE_NAME = 'kalender-cache-v1.7.1';
-const RUNTIME_CACHE = 'kalender-runtime-v1.7.1';
+const CACHE_NAME = 'kalender-cache-v1.8.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.8.0';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
@@ -11,12 +11,14 @@ const CACHE_URLS = [
     './impressum.html',
     './datenschutz.html',
     './css/styles.css',
+    './css/livedemo.css',
     './js/app.js',
     './js/quotes.js',
     './js/quotes-en.js',
     './js/i18n.js',
     './js/i18n-dom.js',
     './js/pwa-install.js',
+    './js/livedemo.js',
     './manifest.json',
     './assets/icons/icon.svg',
     './assets/icons/icon-192.png',
@@ -103,6 +105,11 @@ self.addEventListener('fetch', (event) => {
 
     // Nur GET-Requests cachen
     if (request.method !== 'GET') {
+        return;
+    }
+
+    // Demo-Musik: direkt aus dem Netz (Range-Requests, kein Offline-Cache)
+    if (url.pathname.includes('/assets/audio/')) {
         return;
     }
 
