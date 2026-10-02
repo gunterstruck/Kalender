@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.1 · Stand: 02.10.2026 · App-Version: 1.8.0 (Service-Worker-Cache v1.8.0)**
+**Version 1.2 · Stand: 02.10.2026 · App-Version: 1.8.1 (Service-Worker-Cache v1.8.1)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -73,7 +73,7 @@ Von oben nach unten:
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
 | **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender. |
-| **Fußzeile** | Links „Impressum" und „Datenschutz", darunter „Version 1.8.0". |
+| **Fußzeile** | Links „Impressum" und „Datenschutz", darunter „Version 1.8.1". |
 | **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal). |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
 | **Installations-Hinweis** | „App installieren" mit Knöpfen „Installieren" und „✕" (nur wenn der Browser es anbietet). |
@@ -89,11 +89,12 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
 
 **Anzahl:** Ein Türchen pro Tag des gewählten Monats (Schaltjahr: Februar = 29).
 
-**Vier Zustände**
+**Zustände**
 
 | Zustand | Aussehen | Wann |
 |---|---|---|
 | **Gesperrt** | ausgegraut | Datum liegt in der **Zukunft** |
+| **Heute** | leuchtet, Etikett „Heute“ (englisch „Today“) | heutiges Türchen, solange es noch nicht geöffnet ist |
 | **Freigeschaltet** | normal, klickbar | Datum ist **heute** oder im **aktuellen Monat** schon vergangen |
 | **Geöffnet** | markiert, Symbol ℹ️ | Zitat wurde bereits angesehen |
 | **Verpasst** | gesperrt, Symbol ⏰ | Datum lag in einem **früheren Monat** und das Türchen wurde nie geöffnet |
@@ -195,6 +196,11 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
   (≤ 480 px) und größeren Bildschirmen werden sie **neu gewürfelt**. Türchen-
   Größe: 7 % der Breite (Desktop/Tablet) bzw. 10 % (≤ 480 px), mindestens
   60 px bzw. 40 px.
+- Höhe der Kalenderfläche: ab 769 px Breite passt sie sich der Fensterhöhe an
+  (Fensterhöhe minus ca. 220 px, mindestens 560 px; bei sehr niedrigen Fenstern wird gescrollt), damit Kalender und
+  Monatsauswahl auf Laptop, Desktop und Tablet quer ohne Scrollen sichtbar
+  sind. Im Smartphone-Hochformat füllt sie den Platz zwischen Banner und
+  Monatsauswahl.
 - Notfall-Anordnung: Ist die Kalenderfläche unsichtbar/0 px groß, nutzt die App
   ein Gitterraster.
 
@@ -286,8 +292,8 @@ bestehen, bis die Website-Daten gelöscht werden.
 
 ## 9. Offline-Funktion und Updates (Service Worker)
 
-- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.8.0`,
-  Runtime-Cache `kalender-runtime-v1.8.0`) legt beim Installieren die App-Shell
+- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.8.1`,
+  Runtime-Cache `kalender-runtime-v1.8.1`) legt beim Installieren die App-Shell
   an: `index.html`, `impressum.html`, `datenschutz.html`, CSS, alle JS-Dateien
   inklusive beider Zitat-Dateien und der Livedemo, Manifest, Icons und alle 24 Monatsbilder.
 - **Strategien:** JS und CSS = *Stale-While-Revalidate* (sofort aus dem Cache,

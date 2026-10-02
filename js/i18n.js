@@ -47,6 +47,8 @@ const I18N = (() => {
             doorLocked: (day) => `Tag ${day} - Gesperrt`,
             doorOpened: (day) => `Tag ${day} - Geöffnet - Klicken für Spruch`,
             doorClickToOpen: (day) => `Tag ${day} - Klicken zum Öffnen`,
+            doorToday: (day) => `Tag ${day} - Heute - Klicken zum Öffnen`,
+            todayLabel: 'Heute',
             missedLabel: 'Verpasst',
             alreadyOpened: 'Bereits geöffnet',
 
@@ -131,6 +133,8 @@ const I18N = (() => {
             doorLocked: (day) => `Day ${day} - Locked`,
             doorOpened: (day) => `Day ${day} - Opened - Click to read quote`,
             doorClickToOpen: (day) => `Day ${day} - Click to open`,
+            doorToday: (day) => `Day ${day} - Today - Click to open`,
+            todayLabel: 'Today',
             missedLabel: 'Missed',
             alreadyOpened: 'Already opened',
 

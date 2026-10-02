@@ -1291,6 +1291,41 @@ body.dark-mode .footer-link:hover {
     transform: scale(1.05);
 }
 
+/* Heutiges Türchen (noch ungeöffnet) */
+.door.today {
+    border-color: var(--gold-light);
+    background: rgba(255, 184, 77, 0.25);
+    animation: today-glow 2.4s ease-in-out infinite;
+    z-index: 2;
+}
+
+.door.today::before {
+    content: attr(data-today-label);
+    position: absolute;
+    top: -0.9rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: var(--secondary);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes today-glow {
+    0%, 100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(255, 184, 77, 0), inset 0 0 20px rgba(255, 184, 77, 0.3); }
+    50% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 22px 6px rgba(255, 184, 77, 0.75), inset 0 0 26px rgba(255, 184, 77, 0.45); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .door.today { animation: none; box-shadow: 0 0 18px 4px rgba(255, 184, 77, 0.7); }
+}
+
 /* Locked Door */
 .door.locked {
     background: rgba(100, 100, 100, 0.3);
@@ -1726,6 +1761,14 @@ body.dark-mode .footer-link:hover {
 @media (min-width: 769px) {
     .app-header h1 {
         font-size: var(--font-size-3xl);
+    }
+
+    /* Laptop/Desktop/Tablet quer: Kalender und Monatsauswahl ohne Scrollen sichtbar */
+    .calendar-wrapper {
+        min-height: 560px;
+        height: calc(100vh - 220px);
+        height: calc(100dvh - 220px);
+        max-height: 1000px;
     }
 
     .month-selector {

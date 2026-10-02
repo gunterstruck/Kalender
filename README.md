@@ -2,7 +2,7 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.6.6-blue.svg)
+![Version](https://img.shields.io/badge/version-1.8.1-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
@@ -11,12 +11,13 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 ## ✨ Features
 
 - **📱 Installierbar als PWA**: Funktioniert wie eine native App auf Smartphone und Desktop
-- **🔒 Intelligentes Türchen-Locking**: Türchen öffnen sich nur am entsprechenden Tag
-- **💬 320+ Lebensweisheiten**: Hochwertige, motivierende deutsche Sprüche
-- **🎨 12 Monatsillustrationen**: Einzigartige Märchen-/Fantasy-Designs für jeden Monat
-- **🔄 Shuffle-Funktion**: Sprüche jederzeit neu mischen
+- **🔒 Intelligentes Türchen-Locking**: Türchen öffnen sich nur am entsprechenden Tag; das heutige Türchen leuchtet
+- **💬 366 Lebensweisheiten je Sprache**: historische Zitate mit Lebensdaten und Wikipedia-Link, jedes genau einmal pro Jahr
+- **🌍 Deutsch und Englisch**: automatisch nach Browsersprache
+- **🎨 12 Monatsillustrationen**: je eine Fassung für Quer- und Hochformat, Jahreszeiten-Banner mit Easter Eggs
+- **🎬 Livedemo**: geführte Vorführung der echten App in ca. 2 Minuten, mit Musik (Desktop, Tablet, Smartphone)
 - **📴 Offline-Fähig**: Funktioniert komplett ohne Internetverbindung
-- **💾 Persistente Speicherung**: Fortschritt wird lokal gespeichert
+- **💾 Persistente Speicherung**: Fortschritt wird lokal gespeichert, kein Konto, kein Tracking
 - **🌓 Dark Mode Support**: Automatische Anpassung an Systemeinstellungen
 - **♿ Barrierefrei**: Vollständige Tastatur- und Screen-Reader-Unterstützung
 - **📅 Schaltjahr-Logik**: Korrekte Berechnung für Februar in Schaltjahren
@@ -140,20 +141,24 @@ assets/months/
 
 ### Sprüche erweitern/ändern
 
-Die Lebensweisheiten befinden sich in `/js/quotes.js`:
+Die Lebensweisheiten befinden sich in `/js/quotes.js` (Deutsch) und `/js/quotes-en.js` (Englisch):
 
 ```javascript
 const QUOTES = [
-    "Dein neuer Spruch hier...",
-    "Noch ein inspirierender Spruch...",
-    // ... füge beliebig viele hinzu
+    {
+        text: "Der Anfang ist der wichtigste Teil der Arbeit.",
+        author: "Platon",
+        dates: "428-348 v. Chr.",
+        link: "https://de.wikipedia.org/wiki/Platon",
+        linkTitle: "Mehr über Platon (Wikipedia)"
+    },
+    // ...
 ];
 ```
 
 **Tipps:**
-- Mindestens 31 Sprüche für einen vollen Monat
-- Aktuell: 320+ Sprüche für Varianz
-- Keine urheberrechtlich geschützten Zitate verwenden
+- Genau 366 Zitate je Sprache halten (eins pro Tag, auch im Schaltjahr)
+- Nur gemeinfreie Zitate verstorbener Persönlichkeiten verwenden
 - Kurz und prägnant halten (2-3 Sätze max.)
 
 ### Icons anpassen
@@ -197,14 +202,21 @@ Passe die Farben in `/css/styles.css` an (CSS Custom Properties):
 ├── manifest.json           # PWA-Manifest
 ├── service-worker.js       # Service Worker für Offline-Caching
 ├── .nojekyll              # GitHub Pages Konfiguration
+├── impressum.html, datenschutz.html
 ├── css/
-│   └── styles.css         # Alle Styles (Mobile First)
+│   ├── styles.css         # Alle Styles (Mobile First)
+│   └── livedemo.css       # Livedemo
 ├── js/
-│   ├── app.js             # Haupt-App-Logik
-│   └── quotes.js          # Sprüche-Pool
-└── assets/
-    ├── icons/             # App-Icons
-    └── months/            # Monats-Illustrationen
+│   ├── app.js             # Haupt-App-Logik (CalendarApp)
+│   ├── i18n.js, i18n-dom.js  # Sprache (de/en)
+│   ├── quotes.js, quotes-en.js  # Zitate (je 366)
+│   ├── pwa-install.js     # Service Worker, Install-Hinweis
+│   └── livedemo.js        # Livedemo
+├── assets/
+│   ├── icons/             # App-Icons
+│   ├── months/, months-portrait/  # Monats-Illustrationen
+│   └── audio/             # Demo-Musik (CC BY 4.0)
+└── docs/                  # Wissensbasis, Kurzanleitung, KI-Guide
 ```
 
 ### Verwendete Technologien
@@ -231,8 +243,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.5.0';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.5.0';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.8.1';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.8.1';  // Auch Runtime Cache!
 ```
 
 **Dann:**
@@ -245,18 +257,25 @@ const RUNTIME_CACHE = 'kalender-runtime-v1.5.0';  // Auch Runtime Cache!
 
 ### Türchen-Locking-Logik
 
-1. **Aktueller Monat**: Türchen 1 bis zum heutigen Tag sind freigeschaltet
-2. **Vergangene Monate**: Alle Türchen sind freigeschaltet
-3. **Zukünftige Monate**: Alle Türchen sind gesperrt
+1. **Aktueller Monat**: Türchen 1 bis zum heutigen Tag sind freigeschaltet (Nachholen möglich)
+2. **Vergangene Monate**: Nur bereits geöffnete Türchen bleiben lesbar; alle anderen sind „verpasst“ (⏰), nächste Chance im Folgejahr
+3. **Zukünftige Tage und Monate**: gesperrt
 4. **Schaltjahr**: Februar hat automatisch 29 Tage in Schaltjahren
+
+Ausführlich: [`docs/guide-ki-wissensbasis.md`](docs/guide-ki-wissensbasis.md).
 
 ### Datenpersistenz
 
 Folgende Daten werden im LocalStorage gespeichert:
 
-- `calendar_opened_{JAHR}_{MONAT}`: Array der geöffneten Türchen
-- `calendar_quotes_{JAHR}_{MONAT}`: Zuordnung von Sprüchen zu Tagen
-- `calendar_selected_month`: Aktuell ausgewählter Monat
+- `calendar_opened_v2_{JAHR}_{MONAT}`: Array der geöffneten Türchen (Monat 0-basiert)
+- `calendar_quotes_{JAHR}_{de|en}`: Jahreszuordnung der Zitate zu den Tagen
+- `calendar_positions_v4_{JAHR}_{MONAT}`: Türchen-Positionen in Prozent
+- `calendar_selected_month_year_v2`: zuletzt gewählter Monat/Jahr
+- `calendar_theme`: `light` oder `dark`
+- `pwa_installed`: Merker nach Installation
+
+Die Livedemo schreibt nichts in den Local Storage.
 
 **Daten löschen:**
 
@@ -326,7 +345,7 @@ Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe `LICENSE` Datei für D
 
 Bei Fragen oder Problemen:
 
-- Öffne ein [GitHub Issue](https://github.com/DEIN-USERNAME/DEIN-REPO-NAME/issues)
+- Öffne ein [GitHub Issue](https://github.com/gunterstruck/Kalender/issues)
 - Lies die [Troubleshooting-Sektion](#-troubleshooting)
 - Prüfe die Browser-Konsole auf Fehlermeldungen
 

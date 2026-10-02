@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Kurzanleitung
 
-Stand: 02.10.2026 · App-Version 1.8.0
+Stand: 02.10.2026 · App-Version 1.8.1
 
 ## 1. Starten
 
@@ -17,7 +17,7 @@ Steuerleiste oben: ⏸/▶ Pause, ⏭ weiter, Tempo (1,2× bis 0,6×), 🔊 Musi
 
 ## 2. Ein Türchen öffnen
 
-1. Türchen mit der **heutigen Nummer** antippen.
+1. Das **leuchtende Türchen mit dem Etikett „Heute“** antippen.
 2. Das Zitat erscheint mit Autor, Lebensdaten und Datum.
 3. „Mehr erfahren" öffnet Wikipedia (neuer Tab, braucht Internet).
 4. Schließen mit ✕, Klick daneben oder **Esc**.

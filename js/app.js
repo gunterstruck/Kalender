@@ -1357,6 +1357,12 @@ class CalendarApp {
         }
     }
 
+    isToday(day) {
+        return this.selectedMonth === this.currentMonth &&
+            this.selectedYear === this.currentYear &&
+            day === this.currentDay;
+    }
+
     // Prüfe ob Türchen verpasst wurde (vergangenes Datum, aber nie geöffnet)
     isDoorMissed(day) {
         const selectedMonthDate = new Date(this.selectedYear, this.selectedMonth, day);
@@ -1723,24 +1729,26 @@ class CalendarApp {
         const minDoorSizePx = isSmallScreen ? 40 : 60;
         const doorSizePx = Math.max((this.CONFIG.DOOR_SIZE_PERCENT / 100) * gridWidth, minDoorSizePx);
         const baseSpacingPx = (this.CONFIG.MIN_SPACING_PERCENT / 100) * gridWidth;
+        // Rand horizontal relativ zur Breite, vertikal relativ zur Höhe
         const paddingPx = (this.CONFIG.PADDING_PERCENT / 100) * gridWidth;
+        const paddingYPx = (this.CONFIG.PADDING_PERCENT / 100) * gridHeight;
         const maxAttempts = this.CONFIG.MAX_POSITION_ATTEMPTS;
 
         for (let day = 1; day <= daysInMonth; day++) {
             let validPosition = false;
             let xPx = paddingPx;
-            let yPx = paddingPx;
+            let yPx = paddingYPx;
             let spacingPx = baseSpacingPx;
 
             const maxX = Math.max(paddingPx, gridWidth - doorSizePx - paddingPx);
-            const maxY = Math.max(paddingPx, gridHeight - doorSizePx - paddingPx);
+            const maxY = Math.max(paddingYPx, gridHeight - doorSizePx - paddingYPx);
 
             while (!validPosition && spacingPx >= 0) {
                 let attempts = 0;
 
                 while (!validPosition && attempts < maxAttempts) {
                     xPx = paddingPx + Math.random() * (maxX - paddingPx);
-                    yPx = paddingPx + Math.random() * (maxY - paddingPx);
+                    yPx = paddingYPx + Math.random() * (maxY - paddingYPx);
 
                     validPosition = positions.every((pos) => {
                         const otherX = pos.xPx;
@@ -1756,6 +1764,8 @@ class CalendarApp {
                 }
 
                 if (!validPosition) {
+                    // Bei Abstand 0 abbrechen (sonst Endlosschleife bei zu wenig Platz)
+                    if (spacingPx === 0) break;
                     spacingPx = Math.max(0, spacingPx - baseSpacingPx * 0.2);
                 }
             }
@@ -2251,6 +2261,11 @@ class CalendarApp {
             infoIcon.setAttribute('role', 'img');
             infoIcon.innerHTML = 'ℹ️';
             door.appendChild(infoIcon);
+        } else if (this.isToday(day)) {
+            // Heutiges, noch ungeöffnetes Türchen hervorheben
+            door.classList.add('today');
+            door.setAttribute('data-today-label', I18N.t('todayLabel'));
+            door.setAttribute('aria-label', I18N.t('doorToday', day));
         } else {
             door.setAttribute('aria-label', I18N.t('doorClickToOpen', day));
         }

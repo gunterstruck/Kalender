@@ -2,6 +2,13 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.8.1] - 2026-10-02
+
+### ✨ Verbesserungen
+- Das heutige, noch ungeöffnete Türchen leuchtet und trägt das Etikett „Heute“ (en: „Today“)
+- Laptop/Desktop/Tablet quer: Kalenderhöhe passt sich dem Fenster an, die Monatsauswahl ist ohne Scrollen sichtbar
+- README auf aktuellen Stand gebracht (Zitate, Freischaltlogik, Speicherschlüssel, Struktur)
+
 ## [1.8.0] - 2026-10-02
 
 ### 🎬 Livedemo
