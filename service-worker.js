@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.8.1 - Heute-Markierung, Desktop-Höhe
+// Version 1.9.0 - Erinnerung, Teilen, Mini-Demos
 
-const CACHE_NAME = 'kalender-cache-v1.8.1';
-const RUNTIME_CACHE = 'kalender-runtime-v1.8.1';
+const CACHE_NAME = 'kalender-cache-v1.9.0';
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.0';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [

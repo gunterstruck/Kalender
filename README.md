@@ -2,7 +2,7 @@
 
 Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiven Monatskalender mit täglichen Türchen und inspirierenden Lebensweisheiten bietet.
 
-![Version](https://img.shields.io/badge/version-1.8.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PWA](https://img.shields.io/badge/PWA-ready-orange.svg)
 
@@ -15,7 +15,9 @@ Eine moderne, installierbare **Progressive Web App (PWA)**, die einen interaktiv
 - **💬 366 Lebensweisheiten je Sprache**: historische Zitate mit Lebensdaten und Wikipedia-Link, jedes genau einmal pro Jahr
 - **🌍 Deutsch und Englisch**: automatisch nach Browsersprache
 - **🎨 12 Monatsillustrationen**: je eine Fassung für Quer- und Hochformat, Jahreszeiten-Banner mit Easter Eggs
-- **🎬 Livedemo**: geführte Vorführung der echten App in ca. 2 Minuten, mit Musik (Desktop, Tablet, Smartphone)
+- **🎬 Livedemo**: große Tour (ca. 2 Min) und Mini-Demos (20–30 s) als geführte Vorführung der echten App, mit Musik; die Tour auch als MP4 in `film/`
+- **🔔 Tägliche Erinnerung**: Kalendereintrag (.ics) überall, Benachrichtigung in der installierten App (Chrome/Edge)
+- **💬 Zitat teilen**: Teilen-Menü des Geräts oder Zwischenablage
 - **📴 Offline-Fähig**: Funktioniert komplett ohne Internetverbindung
 - **💾 Persistente Speicherung**: Fortschritt wird lokal gespeichert, kein Konto, kein Tracking
 - **🌓 Dark Mode Support**: Automatische Anpassung an Systemeinstellungen
@@ -202,7 +204,7 @@ Passe die Farben in `/css/styles.css` an (CSS Custom Properties):
 ├── manifest.json           # PWA-Manifest
 ├── service-worker.js       # Service Worker für Offline-Caching
 ├── .nojekyll              # GitHub Pages Konfiguration
-├── impressum.html, datenschutz.html
+├── impressum.html, datenschutz.html, imprint.html, privacy.html
 ├── css/
 │   ├── styles.css         # Alle Styles (Mobile First)
 │   └── livedemo.css       # Livedemo
@@ -211,12 +213,14 @@ Passe die Farben in `/css/styles.css` an (CSS Custom Properties):
 │   ├── i18n.js, i18n-dom.js  # Sprache (de/en)
 │   ├── quotes.js, quotes-en.js  # Zitate (je 366)
 │   ├── pwa-install.js     # Service Worker, Install-Hinweis
+│   ├── reminder.js        # Tägliche Erinnerung
 │   └── livedemo.js        # Livedemo
 ├── assets/
 │   ├── icons/             # App-Icons
 │   ├── months/, months-portrait/  # Monats-Illustrationen
 │   └── audio/             # Demo-Musik (CC BY 4.0)
-└── docs/                  # Wissensbasis, Kurzanleitung, KI-Guide
+├── docs/                  # Wissensbasis, Kurzanleitung, KI-Guide
+└── film/                  # Demo-Videos (MP4) + Aufnahme-Skript
 ```
 
 ### Verwendete Technologien
@@ -243,8 +247,8 @@ Wenn du Dateien änderst, musst du die Cache-Version erhöhen:
 **In `/service-worker.js`:**
 
 ```javascript
-const CACHE_NAME = 'kalender-cache-v1.8.1';  // Version erhöhen!
-const RUNTIME_CACHE = 'kalender-runtime-v1.8.1';  // Auch Runtime Cache!
+const CACHE_NAME = 'kalender-cache-v1.9.0';  // Version erhöhen!
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.0';  // Auch Runtime Cache!
 ```
 
 **Dann:**
@@ -274,6 +278,8 @@ Folgende Daten werden im LocalStorage gespeichert:
 - `calendar_selected_month_year_v2`: zuletzt gewählter Monat/Jahr
 - `calendar_theme`: `light` oder `dark`
 - `pwa_installed`: Merker nach Installation
+
+Bei eingeschalteter Erinnerung zusätzlich `calendar_reminder` (Uhrzeit) und – für die App-Benachrichtigung – die IndexedDB `kalender-reminder`.
 
 Die Livedemo schreibt nichts in den Local Storage.
 
@@ -354,8 +360,9 @@ Bei Fragen oder Problemen:
 Zukünftige Features (optional):
 
 - [ ] Export-Funktion für geöffnete Türchen
-- [ ] Teilen-Funktion für Sprüche
-- [ ] Mehrsprachigkeit (EN, FR, ES)
+- [x] Teilen-Funktion für Sprüche
+- [x] Englisch (weitere Sprachen: FR, ES)
+- [x] Tägliche Erinnerung
 - [ ] Benutzerdefinierte Spruch-Sammlungen
 - [ ] Animationen beim Türchen-Öffnen
 - [ ] Sound-Effekte (optional aktivierbar)

@@ -2,6 +2,19 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.0] - 2026-10-02
+
+### ✨ Neu
+- **Tägliche Erinnerung** („🔔 Erinnerung“): Kalendereintrag (.ics) für alle Geräte; in der installierten App (Chrome/Edge) zusätzlich lokale Benachrichtigung per Periodic Background Sync – ohne Server, höchstens einmal täglich, nur wenn das Türchen noch zu ist
+- **Zitat teilen**: Teilen-Menü des Geräts oder Zwischenablage
+- **Livedemo-Auswahl** mit Mini-Demos: Türchen-Regeln (30 s), Zitat teilen (20 s), Erinnerung einrichten (30 s); Link „So funktioniert’s“ im Erinnerungsdialog
+- **Englische Rechtstexte** (`privacy.html`, `imprint.html`), Fußzeile verlinkt passend zur Sprache
+- **Demo-Videos** der großen Tour als MP4 (Desktop 1920×1080, Smartphone 1080×1920) mit Musik in `film/`
+
+### 🐛 Behoben
+- Kleine Handys: Türchen überlappten sich (Platzierung rechnete quadratisch, Türchen sind dort höher); jetzt echte Größe gemessen und verwackeltes Raster als Fallback
+- Demo-Knopf lag über dem Zitat-Fenster; Meldungen lagen hinter dem Zitat-Fenster
+
 ## [1.8.1] - 2026-10-02
 
 ### ✨ Verbesserungen

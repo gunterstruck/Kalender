@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.2 · Stand: 02.10.2026 · App-Version: 1.8.1 (Service-Worker-Cache v1.8.1)**
+**Version 1.3 · Stand: 02.10.2026 · App-Version: 1.9.0 (Service-Worker-Cache v1.9.0)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -8,9 +8,8 @@ Markdown-Datei ist die primäre Wissensquelle. Sie wurde aus dem tatsächlichen
 App-Code abgeleitet.
 
 **Quellenpriorität:** aktueller App-Code und sichtbare Beschriftungen vor
-`README.md`, Code-Review-Dateien und älteren Texten. Das `README.md` ist in
-Teilen veraltet (siehe Abschnitt 17) und darf nicht als Faktenquelle für
-Speicherschlüssel, Freischaltlogik oder Zitat-Anzahl dienen.
+`README.md`, Code-Review-Dateien und älteren Texten. Bei Widersprüchen gilt
+dieses Dokument für den oben genannten Stand.
 
 ---
 
@@ -46,8 +45,9 @@ Adventskalender, nur für **jeden Monat des Jahres**.
    Installation: Android-Chrome, iPhone-Safari, Desktop).
 3. Nutze die **sichtbaren Begriffe** der App (Abschnitt 3 und Glossar).
 4. Erfinde nichts. Die App hat **keine** Funktion für: Konto, Cloud-Backup,
-   Export/Import, Erinnerungen/Push-Benachrichtigungen, manuelle
-   Sprachwahl, eigene Zitate, Teilen, Zitat-Neumischen, Notizen, Favoriten.
+   Export/Import, Server-Push-Benachrichtigungen, manuelle Sprachwahl, eigene
+   Zitate, Zitat-Neumischen, Notizen, Favoriten. (Teilen und eine tägliche
+   Erinnerung gibt es seit 1.9.0, Abschnitt 7b/7c.)
    Wenn danach gefragt wird: offen sagen, dass es das nicht gibt, und die
    nächstbeste Möglichkeit nennen.
 5. Behaupte nicht, den Bildschirm oder die Daten des Nutzers zu sehen. Bei
@@ -68,13 +68,13 @@ Von oben nach unten:
 | Element | Beschreibung |
 |---|---|
 | **Kopfzeile** | Titel „Monatskalender mit Türchen" und Untertitel „Entdecke jeden Tag eine neue Lebensweisheit". Sie blendet sich **nach 5 Sekunden automatisch aus**. |
-| **„▶ Livedemo“** | Knopf oben links, immer sichtbar (englisch „▶ Live demo“). Startet die geführte Vorführung (Abschnitt 7a). |
+| **„▶ Livedemo“** | Knopf oben links, immer sichtbar (englisch „▶ Live demo“; auf Handys bis 480 px „▶ Demo“). Öffnet die Auswahl: große Tour oder Mini-Demos (Abschnitt 7a). |
 | **Farbschema-Schalter** | Runder Knopf oben rechts (Sonne/Mond), immer sichtbar. |
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
-| **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender. |
-| **Fußzeile** | Links „Impressum" und „Datenschutz", darunter „Version 1.8.1". |
-| **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal). |
+| **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender, daneben der Knopf **„🔔 Erinnerung“** (Abschnitt 7b). |
+| **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.0". |
+| **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal), mit „Mehr erfahren“ (Wikipedia) und **„Teilen“**. |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
 | **Installations-Hinweis** | „App installieren" mit Knöpfen „Installieren" und „✕" (nur wenn der Browser es anbietet). |
 
@@ -143,7 +143,7 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
   gemeinfrei. Die Zuschreibung ist nicht garantiert (siehe Impressum).
 - **Zitat-Fenster:** Text, Autor, Lebensdaten, Datum (z. B. „5. Oktober 2026"),
   Link-Knopf „Mehr erfahren" bzw. individueller Linktitel (öffnet Wikipedia in
-  neuem Tab). Schließen per ✕, Klick auf den Hintergrund oder **Esc**. Der
+  neuem Tab) und Knopf „Teilen“ (Abschnitt 7c). Schließen per ✕, Klick auf den Hintergrund oder **Esc**. Der
   Tastaturfokus bleibt im Fenster (Focus-Trap) und kehrt danach zum Türchen zurück.
 - **Fallback:** Fehlt ein Eintrag, erscheint „Heute ist dein Tag!" mit Autor
   „Unbekannt".
@@ -181,7 +181,10 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
   Spracheinstellung des Browsers/Geräts und Neuladen.
 - Die Sprache betrifft App-Texte, Monatsnamen, Datumsformate und die Zitate
   (eigene Zuordnung pro Sprache, siehe Abschnitt 5).
-- Impressum und Datenschutzerklärung sind **nur auf Deutsch**.
+- Impressum und Datenschutzerklärung gibt es auf Deutsch (`impressum.html`,
+  `datenschutz.html`) und Englisch (`imprint.html`, `privacy.html`). Die
+  Fußzeile verlinkt passend zur App-Sprache; jede Seite hat oben einen Link zur
+  anderen Sprache. Maßgeblich ist die deutsche Fassung.
 
 **Saisonbanner (Easter Egg)**
 - Winter = Dez-Feb, Frühling = Mär-Mai, Sommer = Jun-Aug, Herbst = Sep-Nov
@@ -201,6 +204,12 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
   Monatsauswahl auf Laptop, Desktop und Tablet quer ohne Scrollen sichtbar
   sind. Im Smartphone-Hochformat füllt sie den Platz zwischen Banner und
   Monatsauswahl.
+- Die Platzierung misst die **tatsächliche Türchengröße** (auf kleinen Handys
+  sind Türchen durch die Ziffer höher als breit, ca. 40×52 px).
+- Findet die Zufallsverteilung keinen überlappungsfreien Platz (sehr kleine
+  Handys, z. B. 320–375 px Breite), nutzt die App ein **verwackeltes Raster**:
+  jedes Türchen eine eigene Zelle mit zufälligem Versatz und zufälliger
+  Tageszuordnung. Es sieht weiterhin verstreut aus und überlappt nicht.
 - Notfall-Anordnung: Ist die Kalenderfläche unsichtbar/0 px groß, nutzt die App
   ein Gitterraster.
 
@@ -208,11 +217,21 @@ Im Querformat/Desktop wird die querformatige Illustration verwendet.
 
 ## 7a. Livedemo
 
-**Start:** Knopf „▶ Livedemo“ oben links. Dauer ca. 2 Minuten bei Tempo 1,2×.
-Ein Zeiger fährt durch die **echte App** und bedient sie (kein Video); Texte
-erscheinen als Untertitel. Musik läuft leise im Hintergrund.
+**Start:** Knopf „▶ Livedemo“ oben links → Auswahlfenster „Livedemos“:
 
-**Ablauf (12 Schritte, Fortschrittsbalken ganz oben):**
+| Eintrag | Dauer | Inhalt |
+|---|---|---|
+| 🎬 Große Tour | ca. 2 Min | alles im Überblick (Ablauf unten) |
+| 🚪 Türchen-Regeln | ca. 30 s | heutiges Türchen, gesperrtes Türchen, verpasstes Türchen im Vorjahres-Januar, Nachholen im laufenden Monat |
+| 💬 Zitat teilen | ca. 20 s | heutiges Türchen öffnen, Knopf „Teilen“ |
+| 🔔 Erinnerung einrichten | ca. 30 s | Knopf „Erinnerung“, Uhrzeit, Kalendereintrag, App-Benachrichtigung |
+
+Zusätzlich gibt es im Dialog „Erinnerung“ unten den Link „▶ So funktioniert’s
+(Mini-Demo, 30 s)“. Ein Zeiger fährt durch die **echte App** und bedient sie
+(kein Video); Texte erscheinen als Untertitel. Musik läuft leise im
+Hintergrund. In den Mini-Demos wird nichts heruntergeladen und nichts geteilt.
+
+**Ablauf der großen Tour (12 Schritte, Fortschrittsbalken ganz oben):**
 1. Begrüßung.
 2. Heutiges Türchen öffnen, Zitat-Fenster erklären, Symbol ℹ️ für geöffnet.
 3. Morgiges Türchen antippen: gesperrt, wackelt (entfällt am letzten Tag des Monats).
@@ -227,7 +246,12 @@ Die Jahreszeiten werden immer mit Monaten des **Vorjahres** gezeigt; dort sind
 beispielhaft einige Türchen „geöffnet“ (Tage 1, 2, 3, 5, 8, 9, 13, 14, 21), der
 Rest ist „verpasst“.
 
-**Steuerleiste oben in der Mitte:**
+**Videos:** Die große Tour gibt es auch als MP4 mit Musik für Präsentationen
+ohne App: `film/livedemo-desktop.mp4` (Monitor-Format 1920×1080) und
+`film/livedemo-smartphone.mp4` (Hochformat 1080×1920). Nicht Teil der App
+und nicht im Offline-Cache.
+
+**Steuerleiste unten in der Mitte:**
 
 | Knopf | Wirkung |
 |---|---|
@@ -258,6 +282,60 @@ wird respektiert (kurze Zeigerwege, Lesezeiten bleiben).
 Musik?“ Ton am Gerät, 🔇-Knopf, offline oder Browser blockiert Audio. „Zu
 schnell?“ Tempo-Knopf oder ⏸. „Ich kann nichts anklicken“ – die Demo läuft;
 ✕ oder Esc beendet sie.
+
+---
+
+## 7b. Tägliche Erinnerung
+
+**Öffnen:** Knopf „🔔 Erinnerung“ neben „Monat auswählen“ (englisch
+„🔔 Reminder“). Dialog „Tägliche Erinnerung“; schließen per ✕, Esc oder Klick
+daneben. Standard-Uhrzeit 08:00; die gewählte Uhrzeit wird gespeichert.
+
+**Weg 1 – „📅 In meinen Kalender eintragen“ (funktioniert überall):**
+- Lädt eine Datei `tuerchenkalender-erinnerung.ics` (englisch
+  `door-calendar-reminder.ics`) herunter: täglicher Termin „🚪 Türchen öffnen“
+  zur gewählten Uhrzeit, 5 Minuten, mit Alarm zur Startzeit und Link zur App.
+- Liegt die Uhrzeit heute schon zurück, beginnt der Termin morgen.
+- iPhone/iPad: Safari bietet „Zum Kalender hinzufügen“ an. Android: Datei mit
+  der Kalender-App (z. B. Google Kalender) öffnen. Computer: Doppelklick
+  (Outlook, Apple Kalender, Thunderbird).
+- Ändern/Löschen: in der Kalender-App (Serie bearbeiten/löschen). Ein erneuter
+  Download legt einen **zweiten** Termin an – vorher den alten löschen.
+- Die Datei wird lokal erzeugt; was der Kalender damit macht (z. B. Google-/
+  iCloud-Synchronisation), entscheidet die Kalender-App.
+
+**Weg 2 – „🔔 Benachrichtigung einschalten“ (installierte App, Chrome/Edge):**
+- Sichtbar nur, wenn der Browser „Periodic Background Sync“ kann (Chrome/Edge;
+  vor allem Android). Sonst steht dort: „Dieser Browser unterstützt keine
+  Erinnerungen der App. Nutze den Kalendereintrag.“ (z. B. Safari/iPhone,
+  Firefox).
+- Fragt die Benachrichtigungs-Berechtigung an. Funktioniert nur in der
+  **installierten** App; sonst Hinweis „Bitte installiere die App zuerst …“.
+- Der Browser weckt die App gelegentlich im Hintergrund (Häufigkeit bestimmt
+  der Browser, abhängig von der Nutzung). Dann prüft die App lokal: Uhrzeit
+  erreicht? Heutiges Türchen noch zu? Heute schon erinnert? Nur dann erscheint
+  „🚪 Dein Türchen wartet“ – höchstens einmal pro Tag. Antippen öffnet die App.
+- **Nicht minutengenau** – die Benachrichtigung kann später kommen oder an
+  manchen Tagen ausbleiben (Akku-Sparmodus, selten genutzte App). Wer es
+  zuverlässig will: Kalendereintrag.
+- Status im Dialog: „Aktiv: täglich ab ca. HH:MM Uhr, wenn das Türchen noch zu
+  ist.“ bzw. „Benachrichtigung ist aus.“ Ausschalten über denselben Knopf
+  („Benachrichtigung ausschalten“) oder Berechtigung in den Einstellungen
+  entziehen.
+- Kein Server, kein Push-Dienst, keine Datenübertragung.
+
+## 7c. Zitat teilen
+
+- Im Zitat-Fenster Knopf **„Teilen“** (englisch „Share“).
+- Mit Teilen-Menü des Geräts (Handy, viele Tablets, Safari, Edge): Auswahl der
+  Ziel-App (WhatsApp, Mail, Notizen …).
+- Ohne Teilen-Menü (z. B. Chrome/Firefox am Desktop): Text wird in die
+  Zwischenablage kopiert, Meldung „📋 Zitat kopiert“.
+- Inhalt: „Zitattext“ – Autor (Lebensdaten), Leerzeile, „Monatskalender mit
+  Türchen: <App-Link>“. Englisch mit englischen Anführungszeichen und „Monthly
+  Door Calendar“.
+- Abbrechen im Teilen-Menü ist kein Fehler. Schlägt beides fehl: „⚠️ Teilen
+  nicht möglich“ – Text dann manuell markieren und kopieren.
 
 ---
 
@@ -292,8 +370,8 @@ bestehen, bis die Website-Daten gelöscht werden.
 
 ## 9. Offline-Funktion und Updates (Service Worker)
 
-- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.8.1`,
-  Runtime-Cache `kalender-runtime-v1.8.1`) legt beim Installieren die App-Shell
+- Der Service Worker (`service-worker.js`, Cache `kalender-cache-v1.9.0`,
+  Runtime-Cache `kalender-runtime-v1.9.0`) legt beim Installieren die App-Shell
   an: `index.html`, `impressum.html`, `datenschutz.html`, CSS, alle JS-Dateien
   inklusive beider Zitat-Dateien und der Livedemo, Manifest, Icons und alle 24 Monatsbilder.
 - **Strategien:** JS und CSS = *Stale-While-Revalidate* (sofort aus dem Cache,
@@ -308,6 +386,9 @@ bestehen, bis die Website-Daten gelöscht werden.
   Hilfe, keine Bedienfunktion).
 - **Offline-Fallbacks:** Nicht gecachte Seite → einfache Seite „📡 Offline";
   nicht verfügbare JS/CSS → 503-Platzhalter.
+- Die englischen Rechtsseiten und `js/reminder.js` sind ebenfalls im Cache.
+- Der Service Worker enthält außerdem die Logik der App-Erinnerung
+  (`periodicsync`-Ereignis `daily-door`, `notificationclick`).
 - Die Demo-Musik (`assets/audio/`) wird bewusst nicht gecacht und vom Service Worker direkt ans Netz durchgereicht.
 - Erster Besuch **muss online** sein. Wikipedia-Links brauchen Internet.
 
@@ -327,6 +408,14 @@ Alle Schlüssel im Local Storage der Website. **Monat ist 0-basiert**
 | `calendar_theme` | `light` oder `dark` |
 | `pwa_installed` | `"true"` nach Installation |
 | `calendar_selected_month` | Altformat, wird beim Laden in das neue Format migriert |
+| `calendar_reminder` | `{time: "08:00", notify: false}` – Uhrzeit und ob die App-Benachrichtigung an ist |
+
+Zusätzlich, nur wenn die App-Benachrichtigung eingeschaltet wurde:
+IndexedDB-Datenbank `kalender-reminder`, Speicher `kv`, mit `reminderTime`,
+`lang`, `head`/`body` (Text der Benachrichtigung), `lastOpened` (Datum, an dem
+das heutige Türchen geöffnet wurde) und `lastNotified` (Datum der letzten
+Erinnerung). Der Service Worker liest diese Werte, weil er keinen Zugriff auf
+den Local Storage hat.
 
 **Wichtige Folgerungen**
 - Fortschritt gilt **pro Gerät und Browser** (eigener Speicher je Browser; eine
@@ -357,8 +446,9 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 
 - **Verantwortlicher:** Günter Struck, Lönsberg 6, 45136 Essen,
   caresms@online.de.
-- Die App benötigt keine Berechtigungen (Standort, Kamera, Mikrofon, Kontakte,
-  Benachrichtigungen) und setzt **keine Cookies**, kein Tracking, keine Werbung,
+- Die App benötigt keine Berechtigungen (Standort, Kamera, Mikrofon, Kontakte).
+  Die Benachrichtigungs-Berechtigung wird nur angefragt, wenn der Nutzer die
+  App-Erinnerung selbst einschaltet. Sie setzt **keine Cookies**, kein Tracking, keine Werbung,
   keine Analyse, keine Drittanbieter-Schriften oder -Skripte
   (Content-Security-Policy: `default-src 'self'`, `media-src 'self'`).
 - Lokal gespeichert werden nur die Einstellungen aus Abschnitt 10.
@@ -367,6 +457,13 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 - **Hosting:** GitHub Pages (GitHub Inc., USA). Beim Laden/Aktualisieren kann
   GitHub technisch bedingt IP-Adresse u. ä. in Logfiles verarbeiten. Der
   Entwickler erhält diese Daten nicht.
+- **Erinnerung:** .ics-Datei wird lokal erzeugt; App-Benachrichtigung rein
+  lokal (Periodic Background Sync, kein Push-Server). Rechtsgrundlage:
+  ausdrücklicher Wunsch (§ 25 Abs. 2 Nr. 2 TDDDG) bzw. Einwilligung durch
+  Einschalten (Art. 6 Abs. 1 lit. a DSGVO), jederzeit abschaltbar.
+- **Teilen:** nur auf Tipp; Zitat, Autor und App-Link gehen an die vom Nutzer
+  gewählte App bzw. die Zwischenablage. Der Entwickler erhält nichts.
+- **Englische Fassungen:** `privacy.html`, `imprint.html`; maßgeblich ist Deutsch.
 - **Livedemo:** speichert nichts; Musik wird erst beim Start vom selben Server (GitHub Pages) geladen, keine Verbindung zum Musikanbieter.
 - **Wikipedia:** Verbindung zu Wikimedia erst, wenn der Nutzer den Link
   „Mehr erfahren" antippt.
@@ -440,8 +537,28 @@ Daten gesperrt). Normalen Modus nutzen, Speicher freigeben.
 
 **„Türchen liegen übereinander / sehen anders aus als gestern."**
 Fenstergröße oder Ausrichtung hat sich geändert (Positionen werden neu erzeugt).
-Bei extrem kleinen Flächen kann es eng werden; Gerät drehen oder Fenster
-vergrößern.
+Seit 1.9.0 verhindert ein Ersatz-Raster Überlappungen auch auf kleinen Handys.
+Treten trotzdem welche auf: Seite neu laden; Gerät, Browser und Bildschirmgröße
+an den Betreiber melden.
+
+**„Die Erinnerung kommt nicht.“**
+1. Welcher Weg? Kalendereintrag → in der Kalender-App prüfen, ob der Termin
+   „🚪 Türchen öffnen“ täglich wiederholt wird und Benachrichtigungen der
+   Kalender-App erlaubt sind.
+2. App-Benachrichtigung → nur installierte App, Chrome/Edge. Status im Dialog
+   „Aktiv …“? Berechtigung für Benachrichtigungen erteilt? Akku-Sparmodus aus?
+3. Nicht minutengenau: Der Browser entscheidet, wann er die App weckt; selten
+   genutzte Apps werden seltener geweckt. Kommt keine, wenn das Türchen heute
+   schon geöffnet war – das ist gewollt.
+4. Zuverlässig: Kalendereintrag nutzen.
+
+**„Den Knopf ‚Benachrichtigung einschalten‘ gibt es bei mir nicht.“**
+Browser unterstützt es nicht (z. B. iPhone/Safari, Firefox). Kalendereintrag
+nutzen.
+
+**„Teilen geht nicht / nichts passiert.“**
+Ohne Teilen-Menü wird kopiert (Meldung „📋 Zitat kopiert“) – dann in der
+gewünschten App einfügen. Bei „⚠️ Teilen nicht möglich“ Text manuell markieren.
 
 **„Kopfzeile ist weg."**
 Gewollt: Sie verschwindet nach 5 Sekunden, dann erscheint der Saisonbanner.
@@ -470,8 +587,16 @@ ist das gleiche Datum im Folgejahr.
 **Wie viele Zitate gibt es? Wiederholen sie sich?** 366 pro Sprache; pro Jahr
 kommt jedes genau einmal vor, im nächsten Jahr in neuer Reihenfolge.
 
-**Kann ich Zitate teilen/kopieren?** Es gibt keinen Teilen-Knopf. Text kann
-über die normale Browser-Auswahl markiert und kopiert werden (je nach Gerät).
+**Kann ich Zitate teilen/kopieren?** Ja: im Zitat-Fenster „Teilen“ – öffnet
+das Teilen-Menü des Geräts oder kopiert Zitat und App-Link (Abschnitt 7c).
+
+**Kann mich die App täglich erinnern?** Ja: „🔔 Erinnerung“ neben der
+Monatsauswahl. Überall per Kalendereintrag (.ics); in der installierten App
+mit Chrome/Edge zusätzlich als Benachrichtigung (nicht minutengenau,
+Abschnitt 7b).
+
+**Gibt es Datenschutz/Impressum auf Englisch?** Ja, `privacy.html` und
+`imprint.html`; bei englischer App-Sprache verlinkt die Fußzeile dorthin.
 
 **Wer sucht die Zitate aus?** Der Entwickler; es sind historische Zitate
 verstorbener Persönlichkeiten. Echtheit der Zuschreibung wird nicht garantiert.
@@ -504,11 +629,12 @@ Impressum).
 
 ## 15. Mini-Schulungen (auf Wunsch anbieten)
 
-**0. Schnellster Einstieg:** „▶ Livedemo“ oben links ansehen (ca. 2 Minuten).
+**0. Schnellster Einstieg:** „▶ Livedemo“ oben links → „🎬 Große Tour“
+(ca. 2 Minuten) oder eine Mini-Demo (20–30 s) zum passenden Thema.
 
 **A. Erste Schritte (2 Minuten)**
 1. App öffnen; Kopfzeile verschwindet nach 5 Sekunden.
-2. Das Türchen mit der heutigen Nummer antippen → Zitat lesen → ✕.
+2. Das leuchtende Türchen mit dem Etikett „Heute“ antippen → Zitat lesen → ✕.
 3. Merksatz: *Nur Türchen bis heute sind offen; vergangene Monate nur, wenn man sie
    geöffnet hat.*
 4. Abschlussfrage: „Was passiert, wenn du ein Türchen von morgen antippst?"
@@ -519,6 +645,11 @@ Impressum).
 **C. Andere Monate und Dunkelmodus (2 Minuten)**
 „Monat auswählen" → Monat wählen; Sonne/Mond-Knopf oben rechts.
 
+**E. Nie wieder ein Türchen verpassen (2 Minuten)**
+„🔔 Erinnerung“ → Uhrzeit wählen → „📅 In meinen Kalender eintragen“ → Datei
+mit der Kalender-App öffnen. Merksatz: *Kalendereintrag = zuverlässig,
+App-Benachrichtigung = bequem, aber nicht minutengenau.*
+
 **D. Probleme lösen (3 Minuten)** → Abschnitt 13, die drei häufigsten Fälle:
 Zeit/Datum, Daten gelöscht, Sprache.
 
@@ -528,14 +659,16 @@ Zeit/Datum, Daten gelöscht, Sprache.
 
 **Dateistruktur**
 ```
-/ index.html · impressum.html · datenschutz.html · manifest.json · service-worker.js
+/ index.html · impressum.html · datenschutz.html · imprint.html · privacy.html · manifest.json · service-worker.js
 /css/styles.css                 Alle Styles (CSS-Variablen, Dark Mode via body.dark-mode / body.light-mode)
 /js/i18n.js                     Spracherkennung + Übersetzungen (de, en)
 /js/i18n-dom.js                 Übersetzt statische HTML-Teile beim DOMContentLoaded
 /js/quotes.js, quotes-en.js     366 Zitate je Sprache (Konstanten QUOTES, QUOTES_EN)
 /js/app.js                      Klasse CalendarApp (komplette App-Logik)
 /js/pwa-install.js              Service-Worker-Registrierung, Install-Banner, globale Fehler-Handler
-/js/livedemo.js, css/livedemo.css  Livedemo (Zeiger, Untertitel, Steuerleiste, Musik)
+/js/livedemo.js, css/livedemo.css  Livedemo: Auswahl, große Tour, Mini-Demos (Zeiger, Untertitel, Steuerleiste, Musik)
+/js/reminder.js                 Tägliche Erinnerung (Dialog, .ics, Periodic Background Sync, IndexedDB)
+/film                           Demo-Videos (MP4) und Aufnahme-Skript (nicht Teil der App)
 /assets/audio                   Demo-Musik (CC BY 4.0, Nachweis in docs/licenses/)
 /assets/icons, /months, /months-portrait, /screenshots
 /.well-known/assetlinks.json    Android-TWA-Verknüpfung
@@ -543,13 +676,24 @@ Zeit/Datum, Daten gelöscht, Sprache.
 ```
 
 **Ladereihenfolge der Skripte** (wichtig!): `quotes.js` → `quotes-en.js` →
-`i18n.js` → `i18n-dom.js` → `app.js` → `pwa-install.js` → `livedemo.js`.
+`i18n.js` → `i18n-dom.js` → `app.js` → `pwa-install.js` → `reminder.js` → `livedemo.js`.
 
 **Livedemo-Schnittstelle in `CalendarApp`:** `beginDemo(seed)` legt einen
 Sandbox-Zustand `this.demo` an (geöffnete Türchen und Zitate nur im Speicher;
 alle `save…`-Methoden schreiben dann nicht), `demoGoto(month, year)`,
-`endDemo()` stellt Monat/Jahr und Farbschema wieder her. Das Drehbuch steht in
-`LiveDemo.script()`, die Texte (de/en) im Objekt `TEXT` in `js/livedemo.js`.
+`endDemo()` stellt Monat/Jahr und Farbschema wieder her. Drehbücher:
+`LiveDemo.script()` (große Tour), `storyRules()`, `storyShare()`,
+`storyReminder()`; Start per `window.liveDemo.start('tour'|'rules'|'share'|'reminder')`.
+Texte (de/en) im Objekt `TEXT` in `js/livedemo.js`. Teilen und Downloads sind
+im Demo-Modus gesperrt; der Erinnerungsdialog öffnet sich in der Demo
+nicht-modal (`KalenderReminder.open({ demo: true })`), damit Untertitel und
+Steuerleiste sichtbar bleiben.
+
+**Erinnerung (`KalenderReminder`)**: `open()`, `close()`, `markOpenedToday()`
+(von `CalendarApp.saveOpenedDoor` aufgerufen, wenn das heutige Türchen geöffnet
+wird), `buildIcs(time)`. Periodic-Sync-Tag `daily-door`, `minInterval` 6 h.
+
+**Videos neu aufnehmen:** `film/README.md` (Playwright-Screencast + ffmpeg).
 
 **Architektur `CalendarApp`**: Konstruktor sammelt DOM-Elemente → `init()`
 registriert Events (Event-Delegation für Türchen-Klicks), prüft Speicher,
@@ -578,7 +722,8 @@ liegt bei). Projektseite unter `/Kalender/` (Groß-/Kleinschreibung beachten, si
 1. Version in `index.html` (Fußzeile), `manifest.json`, `service-worker.js`
    (Kommentar, `CACHE_NAME`, `RUNTIME_CACHE`) und dieser Doku angleichen.
 2. Neue Dateien in `CACHE_URLS` des Service Workers aufnehmen.
-3. Bei Änderung der Datenverarbeitung `datenschutz.html` und Abschnitt 11 anpassen.
+3. Bei Änderung der Datenverarbeitung `datenschutz.html` **und** `privacy.html`
+   sowie Abschnitt 11 anpassen.
 4. `CHANGELOG.md` ergänzen, testen (Online, Offline, Hell/Dunkel, DE/EN,
    Monatswechsel, Mobil hoch/quer).
 
@@ -595,10 +740,9 @@ Erweiterung von `getQuotes()` und der Spracherkennung, Texte in `i18n-dom.js`.
 
 ## 17. Bekannte Abweichungen und Wissensgrenzen
 
-- `README.md` nennt veraltete Speicherschlüssel (`calendar_opened_…`),
-  „320+ Sprüche", „Shuffle-Funktion", „Vergangene Monate: alle freigeschaltet"
-  und Version 1.6.6. **Der Code gilt**: siehe Abschnitte 4, 5 und 10.
-- `manifest.json` trug bis 1.7.0 die Version 1.6.7; jetzt angeglichen.
+- Die App-Benachrichtigung hängt vom Browser ab (nur Chrome/Edge, installierte
+  App, Zeitpunkt nicht garantiert). Auf iPhone/iPad gibt es nur den
+  Kalendereintrag.
 - Eine Shuffle-/„Neu mischen"-Funktion für Zitate existiert **nicht**
   (nur das Banner-Nachrichtenmischen, intern).
 - Die gewählte Monatsauswahl wird gespeichert, beim Start aber nicht
@@ -625,3 +769,6 @@ Erweiterung von `getQuotes()` und der Spracherkennung, Texte in `i18n-dom.js`.
 | Local Storage | Browser-Speicher, in dem der Fortschritt liegt |
 | TWA | Trusted Web Activity: Android-Hülle für die Web-App |
 | Livedemo | Geführte Vorführung der echten App mit Zeiger, Untertiteln und Musik |
+| Mini-Demo | Kurze Livedemo (20–30 s) zu einem Thema: Türchen-Regeln, Teilen, Erinnerung |
+| Erinnerung | Täglicher Hinweis aufs Türchen: Kalendereintrag (.ics) oder App-Benachrichtigung |
+| .ics | Kalenderdatei, die jede Kalender-App importieren kann |

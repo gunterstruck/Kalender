@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Kurzanleitung
 
-Stand: 02.10.2026 · App-Version 1.8.1
+Stand: 02.10.2026 · App-Version 1.9.0
 
 ## 1. Starten
 
@@ -10,8 +10,9 @@ animierter Jahreszeiten-Banner erscheint.
 
 ## 1a. Livedemo ansehen
 
-Knopf **„▶ Livedemo“** oben links: In ca. 2 Minuten zeigt die App sich selbst -
-Türchen, Zitate, die vier Jahreszeiten und das Farbschema, mit Musik.
+Knopf **„▶ Livedemo“** oben links öffnet die Auswahl:
+- **🎬 Große Tour** (ca. 2 Min): Türchen, Zitate, die vier Jahreszeiten und das Farbschema, mit Musik.
+- **Mini-Demos** (20–30 s): Türchen-Regeln, Zitat teilen, Erinnerung einrichten.
 Steuerleiste oben: ⏸/▶ Pause, ⏭ weiter, Tempo (1,2× bis 0,6×), 🔊 Musik, ✕ Ende
 (auch Esc). Die Demo verändert deinen Kalender nicht.
 
@@ -23,6 +24,9 @@ Steuerleiste oben: ⏸/▶ Pause, ⏭ weiter, Tempo (1,2× bis 0,6×), 🔊 Musi
 4. Schließen mit ✕, Klick daneben oder **Esc**.
 
 Das Türchen trägt danach das Symbol ℹ️ (geöffnet).
+
+**Teilen:** Im Zitat-Fenster „Teilen“ antippen - öffnet das Teilen-Menü deines
+Geräts oder kopiert Zitat und Link.
 
 ## 3. Was bedeuten die Türchen?
 
@@ -41,6 +45,15 @@ ungeöffnete Türchen „verpasst".
 „Monat auswählen" unter dem Kalender: Vorjahr und aktuelles Jahr (24 Monate).
 Zukünftige Monate sind komplett gesperrt. Beim Start zeigt die App immer den
 aktuellen Monat.
+
+## 4a. Tägliche Erinnerung
+
+Knopf **„🔔 Erinnerung“** neben der Monatsauswahl:
+1. Uhrzeit wählen (z. B. 08:00).
+2. **„📅 In meinen Kalender eintragen“** - funktioniert überall (iPhone, Android,
+   Computer): Datei mit der Kalender-App öffnen.
+3. Optional in der installierten App (Chrome/Edge): **„Benachrichtigung
+   einschalten“** - kommt nur, wenn das Türchen noch zu ist, nicht minutengenau.
 
 ## 5. Hell/Dunkel
 
@@ -61,6 +74,7 @@ Nach dem ersten Laden funktioniert alles ohne Internet (außer Wikipedia-Links).
 - Fortschritt liegt **nur auf diesem Gerät/Browser** - keine Synchronisation, kein Backup.
 - Browser-/App-Daten löschen setzt alles zurück.
 - Sprache folgt dem Browser (Deutsch, sonst Englisch); kein Umschalter.
+- Datenschutz und Impressum gibt es auf Deutsch und Englisch.
 - Datum kommt von der Geräteuhr; falsche Uhrzeit = falsche Freischaltung.
 - Neue App-Versionen erscheinen oft erst nach dem zweiten Start.
 
