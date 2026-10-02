@@ -470,7 +470,9 @@
             }
             this.caption.classList.toggle('ld-top', top);
             this.caption.textContent = text;
-            this.caption.classList.remove('is-hidden');
+            this.caption.classList.remove('is-hidden', 'ld-new');
+            void this.caption.offsetWidth; // Animation neu starten
+            this.caption.classList.add('ld-new');
             await this.wait(1300 + text.length * 35 + extra, { reading: true });
         }
 

@@ -75,7 +75,7 @@ Von oben nach unten:
 | **Farbschema-Schalter** | Runder Knopf oben rechts (Sonne/Mond), immer sichtbar. |
 | **Saisonbanner** | Erscheint, wenn die Kopfzeile verschwindet. Animierte Jahreszeit (Winter/Frühling/Sommer/Herbst) mit wechselnden Sprüchen alle 10 Sekunden. Antippen löst eine kleine Überraschungs-Animation aus. |
 | **Kalenderfläche** | Monatsillustration als Hintergrund, darauf die Türchen mit Tagesnummer. |
-| **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender, daneben der Knopf **„🔔 Erinnerung“** (Abschnitt 7b). |
+| **Monatsauswahl** | Dropdown „Monat auswählen" unter dem Kalender, daneben der Knopf **„🔔 Erinnerung“** (Abschnitt 7b). Auf Handys bis 480 px zeigt der Knopf nur die Glocke; der Monatsname ist immer vollständig lesbar. Bei sehr großer Systemschrift rutscht der Knopf in eine zweite Zeile. |
 | **Fußzeile** | Links „Impressum" und „Datenschutz" (auf Englisch „Imprint“/„Privacy“ zu den englischen Seiten), darunter „Version 1.9.2". |
 | **Zitat-Fenster** | Erscheint beim Öffnen eines Türchens (Modal), mit „Mehr erfahren“ (Wikipedia) und **„Teilen“**. |
 | **Meldungen (Toasts)** | Kurze Hinweise unten, 3 Sekunden sichtbar. |
@@ -265,6 +265,10 @@ und nicht im Offline-Cache.
 | 1,2× · 1,0× · 0,8× · 0,6× | Tempo durchschalten (Musik bleibt gleich) |
 | 🔊 / 🔇 | Musik aus/ein |
 | ✕ | Demo sofort beenden (Esc oder Tippen auf den Bildschirm fragen vorher nach) |
+
+**Untertitel:** dunkle Sprechblase mit dem **App-Icon links** (Kalender mit
+leuchtendem Türchen); bei jedem neuen Text „nickt“ das Icon kurz. Liegt das
+gezeigte Element in der unteren Bildhälfte, steht der Untertitel oben.
 
 **Ruhiges Bild:** Jede Vorführung beginnt im **aktuellen Monat**. Während der
 Demo passt die App die Kalenderfläche so an, dass Saisonbanner, Kalender und
