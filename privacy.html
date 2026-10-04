@@ -137,7 +137,7 @@
             <p class="translation-note">This English version is provided for convenience. In case of doubt, the <a href="datenschutz.html" hreflang="de">German version</a> is authoritative.</p>
 
             <div class="highlight">
-                <p><strong>Summary:</strong> The Monthly Door Calendar app requires no account, uses no tracking and sends no usage data to the developer or to third parties. Your settings stay on your device only. When the app is loaded over the internet, the hosting provider (Vercel) technically processes your IP address (see section 9).</p>
+                <p><strong>Summary:</strong> The Monthly Door Calendar app requires no account and uses no cookies and no personal tracking. Your settings and progress stay on your device only. When the app is loaded over the internet, the hosting provider (Vercel) technically processes your IP address; in addition, the app anonymously counts how often it is opened at kalender356.vercel.app (see section 9a).</p>
             </div>
 
             <h2>1. Controller</h2>
@@ -159,8 +159,8 @@
             <p>The app’s language (German or English) is derived from your browser or device language setting each time the app starts.</p>
             <p><strong>Legal basis:</strong> Storing these settings is technically necessary to provide the service you requested (Section 25 (2) no. 2 TDDDG, German Telecommunications Digital Services Data Protection Act). Where personal data is processed, the legal basis is Art. 6 (1) (f) GDPR (legitimate interest in a functioning, usable calendar). A consent request is therefore not required.</p>
 
-            <h2>3. No disclosure to third parties, no tracking</h2>
-            <p>The app does not send any data to the developer or to third parties. It contains no analytics, advertising or tracking services, no cookies, no embedded third-party fonts, scripts or content and no social media plugins. No data is sold or used for advertising.</p>
+            <h2>3. No disclosure to third parties, no advertising</h2>
+            <p>The app does not send any content or settings to the developer or to third parties. The only exception is the anonymous page-view count (section 9a). It contains no advertising or personal tracking services, no cookies, no embedded third-party fonts, scripts or content and no social media plugins. No data is sold or used for advertising.</p>
 
             <h2>4. Offline function (service worker)</h2>
             <p>The app registers a service worker and stores its own files (HTML, CSS, JavaScript, quotes, images) in your device’s cache so that it also works without an internet connection. No personal data is stored in the process. The cache is renewed automatically with app updates.</p>
@@ -183,8 +183,18 @@
             <p>The quotes link to Wikipedia (de.wikipedia.org or en.wikipedia.org depending on the language). These links only open in a new tab or browser when you tap them yourself. Only then is data (e.g. your IP address) transmitted to the Wikimedia Foundation; its <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy" rel="noopener">privacy policy</a> applies. The developer has no influence on its data processing.</p>
 
             <h2>9. Hosting</h2>
-            <p>The app files are provided via the Vercel platform (Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA). When the app is loaded or updated, Vercel technically processes connection data (e.g. IP address, time, requested file, browser/device information) in server log files; delivery may take place via servers in different regions. This is based on Art. 6 (1) (f) GDPR (secure, fast and efficient provision of the app). A transfer to the USA is possible; according to Vercel, it relies on the EU-US Data Privacy Framework or standard contractual clauses. Vercel analytics or statistics services (e.g. “Web Analytics” or “Speed Insights”) are not used. Vercel acts as a processor under a data processing agreement (Art. 28 GDPR). Log data is only stored for a short time; the developer does not analyse it and uses it at most to troubleshoot technical problems. Once loaded, the app also works offline. More information: <a href="https://vercel.com/legal/privacy-policy" rel="noopener">Vercel Privacy Policy</a>.</p>
+            <p>The app files are provided via the Vercel platform (Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, USA). When the app is loaded or updated, Vercel technically processes connection data (e.g. IP address, time, requested file, browser/device information) in server log files; delivery may take place via servers in different regions. This is based on Art. 6 (1) (f) GDPR (secure, fast and efficient provision of the app). A transfer to the USA is possible; according to Vercel, it relies on the EU-US Data Privacy Framework or standard contractual clauses. Vercel acts as a processor under a data processing agreement (Art. 28 GDPR). Log data is only stored for a short time; the developer does not analyse it and uses it at most to troubleshoot technical problems. Once loaded, the app also works offline. More information: <a href="https://vercel.com/legal/privacy-policy" rel="noopener">Vercel Privacy Policy</a>.</p>
             <p>The app’s source code is publicly available on GitHub. Using the app does not create any connection to GitHub.</p>
+
+            <h2>9a. Anonymous usage count</h2>
+            <p>To see <strong>whether</strong> the app is used at all, it counts <strong>page views</strong> at <code>kalender356.vercel.app</code> with Vercel “Web Analytics”. In detail:</p>
+            <ul>
+                <li><strong>No cookies</strong> and no other identifier stored on or read from your device.</li>
+                <li>Only the requested address <strong>without</strong> query string and fragment, the referring page and coarse technical information such as browser, operating system, device type and country are transmitted. According to Vercel, the IP address is not stored; visitors are only grouped within a single day using a non-reversible hash.</li>
+                <li><strong>No content and no usage details:</strong> nothing is sent about which doors you open, which quotes you read or share, or which settings you choose – only that the app was opened.</li>
+                <li>If <strong>“Do Not Track”</strong> or <strong>Global Privacy Control</strong> is enabled in your browser, nothing is counted. Nothing is counted while offline either.</li>
+            </ul>
+            <p>The legal basis is our legitimate interest (Art. 6 (1) (f) GDPR) in finding out, with as little data as possible, whether the app is used. Nothing is stored on or read from your device for this purpose (Section 25 TDDDG therefore does not apply). Vercel acts as a processor here as well.</p>
 
             <h2>10. Storage period and deletion</h2>
             <p>Locally stored data remains until you delete it. You can remove it at any time by clearing the app data or app storage in your device or browser settings, or by uninstalling the app. Your browser’s “clear site data” function also removes the offline cache and the reminder data.</p>

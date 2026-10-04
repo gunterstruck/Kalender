@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.7 · Stand: 02.10.2026 · App-Version: 1.9.4 (Service-Worker-Cache v1.9.4)**
+**Version 1.8 · Stand: 04.10.2026 · App-Version: 1.9.5 (Service-Worker-Cache v1.9.5)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
@@ -479,8 +479,8 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
   caresms@online.de.
 - Die App benötigt keine Berechtigungen (Standort, Kamera, Mikrofon, Kontakte).
   Die Benachrichtigungs-Berechtigung wird nur angefragt, wenn der Nutzer die
-  App-Erinnerung selbst einschaltet. Sie setzt **keine Cookies**, kein Tracking, keine Werbung,
-  keine Analyse, keine Drittanbieter-Schriften oder -Skripte
+  App-Erinnerung selbst einschaltet. Sie setzt **keine Cookies**, kein personenbezogenes
+  Tracking, keine Werbung, keine Drittanbieter-Schriften oder -Skripte
   (Content-Security-Policy: `default-src 'self'`, `media-src 'self'`).
 - Lokal gespeichert werden nur die Einstellungen aus Abschnitt 10.
   Rechtsgrundlage: technisch erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG),
@@ -488,8 +488,12 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 - **Hosting:** Vercel (Vercel Inc., USA) als Auftragsverarbeiter (Art. 28
   DSGVO). Beim Laden/Aktualisieren verarbeitet Vercel technisch bedingt
   IP-Adresse u. ä. in kurzzeitig gespeicherten Logfiles; der Entwickler wertet
-  sie nicht aus (allenfalls Fehlersuche). Keine Vercel Web Analytics, keine
-  Speed Insights. Der Quellcode liegt auf GitHub; beim Benutzen der App gibt es
+  sie nicht aus (allenfalls Fehlersuche). Keine Speed Insights.
+- **Anonyme Nutzungszählung (Abschnitt 9a):** Nur unter `kalender356.vercel.app`
+  zählt Vercel Web Analytics die **Seitenaufrufe** – ohne Cookies, ohne Kennung
+  auf dem Gerät, Adresse ohne Suchteil/Fragment, keine Ereignisse (welche
+  Türchen, welche Zitate). Nicht bei „Do Not Track"/Global Privacy Control,
+  nicht offline, nicht in Vorschauen. Code: `js/usage-count.js`. Der Quellcode liegt auf GitHub; beim Benutzen der App gibt es
   keine Verbindung zu GitHub.
 - **Erinnerung:** .ics-Datei wird lokal erzeugt; App-Benachrichtigung rein
   lokal (Periodic Background Sync, kein Push-Server). Rechtsgrundlage:
@@ -504,7 +508,8 @@ Maßgeblich ist die Seite `datenschutz.html` in der App. Kernaussagen:
 - Rechte (Auskunft, Löschung …) laufen faktisch ins Leere, weil der Entwickler
   keine Daten hält; Löschung durch den Nutzer selbst über Browser-/App-Daten.
   Beschwerde: LDI NRW.
-- **Gesagt werden darf:** „Die App sendet selbst keine Nutzungsdaten."
+- **Gesagt werden darf:** „Die App sendet keine Inhalte und keine Einstellungen;
+  sie zählt nur cookielos, wie oft sie aufgerufen wird."
   **Nicht gesagt werden darf:** „Es werden niemals Daten übertragen" oder „völlig
   anonym", denn GitHub-Hosting und Wikipedia-Klicks existieren.
 
