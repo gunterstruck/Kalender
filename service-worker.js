@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.9.5 - Anonyme Nutzungszählung (Vercel Web Analytics)
+// Version 1.9.6 - Zitat-Fenster passt aufs Handy
 
-const CACHE_NAME = 'kalender-cache-v1.9.5';
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.5';
+const CACHE_NAME = 'kalender-cache-v1.9.6';
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.6';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [

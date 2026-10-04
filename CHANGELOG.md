@@ -2,6 +2,12 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.9.6] - 2026-10-04
+
+### 📱 Handy
+- **Zitat-Fenster unten nicht mehr abgeschnitten:** Auf dem Handy ist das Fenster kompakter (weniger Rand und Abstand, kleinere Überschrift, Knöpfe „Mehr über …“ und „Teilen“ schmaler). Die Knöpfe kleben unten im Fenster – auch bei großer Systemschrift oder langem Zitat bleiben sie sichtbar, nur das Zitat scrollt.
+- Höhe richtet sich nach dem sichtbaren Bildschirm (`dvh`, ohne Browserleisten); Cache-Version 1.9.6.
+
 ## [1.9.5] - 2026-10-04
 
 ### 📊 Nutzungszählung

@@ -1708,6 +1708,7 @@ body.dark-mode .reminder-secondary {
     max-width: 500px;
     width: 100%;
     max-height: 90vh;
+    max-height: 90dvh;
     overflow-y: auto;
     box-shadow: var(--shadow-xl);
     animation: slideUp var(--transition-base);
@@ -1819,13 +1820,24 @@ body.dark-mode .reminder-secondary {
     flex-shrink: 0;
 }
 
-/* Zitat-Aktionen: Mehr erfahren + Teilen */
+/* Zitat-Aktionen: Mehr erfahren + Teilen.
+   Klebt unten im Fenster, damit beide Knöpfe auch bei großer Schrift
+   oder kleinem Bildschirm sichtbar bleiben (Zitat scrollt darüber). */
 .quote-actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
+    position: sticky;
+    bottom: calc(-1 * var(--spacing-2xl));
+    margin-bottom: calc(-1 * var(--spacing-2xl));
+    padding: var(--spacing-md) 0 var(--spacing-2xl);
+    background: var(--surface);
+}
+
+.quote-actions .quote-link-btn {
+    margin: 0;
 }
 
 .quote-actions .quote-link-btn {
@@ -2006,12 +2018,57 @@ body.dark-mode .quote-share-btn {
         border-width: 3px;
     }
 
+    /* Zitat-Fenster kompakt, damit es auf dem Handy ohne Scrollen passt */
+    .modal {
+        padding: var(--spacing-sm);
+    }
+
     .modal-content {
-        padding: var(--spacing-xl);
+        padding: var(--spacing-lg);
+        max-height: 94vh;
+        max-height: 94dvh;
+    }
+
+    .modal h2 {
+        font-size: var(--font-size-xl);
+        margin-bottom: var(--spacing-md);
+        padding-right: calc(40px + var(--spacing-sm));
+    }
+
+    .modal-close {
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+    }
+
+    .modal-body {
+        gap: var(--spacing-sm);
     }
 
     .quote-text {
         font-size: var(--font-size-base);
+        line-height: 1.6;
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .quote-author-section {
+        padding: var(--spacing-xs) 0;
+    }
+
+    .modal-day {
+        padding-bottom: 0;
+    }
+
+    .quote-actions {
+        bottom: calc(-1 * var(--spacing-lg));
+        margin-bottom: calc(-1 * var(--spacing-lg));
+        margin-top: 0;
+        padding: var(--spacing-sm) 0 var(--spacing-lg);
+    }
+
+    .quote-actions .quote-link-btn,
+    .quote-actions .quote-share-btn {
+        flex: 1 1 auto;
+        padding: var(--spacing-sm) var(--spacing-md);
     }
 }
 
