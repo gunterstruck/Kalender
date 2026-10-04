@@ -2,6 +2,12 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [Unveröffentlicht] - 2026-10-04
+
+### 📣 Teilen
+- **Vorschau beim Teilen des Links:** `index.html` trägt Open-Graph- und Twitter-Angaben (Titel, Text, Bild). Wer `https://kalender356.vercel.app/` in WhatsApp, Signal, Teams, LinkedIn oder per Mail verschickt, zeigt jetzt eine Karte mit großem Bild statt nur der Adresse.
+- Neues Vorschaubild `assets/share/og-image.jpg` (1200×630, 52 KB, aus der Play-Store-Grafik); die App selbst lädt es nicht.
+
 ## [1.9.4] - 2026-10-02
 
 ### 🎨 Gestaltung
