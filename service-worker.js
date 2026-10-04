@@ -1,8 +1,8 @@
 // Service Worker für Monatskalender mit Türchen
-// Version 1.9.4 - Livedemo-Knopf mit Filmklappe
+// Version 1.9.5 - Anonyme Nutzungszählung (Vercel Web Analytics)
 
-const CACHE_NAME = 'kalender-cache-v1.9.4';
-const RUNTIME_CACHE = 'kalender-runtime-v1.9.4';
+const CACHE_NAME = 'kalender-cache-v1.9.5';
+const RUNTIME_CACHE = 'kalender-runtime-v1.9.5';
 
 // Dateien, die beim Install gecacht werden sollen (App Shell)
 const CACHE_URLS = [
@@ -22,6 +22,7 @@ const CACHE_URLS = [
     './js/pwa-install.js',
     './js/livedemo.js',
     './js/reminder.js',
+    './js/usage-count.js',
     './manifest.json',
     './assets/icons/icon.svg',
     './assets/icons/icon-192.png',
@@ -108,6 +109,12 @@ self.addEventListener('fetch', (event) => {
 
     // Nur GET-Requests cachen
     if (request.method !== 'GET') {
+        return;
+    }
+
+    // Nutzungszählung (Vercel Web Analytics): nie aus dem Cache, nie cachen –
+    // offline wird schlicht nicht gezählt.
+    if (url.pathname.startsWith('/_vercel/')) {
         return;
     }
 

@@ -2,7 +2,12 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
-## [Unveröffentlicht] - 2026-10-04
+## [1.9.5] - 2026-10-04
+
+### 📊 Nutzungszählung
+- **Anonyme Zählung der Seitenaufrufe** über Vercel Web Analytics (`js/usage-count.js`): nur unter `kalender356.vercel.app`, ohne Cookies und ohne Kennung auf dem Gerät, gemeldet wird nur Ursprung + Pfad. Keine eigenen Ereignisse (welche Türchen, welche Zitate). Nicht bei „Do Not Track“/Global Privacy Control, nicht eingebettet, nicht offline.
+- Service Worker lässt `/_vercel/` immer durch (nie cachen); Cache-Version 1.9.5, damit installierte Apps die neue Fassung laden.
+- Datenschutzerklärung (DE/EN) angepasst: neuer Abschnitt 9a, Kurzfassung und Abschnitte 3/9 ohne das frühere „kein Tracking/keine Web Analytics“.
 
 ### 📣 Teilen
 - **Vorschau beim Teilen des Links:** `index.html` trägt Open-Graph- und Twitter-Angaben (Titel, Text, Bild). Wer `https://kalender356.vercel.app/` in WhatsApp, Signal, Teams, LinkedIn oder per Mail verschickt, zeigt jetzt eine Karte mit großem Bild statt nur der Adresse.
