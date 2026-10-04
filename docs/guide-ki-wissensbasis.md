@@ -1,6 +1,6 @@
 # Monatskalender mit Türchen - Wissensbasis für den KI-Guide
 
-**Version 1.8 · Stand: 04.10.2026 · App-Version: 1.9.5 (Service-Worker-Cache v1.9.5)**
+**Version 1.8 · Stand: 04.10.2026 · App-Version: 1.9.6 (Service-Worker-Cache v1.9.6)**
 
 **Zweck:** Verbindliche Produkt-, Bedien-, Support- und Entwicklungsgrundlage für
 einen KI-Guide (z. B. Custom GPT, Claude-Projekt, Support-Chatbot). Diese
